@@ -1,0 +1,8 @@
+HELLO
+*SOFT LINE
+-
+-
+WORLD
+*DIMMED
+-
+-

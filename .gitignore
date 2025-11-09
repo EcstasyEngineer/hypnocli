@@ -1,0 +1,7 @@
+outputs*/
+*.gif
+pycache/
+.DS_Store
+.venv/
+*.jsonl
+
