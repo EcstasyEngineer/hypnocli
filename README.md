@@ -2,6 +2,7 @@ Hypnocli Monorepo
 
 - Packages
   - [gifmaker/](gifmaker/) — GIF maker for hypnotic loops (CLI). See [gifmaker/README.md](gifmaker/README.md) for usage, safety notes, and examples.
+  - [pollytools/](pollytools/) — Script processing + AWS Polly integration (scoping in progress).
 
 Quick start
 - `cd gifmaker`
