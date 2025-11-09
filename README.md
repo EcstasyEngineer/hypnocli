@@ -1,7 +1,7 @@
 Hypnocli Monorepo
 
 - Packages
-  - `gifmaker/` — GIF maker for hypnotic loops (CLI). See `gifmaker/README.md` for usage, safety notes, and examples.
+  - [gifmaker/](gifmaker/) — GIF maker for hypnotic loops (CLI). See [gifmaker/README.md](gifmaker/README.md) for usage, safety notes, and examples.
 
 Quick start
 - `cd gifmaker`
@@ -11,4 +11,3 @@ Quick start
 
 License
 - MIT. See `LICENSE`.
-
