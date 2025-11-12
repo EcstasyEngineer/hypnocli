@@ -9,7 +9,7 @@ Curated color combinations for hypnotic loops. Use with `--colors "color1|color2
 ### House Palette (Original)
 High-contrast neon colors for intense visual stimulation.
 
-<span style="display:inline-block;width:30px;height:30px;background:#FF008E;"></span> <span style="display:inline-block;width:30px;height:30px;background:#00FF71;"></span> <span style="display:inline-block;width:30px;height:30px;background:#BA33B1;"></span> <span style="display:inline-block;width:30px;height:30px;background:#2AFF4E;"></span>
+$\textcolor{FF008E}{\blacksquare}$ $\textcolor{00FF71}{\blacksquare}$ $\textcolor{BA33B1}{\blacksquare}$ $\textcolor{2AFF4E}{\blacksquare}$
 
 ```
 #FF008E|#00FF71|#BA33B1|#2AFF4E
@@ -18,7 +18,7 @@ High-contrast neon colors for intense visual stimulation.
 ### Cyberpunk
 Electric neon colors inspired by cyberpunk aesthetics.
 
-<span style="display:inline-block;width:30px;height:30px;background:#00FFFF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF00FF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFF00;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF0080;"></span>
+$\textcolor{00FFFF}{\blacksquare}$ $\textcolor{FF00FF}{\blacksquare}$ $\textcolor{FFFF00}{\blacksquare}$ $\textcolor{FF0080}{\blacksquare}$
 
 ```
 #00FFFF|#FF00FF|#FFFF00|#FF0080
@@ -27,7 +27,7 @@ Electric neon colors inspired by cyberpunk aesthetics.
 ### Electric
 Pure primary colors for maximum intensity.
 
-<span style="display:inline-block;width:30px;height:30px;background:#00FF00;"></span> <span style="display:inline-block;width:30px;height:30px;background:#0000FF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF0000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFF00;"></span>
+$\textcolor{00FF00}{\blacksquare}$ $\textcolor{0000FF}{\blacksquare}$ $\textcolor{FF0000}{\blacksquare}$ $\textcolor{FFFF00}{\blacksquare}$
 
 ```
 #00FF00|#0000FF|#FF0000|#FFFF00
@@ -40,7 +40,7 @@ Pure primary colors for maximum intensity.
 ### Cotton Candy
 Soft, sweet pastel colors for gentle transitions.
 
-<span style="display:inline-block;width:30px;height:30px;background:#FFB3D9;"></span> <span style="display:inline-block;width:30px;height:30px;background:#B3E0FF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFFB3;"></span> <span style="display:inline-block;width:30px;height:30px;background:#D9B3FF;"></span>
+$\textcolor{FFB3D9}{\blacksquare}$ $\textcolor{B3E0FF}{\blacksquare}$ $\textcolor{FFFFB3}{\blacksquare}$ $\textcolor{D9B3FF}{\blacksquare}$
 
 ```
 #FFB3D9|#B3E0FF|#FFFFB3|#D9B3FF
@@ -49,7 +49,7 @@ Soft, sweet pastel colors for gentle transitions.
 ### Dreamy
 Calming pastel shades for relaxing visuals.
 
-<span style="display:inline-block;width:30px;height:30px;background:#FFC8DD;"></span> <span style="display:inline-block;width:30px;height:30px;background:#BDE0FE;"></span> <span style="display:inline-block;width:30px;height:30px;background:#CDB4DB;"></span> <span style="display:inline-block;width:30px;height:30px;background:#A2D2FF;"></span>
+$\textcolor{FFC8DD}{\blacksquare}$ $\textcolor{BDE0FE}{\blacksquare}$ $\textcolor{CDB4DB}{\blacksquare}$ $\textcolor{A2D2FF}{\blacksquare}$
 
 ```
 #FFC8DD|#BDE0FE|#CDB4DB|#A2D2FF
@@ -62,7 +62,7 @@ Calming pastel shades for relaxing visuals.
 ### Deep Space
 Dark blues progression like looking into deep space.
 
-<span style="display:inline-block;width:30px;height:30px;background:#0D1B2A;"></span> <span style="display:inline-block;width:30px;height:30px;background:#1B263B;"></span> <span style="display:inline-block;width:30px;height:30px;background:#415A77;"></span> <span style="display:inline-block;width:30px;height:30px;background:#778DA9;"></span>
+$\textcolor{0D1B2A}{\blacksquare}$ $\textcolor{1B263B}{\blacksquare}$ $\textcolor{415A77}{\blacksquare}$ $\textcolor{778DA9}{\blacksquare}$
 
 ```
 #0D1B2A|#1B263B|#415A77|#778DA9
@@ -71,7 +71,7 @@ Dark blues progression like looking into deep space.
 ### Twilight
 Deep purple gradient like twilight sky.
 
-<span style="display:inline-block;width:30px;height:30px;background:#2D1B3D;"></span> <span style="display:inline-block;width:30px;height:30px;background:#4A2A5A;"></span> <span style="display:inline-block;width:30px;height:30px;background:#6B4984;"></span> <span style="display:inline-block;width:30px;height:30px;background:#9C6BAB;"></span>
+$\textcolor{2D1B3D}{\blacksquare}$ $\textcolor{4A2A5A}{\blacksquare}$ $\textcolor{6B4984}{\blacksquare}$ $\textcolor{9C6BAB}{\blacksquare}$
 
 ```
 #2D1B3D|#4A2A5A|#6B4984|#9C6BAB
@@ -80,7 +80,7 @@ Deep purple gradient like twilight sky.
 ### Midnight
 Subtle dark blue progression from black to deep blue.
 
-<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#1A1A2E;"></span> <span style="display:inline-block;width:30px;height:30px;background:#16213E;"></span> <span style="display:inline-block;width:30px;height:30px;background:#0F3460;"></span>
+$\textcolor{000000}{\blacksquare}$ $\textcolor{1A1A2E}{\blacksquare}$ $\textcolor{16213E}{\blacksquare}$ $\textcolor{0F3460}{\blacksquare}$
 
 ```
 #000000|#1A1A2E|#16213E|#0F3460
@@ -93,7 +93,7 @@ Subtle dark blue progression from black to deep blue.
 ### Grayscale Fade
 Smooth grayscale gradient from black to light gray.
 
-<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#404040;"></span> <span style="display:inline-block;width:30px;height:30px;background:#808080;"></span> <span style="display:inline-block;width:30px;height:30px;background:#C0C0C0;"></span>
+$\textcolor{000000}{\blacksquare}$ $\textcolor{404040}{\blacksquare}$ $\textcolor{808080}{\blacksquare}$ $\textcolor{C0C0C0}{\blacksquare}$
 
 ```
 #000000|#404040|#808080|#C0C0C0
@@ -102,7 +102,7 @@ Smooth grayscale gradient from black to light gray.
 ### Pure Black & White
 High contrast, seizure warning! ⚠️
 
-<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFFFF;border:1px solid #ccc;"></span>
+$\textcolor{000000}{\blacksquare}$ $\textcolor{FFFFFF}{\blacksquare}$
 
 ```
 #000000|#FFFFFF
@@ -115,7 +115,7 @@ High contrast, seizure warning! ⚠️
 ### Fire & Ice
 Dramatic contrast between warm and cool tones.
 
-<span style="display:inline-block;width:30px;height:30px;background:#FF4500;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF6347;"></span> <span style="display:inline-block;width:30px;height:30px;background:#00CED1;"></span> <span style="display:inline-block;width:30px;height:30px;background:#4682B4;"></span>
+$\textcolor{FF4500}{\blacksquare}$ $\textcolor{FF6347}{\blacksquare}$ $\textcolor{00CED1}{\blacksquare}$ $\textcolor{4682B4}{\blacksquare}$
 
 ```
 #FF4500|#FF6347|#00CED1|#4682B4
@@ -124,7 +124,7 @@ Dramatic contrast between warm and cool tones.
 ### Sunset
 Warm, inviting colors of a summer sunset.
 
-<span style="display:inline-block;width:30px;height:30px;background:#FF6B6B;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFA07A;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFD93D;"></span> <span style="display:inline-block;width:30px;height:30px;background:#6BCB77;"></span>
+$\textcolor{FF6B6B}{\blacksquare}$ $\textcolor{FFA07A}{\blacksquare}$ $\textcolor{FFD93D}{\blacksquare}$ $\textcolor{6BCB77}{\blacksquare}$
 
 ```
 #FF6B6B|#FFA07A|#FFD93D|#6BCB77
@@ -137,7 +137,7 @@ Warm, inviting colors of a summer sunset.
 ### Matrix
 Classic green-on-black digital rain aesthetic.
 
-<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#003B00;"></span> <span style="display:inline-block;width:30px;height:30px;background:#008F11;"></span> <span style="display:inline-block;width:30px;height:30px;background:#00FF41;"></span>
+$\textcolor{000000}{\blacksquare}$ $\textcolor{003B00}{\blacksquare}$ $\textcolor{008F11}{\blacksquare}$ $\textcolor{00FF41}{\blacksquare}$
 
 ```
 #000000|#003B00|#008F11|#00FF41
@@ -146,7 +146,7 @@ Classic green-on-black digital rain aesthetic.
 ### Vaporwave
 Retro 80s/90s aesthetic with pink and purple.
 
-<span style="display:inline-block;width:30px;height:30px;background:#FF6AD5;"></span> <span style="display:inline-block;width:30px;height:30px;background:#C774E8;"></span> <span style="display:inline-block;width:30px;height:30px;background:#AD8CFF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#8795E8;"></span>
+$\textcolor{FF6AD5}{\blacksquare}$ $\textcolor{C774E8}{\blacksquare}$ $\textcolor{AD8CFF}{\blacksquare}$ $\textcolor{8795E8}{\blacksquare}$
 
 ```
 #FF6AD5|#C774E8|#AD8CFF|#8795E8
@@ -155,7 +155,7 @@ Retro 80s/90s aesthetic with pink and purple.
 ### Bisexual Pride
 Bisexual pride flag colors.
 
-<span style="display:inline-block;width:30px;height:30px;background:#D60270;"></span> <span style="display:inline-block;width:30px;height:30px;background:#9B4F96;"></span> <span style="display:inline-block;width:30px;height:30px;background:#0038A8;"></span>
+$\textcolor{D60270}{\blacksquare}$ $\textcolor{9B4F96}{\blacksquare}$ $\textcolor{0038A8}{\blacksquare}$
 
 ```
 #D60270|#9B4F96|#0038A8
@@ -164,7 +164,7 @@ Bisexual pride flag colors.
 ### Trans Pride
 Transgender pride flag colors.
 
-<span style="display:inline-block;width:30px;height:30px;background:#5BCEFA;"></span> <span style="display:inline-block;width:30px;height:30px;background:#F5A9B8;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFFFF;border:1px solid #ccc;"></span> <span style="display:inline-block;width:30px;height:30px;background:#F5A9B8;"></span> <span style="display:inline-block;width:30px;height:30px;background:#5BCEFA;"></span>
+$\textcolor{5BCEFA}{\blacksquare}$ $\textcolor{F5A9B8}{\blacksquare}$ $\textcolor{FFFFFF}{\blacksquare}$ $\textcolor{F5A9B8}{\blacksquare}$ $\textcolor{5BCEFA}{\blacksquare}$
 
 ```
 #5BCEFA|#F5A9B8|#FFFFFF|#F5A9B8|#5BCEFA
