@@ -87,6 +87,7 @@ python3 gifmaker.py --input-dir input/myimages --image-map input/my_image_map.tx
 - Single: `--colors "#FF0000"`
 - Multiple: `--colors "#FF008E|#00FF71|#BA33B1|#2AFF4E"`
 - Named: `--colors "red|blue|green"`
+- See [COLOR_PALETTES.md](COLOR_PALETTES.md) for curated examples
 
 ---
 
@@ -177,7 +178,7 @@ Add tint overlay:
 
 ## Examples
 
-### House Palette Loop
+### Bright Colors Example
 ```bash
 python3 gifmaker.py \
   --input-dir input/myimages \
