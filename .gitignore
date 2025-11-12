@@ -1,5 +1,7 @@
-outputs*/
+output/
+input/
 *.gif
+*.psd
 pycache/
 .DS_Store
 .venv/

@@ -579,15 +579,194 @@ def analyze_cycle_palette(colors: List[Tuple[int, int, int]], fps: float) -> dic
     }
 
 
+def extract_opts(gif_path: str) -> None:
+    """Extract and print the command-line options used to create a GIF."""
+    try:
+        with Image.open(gif_path) as img:
+            comment = img.info.get('comment', b'')
+            if isinstance(comment, bytes):
+                comment = comment.decode('utf-8', errors='replace')
+
+            if not comment.startswith('GIFMAKER_META='):
+                print(f"[error] No gifmaker metadata found in {gif_path}", file=sys.stderr)
+                sys.exit(1)
+
+            meta_json = comment.replace('GIFMAKER_META=', '')
+            meta = json.loads(meta_json)
+
+            # Check for new two-tier structure
+            if 'input_params' in meta:
+                params = meta['input_params']
+            else:
+                # Old format - use top-level as params
+                params = meta
+
+            # Reconstruct command
+            cmd = ['python3', 'gifmaker.py']
+
+            # Map of param keys to CLI flags
+            flag_map = {
+                'input_dir': '--input-dir',
+                'text_file': '--text',
+                'output': '--output',
+                'frames': '--frames',
+                'colors': '--colors',
+                'aspect': '--aspect',
+                'width': '--width',
+                'height': '--height',
+                'fit': '--fit',
+                'seed_used': '--seed',
+                'text_color_spec': '--text-color',
+                'outline': '--outline',
+                'font': '--font',
+                'font_size': '--font-size',
+                'text_scale': '--text-scale',
+                'image_map_file': '--image-map',
+                'text_density': '--text-density',
+            }
+
+            # Boolean flags
+            bool_flags = {
+                'shuffle_text': '--shuffle-text',
+                'inter': '--inter',
+            }
+
+            # Speed flags
+            speed_flags = {
+                'crawl': '--crawl',
+                'slow': '--slow',
+                'medium': '--medium',
+                'fast': '--fast',
+                'hyper': '--hyper',
+            }
+
+            for key, flag in flag_map.items():
+                value = params.get(key)
+                if value is None or value is False:
+                    continue
+
+                if key == 'colors' and isinstance(value, list):
+                    cmd.extend([flag, '|'.join(value)])
+                elif key == 'seed_used':
+                    cmd.extend([flag, str(value)])
+                else:
+                    cmd.extend([flag, str(value)])
+
+            # Handle boolean flags
+            for key, flag in bool_flags.items():
+                if params.get(key):
+                    cmd.append(flag)
+
+            # Handle speed flags
+            for key, flag in speed_flags.items():
+                if params.get(key):
+                    cmd.append(flag)
+
+            # Handle ms_per_frame if no speed preset
+            if not any(params.get(k) for k in speed_flags.keys()):
+                ms = params.get('ms_per_frame')
+                if ms:
+                    cmd.extend(['--ms', str(ms)])
+
+            # Handle opacity/tint
+            if params.get('tint_enabled'):
+                opacity_list = params.get('opacity_pct_list')
+                if opacity_list:
+                    cmd.extend(['--opacity', '|'.join(map(str, opacity_list))])
+                else:
+                    cmd.append('--opacity')
+
+            print(f"[info] Extracted command from {gif_path}:")
+            print(' '.join(cmd))
+
+    except Exception as e:
+        print(f"[error] Failed to extract metadata: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def extract_images(gif_path: str) -> None:
+    """Extract image mapping from a GIF to stdout."""
+    try:
+        with Image.open(gif_path) as img:
+            comment = img.info.get('comment', b'')
+            if isinstance(comment, bytes):
+                comment = comment.decode('utf-8', errors='replace')
+
+            if not comment.startswith('GIFMAKER_META='):
+                print(f"[error] No gifmaker metadata found in {gif_path}", file=sys.stderr)
+                sys.exit(1)
+
+            meta_json = comment.replace('GIFMAKER_META=', '')
+            meta = json.loads(meta_json)
+
+            # Get computed metadata
+            computed = meta.get('computed_metadata', meta)
+
+            # Get image mapping
+            random_mapping = computed.get('random_mapping')
+
+            if not random_mapping:
+                print(f"[error] No image mapping found in metadata", file=sys.stderr)
+                sys.exit(1)
+
+            # Print image mapping to stdout
+            for frame_idx, img_name in random_mapping:
+                if img_name is None:
+                    print('-')
+                else:
+                    print(img_name)
+
+    except Exception as e:
+        print(f"[error] Failed to extract image mapping: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def extract_text(gif_path: str) -> None:
+    """Extract text mapping from a GIF to stdout."""
+    try:
+        with Image.open(gif_path) as img:
+            comment = img.info.get('comment', b'')
+            if isinstance(comment, bytes):
+                comment = comment.decode('utf-8', errors='replace')
+
+            if not comment.startswith('GIFMAKER_META='):
+                print(f"[error] No gifmaker metadata found in {gif_path}", file=sys.stderr)
+                sys.exit(1)
+
+            meta_json = comment.replace('GIFMAKER_META=', '')
+            meta = json.loads(meta_json)
+
+            # Get computed metadata
+            computed = meta.get('computed_metadata', meta)
+
+            # Get text mapping
+            text_mapping = computed.get('text_mapping')
+
+            if not text_mapping:
+                print(f"[error] No text mapping found in metadata (GIF may not have used text)", file=sys.stderr)
+                sys.exit(1)
+
+            # Print text mapping to stdout
+            for frame_idx, text in text_mapping:
+                if text is None or text == '':
+                    print('-')
+                else:
+                    print(text)
+
+    except Exception as e:
+        print(f"[error] Failed to extract text mapping: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
 def main():
     parser = argparse.ArgumentParser(description="GIF maker for hypnotic loops")
-    parser.add_argument("--input-dir", required=True, help="Directory containing input images")
+    parser.add_argument("--input-dir", help="Directory containing input images")
     parser.add_argument(
         "--text",
-        help="Optional text file; each line is a frame's text. If --frames is omitted, total frames = number of lines (trailing newline not counted).",
+        help="Optional text file; each line is a frame's text. If --frames is omitted, total frames = number of lines (trailing newline not counted). Text maps sequentially by default; use --shuffle-text for random placement.",
     )
     parser.add_argument("--output", default="out.gif", help="Output GIF path")
-    parser.add_argument("--frame-map", help="Frame map file: one line per frame; relative image path or '-' for color frame")
+    parser.add_argument("--image-map", help="Image map file: one line per frame; relative image path or '-' for color frame. If omitted, images are placed randomly.")
     parser.add_argument("--frames", type=int, help="Target number of frames")
     # Speed controls (mutually exclusive)
     spd = parser.add_mutually_exclusive_group()
@@ -628,12 +807,50 @@ def main():
     parser.add_argument("--text-scale", type=float, default=0.6, help="Target fraction of width for widest line (0-1)")
     parser.add_argument("--text-color", default="#FFFFFF", help="Text color or pipe-list; use INVERSE to invert pixels under text")
     parser.add_argument("--outline", choices=["shadow", "stroke", "none"], default="stroke", help="Text outline style; default 'stroke' for crisp edges")
+    parser.add_argument("--shuffle-text", action="store_true", help="Randomize text line order and placement (requires --frames)")
+    parser.add_argument("--text-density", type=float, help="Proportion of frames with text when using --shuffle-text (0.0-1.0, default 1.0)")
+    # Extraction tools
+    parser.add_argument("--extract-opts", help="Extract command-line options from a GIF's metadata")
+    parser.add_argument("--extract-images", help="Extract image mapping from a GIF to stdout")
+    parser.add_argument("--extract-text", help="Extract text mapping from a GIF to stdout")
 
     args = parser.parse_args()
+
+    # Handle extraction commands first (these exit after running)
+    if args.extract_opts:
+        extract_opts(args.extract_opts)
+        return
+
+    if args.extract_images:
+        extract_images(args.extract_images)
+        return
+
+    if args.extract_text:
+        extract_text(args.extract_text)
+        return
 
     # Set global verbosity
     global VERBOSITY
     VERBOSITY = 0 if args.quiet else (2 if args.verbose else 1)
+
+    # Require input-dir for GIF generation
+    if not args.input_dir:
+        raise SystemExit("ERROR: --input-dir is required")
+
+    # Validation for new shuffle-text feature
+    if args.text_density is not None and not args.shuffle_text:
+        raise SystemExit("ERROR: --text-density requires --shuffle-text")
+
+    if args.shuffle_text and args.frames is None:
+        raise SystemExit("ERROR: --shuffle-text requires explicit --frames")
+
+    # Clamp and warn for text_density
+    if args.text_density is not None:
+        if args.text_density < 0.0 or args.text_density > 1.0:
+            log_warn(f"[warn] --text-density {args.text_density} out of range [0.0, 1.0]; clamping")
+            args.text_density = max(0.0, min(1.0, args.text_density))
+    elif args.shuffle_text:
+        args.text_density = 1.0  # Default
 
     # Mode selection: default continuous; --inter toggles interrupt behavior
     mode = "inter" if args.inter else "cont"
@@ -700,7 +917,7 @@ def main():
     if not input_dir.exists():
         raise SystemExit(f"Input dir not found: {input_dir}")
     image_paths = load_images(input_dir)
-    if not image_paths and not args.frame_map:
+    if not image_paths and not args.image_map:
         raise SystemExit(f"No images found in: {input_dir}")
 
     # Metrics/analysis moved to separate tooling.
@@ -720,15 +937,56 @@ def main():
             text_lines = ["" if (ln.strip() == "-") else ln for ln in text_lines]
         log_info(f"[info] loaded {len(text_lines)} text line(s) from {text_path}")
 
+    # Handle shuffle-text mode
+    text_mapping: Optional[List[Tuple[int, Optional[str]]]] = None
+    original_text_lines = text_lines  # Keep original for metadata
+    if args.shuffle_text and text_lines:
+        # Shuffle mode requires explicit frames (already validated)
+        total_frames = args.frames
+        target_text_frames = int(total_frames * args.text_density)
+
+        # Shuffle the text lines
+        shuffled_lines = text_lines[:]
+        random.shuffle(shuffled_lines)
+
+        # Sample frame indices for text placement
+        text_frame_indices = sorted(random.sample(range(total_frames), target_text_frames))
+
+        # Build text mapping
+        text_mapping = []
+        text_lines_for_frames = []
+        line_idx = 0
+        for frame_num in range(total_frames):
+            if frame_num in text_frame_indices:
+                # Wrap if needed
+                text = shuffled_lines[line_idx % len(shuffled_lines)]
+                text_mapping.append((frame_num, text))
+                text_lines_for_frames.append(text)
+                line_idx += 1
+            else:
+                text_mapping.append((frame_num, None))
+                text_lines_for_frames.append("")
+
+        # Replace text_lines with the per-frame list
+        text_lines = text_lines_for_frames
+        log_info(f"[info] shuffle-text: {target_text_frames}/{total_frames} frames with text (density={args.text_density})")
+    elif text_lines:
+        # Non-shuffle mode: build text_mapping for sequential text (preserves snapshot of original text)
+        # This ensures GIF is reproducible even if source text file is modified later
+        text_mapping = []
+        for i, line in enumerate(text_lines):
+            # Store None for empty lines, actual text otherwise
+            text_mapping.append((i, line if line else None))
+
     # Optional explicit frame map
     is_image_frame: List[bool] = []
     image_for_frame: List[Optional[Path]] = []
     # Determine frame count
     total_frames: int
-    if args.frame_map:
-        map_path = Path(args.frame_map)
+    if args.image_map:
+        map_path = Path(args.image_map)
         if not map_path.exists():
-            raise SystemExit(f"Frame map file not found: {map_path}")
+            raise SystemExit(f"Image map file not found: {map_path}")
         map_lines = read_text_lines(map_path)
         for idx, raw in enumerate(map_lines):
             token = raw.strip()
@@ -740,12 +998,12 @@ def main():
                 if not p.is_absolute():
                     p = input_dir / p
                 if not p.exists():
-                    raise SystemExit(f"Frame map line {idx+1}: image not found: {token} -> {p}")
+                    raise SystemExit(f"Image map line {idx+1}: image not found: {token} -> {p}")
                 is_image_frame.append(True)
                 image_for_frame.append(p)
         total_frames = len(map_lines)
         if args.frames is not None and args.frames != total_frames:
-            log_warn(f"[warn] --frames ({args.frames}) ignored; using --frame-map length {total_frames}")
+            log_warn(f"[warn] --frames ({args.frames}) ignored; using --image-map length {total_frames}")
     elif args.frames is not None and text_lines is not None:
         if args.frames <= 0:
             raise SystemExit("--frames must be > 0")
@@ -770,7 +1028,7 @@ def main():
 
     # Distribution: choose which frames are images, no repeats (only if no map)
     num_images = len(image_paths)
-    if not args.frame_map:
+    if not args.image_map:
         if total_frames <= num_images:
             # sample images down to total_frames; every frame is an image frame
             log_warn(f"[warn] frames ({total_frames}) < images ({num_images}); sampling images down to {total_frames}.")
@@ -944,43 +1202,61 @@ def main():
                 "GIFMAKER_META="
                 + json.dumps(
                     {
-                        "meta_version": 1,
-                        "generator": "gifmaker",
-                        "seed_used": str(seed_value),
-                        "input_dir": str(input_dir),
-                        "output": str(out_path),
-                        "frames": int(total_frames),
-                        "size": [int(W), int(H)],
-                        "ms_per_frame": int(ms_per_frame),
-                        "mode": mode,
-                        "fit": args.fit,
-                        "aspect": args.aspect,
-                        "width": args.width,
-                        "height": args.height,
-                        "colors": ["#%02X%02X%02X" % c for c in colors],
-                        "tint_enabled": bool(tint_enabled),
-                        "opacity_pct_list": (
-                            [int(round(a * 100 / 255)) for a in opacities] if opacities else None
-                        ),
-                        "text_file": str(Path(args.text)) if args.text else None,
-                        "text_color_spec": (
-                            "INVERSE"
-                            if any(tc is None for tc in text_colors)
-                            else "|".join(["#%02X%02X%02X" % tc for tc in text_colors])
-                        ),
-                        "outline": args.outline,
-                        "font": args.font,
-                        "font_size": args.font_size,
-                        "text_scale": args.text_scale,
-                        "frame_map_file": str(Path(args.frame_map)) if args.frame_map else None,
-                        "random_mapping": (
-                            [
-                                (i, (p.name if p else None))
-                                for i, p in enumerate(image_for_frame)
-                            ]
-                            if not args.frame_map
-                            else None
-                        ),
+                        "meta_version": 2,
+                        "input_params": {
+                            "input_dir": str(input_dir),
+                            "text_file": str(Path(args.text)) if args.text else None,
+                            "output": str(out_path),
+                            "frames": args.frames,
+                            "colors": ["#%02X%02X%02X" % c for c in colors],
+                            "aspect": args.aspect,
+                            "width": args.width,
+                            "height": args.height,
+                            "fit": args.fit,
+                            "seed_used": str(seed_value),
+                            "text_color_spec": (
+                                "INVERSE"
+                                if any(tc is None for tc in text_colors)
+                                else "|".join(["#%02X%02X%02X" % tc for tc in text_colors])
+                            ),
+                            "outline": args.outline,
+                            "font": args.font,
+                            "font_size": args.font_size,
+                            "text_scale": args.text_scale,
+                            "image_map_file": str(Path(args.image_map)) if args.image_map else None,
+                            "shuffle_text": bool(args.shuffle_text),
+                            "text_density": args.text_density if args.shuffle_text else None,
+                            "tint_enabled": bool(tint_enabled),
+                            "opacity_pct_list": (
+                                [int(round(a * 100 / 255)) for a in opacities] if opacities else None
+                            ),
+                            "inter": bool(args.inter),
+                            "crawl": bool(args.crawl),
+                            "slow": bool(args.slow),
+                            "medium": bool(args.medium),
+                            "fast": bool(args.fast),
+                            "hyper": bool(args.hyper),
+                            "ms_per_frame": int(ms_per_frame) if not any([args.crawl, args.slow, args.medium, args.fast, args.hyper]) else None,
+                        },
+                        "computed_metadata": {
+                            "generator": "gifmaker",
+                            "frames": int(total_frames),
+                            "size": [int(W), int(H)],
+                            "ms_per_frame": int(ms_per_frame),
+                            "mode": mode,
+                            "images_used": f"{filled}/{len(image_paths)}",
+                            "text_lines_loaded": len(original_text_lines) if original_text_lines else 0,
+                            "text_frames_used": sum(1 for t in (text_mapping or []) if t[1]) if text_mapping else None,
+                            "random_mapping": (
+                                [
+                                    (i, (p.name if p else None))
+                                    for i, p in enumerate(image_for_frame)
+                                ]
+                                if not args.image_map
+                                else None
+                            ),
+                            "text_mapping": text_mapping if text_mapping else None,
+                        },
                     },
                     ensure_ascii=False,
                     separators=(",", ":"),
