@@ -8,136 +8,167 @@ Curated color combinations for hypnotic loops. Use with `--colors "color1|color2
 
 ### House Palette (Original)
 High-contrast neon colors for intense visual stimulation.
+
+<span style="display:inline-block;width:30px;height:30px;background:#FF008E;"></span> <span style="display:inline-block;width:30px;height:30px;background:#00FF71;"></span> <span style="display:inline-block;width:30px;height:30px;background:#BA33B1;"></span> <span style="display:inline-block;width:30px;height:30px;background:#2AFF4E;"></span>
+
 ```
 #FF008E|#00FF71|#BA33B1|#2AFF4E
 ```
-![#FF008E](https://via.placeholder.com/30x30/FF008E/FF008E.png) ![#00FF71](https://via.placeholder.com/30x30/00FF71/00FF71.png) ![#BA33B1](https://via.placeholder.com/30x30/BA33B1/BA33B1.png) ![#2AFF4E](https://via.placeholder.com/30x30/2AFF4E/2AFF4E.png)
-**Preview**: Hot pink → Bright green → Purple → Lime green
 
 ### Cyberpunk
+Electric neon colors inspired by cyberpunk aesthetics.
+
+<span style="display:inline-block;width:30px;height:30px;background:#00FFFF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF00FF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFF00;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF0080;"></span>
+
 ```
 #00FFFF|#FF00FF|#FFFF00|#FF0080
 ```
-![#00FFFF](https://via.placeholder.com/30x30/00FFFF/00FFFF.png) ![#FF00FF](https://via.placeholder.com/30x30/FF00FF/FF00FF.png) ![#FFFF00](https://via.placeholder.com/30x30/FFFF00/FFFF00.png) ![#FF0080](https://via.placeholder.com/30x30/FF0080/FF0080.png)
-**Preview**: Cyan → Magenta → Yellow → Hot pink
 
 ### Electric
+Pure primary colors for maximum intensity.
+
+<span style="display:inline-block;width:30px;height:30px;background:#00FF00;"></span> <span style="display:inline-block;width:30px;height:30px;background:#0000FF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF0000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFF00;"></span>
+
 ```
 #00FF00|#0000FF|#FF0000|#FFFF00
 ```
-![#00FF00](https://via.placeholder.com/30x30/00FF00/00FF00.png) ![#0000FF](https://via.placeholder.com/30x30/0000FF/0000FF.png) ![#FF0000](https://via.placeholder.com/30x30/FF0000/FF0000.png) ![#FFFF00](https://via.placeholder.com/30x30/FFFF00/FFFF00.png)
-**Preview**: Pure green → Pure blue → Pure red → Pure yellow
 
 ---
 
 ## Pastel & Soft
 
 ### Cotton Candy
+Soft, sweet pastel colors for gentle transitions.
+
+<span style="display:inline-block;width:30px;height:30px;background:#FFB3D9;"></span> <span style="display:inline-block;width:30px;height:30px;background:#B3E0FF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFFB3;"></span> <span style="display:inline-block;width:30px;height:30px;background:#D9B3FF;"></span>
+
 ```
 #FFB3D9|#B3E0FF|#FFFFB3|#D9B3FF
 ```
-![#FFB3D9](https://via.placeholder.com/30x30/FFB3D9/FFB3D9.png) ![#B3E0FF](https://via.placeholder.com/30x30/B3E0FF/B3E0FF.png) ![#FFFFB3](https://via.placeholder.com/30x30/FFFFB3/FFFFB3.png) ![#D9B3FF](https://via.placeholder.com/30x30/D9B3FF/D9B3FF.png)
-**Preview**: Soft pink → Sky blue → Light yellow → Lavender
 
 ### Dreamy
+Calming pastel shades for relaxing visuals.
+
+<span style="display:inline-block;width:30px;height:30px;background:#FFC8DD;"></span> <span style="display:inline-block;width:30px;height:30px;background:#BDE0FE;"></span> <span style="display:inline-block;width:30px;height:30px;background:#CDB4DB;"></span> <span style="display:inline-block;width:30px;height:30px;background:#A2D2FF;"></span>
+
 ```
 #FFC8DD|#BDE0FE|#CDB4DB|#A2D2FF
 ```
-![#FFC8DD](https://via.placeholder.com/30x30/FFC8DD/FFC8DD.png) ![#BDE0FE](https://via.placeholder.com/30x30/BDE0FE/BDE0FE.png) ![#CDB4DB](https://via.placeholder.com/30x30/CDB4DB/CDB4DB.png) ![#A2D2FF](https://via.placeholder.com/30x30/A2D2FF/A2D2FF.png)
-**Preview**: Blush → Baby blue → Dusty purple → Powder blue
 
 ---
 
 ## Dark & Moody
 
 ### Deep Space
+Dark blues progression like looking into deep space.
+
+<span style="display:inline-block;width:30px;height:30px;background:#0D1B2A;"></span> <span style="display:inline-block;width:30px;height:30px;background:#1B263B;"></span> <span style="display:inline-block;width:30px;height:30px;background:#415A77;"></span> <span style="display:inline-block;width:30px;height:30px;background:#778DA9;"></span>
+
 ```
 #0D1B2A|#1B263B|#415A77|#778DA9
 ```
-![#0D1B2A](https://via.placeholder.com/30x30/0D1B2A/0D1B2A.png) ![#1B263B](https://via.placeholder.com/30x30/1B263B/1B263B.png) ![#415A77](https://via.placeholder.com/30x30/415A77/415A77.png) ![#778DA9](https://via.placeholder.com/30x30/778DA9/778DA9.png)
-**Preview**: Navy → Slate → Steel blue → Gray blue
 
 ### Twilight
+Deep purple gradient like twilight sky.
+
+<span style="display:inline-block;width:30px;height:30px;background:#2D1B3D;"></span> <span style="display:inline-block;width:30px;height:30px;background:#4A2A5A;"></span> <span style="display:inline-block;width:30px;height:30px;background:#6B4984;"></span> <span style="display:inline-block;width:30px;height:30px;background:#9C6BAB;"></span>
+
 ```
 #2D1B3D|#4A2A5A|#6B4984|#9C6BAB
 ```
-![#2D1B3D](https://via.placeholder.com/30x30/2D1B3D/2D1B3D.png) ![#4A2A5A](https://via.placeholder.com/30x30/4A2A5A/4A2A5A.png) ![#6B4984](https://via.placeholder.com/30x30/6B4984/6B4984.png) ![#9C6BAB](https://via.placeholder.com/30x30/9C6BAB/9C6BAB.png)
-**Preview**: Deep purple → Eggplant → Plum → Orchid
 
 ### Midnight
+Subtle dark blue progression from black to deep blue.
+
+<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#1A1A2E;"></span> <span style="display:inline-block;width:30px;height:30px;background:#16213E;"></span> <span style="display:inline-block;width:30px;height:30px;background:#0F3460;"></span>
+
 ```
 #000000|#1A1A2E|#16213E|#0F3460
 ```
-![#000000](https://via.placeholder.com/30x30/000000/000000.png) ![#1A1A2E](https://via.placeholder.com/30x30/1A1A2E/1A1A2E.png) ![#16213E](https://via.placeholder.com/30x30/16213E/16213E.png) ![#0F3460](https://via.placeholder.com/30x30/0F3460/0F3460.png)
-**Preview**: Black → Dark navy → Deep blue → Royal blue
 
 ---
 
 ## Monochrome
 
 ### Grayscale Fade
+Smooth grayscale gradient from black to light gray.
+
+<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#404040;"></span> <span style="display:inline-block;width:30px;height:30px;background:#808080;"></span> <span style="display:inline-block;width:30px;height:30px;background:#C0C0C0;"></span>
+
 ```
 #000000|#404040|#808080|#C0C0C0
 ```
-![#000000](https://via.placeholder.com/30x30/000000/000000.png) ![#404040](https://via.placeholder.com/30x30/404040/404040.png) ![#808080](https://via.placeholder.com/30x30/808080/808080.png) ![#C0C0C0](https://via.placeholder.com/30x30/C0C0C0/C0C0C0.png)
-**Preview**: Black → Dark gray → Medium gray → Light gray
 
 ### Pure Black & White
+High contrast, seizure warning! ⚠️
+
+<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFFFF;border:1px solid #ccc;"></span>
+
 ```
 #000000|#FFFFFF
 ```
-![#000000](https://via.placeholder.com/30x30/000000/000000.png) ![#FFFFFF](https://via.placeholder.com/30x30/FFFFFF/FFFFFF.png)
-**Preview**: Black → White (high contrast, seizure warning!)
 
 ---
 
 ## Warm & Cool Contrast
 
 ### Fire & Ice
+Dramatic contrast between warm and cool tones.
+
+<span style="display:inline-block;width:30px;height:30px;background:#FF4500;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FF6347;"></span> <span style="display:inline-block;width:30px;height:30px;background:#00CED1;"></span> <span style="display:inline-block;width:30px;height:30px;background:#4682B4;"></span>
+
 ```
 #FF4500|#FF6347|#00CED1|#4682B4
 ```
-![#FF4500](https://via.placeholder.com/30x30/FF4500/FF4500.png) ![#FF6347](https://via.placeholder.com/30x30/FF6347/FF6347.png) ![#00CED1](https://via.placeholder.com/30x30/00CED1/00CED1.png) ![#4682B4](https://via.placeholder.com/30x30/4682B4/4682B4.png)
-**Preview**: Orange red → Tomato → Turquoise → Steel blue
 
 ### Sunset
+Warm, inviting colors of a summer sunset.
+
+<span style="display:inline-block;width:30px;height:30px;background:#FF6B6B;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFA07A;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFD93D;"></span> <span style="display:inline-block;width:30px;height:30px;background:#6BCB77;"></span>
+
 ```
 #FF6B6B|#FFA07A|#FFD93D|#6BCB77
 ```
-![#FF6B6B](https://via.placeholder.com/30x30/FF6B6B/FF6B6B.png) ![#FFA07A](https://via.placeholder.com/30x30/FFA07A/FFA07A.png) ![#FFD93D](https://via.placeholder.com/30x30/FFD93D/FFD93D.png) ![#6BCB77](https://via.placeholder.com/30x30/6BCB77/6BCB77.png)
-**Preview**: Coral → Light salmon → Golden → Mint green
 
 ---
 
 ## Thematic
 
 ### Matrix
+Classic green-on-black digital rain aesthetic.
+
+<span style="display:inline-block;width:30px;height:30px;background:#000000;"></span> <span style="display:inline-block;width:30px;height:30px;background:#003B00;"></span> <span style="display:inline-block;width:30px;height:30px;background:#008F11;"></span> <span style="display:inline-block;width:30px;height:30px;background:#00FF41;"></span>
+
 ```
 #000000|#003B00|#008F11|#00FF41
 ```
-![#000000](https://via.placeholder.com/30x30/000000/000000.png) ![#003B00](https://via.placeholder.com/30x30/003B00/003B00.png) ![#008F11](https://via.placeholder.com/30x30/008F11/008F11.png) ![#00FF41](https://via.placeholder.com/30x30/00FF41/00FF41.png)
-**Preview**: Black → Dark green → Green → Neon green
 
 ### Vaporwave
+Retro 80s/90s aesthetic with pink and purple.
+
+<span style="display:inline-block;width:30px;height:30px;background:#FF6AD5;"></span> <span style="display:inline-block;width:30px;height:30px;background:#C774E8;"></span> <span style="display:inline-block;width:30px;height:30px;background:#AD8CFF;"></span> <span style="display:inline-block;width:30px;height:30px;background:#8795E8;"></span>
+
 ```
 #FF6AD5|#C774E8|#AD8CFF|#8795E8
 ```
-![#FF6AD5](https://via.placeholder.com/30x30/FF6AD5/FF6AD5.png) ![#C774E8](https://via.placeholder.com/30x30/C774E8/C774E8.png) ![#AD8CFF](https://via.placeholder.com/30x30/AD8CFF/AD8CFF.png) ![#8795E8](https://via.placeholder.com/30x30/8795E8/8795E8.png)
-**Preview**: Pink → Purple → Lavender → Periwinkle
 
 ### Bisexual Pride
+Bisexual pride flag colors.
+
+<span style="display:inline-block;width:30px;height:30px;background:#D60270;"></span> <span style="display:inline-block;width:30px;height:30px;background:#9B4F96;"></span> <span style="display:inline-block;width:30px;height:30px;background:#0038A8;"></span>
+
 ```
 #D60270|#9B4F96|#0038A8
 ```
-![#D60270](https://via.placeholder.com/30x30/D60270/D60270.png) ![#9B4F96](https://via.placeholder.com/30x30/9B4F96/9B4F96.png) ![#0038A8](https://via.placeholder.com/30x30/0038A8/0038A8.png)
-**Preview**: Magenta → Purple → Royal blue
 
 ### Trans Pride
+Transgender pride flag colors.
+
+<span style="display:inline-block;width:30px;height:30px;background:#5BCEFA;"></span> <span style="display:inline-block;width:30px;height:30px;background:#F5A9B8;"></span> <span style="display:inline-block;width:30px;height:30px;background:#FFFFFF;border:1px solid #ccc;"></span> <span style="display:inline-block;width:30px;height:30px;background:#F5A9B8;"></span> <span style="display:inline-block;width:30px;height:30px;background:#5BCEFA;"></span>
+
 ```
 #5BCEFA|#F5A9B8|#FFFFFF|#F5A9B8|#5BCEFA
 ```
-![#5BCEFA](https://via.placeholder.com/30x30/5BCEFA/5BCEFA.png) ![#F5A9B8](https://via.placeholder.com/30x30/F5A9B8/F5A9B8.png) ![#FFFFFF](https://via.placeholder.com/30x30/FFFFFF/FFFFFF.png) ![#F5A9B8](https://via.placeholder.com/30x30/F5A9B8/F5A9B8.png) ![#5BCEFA](https://via.placeholder.com/30x30/5BCEFA/5BCEFA.png)
-**Preview**: Light blue → Pink → White → Pink → Light blue
 
 ---
 

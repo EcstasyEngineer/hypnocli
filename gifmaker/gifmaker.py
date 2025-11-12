@@ -235,6 +235,7 @@ def draw_centered_text(
     outline_mode: str,
     inverse: bool = False,
     alpha: int = 255,
+    stroke_width: int = 2,
 ):
     if not text:
         return
@@ -261,7 +262,7 @@ def draw_centered_text(
             stroke_mask = Image.new("L", im.size, 0)
             sm = ImageDraw.Draw(stroke_mask)
             try:
-                sm.text((x, y), text, font=font, fill=255, anchor="mm", stroke_width=2)
+                sm.text((x, y), text, font=font, fill=255, anchor="mm", stroke_width=stroke_width)
             except TypeError:
                 for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
                     sm.text((x + dx, y + dy), text, font=font, fill=255, anchor="mm")
@@ -305,7 +306,7 @@ def draw_centered_text(
             fill_rgba = (color[0], color[1], color[2], alpha)
             if outline_mode == "stroke":
                 try:
-                    o_draw.text((x, y), text, font=font, fill=fill_rgba, anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0, alpha))
+                    o_draw.text((x, y), text, font=font, fill=fill_rgba, anchor="mm", stroke_width=stroke_width, stroke_fill=(0, 0, 0, alpha))
                 except TypeError:
                     # Fallback: manual 1px offset ring
                     outline_rgba = (0, 0, 0, alpha)
@@ -417,6 +418,7 @@ def build_frames(
     text_colors: List[Tuple[int, int, int]],
     outline_mode: str,
     tint_images: bool,
+    stroke_width: int = 2,
 ) -> List[Image.Image]:
     W, H = size
     frames: List[Image.Image] = []
@@ -459,9 +461,9 @@ def build_frames(
             tc = text_colors[i % max(1, len(text_colors))]
             # When tc is None (inverse mode), enable inversion (blend invert by alpha)
             if tc is None:
-                draw_centered_text(canvas, text, font, (255, 255, 255), outline_mode, inverse=True, alpha=dim_alpha)
+                draw_centered_text(canvas, text, font, (255, 255, 255), outline_mode, inverse=True, alpha=dim_alpha, stroke_width=stroke_width)
             else:
-                draw_centered_text(canvas, text, font, tc, outline_mode, inverse=False, alpha=dim_alpha)
+                draw_centered_text(canvas, text, font, tc, outline_mode, inverse=False, alpha=dim_alpha, stroke_width=stroke_width)
         # Keep frames in RGB; palette handling is applied later (optionally global)
         frames.append(canvas)
     return frames
@@ -618,6 +620,7 @@ def extract_opts(gif_path: str) -> None:
                 'seed_used': '--seed',
                 'text_color_spec': '--text-color',
                 'outline': '--outline',
+                'stroke_width': '--stroke-width',
                 'font': '--font',
                 'font_size': '--font-size',
                 'text_scale': '--text-scale',
@@ -807,6 +810,7 @@ def main():
     parser.add_argument("--text-scale", type=float, default=0.6, help="Target fraction of width for widest line (0-1)")
     parser.add_argument("--text-color", default="#FFFFFF", help="Text color or pipe-list; use INVERSE to invert pixels under text")
     parser.add_argument("--outline", choices=["shadow", "stroke", "none"], default="stroke", help="Text outline style; default 'stroke' for crisp edges")
+    parser.add_argument("--stroke-width", type=int, default=2, help="Stroke width in pixels for stroke outline (default: 2)")
     parser.add_argument("--shuffle-text", action="store_true", help="Randomize text line order and placement (requires --frames)")
     parser.add_argument("--text-density", type=float, help="Proportion of frames with text when using --shuffle-text (0.0-1.0, default 1.0)")
     # Extraction tools
@@ -1140,6 +1144,7 @@ def main():
         text_colors,
         args.outline,
         bool(tint_enabled),
+        args.stroke_width,
     )
 
     if VERBOSITY >= 2:
@@ -1220,6 +1225,7 @@ def main():
                                 else "|".join(["#%02X%02X%02X" % tc for tc in text_colors])
                             ),
                             "outline": args.outline,
+                            "stroke_width": args.stroke_width if args.outline == "stroke" else None,
                             "font": args.font,
                             "font_size": args.font_size,
                             "text_scale": args.text_scale,
