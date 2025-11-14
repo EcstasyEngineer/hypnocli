@@ -64,32 +64,38 @@ def load_prompt_template(template_path: str) -> str:
         return f.read()
 
 
-def calculate_max_tokens(duration: str) -> int:
-    """Calculate appropriate max_tokens based on target duration.
+def normalize_duration(duration: str) -> tuple:
+    """Normalize duration string to total seconds and human-readable format.
 
     Args:
         duration: Duration string (e.g., "60-90 seconds", "3 minutes", "500 words")
 
     Returns:
-        Estimated max_tokens needed
+        tuple: (total_seconds: int, normalized_str: str, estimated_words: int)
+        Example: (180, "3 minutes (approx 450 words)", 450)
     """
     import re
+
+    total_seconds = 0
+    estimated_words = 0
 
     # Parse word count if specified
     if 'word' in duration.lower():
         match = re.search(r'(\d+)\s*word', duration.lower())
         if match:
-            word_count = int(match.group(1))
-            # 1.5 tokens per word, add 20% buffer
-            return int(word_count * 1.5 * 1.2)
+            estimated_words = int(match.group(1))
+            # ~150 words/min spoken
+            total_seconds = int((estimated_words / 150) * 60)
+            return (total_seconds, f"{estimated_words} words (approx {total_seconds}s)", estimated_words)
 
     # Parse minutes
     elif 'minute' in duration.lower():
         match = re.search(r'(\d+)\s*minute', duration.lower())
         if match:
             minutes = int(match.group(1))
-            # ~150 words/min spoken, 1.5 tokens/word, 20% buffer
-            return int(minutes * 150 * 1.5 * 1.2)
+            total_seconds = minutes * 60
+            estimated_words = minutes * 150
+            return (total_seconds, f"{minutes} minute{'s' if minutes != 1 else ''} (approx {estimated_words} words)", estimated_words)
 
     # Parse seconds (handle ranges like "60-90 seconds")
     elif 'second' in duration.lower():
@@ -97,12 +103,47 @@ def calculate_max_tokens(duration: str) -> int:
         match = re.search(r'(\d+)\s*(?:-\s*(\d+))?\s*second', duration.lower())
         if match:
             seconds = int(match.group(2) if match.group(2) else match.group(1))
-            # Convert to minutes and calculate
-            minutes = seconds / 60
-            return int(minutes * 150 * 1.5 * 1.2)
+            total_seconds = seconds
+            estimated_words = int((seconds / 60) * 150)
 
-    # Default for unspecified
-    return 800
+            # Format as minutes + seconds if >= 60s
+            if total_seconds >= 60:
+                mins = total_seconds // 60
+                secs = total_seconds % 60
+                if secs > 0:
+                    time_str = f"{mins}m {secs}s"
+                else:
+                    time_str = f"{mins} minute{'s' if mins != 1 else ''}"
+            else:
+                time_str = f"{total_seconds} seconds"
+
+            return (total_seconds, f"{time_str} (approx {estimated_words} words)", estimated_words)
+
+    # Default for unspecified (90 seconds)
+    return (90, "90 seconds (approx 225 words)", 225)
+
+
+def calculate_max_tokens(duration: str) -> int:
+    """Calculate appropriate max_tokens based on target duration.
+
+    Uses conservative buffer to prevent truncation.
+
+    Args:
+        duration: Duration string (e.g., "60-90 seconds", "3 minutes", "500 words")
+
+    Returns:
+        Estimated max_tokens needed with buffer
+    """
+    _, _, estimated_words = normalize_duration(duration)
+
+    # Conservative calculation:
+    # 1.5 tokens per word baseline
+    # + 50% buffer (was 20%, increased to handle context overhead and ensure completion)
+    # + 100 token flat buffer for prompt overhead
+    tokens = int(estimated_words * 1.5 * 1.5) + 100
+
+    # Cap at 4000 for safety (model limits)
+    return min(tokens, 4000)
 
 
 def generate_segment(
@@ -143,24 +184,27 @@ def generate_segment(
     if template_path is None:
         template_path = config['template']
 
+    # Normalize duration for better model guidance
+    total_seconds, normalized_duration, estimated_words = normalize_duration(duration)
+
     # Load template
     prompt_template = load_prompt_template(template_path)
 
-    # Substitute placeholders
+    # Substitute placeholders with normalized, readable format
     prompt = (prompt_template
               .replace('{TONE}', tone)
               .replace('{THEME}', theme)
-              .replace('{DURATION}', duration))
+              .replace('{DURATION}', normalized_duration))
 
     # Add context if provided (future-proofing for session composition)
     if context:
         prompt = f"Previous context:\n{context}\n\n{prompt}"
 
-    print(f"[info] Generating {segment_type}: tone={tone}, theme={theme}, duration={duration}", file=sys.stderr)
+    print(f"[info] Generating {segment_type}: tone={tone}, theme={theme}, duration={normalized_duration}", file=sys.stderr)
 
-    # Calculate appropriate max_tokens
-    max_tokens = min(calculate_max_tokens(duration), 4000)
-    print(f"[info] Using max_tokens={max_tokens} for target duration", file=sys.stderr)
+    # Calculate appropriate max_tokens with conservative buffer
+    max_tokens = calculate_max_tokens(duration)
+    print(f"[info] Using max_tokens={max_tokens} (target: {estimated_words} words, {total_seconds}s spoken)", file=sys.stderr)
 
     # Generate
     response = client.generate(
