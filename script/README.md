@@ -413,26 +413,74 @@ All templates are in `script/prompts/` with clean v1 format:
 - **Value:** Caught capitalization, punctuation, placeholder resolution bugs
 - **Goal:** 100% pass rate (tracked in Issue #3)
 
-## Future Work
+## Session Composition
 
-### Session Composition ✨
-Create full hypnosis sessions by combining multiple segments:
+### `compose_session.py` - Automated Multi-Segment Sessions ✨
+
+Generate complete hypnosis sessions with contextual awareness and continuity:
 
 ```bash
-# Coming soon: compose_session.py
+# Full session with context awareness
 python3 script/compose_session.py \
   --tone "authoritative" \
   --theme "obedience" \
-  --duration "10 minutes" \
-  --structure "pretalk,induction,deepener,conditioning,deepener,posthypnotic,wakener" \
+  --structure "pretalk,induction,deepener,conditioning,posthypnotic,wakener" \
   --output session.txt
+
+# Custom segment durations
+python3 script/compose_session.py \
+  --tone "machiavellian ruthless dominating" \
+  --theme "brutal mental dominance" \
+  --structure "pretalk,induction,deepener,conditioning,posthypnotic,wakener" \
+  --duration-induction "6 minutes" \
+  --duration-conditioning "90 seconds" \
+  --context full \
+  --output machiavellian_session.txt
+
+# No context mode (manual composition baseline)
+python3 script/compose_session.py \
+  --tone "gentle" \
+  --theme "relaxation" \
+  --structure "induction,deepener,wakener" \
+  --context none \
+  --output manual_session.txt
 ```
 
-This would:
-- Generate each segment with consistent tone/theme
-- Pass context between segments for continuity
-- Ensure smooth transitions
-- Output complete session script
+**Context modes:**
+- `none` - No context passing (independent segments, baseline)
+- `last` - Pass only previous segment (efficient, good continuity)
+- `full` - Pass all previous segments (best continuity, higher cost)
+- `summary` - AI-summarized context (future enhancement)
+
+### Composer vs Manual: Measured Benefits
+
+Tested with identical 6-segment Machiavellian session (pretalk → induction → deepener → conditioning → posthypnotic → wakener):
+
+**Quantitative:**
+- Composed (full context): 1,636 words (~10.9 min)
+- Manual (no context): 1,438 words (~9.6 min)
+- **+13.8% longer with context** (more developed callbacks)
+
+**Qualitative improvements with composer:**
+
+✅ **Callbacks & Continuity (Significant Lift)**
+- Deepener: "You are deep now, surrendered to my brutal dominance" (acknowledges induction worked)
+- Conditioning: "a fortress I seize without mercy" (echoes fortress metaphor from induction)
+- Wakener: "my conquered thrall" (maintains relational framing from posthypnotic)
+- Manual version lacks these inter-segment references
+
+✅ **Anchor Reinforcement (Moderate Lift)**
+- Key phrases compound across segments: "iron grip/chains", "fortress/conquest"
+- Manual version repeats concepts but doesn't build on them progressively
+
+✅ **Progressive Depth (Minor Lift)**
+- Natural progression: "ready → deep → deeper → deepest"
+- Manual assumes trance independently each segment
+
+⚖️ **Thematic Consistency (No Difference)**
+- Both maintain tone perfectly via shared tone/theme parameters
+
+**Verdict:** Clear qualitative lift for continuity. Could a skilled copywriter achieve this manually? Yes, but would require re-reading all previous segments while writing each new one. Composer automates this cognitive load.
 
 ### Advanced Features
 - Chunked generation for 15+ minute sessions
