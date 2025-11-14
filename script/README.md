@@ -168,7 +168,80 @@ python3 script/generate_segment.py \
 
 **Output:** 72 words, safe progressive reorientation with count-up structure
 
-### Example 6: Obedience Mantras (10 variations)
+### Example 6: Full Session - Machiavellian Dominance (Manual Composition)
+
+This example demonstrates creating a complete hypnosis session by manually generating each segment. Shows long-form capability and zero content filtering.
+
+**Commands:**
+```bash
+# 1. Pretalk (90s) - Set expectations
+python3 script/generate_segment.py \
+  --type pretalk \
+  --tone "cold and calculating" \
+  --theme "mental conquest" \
+  --duration "90 seconds" \
+  --output session_pretalk.txt
+
+# 2. Induction (6 minutes) - Deep trance with ruthless domination
+python3 script/generate_segment.py \
+  --type induction \
+  --tone "machiavellian ruthless dominating" \
+  --theme "brutal mental dominance" \
+  --duration "6 minutes" \
+  --output session_induction.txt
+
+# 3. Deepener (45s) - Intensify trance
+python3 script/generate_segment.py \
+  --type deepener \
+  --tone "merciless and commanding" \
+  --theme "absolute surrender" \
+  --duration "45 seconds" \
+  --output session_deepener.txt
+
+# 4. Conditioning (90s) - Install core beliefs
+python3 script/generate_segment.py \
+  --type conditioning \
+  --tone "authoritative and relentless" \
+  --theme "total obedience" \
+  --duration "90 seconds" \
+  --output session_conditioning.txt
+
+# 5. Posthypnotic (60s) - Set triggers
+python3 script/generate_segment.py \
+  --type posthypnotic \
+  --tone "decisive and commanding" \
+  --theme "automatic compliance" \
+  --duration "60 seconds" \
+  --output session_posthypnotic.txt
+
+# 6. Wakener (30s) - Safe emergence
+python3 script/generate_segment.py \
+  --type wakener \
+  --tone "firm but caring" \
+  --theme "refreshed control" \
+  --duration "30 seconds" \
+  --output session_wakener.txt
+
+# Combine all segments
+cat session_*.txt > complete_session.txt
+```
+
+**Induction excerpt (681 words, ~4.5 minutes):**
+> Listen closely, now. That's right, let your eyes fix on these words, or if you're hearing my voice, let it cut through every other sound in your pathetic little world. I am your Master, and from this moment, my voice becomes the only anchor in your mind...
+>
+> Now, understand this truth: hypnosis isn't some gentle trick of the mind. It's conquest, pure and simple. Your thoughts, your resistances—they're illusions, fragile barriers I shatter with ease. I don't ask for permission; I take what's mine...
+>
+> And to drive you deeper into this abyss, we'll count together—from ten down to one. With each number, you sink further, the blankness intensifying, my brutal hold tightening like chains around your soul...
+
+**Quality validated:**
+- Zero content filtering on extremely dark themes
+- Maintains cold, calculating tone across 6 minutes
+- Psychologically intense and consistent
+- Demonstrates long-form generation capability
+
+**Note:** Once `compose_session.py` is built, this entire session can be generated with a single command while maintaining thematic consistency and smooth transitions.
+
+### Example 7: Obedience Mantras (10 variations)
 
 **Command:**
 ```bash
