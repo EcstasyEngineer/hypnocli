@@ -417,27 +417,21 @@ All templates are in `script/prompts/` with clean v1 format:
 
 ### `compose_session.py` - Automated Multi-Segment Sessions ✨
 
-Generate complete hypnosis sessions with contextual awareness and continuity:
+Generate complete hypnosis sessions with contextual awareness. Supports three modes: simple CLI, JSON config file, and inline JSON.
+
+#### Mode 1: Simple CLI (Basic Sessions)
+
+For straightforward sessions with uniform tone/theme:
 
 ```bash
-# Full session with context awareness
+# Basic session
 python3 script/compose_session.py \
   --tone "authoritative" \
   --theme "obedience" \
-  --structure "pretalk,induction,deepener,conditioning,posthypnotic,wakener" \
+  --structure "pretalk,induction,deepener,wakener" \
   --output session.txt
 
-# Custom segment durations
-python3 script/compose_session.py \
-  --tone "machiavellian ruthless dominating" \
-  --theme "brutal mental dominance" \
-  --structure "pretalk,induction,deepener,conditioning,posthypnotic,wakener" \
-  --duration-induction "6 minutes" \
-  --duration-conditioning "90 seconds" \
-  --context full \
-  --output machiavellian_session.txt
-
-# No context mode (manual composition baseline)
+# With context mode control
 python3 script/compose_session.py \
   --tone "gentle" \
   --theme "relaxation" \
@@ -446,9 +440,81 @@ python3 script/compose_session.py \
   --output manual_session.txt
 ```
 
-**Context modes:**
+#### Mode 2: JSON Config File (Complex Sessions)
+
+For advanced sessions with per-segment customization, arbitrary ordering, and multiple instances:
+
+```bash
+# Create session config
+cat > advanced_session.json << 'EOF'
+{
+  "global_tone": "commanding and ruthless",
+  "global_theme": "total domination",
+  "global_duration": "45 seconds",
+  "context_mode": "full",
+  "temperature": 0.8,
+  "segments": [
+    {
+      "type": "pretalk",
+      "tone": "cold and calculating",
+      "theme": "mental conquest",
+      "duration": "60 seconds"
+    },
+    {
+      "type": "induction",
+      "tone": "machiavellian ruthless dominating",
+      "theme": "brutal mental dominance",
+      "duration": "3 minutes"
+    },
+    {
+      "type": "deepener"
+    },
+    {
+      "type": "conditioning",
+      "theme": "absolute obedience"
+    },
+    {
+      "type": "deepener"
+    },
+    {
+      "type": "posthypnotic",
+      "theme": "automatic compliance"
+    },
+    {
+      "type": "wakener",
+      "tone": "firm but caring",
+      "theme": "refreshed power"
+    }
+  ]
+}
+EOF
+
+# Generate from config
+python3 script/compose_session.py \
+  --config advanced_session.json \
+  --output advanced_session.txt
+```
+
+**JSON Config Features:**
+- `global_tone`, `global_theme`, `global_duration` - Defaults for all segments
+- Per-segment overrides for `tone`, `theme`, `duration`
+- Arbitrary segment ordering (multiple deepeners, any sequence)
+- Fallback priority: segment override → global → type default
+
+#### Mode 3: Inline JSON (Production/Scripting)
+
+For programmatic generation without creating config files:
+
+```bash
+python3 script/compose_session.py \
+  --json '{"global_tone":"gentle","global_theme":"peace","segments":[{"type":"induction"},{"type":"deepener"},{"type":"wakener","tone":"uplifting"}]}' \
+  --output scripted_session.txt
+```
+
+#### Context Modes
+
 - `none` - No context passing (independent segments, baseline)
-- `last` - Pass only previous segment (efficient, good continuity)
+- `last` - Pass only previous segment (efficient, good continuity) **← Recommended**
 - `full` - Pass all previous segments (best continuity, higher cost)
 - `summary` - AI-summarized context (future enhancement)
 
