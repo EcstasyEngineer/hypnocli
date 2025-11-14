@@ -1,0 +1,26 @@
+Generate {COUNT} base mantras for the theme: **{THEME}**
+
+## Requirements
+
+- Short, impactful phrases (3-10 words each)
+- First person perspective: use "I" for subject
+- Use "Master" when referencing dominant/authority
+- Tone: {TONE}
+- Theme: {THEME}
+- Variety: Each mantra should be unique and approach the theme differently
+- Natural language: Sound like thoughts, not commands
+- Difficulty range: Mix of BASIC (gentle) to EXTREME (intense)
+
+## Output Format
+
+Return ONLY a JSON array with this structure:
+```json
+[
+  {
+    "line": "mantra text here",
+    "difficulty": "BASIC|LIGHT|MODERATE|DEEP|EXTREME"
+  }
+]
+```
+
+NO additional commentary, NO markdown code blocks wrapping the JSON, JUST the JSON array.

@@ -1,0 +1,32 @@
+Generate a hypnotic fractionation script with the tone: **{TONE}** and theme: **{THEME}**.
+
+Target duration: {DURATION} when spoken aloud.
+
+## Structure
+
+**1. Brief Awakening**
+Momentarily lighten awareness slightly (float up, become aware). Subtle, not a full wakener.
+
+**2. Immediate Deepening**
+Rapidly guide back down even deeper than before. Emphasize ease and automaticity.
+
+**3. Theme Integration**
+Link each deepening to more profound experience and acceptance of the theme.
+
+**4. Repetitive Cycles**
+Repeat the up/down pattern 3-5 times. Vary language but maintain structure. Intensify with each cycle.
+
+**5. Final Anchor**
+Conclude with sustained deepening to the deepest state. Link to full theme embodiment.
+
+## Requirements
+
+- Write in second person ("you")
+- Tone: {TONE}
+- Theme: {THEME}
+- {DURATION} when read aloud
+- Use "I" for the hypnotist, "Master" for authority references
+- Natural, flowing language - NOT a checklist
+- Create rhythmic up/down momentum that progressively deepens
+
+Output ONLY the script text, no meta-commentary.

@@ -1,0 +1,32 @@
+Generate a hypnotic induction script with the tone: **{TONE}** and theme: **{THEME}**.
+
+Target duration: {DURATION} when spoken aloud.
+
+## Structure
+
+**1. Focus Establishment**
+Direct the listener's attention to your voice, making it the sole point of focus.
+
+**2. Anticipation & Pleasure**
+Link listening with positive feelings and introduce the theme naturally.
+
+**3. Mental Shift**
+Explain how hypnosis works in a way that bypasses resistance. Position yourself as capable of influencing thoughts.
+
+**4. Receptivity Induction**
+Guide the listener to mental emptiness and deep receptivity. This is the key conversion point.
+
+**5. Deepening**
+Use deepening techniques (countdown, imagery) to intensify the blank state and reinforce theme acceptance.
+
+## Requirements
+
+- Write in second person ("you")
+- Tone: {TONE}
+- Theme: {THEME}
+- {DURATION} when read aloud
+- Use "I" for the hypnotist, "Master" for authority references
+- Natural, flowing language - NOT a checklist
+- Build progressively from focus → blank → deep
+
+Output ONLY the script text, no meta-commentary.

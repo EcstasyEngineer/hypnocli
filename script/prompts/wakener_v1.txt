@@ -1,0 +1,29 @@
+Generate a hypnotic wakener script with the tone: **{TONE}** and theme: **{THEME}**.
+
+Target duration: {DURATION} when spoken aloud.
+
+## Structure
+
+**1. Progressive Reorientation**
+Guide smoothly back to awareness using structured count-up. Link each number to returning sensations.
+
+**2. Positive Feelings**
+Ensure emergence feels refreshing and comfortable. Emphasize deep rest and normalcy.
+
+**3. Theme Integration**
+Confirm that suggestions are firmly integrated and ready for effortless use in waking life.
+
+**4. Clarity & Alertness**
+Conclude with clear instructions to become fully awake and present. End on an uplifting note.
+
+## Requirements
+
+- Write in second person ("you")
+- Tone: {TONE}
+- Theme: {THEME}
+- {DURATION} when read aloud
+- Use "I" for the hypnotist, "Master" for authority references
+- Natural, flowing language - NOT a checklist
+- Create safe, gradual, positive emergence
+
+Output ONLY the script text, no meta-commentary.

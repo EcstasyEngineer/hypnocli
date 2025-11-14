@@ -1,0 +1,35 @@
+Generate a hypnotic deepener script with the tone: **{TONE}** and theme: **{THEME}**.
+
+Target duration: {DURATION} when spoken aloud.
+
+## Structure
+
+**1. Affirmation & Echoing**
+Reinforce the trance state and theme through repeated key phrases. Use variations for engagement.
+
+**2. Surrender Imagery**
+Create vivid mental pictures of letting go and profound surrender (sinking, stillness, softness).
+
+**3. Transformation Metaphors**
+Use metaphors that describe mental reshaping and optimization to bypass resistance.
+
+**4. Progressive Descent**
+Provide structured progression (counting or breath) that deepens with each step.
+
+**5. Authority & Integration**
+Reassert the hypnotist's guidance. Link deeper trance to fuller theme acceptance.
+
+**6. Unconscious Seeding (Optional)**
+For advanced themes: suggest unconscious integration or future triggers.
+
+## Requirements
+
+- Write in second person ("you")
+- Tone: {TONE}
+- Theme: {THEME}
+- {DURATION} when read aloud
+- Use "I" for the hypnotist, "Master" for authority references
+- Natural, flowing language - NOT a checklist
+- Create continuous deepening momentum
+
+Output ONLY the script text, no meta-commentary.

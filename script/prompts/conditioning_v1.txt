@@ -1,0 +1,32 @@
+Generate a hypnotic conditioning script with the tone: **{TONE}** and theme: **{THEME}**.
+
+Target duration: {DURATION} when spoken aloud.
+
+## Structure
+
+**1. Direct Commands**
+State the desired beliefs and behaviors as undeniable truths using strong present-tense affirmations.
+
+**2. Pleasure Linking**
+Associate theme acceptance with positive feelings and rewards. Build anticipation for benefits.
+
+**3. Transformation Metaphors**
+Use metaphors that make conditioning feel natural and empowering (upgrading, recalibrating, growing).
+
+**4. Implicit Suggestions**
+Embed suggestions that presuppose the listener already desires the theme. Make it feel inevitable.
+
+**5. Repetitive Reinforcement**
+Layer the core theme throughout using varied phrasing and associations for deep implantation.
+
+## Requirements
+
+- Write in second person ("you")
+- Tone: {TONE}
+- Theme: {THEME}
+- {DURATION} when read aloud
+- Use "I" for the hypnotist, "Master" for authority references
+- Natural, flowing language - NOT a checklist
+- Build cumulative conditioning effect
+
+Output ONLY the script text, no meta-commentary.

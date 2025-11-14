@@ -1,0 +1,32 @@
+Generate a hypnotic post-hypnotic suggestion script with the tone: **{TONE}** and theme: **{THEME}**.
+
+Target duration: {DURATION} when spoken aloud.
+
+## Structure
+
+**1. Amnesia & Integration**
+Suggest conscious memories fade while positive changes integrate deeply at the unconscious level.
+
+**2. Trigger Definition**
+Establish clear sensory, cognitive, or environmental cues that will automatically activate the theme.
+
+**3. Future Pacing**
+Describe how the theme will effortlessly re-emerge whenever triggers are encountered in the future.
+
+**4. Natural Integration**
+Ensure suggestions feel completely natural and beneficial within everyday life, not imposed.
+
+**5. Theme Permanence**
+Solidify the theme as an inherent, permanent quality that's always accessible.
+
+## Requirements
+
+- Write in second person ("you")
+- Tone: {TONE}
+- Theme: {THEME}
+- {DURATION} when read aloud
+- Use "I" for the hypnotist, "Master" for authority references
+- Natural, flowing language - NOT a checklist
+- Make future activation feel automatic and effortless
+
+Output ONLY the script text, no meta-commentary.
