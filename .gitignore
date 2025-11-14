@@ -8,4 +8,5 @@ pycache/
 .DS_Store
 .venv/
 *.jsonl
+.claude/
 
