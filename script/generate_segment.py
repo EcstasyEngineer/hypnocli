@@ -126,7 +126,8 @@ def normalize_duration(duration: str) -> tuple:
 def calculate_max_tokens(duration: str) -> int:
     """Calculate appropriate max_tokens based on target duration.
 
-    Uses conservative buffer to prevent truncation.
+    Note: max_tokens is for COMPLETION only (prompt tokens don't count).
+    Uses modest buffer to prevent truncation while avoiding waste.
 
     Args:
         duration: Duration string (e.g., "60-90 seconds", "3 minutes", "500 words")
@@ -136,11 +137,15 @@ def calculate_max_tokens(duration: str) -> int:
     """
     _, _, estimated_words = normalize_duration(duration)
 
-    # Conservative calculation:
-    # 1.5 tokens per word baseline
-    # + 50% buffer (was 20%, increased to handle context overhead and ensure completion)
-    # + 100 token flat buffer for prompt overhead
-    tokens = int(estimated_words * 1.5 * 1.5) + 100
+    # Generous calculation for completion tokens:
+    # - 1.5 tokens per word (baseline)
+    # - 100% buffer (2x headroom)
+    #
+    # Rationale: Grok is extremely cheap (~$0.06 for dozens of scripts)
+    # Better to over-allocate than risk truncation ruining a script
+    #
+    # Future: Detect truncation and auto-retry (see Issue #X)
+    tokens = int(estimated_words * 1.5 * 2.0)
 
     # Cap at 4000 for safety (model limits)
     return min(tokens, 4000)
