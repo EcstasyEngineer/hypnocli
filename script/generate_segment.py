@@ -16,41 +16,40 @@ from grok_client import GrokClient
 
 
 # Segment type configuration
+# Template files are automatically resolved from segment type:
+# segment_type -> prompts/{segment_type}.txt
 SEGMENT_CONFIG = {
     'pretalk': {
-        'template': 'prompts/pretalk_v1.txt',
         'default_duration': '60-90 seconds',
         'description': 'Pre-session framing and expectation setting'
     },
     'induction': {
-        'template': 'prompts/induction_v2.txt',
         'default_duration': '60-90 seconds',
         'description': 'Initial trance induction'
     },
     'deepener': {
-        'template': 'prompts/deepener_v1.txt',
         'default_duration': '15-45 seconds',
         'description': 'Trance deepening segment'
     },
     'conditioning': {
-        'template': 'prompts/conditioning_v1.txt',
         'default_duration': '30-120 seconds',
         'description': 'Belief and behavior conditioning'
     },
     'fractionation': {
-        'template': 'prompts/fractionation_v1.txt',
         'default_duration': '30-90 seconds',
         'description': 'Up/down trance cycles'
     },
     'posthypnotic': {
-        'template': 'prompts/posthypnotic_v1.txt',
         'default_duration': '20-60 seconds',
         'description': 'Post-trance triggers and suggestions'
     },
     'wakener': {
-        'template': 'prompts/wakener_v1.txt',
         'default_duration': '15-30 seconds',
         'description': 'Safe emergence from trance'
+    },
+    'mantra': {
+        'default_duration': '30-60 seconds',
+        'description': 'Repetitive affirmation generation'
     }
 }
 
@@ -187,7 +186,8 @@ def generate_segment(
     if duration is None:
         duration = config['default_duration']
     if template_path is None:
-        template_path = config['template']
+        # Convention-based template resolution: segment_type -> prompts/{segment_type}.txt
+        template_path = f'prompts/{segment_type}.txt'
 
     # Normalize duration for better model guidance
     total_seconds, normalized_duration, estimated_words = normalize_duration(duration)

@@ -19,7 +19,7 @@ def generate_mantras(
     theme: str,
     tone: str = "commanding",
     count: int = 10,
-    template_path: str = "script/prompts/mantra_v1.txt",
+    template_path: str = "prompts/mantra.txt",
     temperature: float = 0.9
 ) -> list:
     """Generate mantras for a theme.
@@ -86,7 +86,7 @@ def main():
     parser.add_argument('--theme', type=str, required=True, help='Theme (e.g., obedience, relaxation, focus)')
     parser.add_argument('--tone', type=str, default='commanding', help='Tone (default: commanding)')
     parser.add_argument('--count', type=int, default=10, help='Number of mantras (default: 10)')
-    parser.add_argument('--template', type=str, default='script/prompts/mantra_v1.txt', help='Prompt template')
+    parser.add_argument('--template', type=str, default='prompts/mantra.txt', help='Prompt template')
     parser.add_argument('--output', type=str, help='Output JSON file')
     parser.add_argument('--convert', action='store_true', help='Also convert to template format')
     parser.add_argument('--temperature', type=float, default=0.9, help='Temperature (default: 0.9)')

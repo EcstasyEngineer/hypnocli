@@ -4,9 +4,11 @@ input/
 inputs/
 *.gif
 *.psd
-pycache/
+__pycache__/
+*.pyc
 .DS_Store
 .venv/
 *.jsonl
 .claude/
 
+.env
