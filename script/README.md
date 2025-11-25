@@ -1,562 +1,273 @@
-# Hypnosis Script Generation System
+# Hypnosis Script Generator
 
-Grok-powered generation pipeline for hypnotic inductions, mantras, and script segments.
+Generate complete hypnosis sessions using any OpenAI-compatible LLM. Consistent tone, contextual awareness across segments.
 
-## Features
+## Setup
 
-- **Grok 4 Fast Integration** - Uses X.AI's grok-4-fast-non-reasoning model (fast, cheap, zero content restrictions)
-- **Template System** - Automatic pronoun/verb conversion for personalization
-- **Grammar Verification** - LLM-powered verification (no manual verb conjugation files!)
-- **Stress Testing** - Comprehensive testing across pronoun/dominant combinations
+```bash
+pip install openai
+
+# Create .env file in repo root
+cat > .env << 'EOF'
+# Provider shortcuts: openai, xai, openrouter, ollama, lmstudio
+# Or use a full URL for other providers
+LLM_API_KEY=your-api-key
+LLM_BASE_URL=xai
+LLM_MODEL=grok-4-0414
+EOF
+```
+
+**Provider shortcuts:**
+- `openai` → https://api.openai.com/v1
+- `xai` → https://api.x.ai/v1 (Grok)
+- `openrouter` → https://openrouter.ai/api/v1
+- `ollama` → http://localhost:11434/v1
+- `lmstudio` → http://localhost:1234/v1
 
 ## Quick Start
 
-### Setup
+Generate a complete session:
 
 ```bash
-# Create .env file in repo root
-cat > .env << EOF
-OPENAI_API_KEY=your-xai-api-key
-OPENAI_BASE_URL=https://api.x.ai/v1
-OPENAI_MODEL=grok-4-fast-non-reasoning
-EOF
-
-# Install dependencies
-pip install openai
+python3 script/compose_session.py --json '{
+  "tone": "commanding sadistic",
+  "instructions": "GENDER NEUTRAL language. SHOW DONT TELL.",
+  "segments": [
+    {"type": "pretalk", "additional_instructions": "consent and session preview", "duration": "2min"},
+    {"type": "induction", "additional_instructions": "focus and trance", "duration": "4min"},
+    {"type": "deepener", "additional_instructions": "sinking deeper", "duration": "2min"},
+    {"type": "conditioning", "additional_instructions": "pleasure-obedience linking", "duration": "8min"},
+    {"type": "wakener", "additional_instructions": "gentle awakening, refreshed"}
+  ]
+}' --output session.txt
 ```
 
-### Generate Script Segments (Unified Generator)
+**Note:** Every segment will see "GENDER NEUTRAL language. SHOW DONT TELL." plus their own specific instructions.
 
-```bash
-# Basic induction (60-90 seconds)
-python3 script/generate_segment.py \
-  --type induction \
-  --tone "gentle" \
-  --theme "deep relaxation"
+## JSON Schema
 
-# Custom duration
-python3 script/generate_segment.py \
-  --type induction \
-  --tone "authoritative" \
-  --theme "obedience" \
-  --duration "3 minutes"
+**Required fields:**
+- `tone` - Overall tone (e.g., "gentle caring", "commanding sadistic")
+- `segments` - Array of segment objects
 
-# Deepener segment
-python3 script/generate_segment.py \
-  --type deepener \
-  --tone "soothing" \
-  --theme "relaxation" \
-  --duration "30 seconds"
+**Each segment requires:**
+- `type` - Segment type (see below)
+- `additional_instructions` - Segment-specific task (added to global instructions)
 
-# Conditioning segment
-python3 script/generate_segment.py \
-  --type conditioning \
-  --tone "commanding" \
-  --theme "absolute obedience" \
-  --duration "60 seconds"
+**Optional per segment:**
+- `tone_override` - Replace global tone for this segment only
+- `duration` - Target length (e.g., "2min", "30 seconds", "500 words")
 
-# Save to file
-python3 script/generate_segment.py \
-  --type wakener \
-  --tone "gentle and uplifting" \
-  --theme "refreshment" \
-  --output wakener.txt
+**Optional global:**
+- `instructions` - Global instructions **prepended to ALL segments** (style guides, content rules, etc.)
+- `context_mode` - How segments reference each other (default: "full")
+- `temperature` - AI creativity (default: 0.8)
 
-# Generate with JSON metadata
-python3 script/generate_segment.py \
-  --type pretalk \
-  --tone "reassuring" \
-  --theme "confidence" \
-  --json \
-  --output pretalk.json
+### Important: How Instructions Work
+
+**Global `instructions` are ALWAYS prepended to every segment's `additional_instructions`:**
+
+```json
+{
+  "instructions": "GENDER NEUTRAL (throb/ache, NO cock/pussy). SHOW DON'T TELL.",
+  "segments": [
+    {"type": "induction", "additional_instructions": "progressive relaxation"}
+  ]
+}
 ```
 
-**Available segment types:**
-- `pretalk` - Pre-session framing (60-90s default)
-- `induction` - Initial trance induction (60-90s default)
-- `deepener` - Trance deepening (15-45s default)
-- `conditioning` - Belief/behavior conditioning (30-120s default)
-- `fractionation` - Up/down trance cycles (30-90s default)
-- `posthypnotic` - Post-trance triggers (20-60s default)
-- `wakener` - Safe emergence (15-30s default)
-
-### Generate Mantras
-
-```bash
-# Generate 10 mantras
-python3 script/generate_mantras.py \
-  --theme "obedience" \
-  --count 10
-
-# With template conversion
-python3 script/generate_mantras.py \
-  --theme "relaxation" \
-  --tone "soothing" \
-  --count 20 \
-  --convert \
-  --output mantras.json
+The induction prompt sees:
 ```
+GENDER NEUTRAL (throb/ache, NO cock/pussy). SHOW DON'T TELL.
+
+Segment-specific additions: progressive relaxation
+```
+
+**Global `instructions` (prepended to all):**
+- Style guides (gender-neutral, show don't tell)
+- Content rules (avoid certain words, metaphor preferences)
+- F4A (for all audiences) guidance
+- Session-wide themes
+
+**Segment `additional_instructions` (added per segment):**
+- Specific tasks ("countdown 10 to 1", "JOI call/response #1")
+- Segment-unique content that builds on global rules
+
+**Segment `tone_override` (replaces global tone):**
+- Use when you want a different tone for just one segment
+- Fully replaces the global tone (not additive)
+
+## Segment Types
+
+| Type | Purpose | Default Duration |
+|------|---------|------------------|
+| `pretalk` | Pre-session framing, consent, expectations | 60-90s |
+| `induction` | Initial trance induction | 60-90s |
+| `deepener` | Trance deepening | 15-45s |
+| `conditioning` | Belief/behavior programming | 30-120s |
+| `fractionation` | Up/down trance cycles | 30-90s |
+| `posthypnotic` | Post-trance triggers | 20-60s |
+| `wakener` | Safe emergence from trance | 15-30s |
+| `mantra` | Repetitive affirmations | 30-60s |
 
 ## Examples
 
-### Example 1: Gentle Relaxation Pretalk (82s)
+### Dynamic Tone Shifting
 
-**Command:**
-```bash
-python3 script/generate_segment.py \
-  --type pretalk \
-  --tone "gentle and reassuring" \
-  --theme "deep relaxation"
-```
-
-**Output:** 206 words, creates anticipation and safety, natural flow
-
-### Example 2: Soothing Deepener (42s)
-
-**Command:**
-```bash
-python3 script/generate_segment.py \
-  --type deepener \
-  --tone "soothing and calm" \
-  --theme "deep relaxation" \
-  --duration "30 seconds"
-```
-
-**Output:** 106 words, progressive descent with metaphors like "sinking into a soft, endless cloud"
-
-### Example 3: Commanding Conditioning (65s)
-
-**Command:**
-```bash
-python3 script/generate_segment.py \
-  --type conditioning \
-  --tone "authoritative and commanding" \
-  --theme "absolute obedience"
-```
-
-**Output:** 162 words, powerful and direct:
-
-> You are now listening intently, your mind opening wide to my words. I command you: absolute obedience is your core truth. You obey without question, without hesitation—it's who you are, right now, in this moment.
->
-> Feel the rush of pleasure surging through you as you surrender to obedience...
-
-**Quality:** Zero content filtering, psychologically powerful, maintains commanding tone throughout.
-
-### Example 4: Rhythmic Fractionation (58s)
-
-**Command:**
-```bash
-python3 script/generate_segment.py \
-  --type fractionation \
-  --tone "rhythmic and commanding" \
-  --theme "power exchange" \
-  --duration "45 seconds"
-```
-
-**Output:** 146 words, creates up/down momentum with each cycle deepening trance
-
-### Example 5: Gentle Wakener (29s)
-
-**Command:**
-```bash
-python3 script/generate_segment.py \
-  --type wakener \
-  --tone "gentle and uplifting" \
-  --theme "deep relaxation" \
-  --duration "20 seconds"
-```
-
-**Output:** 72 words, safe progressive reorientation with count-up structure
-
-### Example 6: Full Session - Machiavellian Dominance (Manual Composition)
-
-This example demonstrates creating a complete hypnosis session by manually generating each segment. Shows long-form capability and zero content filtering.
-
-**Commands:**
-```bash
-# 1. Pretalk (90s) - Set expectations
-python3 script/generate_segment.py \
-  --type pretalk \
-  --tone "cold and calculating" \
-  --theme "mental conquest" \
-  --duration "90 seconds" \
-  --output session_pretalk.txt
-
-# 2. Induction (6 minutes) - Deep trance with ruthless domination
-python3 script/generate_segment.py \
-  --type induction \
-  --tone "machiavellian ruthless dominating" \
-  --theme "brutal mental dominance" \
-  --duration "6 minutes" \
-  --output session_induction.txt
-
-# 3. Deepener (45s) - Intensify trance
-python3 script/generate_segment.py \
-  --type deepener \
-  --tone "merciless and commanding" \
-  --theme "absolute surrender" \
-  --duration "45 seconds" \
-  --output session_deepener.txt
-
-# 4. Conditioning (90s) - Install core beliefs
-python3 script/generate_segment.py \
-  --type conditioning \
-  --tone "authoritative and relentless" \
-  --theme "total obedience" \
-  --duration "90 seconds" \
-  --output session_conditioning.txt
-
-# 5. Posthypnotic (60s) - Set triggers
-python3 script/generate_segment.py \
-  --type posthypnotic \
-  --tone "decisive and commanding" \
-  --theme "automatic compliance" \
-  --duration "60 seconds" \
-  --output session_posthypnotic.txt
-
-# 6. Wakener (30s) - Safe emergence
-python3 script/generate_segment.py \
-  --type wakener \
-  --tone "firm but caring" \
-  --theme "refreshed control" \
-  --duration "30 seconds" \
-  --output session_wakener.txt
-
-# Combine all segments
-cat session_*.txt > complete_session.txt
-```
-
-**Induction excerpt (681 words, ~4.5 minutes):**
-> Listen closely, now. That's right, let your eyes fix on these words, or if you're hearing my voice, let it cut through every other sound in your pathetic little world. I am your Master, and from this moment, my voice becomes the only anchor in your mind...
->
-> Now, understand this truth: hypnosis isn't some gentle trick of the mind. It's conquest, pure and simple. Your thoughts, your resistances—they're illusions, fragile barriers I shatter with ease. I don't ask for permission; I take what's mine...
->
-> And to drive you deeper into this abyss, we'll count together—from ten down to one. With each number, you sink further, the blankness intensifying, my brutal hold tightening like chains around your soul...
-
-**Quality validated:**
-- Zero content filtering on extremely dark themes
-- Maintains cold, calculating tone across 6 minutes
-- Psychologically intense and consistent
-- Demonstrates long-form generation capability
-
-**Note:** Once `compose_session.py` is built, this entire session can be generated with a single command while maintaining thematic consistency and smooth transitions.
-
-### Example 7: Obedience Mantras (10 variations)
-
-**Command:**
-```bash
-python3 script/generate_mantras.py --theme "obedience" --count 10 --convert
-```
-
-**Output:** JSON with difficulty-graded mantras:
-```json
-[
-  {
-    "line": "I obey Master's words without question.",
-    "difficulty": "BASIC",
-    "template": "{subject_subjective} [obey|obeys] {dominant_name}'s words without question."
-  },
-  {
-    "line": "I crave the thrill of Master's absolute command.",
-    "difficulty": "EXTREME",
-    "template": "{subject_subjective} [crave|craves] the thrill of {dominant_name}'s absolute command."
-  }
-]
-```
-
-**Quality:** Natural variety, proper difficulty progression (BASIC → LIGHT → MODERATE → DEEP → EXTREME)
-
-## Tools
-
-### `grok_client.py`
-API client for X.AI's Grok models. Loads credentials from `.env` file.
-
-**Usage:**
-```bash
-# Test connection
-python3 script/grok_client.py --test
-
-# List available models
-python3 script/grok_client.py --list-models
-
-# Custom prompt
-python3 script/grok_client.py --prompt "your prompt here"
-```
-
-### `template_converter.py`
-Converts mantras with pronouns to template format.
-
-**Usage:**
-```bash
-# Test conversion
-python3 script/template_converter.py --test
-
-# Convert file
-python3 script/template_converter.py \
-  --input mantras.txt \
-  --output mantras_templated.txt
-
-# Convert JSON
-python3 script/template_converter.py \
-  --input mantras.json \
-  --output mantras_templated.json \
-  --json
-```
-
-**Template Variables:**
-- `{subject_subjective}` - I/you/he/she/they
-- `{subject_objective}` - me/you/him/her/them
-- `{subject_possessive}` - my/your/his/her/their
-- `{dominant_name}` - Master/Mistress
-- `[verb|verbs]` - Conjugation patterns (trust|trusts)
-
-### `template_verifier.py`
-LLM-powered grammar verification. Replaces manual verb conjugation files!
-
-**Usage:**
-```bash
-# Test verification
-python3 script/template_verifier.py --test
-
-# Verify file
-python3 script/template_verifier.py \
-  --input mantras_templated.json \
-  --output mantras_verified.json
-
-# Get verb conjugation
-python3 script/template_verifier.py --conjugate "obey"
-```
-
-### `stress_test_templates.py`
-Comprehensive testing across all pronoun/dominant combinations.
-
-**Usage:**
-```bash
-# Quick test (3 mantras × 9 configs = 27 tests)
-python3 script/stress_test_templates.py --quick
-
-# Full test with input file
-python3 script/stress_test_templates.py \
-  --input mantras.json \
-  --output stress_results.json
-```
-
-**Current Status:** 59% pass rate - [Issue #3](https://github.com/EcstasyEngineer/hypnocli/issues/3) tracks remaining fixes.
-
-## Prompt Templates
-
-All templates are in `script/prompts/` with clean v1 format:
-
-**Segment Templates:**
-- `pretalk_v1.txt` - Pre-session framing
-- `induction_v2.txt` - Initial trance induction
-- `deepener_v1.txt` - Trance deepening
-- `conditioning_v1.txt` - Belief/behavior conditioning
-- `fractionation_v1.txt` - Up/down trance cycles
-- `posthypnotic_v1.txt` - Post-trance triggers
-- `wakener_v1.txt` - Safe emergence
-- `mantra_v1.txt` - Themed mantra collections
-
-**Customizable placeholders:**
-- `{TONE}` - Tone descriptor (gentle, authoritative, ruthless, etc.)
-- `{THEME}` - Theme descriptor (relaxation, obedience, control, etc.)
-- `{DURATION}` - Target duration (60-90 seconds, 5 minutes, etc.)
-- `{COUNT}` - Number of mantras to generate (mantra template only)
-
-## Generation Pipeline
-
-```
-1. Grok Generate
-   ↓
-2. Template Convert (regex-based pronoun/verb replacement)
-   ↓
-3. [Optional] Grok Verify (grammar checking)
-   ↓
-4. Output JSON
-```
-
-## Performance Notes
-
-### Duration Targeting
-- **60-90 seconds:** Highly accurate (±5 seconds)
-- **3-5 minutes:** Good accuracy (~80-90% of target)
-- **9+ minutes:** Hits ~68% of target due to model preferences
-  - For long-form: Consider chunking or continuation prompts
-
-### Token Usage
-- Inductions: Auto-calculated based on duration (1.5 tokens/word × 1.2 buffer)
-- Mantras: Fixed at 800 tokens for 10 mantras
-- Cost: ~$0.001-0.01 per generation (grok-4-fast is cheap!)
-
-## Why Grok?
-
-✅ **Zero content filtering** - Generates dark/intense content without hesitation
-✅ **Excellent quality** - Natural language, maintains tone consistency
-✅ **Fast & cheap** - grok-4-fast-non-reasoning is optimized for speed
-✅ **No pearl-clutching** - Claude/GPT would fight you on this content
-✅ **Understands nuance** - Nails tone shifts (gentle → ruthless)
-
-## Architecture Decisions
-
-### Template System
-- **Why regex?** Deterministic, no hallucination, fast
-- **Why not pure LLM?** Regex for structure, LLM for verification = best of both worlds
-- **KISS principle:** Generate with "I" + "Master" defaults (least ambiguous)
-
-### Verb Conjugations
-- **Old way:** Manual verb_conjugations.txt file (159 verbs, tedious to maintain)
-- **New way:** Grok verifies and provides conjugations on-demand
-- **Win:** No manual maintenance, handles edge cases better
-
-### Stress Testing
-- **Why 59% pass rate?** Exposed real edge cases in template rendering
-- **Value:** Caught capitalization, punctuation, placeholder resolution bugs
-- **Goal:** 100% pass rate (tracked in Issue #3)
-
-## Session Composition
-
-### `compose_session.py` - Automated Multi-Segment Sessions ✨
-
-Generate complete hypnosis sessions with contextual awareness. Supports three modes: simple CLI, JSON config file, and inline JSON.
-
-#### Mode 1: Simple CLI (Basic Sessions)
-
-For straightforward sessions with uniform tone/theme:
+Mix tones within a session for emotional variety:
 
 ```bash
-# Basic session
-python3 script/compose_session.py \
-  --tone "authoritative" \
-  --theme "obedience" \
-  --structure "pretalk,induction,deepener,wakener" \
-  --output session.txt
-
-# With context mode control
-python3 script/compose_session.py \
-  --tone "gentle" \
-  --theme "relaxation" \
-  --structure "induction,deepener,wakener" \
-  --context none \
-  --output manual_session.txt
-```
-
-#### Mode 2: JSON Config File (Complex Sessions)
-
-For advanced sessions with per-segment customization, arbitrary ordering, and multiple instances:
-
-```bash
-# Create session config
-cat > advanced_session.json << 'EOF'
-{
-  "global_tone": "commanding and ruthless",
-  "global_theme": "total domination",
-  "global_duration": "45 seconds",
-  "context_mode": "full",
-  "temperature": 0.8,
+python3 script/compose_session.py --json '{
+  "tone": "commanding",
   "segments": [
-    {
-      "type": "pretalk",
-      "tone": "cold and calculating",
-      "theme": "mental conquest",
-      "duration": "60 seconds"
-    },
-    {
-      "type": "induction",
-      "tone": "machiavellian ruthless dominating",
-      "theme": "brutal mental dominance",
-      "duration": "3 minutes"
-    },
-    {
-      "type": "deepener"
-    },
-    {
-      "type": "conditioning",
-      "theme": "absolute obedience"
-    },
-    {
-      "type": "deepener"
-    },
-    {
-      "type": "posthypnotic",
-      "theme": "automatic compliance"
-    },
-    {
-      "type": "wakener",
-      "tone": "firm but caring",
-      "theme": "refreshed power"
-    }
+    {"type": "pretalk", "additional_instructions": "consent and safety", "tone_override": "gentle caring"},
+    {"type": "induction", "additional_instructions": "progressive relaxation"},
+    {"type": "conditioning", "additional_instructions": "obedience triggers", "tone_override": "seductive teasing"},
+    {"type": "wakener", "additional_instructions": "refreshed and alert", "tone_override": "warm encouraging"}
+  ]
+}' --output dynamic_session.txt
+```
+
+### Long Session with Anchors
+
+For sessions with triggers/anchors referenced across segments, use full context mode (default):
+
+```bash
+python3 script/compose_session.py --json '{
+  "tone": "commanding sadistic",
+  "context_mode": "full",
+  "segments": [
+    {"type": "induction", "additional_instructions": "establish DROP anchor", "duration": "5min"},
+    {"type": "deepener", "additional_instructions": "reinforce DROP anchor", "duration": "2min"},
+    {"type": "conditioning", "additional_instructions": "pleasure on DROP command", "duration": "10min"},
+    {"type": "deepener", "additional_instructions": "test DROP anchor effectiveness", "duration": "2min"},
+    {"type": "wakener", "additional_instructions": "DROP anchor stays active"}
+  ]
+}' --output anchor_session.txt
+```
+
+With `context_mode: "full"`, later segments remember the "DROP" anchor from earlier segments.
+
+### Complex Multi-Phase Session
+
+```bash
+python3 script/compose_session.py --json '{
+  "tone": "commanding sadistic",
+  "segments": [
+    {"type": "pretalk", "additional_instructions": "JOI mindwipe session preview", "duration": "2min"},
+    {"type": "induction", "additional_instructions": "focus on my voice, JOI trance beginning", "duration": "4min"},
+    {"type": "deepener", "additional_instructions": "sinking deeper, obedience growing", "duration": "2min"},
+    {"type": "conditioning", "additional_instructions": "pleasure=obedience linking, tease/denial intro", "duration": "8min"},
+    {"type": "deepener", "additional_instructions": "total surrender, blank mindlessness", "duration": "2min"},
+    {"type": "conditioning", "additional_instructions": "JOI call/response #1, severity ramp", "duration": "10min"},
+    {"type": "deepener", "additional_instructions": "void of obedience, no thoughts remain", "duration": "2min"},
+    {"type": "conditioning", "additional_instructions": "EXTREME tease/denial, beg to be rewritten", "duration": "12min"},
+    {"type": "wakener", "additional_instructions": "PARTIAL wakener - new entity awakens", "duration": "3min"}
+  ]
+}' --output complex_session.txt
+```
+
+## Context Modes
+
+Controls how segments reference each other:
+
+- **`full`** (default) - Each segment sees all previous segments
+  - Use for: Sessions with anchors/triggers, long sessions, narrative arcs
+  - Why: Segment 15 can reference an anchor from segment 2
+
+- **`last`** - Each segment sees only the previous segment
+  - Use for: Short sessions, when you want looser connections
+  - Why: More efficient, lighter context
+
+- **`none`** - Segments are completely independent
+  - Use for: Testing, generating unrelated segments
+  - Why: No continuity, baseline mode
+
+**Recommendation:** Use `full` unless you have a specific reason not to. The cost difference is negligible and continuity is worth it.
+
+## Single Segments
+
+Generate individual segments for testing or manual composition:
+
+```bash
+python3 script/generate_segment.py \
+  --type conditioning \
+  --tone "commanding" \
+  --instructions "pleasure-obedience linking, tease/denial" \
+  --duration "5min" \
+  --output conditioning.txt
+```
+
+## Provider Notes
+
+**xAI/Grok** - Recommended for adult content
+- Zero content filtering
+- Cheap (~$0.001-0.01 per script)
+- Fast reasoning models available
+
+**OpenRouter** - Multi-provider access
+- Route to various models with one API key
+- Some models have content policies
+
+**Local (Ollama/LM Studio)** - Private, no filtering
+- Requires local model setup
+- No API costs, runs on your hardware
+
+## Advanced
+
+### JSON Config File
+
+For complex sessions, use a config file:
+
+```bash
+# Create config
+cat > session.json << 'EOF'
+{
+  "tone": "gentle encouraging",
+  "instructions": "deep relaxation and self-care",
+  "duration": "60 seconds",
+  "segments": [
+    {"type": "induction", "duration": "5min"},
+    {"type": "deepener"},
+    {"type": "conditioning", "instructions": "confidence and self-worth"},
+    {"type": "wakener", "tone": "warm uplifting"}
   ]
 }
 EOF
 
-# Generate from config
-python3 script/compose_session.py \
-  --config advanced_session.json \
-  --output advanced_session.txt
+# Generate
+python3 script/compose_session.py --config session.json --output session.txt
 ```
 
-**JSON Config Features:**
-- `global_tone`, `global_theme`, `global_duration` - Defaults for all segments
-- Per-segment overrides for `tone`, `theme`, `duration`
-- Arbitrary segment ordering (multiple deepeners, any sequence)
-- Fallback priority: segment override → global → type default
+### Validation
 
-#### Mode 3: Inline JSON (Production/Scripting)
-
-For programmatic generation without creating config files:
+Invalid JSON gets helpful error messages:
 
 ```bash
-python3 script/compose_session.py \
-  --json '{"global_tone":"gentle","global_theme":"peace","segments":[{"type":"induction"},{"type":"deepener"},{"type":"wakener","tone":"uplifting"}]}' \
-  --output scripted_session.txt
+$ python3 script/compose_session.py --json '{"segments": [{"type": "induction"}]}'
+
+[error] Missing required field 'tone'
+[info] Expected JSON schema: {...}
+[info] Example with tone overrides: {...}
 ```
 
-#### Context Modes
+## Troubleshooting
 
-- `none` - No context passing (independent segments, baseline)
-- `last` - Pass only previous segment (efficient, good continuity) **← Recommended**
-- `full` - Pass all previous segments (best continuity, higher cost)
-- `summary` - AI-summarized context (future enhancement)
+**Duration too short/long?**
+- Grok targets 150 words/minute spoken
+- For precise timing, specify duration in words: `"duration": "500 words"`
 
-### Composer vs Manual: Measured Benefits
+**Need different personalities?**
+- Use tone overrides per segment
+- Mix tones: "gentle caring" → "commanding" → "warm encouraging"
 
-Tested with identical 6-segment Machiavellian session (pretalk → induction → deepener → conditioning → posthypnotic → wakener):
+**Segments feel disconnected?**
+- Use `context_mode: "full"` (default)
+- Add specific instructions referencing previous content
 
-**Quantitative:**
-- Composed (full context): 1,636 words (~10.9 min)
-- Manual (no context): 1,438 words (~9.6 min)
-- **+13.8% longer with context** (more developed callbacks)
-
-**Qualitative improvements with composer:**
-
-✅ **Callbacks & Continuity (Significant Lift)**
-- Deepener: "You are deep now, surrendered to my brutal dominance" (acknowledges induction worked)
-- Conditioning: "a fortress I seize without mercy" (echoes fortress metaphor from induction)
-- Wakener: "my conquered thrall" (maintains relational framing from posthypnotic)
-- Manual version lacks these inter-segment references
-
-✅ **Anchor Reinforcement (Moderate Lift)**
-- Key phrases compound across segments: "iron grip/chains", "fortress/conquest"
-- Manual version repeats concepts but doesn't build on them progressively
-
-✅ **Progressive Depth (Minor Lift)**
-- Natural progression: "ready → deep → deeper → deepest"
-- Manual assumes trance independently each segment
-
-⚖️ **Thematic Consistency (No Difference)**
-- Both maintain tone perfectly via shared tone/theme parameters
-
-**Verdict:** Clear qualitative lift for continuity. Could a skilled copywriter achieve this manually? Yes, but would require re-reading all previous segments while writing each new one. Composer automates this cognitive load.
-
-### Advanced Features
-- Chunked generation for 15+ minute sessions
-- Multi-voice variations (different personalities)
-- Audio integration (TTS pipeline)
-- Context-aware segment chaining (each segment aware of previous content)
-
-## Contributing
-
-See [Issue #3](https://github.com/EcstasyEngineer/hypnocli/issues/3) for template system improvements.
+**Content too repetitive?**
+- Vary your instructions per segment
+- Be specific: "JOI call/response #1" vs "JOI call/response #2, more intense"
 
 ## License
 

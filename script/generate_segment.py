@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate hypnotic script segments using Grok.
+"""Generate hypnotic script segments.
 
 Unified generator for all segment types: pretalk, induction, deepener,
 conditioning, fractionation, posthypnotic, wakener.
@@ -12,7 +12,10 @@ import sys
 import json
 import argparse
 from pathlib import Path
-from grok_client import GrokClient
+from typing import Optional
+
+from openai import OpenAI
+import llm_client
 
 
 # Segment type configuration
@@ -151,26 +154,30 @@ def calculate_max_tokens(duration: str) -> int:
 
 
 def generate_segment(
-    client: GrokClient,
     segment_type: str,
     tone: str,
-    theme: str,
+    instructions: str,
     duration: str = None,
     context: str = None,
     template_path: str = None,
-    temperature: float = 0.8
+    temperature: float = 0.8,
+    global_instructions: str = None,
+    client: Optional[OpenAI] = None,
+    model: Optional[str] = None
 ) -> str:
     """Generate hypnotic script segment.
 
     Args:
-        client: GrokClient instance
         segment_type: Type of segment (pretalk, induction, deepener, etc.)
         tone: Tone descriptor (e.g., "authoritative", "gentle")
-        theme: Theme descriptor (e.g., "deep relaxation", "obedience")
+        instructions: Specific instructions for what to generate (e.g., "progressive relaxation", "JOI call/response")
         duration: Target duration (defaults to segment-specific default)
         context: Optional context from previous segments (future use)
         template_path: Path to prompt template (defaults to segment default)
         temperature: Sampling temperature
+        global_instructions: Optional global instructions prepended to all segments
+        client: Optional OpenAI client (uses llm_client.get_client() if not provided)
+        model: Optional model override
 
     Returns:
         Generated segment text
@@ -195,27 +202,50 @@ def generate_segment(
     # Load template
     prompt_template = load_prompt_template(template_path)
 
+    # Combine global and segment-specific instructions
+    # Global instructions are ALWAYS prepended to ensure consistency across all segments
+    combined_instructions = instructions
+    if global_instructions:
+        combined_instructions = f"{global_instructions}\n\nSegment-specific additions: {instructions}"
+
     # Substitute placeholders with normalized, readable format
     prompt = (prompt_template
               .replace('{TONE}', tone)
-              .replace('{THEME}', theme)
+              .replace('{INSTRUCTIONS}', combined_instructions)
               .replace('{DURATION}', normalized_duration))
 
-    # Add context if provided (future-proofing for session composition)
+    # Add context if provided (for session continuity)
     if context:
-        prompt = f"Previous context:\n{context}\n\n{prompt}"
+        context_instructions = """PREVIOUS SEGMENTS (for continuity reference):
+---
+{context}
+---
 
-    print(f"[info] Generating {segment_type}: tone={tone}, theme={theme}, duration={normalized_duration}", file=sys.stderr)
+CONTINUITY RULES:
+1. REPEAT anchor words and trigger phrases that were explicitly established (FOCUS, BLISS, DROP, surrender, etc.) - repetition reinforces conditioning
+2. CALLBACK to themes and imagery from previous segments to create cohesion
+3. VARY your opening lines - do NOT start with the same words/images as previous segments
+4. VARY incidental metaphors - if previous segments used "sunlight" or "waves" heavily but not as anchors, use different imagery
+5. Maintain the emotional arc while keeping language fresh
+
+The goal: intentional repetition of anchors/triggers = good; accidental repetition of openings/imagery = bad.
+
+""".format(context=context)
+        prompt = context_instructions + prompt
+
+    print(f"[info] Generating {segment_type}: tone={tone}, instructions={instructions}, duration={normalized_duration}", file=sys.stderr)
 
     # Calculate appropriate max_tokens with conservative buffer
     max_tokens = calculate_max_tokens(duration)
     print(f"[info] Using max_tokens={max_tokens} (target: {estimated_words} words, {total_seconds}s spoken)", file=sys.stderr)
 
-    # Generate
-    response = client.generate(
+    # Generate using llm_client
+    response = llm_client.generate(
         prompt=prompt,
         temperature=temperature,
-        max_tokens=max_tokens
+        max_tokens=max_tokens,
+        client=client,
+        model=model
     )
 
     return response.strip()
@@ -231,9 +261,9 @@ Segment types:
 {chr(10).join(f"  {name:15} - {config['description']}" for name, config in SEGMENT_CONFIG.items())}
 
 Examples:
-  python generate_segment.py --type induction --tone "gentle" --theme "relaxation" --duration "90 seconds"
-  python generate_segment.py --type deepener --tone "commanding" --theme "obedience" --duration "30 seconds"
-  python generate_segment.py --type wakener --tone "caring" --theme "refreshment" --output wakener.txt
+  python generate_segment.py --type induction --tone "gentle" --instructions "progressive relaxation, body scan" --duration "90 seconds"
+  python generate_segment.py --type deepener --tone "commanding" --instructions "countdown 10 to 1, deeper with each number" --duration "30 seconds"
+  python generate_segment.py --type wakener --tone "caring" --instructions "gentle awakening, refreshed and alert" --output wakener.txt
 """
     )
 
@@ -242,8 +272,8 @@ Examples:
                        help='Segment type')
     parser.add_argument('--tone', type=str, required=True,
                        help='Tone (e.g., authoritative, gentle, seductive)')
-    parser.add_argument('--theme', type=str, required=True,
-                       help='Theme (e.g., deep relaxation, obedience, focus)')
+    parser.add_argument('--instructions', type=str, required=True,
+                       help='Specific instructions (e.g., progressive relaxation, JOI call/response)')
     parser.add_argument('--duration', type=str,
                        help='Target duration (defaults to segment-specific default)')
     parser.add_argument('--context', type=str,
@@ -261,7 +291,8 @@ Examples:
 
     args = parser.parse_args()
 
-    client = GrokClient()
+    # Get client once for all generations
+    client, model = llm_client.get_client()
 
     results = []
 
@@ -270,21 +301,22 @@ Examples:
             print(f"\n[info] Generating variation {i+1}/{args.count}...", file=sys.stderr)
 
         segment_text = generate_segment(
-            client=client,
             segment_type=args.type,
             tone=args.tone,
-            theme=args.theme,
+            instructions=args.instructions,
             duration=args.duration,
             context=args.context,
             template_path=args.template,
-            temperature=args.temperature
+            temperature=args.temperature,
+            client=client,
+            model=model
         )
 
         # Build result with metadata
         result = {
             "segment_type": args.type,
             "tone": args.tone,
-            "theme": args.theme,
+            "instructions": args.instructions,
             "duration_target": args.duration or SEGMENT_CONFIG[args.type]['default_duration'],
             "text": segment_text,
             "word_count": len(segment_text.split()),

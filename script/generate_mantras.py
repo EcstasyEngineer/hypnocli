@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Generate mantra collections using Grok."""
+"""Generate mantra collections."""
 import sys
 import json
 import argparse
 from pathlib import Path
-from grok_client import GrokClient
+from typing import Optional
+
+from openai import OpenAI
+import llm_client
 from template_converter import TemplateConverter
 
 
@@ -15,22 +18,24 @@ def load_prompt_template(template_path: str) -> str:
 
 
 def generate_mantras(
-    client: GrokClient,
     theme: str,
     tone: str = "commanding",
     count: int = 10,
     template_path: str = "prompts/mantra.txt",
-    temperature: float = 0.9
+    temperature: float = 0.9,
+    client: Optional[OpenAI] = None,
+    model: Optional[str] = None
 ) -> list:
     """Generate mantras for a theme.
 
     Args:
-        client: GrokClient instance
         theme: Theme descriptor
         tone: Tone descriptor
         count: Number of mantras to generate
         template_path: Path to prompt template
         temperature: Sampling temperature (higher = more variety)
+        client: Optional OpenAI client (uses llm_client.get_client() if not provided)
+        model: Optional model override
 
     Returns:
         List of mantra dicts
@@ -46,11 +51,13 @@ def generate_mantras(
 
     print(f"[info] Generating {count} mantras: theme={theme}, tone={tone}", file=sys.stderr)
 
-    # Generate
-    response = client.generate(
+    # Generate using llm_client
+    response = llm_client.generate(
         prompt=prompt,
         temperature=temperature,
-        max_tokens=800
+        max_tokens=800,
+        client=client,
+        model=model
     )
 
     # Parse JSON
@@ -93,16 +100,18 @@ def main():
 
     args = parser.parse_args()
 
-    client = GrokClient()
+    # Get client once
+    client, model = llm_client.get_client()
 
     # Generate mantras
     mantras = generate_mantras(
-        client=client,
         theme=args.theme,
         tone=args.tone,
         count=args.count,
         template_path=args.template,
-        temperature=args.temperature
+        temperature=args.temperature,
+        client=client,
+        model=model
     )
 
     if not mantras:

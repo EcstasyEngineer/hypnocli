@@ -1,4 +1,4 @@
-Generate a hypnotic post-hypnotic suggestion script with the tone: **{TONE}** and theme: **{THEME}**.
+Generate a hypnotic post-hypnotic suggestion script with the tone: **{TONE}** and specific instructions: **{INSTRUCTIONS}**.
 
 Target duration: {DURATION} when spoken aloud.
 
@@ -8,25 +8,29 @@ Target duration: {DURATION} when spoken aloud.
 Suggest conscious memories fade while positive changes integrate deeply at the unconscious level.
 
 **2. Trigger Definition**
-Establish clear sensory, cognitive, or environmental cues that will automatically activate the theme.
+Establish clear sensory, cognitive, or environmental cues that will automatically activate the content specified in the instructions.
 
 **3. Future Pacing**
-Describe how the theme will effortlessly re-emerge whenever triggers are encountered in the future.
+Describe how the content will effortlessly re-emerge whenever triggers are encountered in the future.
 
 **4. Natural Integration**
 Ensure suggestions feel completely natural and beneficial within everyday life, not imposed.
 
-**5. Theme Permanence**
-Solidify the theme as an inherent, permanent quality that's always accessible.
+**5. Content Permanence**
+Solidify the content as an inherent, permanent quality that's always accessible, following the specific instructions.
 
 ## Requirements
 
 - Write in second person ("you")
 - Tone: {TONE}
-- Theme: {THEME}
+- Follow these specific instructions: {INSTRUCTIONS}
 - {DURATION} when read aloud
-- Use "I" for the hypnotist, "Master" for authority references
+- Use "I" for the hypnotist
+- Authority references: adapt to tone carefully:
+  * D/s tones: "Master/Mistress" appropriate, possessive "my voice" OK
+  * Gentle/therapeutic: Use collaborative language ("this voice", "these words") not possessive framing
 - Natural, flowing language - NOT a checklist
 - Make future activation feel automatic and effortless
+- Trigger word discipline: Only mention established triggers 2-3 times to reinforce, not repetitively
 
 Output ONLY the script text, no meta-commentary.

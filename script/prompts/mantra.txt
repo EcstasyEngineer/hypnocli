@@ -1,4 +1,4 @@
-Generate {COUNT} base mantras for the theme: **{THEME}**
+Generate {COUNT} base mantras with tone: **{TONE}** and specific instructions: **{INSTRUCTIONS}**
 
 ## Requirements
 
@@ -6,8 +6,8 @@ Generate {COUNT} base mantras for the theme: **{THEME}**
 - First person perspective: use "I" for subject
 - Use "Master" when referencing dominant/authority
 - Tone: {TONE}
-- Theme: {THEME}
-- Variety: Each mantra should be unique and approach the theme differently
+- Follow these specific instructions: {INSTRUCTIONS}
+- Variety: Each mantra should be unique and approach the content differently
 - Natural language: Sound like thoughts, not commands
 - Difficulty range: Mix of BASIC (gentle) to EXTREME (intense)
 

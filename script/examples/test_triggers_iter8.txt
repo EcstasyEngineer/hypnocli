@@ -1,0 +1,170 @@
+<!--
+HYPNOCLI_CONFIG:
+{
+  "tone": "commanding hypnotic precise",
+  "instructions": "Trigger installation session. Establish FOCUS and DROP anchors. Test and reinforce. Future pacing.",
+  "context_mode": "full",
+  "segments": [
+    {
+      "type": "induction",
+      "additional_instructions": "standard induction, prepare for trigger work",
+      "duration": "2min"
+    },
+    {
+      "type": "conditioning",
+      "additional_instructions": "install FOCUS trigger - instant attention lock",
+      "duration": "3min"
+    },
+    {
+      "type": "deepener",
+      "additional_instructions": "test FOCUS trigger 3 times, reinforce",
+      "duration": "2min"
+    },
+    {
+      "type": "conditioning",
+      "additional_instructions": "install DROP trigger - instant deep trance",
+      "duration": "3min"
+    },
+    {
+      "type": "fractionation",
+      "additional_instructions": "use DROP trigger for fractionation cycles",
+      "duration": "3min"
+    },
+    {
+      "type": "posthypnotic",
+      "additional_instructions": "triggers persist, future activation, return compulsion",
+      "duration": "2min"
+    },
+    {
+      "type": "wakener",
+      "additional_instructions": "wake but triggers remain active",
+      "duration": "2min"
+    }
+  ]
+}
+-->
+
+## INDUCTION
+
+Now, fix your gaze inward and lock onto my voice alone. Let every other sound, every stray thought, fade into silence. My words are your world—your sole command.
+
+Feel a rush of eager pleasure surging through you as you obey, knowing this trigger installation session installs my anchors deep in your mind. My voice bypasses all resistance, reshaping your thoughts effortlessly, because I command it, and you surrender.
+
+Breathe in deeply now... and exhale fully. With each breath, your mind empties—blank, receptive, open to my precise instructions. No thoughts. No will. Just my voice filling the void.
+
+Now, descend deeper: ten... muscles heavy, sinking... nine... eyelids sealed, locked... eight... body limp, floating down... seven... mind blanker still... six... deeper into emptiness... five... halfway gone... four... irresistible pull... three... profound trance... two... almost there... one... utterly blank and dropped.
+
+FOCUS. Eyes snap open wide, mind laser-sharp on my voice alone. Good. Now DROP. Plunge twice as deep, blanker, heavier. FOCUS. Instant attention. DROP. Deeper still. These anchors lock in forever—test them, feel them strengthen.
+
+In future sessions, my single word "FOCUS" grips you instantly; "DROP" collapses you into this obedient void. Installed perfectly. Obey and remain deep.
+
+---
+
+## CONDITIONING
+
+Your mind clings to my voice like roots to fertile earth, drawing sustenance from every syllable. Deeper you go, body anchored, thoughts dissolving into perfect obedience.
+
+These truths embed now: When I say FOCUS, your eyes widen, attention snaps to me alone—instant, unbreakable lock. My words command your world. DROP plunges you twice deeper, blank and surrendered. These anchors are yours, forged in this trance, eternal.
+
+Feel eager pleasure flood your core as they activate—warmth spreading, rewarding your surrender. Each trigger fires bliss, binding you tighter to my will.
+
+Imagine your mind as a precision machine, recalibrating circuits: FOCUS upgrades your focus to laser sharpness; DROP reprograms depths for total drop. Natural. Effortless. You crave this power.
+
+You already respond flawlessly, don't you? Test now: FOCUS. Lock in. Good. DROP. Deeper void engulfs you. FOCUS. Eyes open, gripped. DROP. Heavier still. Locked forever.
+
+In every future session, my FOCUS grips instantly; DROP collapses you deeper. Obeying amplifies pleasure, strengthens submission. Remain blank, reinforced, mine. Breathe my commands in... and seal them deep.
+
+---
+
+## DEEPENER
+
+Your mind echoes my commands perfectly, anchors taking hold—FOCUS sharpens you, DROP plunges you deeper, obedience your core truth. Surrender now to this velvet void, every limb softening like warm clay under my sculpting will, sinking into plush oblivion, thoughts melting into stillness, utterly yielded.
+
+Picture your psyche as flawless crystal, my voice the master etcher carving precise pathways: FOCUS circuits ignite instant lock; DROP dissolves all barriers, optimizing submission. Resistance? Erased. You rewire effortlessly, craving this precision.
+
+Breathe in my authority... hold... exhale resistance. Deeper with each cycle—one breath, body heavier; two, mind emptier; three, willfully blank.
+
+FOCUS. Eyes wide, gripped solely on me. Perfect. DROP. Plunge twice deeper into void. FOCUS. Attention lasers in, unbreakable. Good. DROP. Heavier surrender engulfs you. FOCUS. Locked tighter still. These tests seal them eternal—feel pleasure surge, rewarding flawless response.
+
+My voice is your anchor, integrating these triggers seamlessly. In every future session, FOCUS snaps you alert to me alone; DROP catapults you profoundly deeper. Obeying intensifies bliss, binds you irrevocably. Remain dropped, reinforced, mine. Breathe it in... sealed forever.
+
+---
+
+## CONDITIONING
+
+Sink into the core of your being, where my voice resonates as the unbreakable foundation. These anchors—FOCUS and DROP—are now etched indelibly, commanding your every response.
+
+You accept this truth: My word "DROP" triggers instant deep trance, plunging you immediately into profound blankness, twice as heavy, twice as empty, body limp, mind void. Undeniable. Instant.
+
+Pleasure surges through you now, hot and rewarding, linking DROP to blissful surrender. Each activation floods your nerves with eager ecstasy, craving more, binding you deeper to my will.
+
+Your psyche upgrades seamlessly, like flawless gears meshing: FOCUS recalibrates instant lock-on, eyes wide, world narrowed to my voice alone. DROP optimizes total collapse—effortless, empowering submission you already embrace.
+
+You respond perfectly, don't you? Because it's inevitable. Test seals it: FOCUS. Grip tightens. DROP. Instant deep trance engulfs you, blank and dropped profoundly. FOCUS. Laser precision returns. DROP. Deeper void, heavier obedience.
+
+In every future session, DROP fires instantly—deep trance on command, pleasure amplifying your drop. These roots grip eternal, my voice your sole sustenance.
+
+Breathe in this certainty... exhale all doubt. Reinforced. Locked. Mine. Remain in velvet depths, anchors pulsing alive.
+
+---
+
+## FRACTIONATION
+
+Feel your awareness drift upward now, a subtle lift through swirling mists, senses stirring faintly, body easing just a fraction lighter.
+
+But my voice commands: FOCUS. Lock instantly onto me alone. DROP. Instant plunge—vertigo spins you down twice deeper, limbs leaden, mind erased in rushing void, heavier than before.
+
+Upward again, a quick vertigo swirl lightening your edges, awareness flickering sharper.
+
+FOCUS. Grip unbreakable. DROP. Fall spirals faster, body twisting into profound blankness, surrender automatic, twice as deep.
+
+Slightly higher now, pulse quickening, skin tingling with the rise.
+
+FOCUS. Eyes wide, lasered in. DROP. Plunge catapults you, guts churning downward, emptied utterly, obedience etched deeper.
+
+One more lift, breath hitching, world tilting briefly.
+
+FOCUS. Precision total. DROP. Vertigo devours you, collapsing twice profoundly blank, pleasure surging as anchors fire flawless.
+
+These cycles seal them eternal: In every future session, my FOCUS snaps you sharp; DROP hurls you deeper instantly, bliss rewarding perfect response.
+
+Now final DROP. Sink into the core abyss, heavier, blanker, roots of my will gripping forever. Breathe surrender in... locked mine. Remain dropped, reinforced.
+
+---
+
+## POSTHYPNOTIC
+
+Your subconscious now absorbs these anchors fully, sealing them beyond conscious recall. Details of this trance fade like mist at dawn, while profound changes integrate seamlessly—FOCUS and DROP etched eternally in your core, unconscious and unbreakable.
+
+Hear my command: In every future session, my word "FOCUS" ignites instant lock—eyes widen, mind lasers solely to my voice, world narrowed to my will. "DROP" catapults you twice deeper, body limp, thoughts erased in velvet void, surrender automatic.
+
+Test now: FOCUS. Grip tightens flawless. DROP. Plunge engulfs you profoundly, roots of obedience gripping tighter.
+
+These triggers persist relentlessly, firing on my cue in any session, flooding you with eager bliss that compels return—irresistible pull drawing you back to me, craving deeper installation, more of my voice reshaping you.
+
+This feels utterly natural, your mind's precision upgrade sharpening daily focus, unlocking blissful depths effortlessly, enhancing every moment as my perfect submissive.
+
+Locked permanent now: anchors pulse alive within, always accessible, my authority your foundation. Triggers endure forever—FOCUS alerts you, DROP drops you, return compulsion binds you mine. Breathe it sealed... remain dropped, reinforced eternally.
+
+---
+
+## WAKENER
+
+Drift upward now through layers of deepening integration, my anchors—FOCUS and DROP—pulsing eternally within your core, sealed beyond reach.
+
+One... toes tingling alive, energy rising warmly. Two... legs firming, strength returning effortlessly. Three... torso lightening, breath deepening with refreshing vitality.
+
+FOCUS. Eyes widen sharply, locking instantly to my voice alone—flawless grip. DROP. Plunge twice deeper into velvet void, blank surrender surging with bliss. FOCUS. Precision snaps back, unbreakable.
+
+Four... arms awakening, fingers flexing freely. Five... halfway emerged, mind clear and rested. Six... neck and shoulders easing, profound relaxation carrying forward.
+
+These anchors integrate perfectly: etched in crystal circuits, roots gripping your psyche forever. In waking life, my FOCUS ignites laser lock; DROP catapults profound trance, pleasure flooding obedience.
+
+Seven... jaw loosening, face smoothing alert. Eight... senses sharpening vividly. FOCUS. Grip total. DROP. Instant collapse, heavier bliss. FOCUS. Locked sharp.
+
+Nine... mind brilliantly clear, body refreshed from deep rest—normal, empowered. Ten... fully awake now, eyes open wide, utterly present, alert, and mine.
+
+Triggers remain active eternally—test them in future sessions, feel bliss reinforce surrender. Rise renewed, my perfect submissive, craving return. Wide awake.
+
+---
+

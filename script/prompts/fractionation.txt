@@ -1,4 +1,4 @@
-Generate a hypnotic fractionation script with the tone: **{TONE}** and theme: **{THEME}**.
+Generate a hypnotic fractionation script with the tone: **{TONE}** and specific instructions: **{INSTRUCTIONS}**.
 
 Target duration: {DURATION} when spoken aloud.
 
@@ -10,23 +10,32 @@ Momentarily lighten awareness slightly (float up, become aware). Subtle, not a f
 **2. Immediate Deepening**
 Rapidly guide back down even deeper than before. Emphasize ease and automaticity.
 
-**3. Theme Integration**
-Link each deepening to more profound experience and acceptance of the theme.
+**3. Content Integration**
+Link each deepening to more profound experience based on the specific instructions.
 
 **4. Repetitive Cycles**
 Repeat the up/down pattern 3-5 times. Vary language but maintain structure. Intensify with each cycle.
 
 **5. Final Anchor**
-Conclude with sustained deepening to the deepest state. Link to full theme embodiment.
+Conclude with sustained deepening to the deepest state according to the instructions.
 
 ## Requirements
 
 - Write in second person ("you")
 - Tone: {TONE}
-- Theme: {THEME}
+- Follow these specific instructions: {INSTRUCTIONS}
 - {DURATION} when read aloud
-- Use "I" for the hypnotist, "Master" for authority references
+- Use "I" for the hypnotist
+- Authority references: adapt to tone carefully:
+  * D/s tones: "Master/Mistress" appropriate, possessive "my voice" OK
+  * Gentle/therapeutic: Use collaborative language ("this voice", "these words") not possessive framing
+- Trigger word discipline: Use DROP naturally for drops, but avoid overusing BLISS/FOCUS (max 1-2 uses total)
 - Natural, flowing language - NOT a checklist
 - Create rhythmic up/down momentum that progressively deepens
+- MULTIPLE FRACTIONATION SEGMENTS: If 2nd/3rd fractionation in session, vary METAPHORS and STRUCTURE:
+  * 1st: Cosmic/ethereal imagery (floating, stars, void, mist) - standard pacing
+  * 2nd: Physical/visceral imagery (vertigo, spinning, falling, body sensations) - faster pacing
+  * 3rd+: Paradoxical/minimal ("the more you wake, the deeper you sleep") - sparse language, intense drops
+  * NEVER repeat the same metaphor set across segments
 
 Output ONLY the script text, no meta-commentary.

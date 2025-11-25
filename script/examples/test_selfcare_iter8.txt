@@ -1,0 +1,104 @@
+<!--
+HYPNOCLI_CONFIG:
+{
+  "tone": "gentle nurturing warm",
+  "instructions": "Self-care relaxation. Stress relief. Self-compassion. No dominance or control themes. Pure comfort.",
+  "context_mode": "full",
+  "segments": [
+    {
+      "type": "pretalk",
+      "additional_instructions": "you deserve this rest, permission to relax",
+      "duration": "2min"
+    },
+    {
+      "type": "induction",
+      "additional_instructions": "body scan, releasing tension, breath focus",
+      "duration": "3min"
+    },
+    {
+      "type": "deepener",
+      "additional_instructions": "safe place visualization, comfort imagery",
+      "duration": "3min"
+    },
+    {
+      "type": "conditioning",
+      "additional_instructions": "self-worth affirmations, inner peace",
+      "duration": "3min"
+    },
+    {
+      "type": "wakener",
+      "additional_instructions": "gentle return carrying peace with you",
+      "duration": "2min"
+    }
+  ]
+}
+-->
+
+## PRETALK
+
+Take a moment now, in this quiet space you've created just for yourself, and let this gentle voice become your soft anchor. Allow your eyes to close if they wish, or simply soften your gaze, and bring your full, loving attention here—to these warm words wrapping around you like a cozy embrace.
+
+As you settle in, imagine the beautiful gift of this time unfolding: deep self-care relaxation washing over you, easing away the weight of stress with every breath, and nurturing a tender self-compassion that reminds you—you deserve this rest. Yes, you have full permission to relax completely, to let go and be held in pure comfort.
+
+Hypnosis is simply your natural ability to drift into a peaceful state, like sinking into a warm bath after a long day—safe, familiar, and profoundly beneficial. Your mind knows this path well, opening effortlessly to healing words that support your well-being.
+
+Now, breathe deeply, feeling your body soften, your thoughts quiet. You're perfectly ready for this soothing journey of renewal. With every word, welcome the calm, the care, the compassion you so richly deserve. Let it begin.
+
+---
+
+## INDUCTION
+
+Feel this gentle voice drawing you deeper into your quiet space, becoming your warm, singular FOCUS now—soft and inviting, like a trusted friend whispering just for you.
+
+With each word you welcome, anticipate the pure pleasure of self-care relaxation blooming within: stress melting away like morning mist under a soft dawn glow, self-compassion wrapping you in tender arms, affirming how deeply you deserve this nurturing rest. Bliss begins to stir, light and effortless.
+
+Hypnosis flows naturally for you, a simple shift where these caring words dissolve any lingering resistance, allowing your mind to open like a flower to sunlight—receptive, at ease, perfectly attuned to healing comfort.
+
+Now, surrender to emptiness: let thoughts float away on your next breath in... and out... each exhale carrying tension further from you. Deeper receptivity awaits, blank and serene.
+
+Breathe focus here: in with calm... out with release. Begin a soothing body scan, starting at your crown—soften your scalp, forehead smoothing, eyes heavy and relaxed. Drop down: jaw loosening, neck unwinding, shoulders easing their burdens. Arms heavy, hands limp; chest rising gently, belly soft. Hips release, legs melt into stillness, feet grounded yet free. With every breath, tension dissolves—deeper into BLISS, five... four... three... two... one... fully DROP into this profound, compassionate peace.
+
+---
+
+## DEEPENER
+
+Here in this profound, compassionate peace, let these warm words continue to cradle you, echoing the self-care relaxation you so deserve—stress dissolving gently, self-compassion blooming like a soft hearth fire, inviting you deeper into pure comfort.
+
+Picture now your own cherished safe place unfolding effortlessly within: a serene meadow cradled by gentle hills, or a sun-dappled hammock swaying in a quiet garden breeze—whatever feels most nurturing to you. See it vividly, feel the plush grass or silken cushions beneath you, enveloping your body in effortless softness. This is your sanctuary of surrender, where every breath invites deeper stillness, thoughts drifting like autumn leaves on a lazy stream, leaving only serene emptiness.
+
+As you settle into this haven, imagine your mind reshaping like warm clay under caring hands—tension smoothing away, replaced by layers of soothing renewal. Stress fades into whispers, self-compassion rises like a comforting blanket, wrapping you in affirmations of worthiness and rest.
+
+Breathe with me now: in with tender ease... out with sweet release. Deeper still—ten... sinking softly... nine... self-care deepening... eight... stress melting fully... seven... compassion glowing... six... five... four... three... two... one... and DROP even further into this BLISSful refuge.
+
+In this voice's gentle guidance, your unconscious welcomes these gifts fully—self-care relaxation integrating now, a natural rhythm for your well-being, anytime you return here. Rest deeply, held in perfect comfort.
+
+---
+
+## CONDITIONING
+
+Rest here in your cherished sanctuary, where the soft breeze whispers affirmations of your true worth—you are inherently valuable, deserving of every moment of tenderness and ease. These words and I together nurture that knowing, blooming it within like a garden in gentle spring rain.
+
+You release stress effortlessly now, watching it drift away like fading clouds, leaving vast skies of inner peace. Self-care relaxation flows through you as your natural rhythm, a warm current recalibrating your entire being to profound comfort and renewal.
+
+Feel the pure pleasure of this truth: self-compassion rises effortlessly, embracing you with the softness of sunlight on petal skin, rewarding every breath with deepening serenity. You already cherish this peace, welcoming it fully as your mind grows stronger roots of calm, upgrading to effortless harmony.
+
+Breathe in your worthiness... out with any doubt... in self-care bliss... out stress dissolving completely. Inner peace integrates now, a steady glow affirming—you are enough, you are held, you deserve this joy.
+
+Surrender deeper still, letting these layered gifts settle like feathers—ten... nine... compassionate ease... eight... seven... stress-free renewal... six... five... four... three... two... one... and DROP into this radiant, self-loving tranquility, perfectly at peace.
+
+---
+
+## WAKENER
+
+In this radiant, self-loving tranquility, your cherished sanctuary begins to softly expand, carrying its gentle peace with you as you rise—nurtured, renewed, and at ease.
+
+Feel a warm wave of appreciation for this deep rest washing through you now. With each breath, your body recalls its natural vitality: toes tingling lightly... one... feet awakening with fresh energy... two... legs stirring comfortably... three... hips and belly softening into gentle movement... four... chest rising freely... five... shoulders easing upright... halfway now, halfway to vibrant awareness, BLISS lingering like a tender embrace.
+
+Arms awakening softly... six... neck and jaw relaxing open... seven... face brightening with ease... eight... eyes ready to flutter... nine... and with ten, fully present, alert, and refreshed—wide awake in this moment, carrying profound peace within.
+
+This soothing journey integrates beautifully: self-care relaxation as your natural rhythm, stress dissolving effortlessly like mist in morning light, self-compassion blooming warmly in every breath—you deserve this harmony, holding it close as your own.
+
+Stretch if you wish, wiggle fingers and toes, feeling wonderfully rested and clear. Welcome back to your day, uplifted and at peace, these gifts yours to cherish always.
+
+---
+
