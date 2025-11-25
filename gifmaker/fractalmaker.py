@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Fractal pattern generator for hypnotic animations.
+"""Kaleidoscope pattern generator for hypnotic animations.
 
-Creates animated fractals with N-fold rotational symmetry,
+Creates animated kaleidoscopic patterns with N-fold rotational symmetry,
 configurable colors, and smooth looping animations.
 
-The fractal is based on a polar coordinate transformation that creates
-kaleidoscopic patterns with guaranteed N-fold symmetry.
+Supports three visual styles:
+- smooth: Organic, flowing sinusoidal patterns
+- crystal: Pure N-fold rotational symmetry (no mirroring)
+- kaleidoscope: Mirrored wedges giving 2N-fold apparent symmetry
 """
 import argparse
 import sys
@@ -20,7 +22,8 @@ from PIL import Image, ImageColor
 def parse_colors(spec: Optional[str]) -> List[Tuple[int, int, int]]:
     """Parse color specification into RGB tuples."""
     if not spec:
-        return [(0, 0, 0), (255, 0, 255)]  # Default: black to magenta
+        # Default: house palette
+        return [(0, 0, 0), (255, 0, 142), (0, 255, 113), (186, 51, 177), (42, 255, 78)]
     raw = [p.strip() for p in spec.replace(",", "|").split("|") if p.strip()]
     colors = []
     for token in raw:
@@ -30,7 +33,8 @@ def parse_colors(spec: Optional[str]) -> List[Tuple[int, int, int]]:
         except ValueError as e:
             raise argparse.ArgumentTypeError(f"Invalid color '{token}': {e}")
     if not colors:
-        colors = [(0, 0, 0), (255, 0, 255)]
+        # Default: house palette
+        colors = [(0, 0, 0), (255, 0, 142), (0, 255, 113), (186, 51, 177), (42, 255, 78)]
     return colors
 
 
@@ -102,95 +106,17 @@ def find_nearby_clean_cps(target_cps: float, fps: int, symmetry: int, max_frames
     return candidates[:10]
 
 
-def generate_fractal_frame(
-    size: int,
-    symmetry: int,
-    phase: float,
-    colors: List[Tuple[int, int, int]],
-    complexity: float = 3.0,
-    zoom: float = 1.0,
-    layers: int = 5,
-    color_shift: float = 0.0,
-) -> Image.Image:
-    """Generate a single kaleidoscopic fractal frame with N-fold symmetry.
+def apply_color_gradient(pattern: np.ndarray, colors: List[Tuple[int, int, int]], size: int) -> np.ndarray:
+    """Map a normalized pattern [0,1] to color gradient.
 
-    This creates a mesmerizing pattern by:
-    1. Using polar coordinates
-    2. Applying N-fold symmetry by wrapping theta
-    3. Layering multiple sinusoidal patterns
-    4. Animating via phase rotation
-
-    Parameters:
-        size: Resolution (square image)
-        symmetry: N-fold rotational symmetry
-        phase: Animation phase (0.0 - 1.0 for full cycle)
+    Args:
+        pattern: 2D array of values in [0, 1]
         colors: List of RGB tuples for gradient
-        complexity: Pattern complexity (higher = more detail)
-        zoom: Zoom level (affects pattern scale)
-        layers: Number of overlaid pattern layers
-        color_shift: Phase shift for color cycling (0.0 - 1.0)
+        size: Image size
 
     Returns:
-        PIL Image (RGB mode)
+        RGB image array (size x size x 3)
     """
-    # Create coordinate grid centered at origin
-    half = size // 2
-    y, x = np.ogrid[-half:size-half, -half:size-half]
-    x = x.astype(np.float64) / half * zoom
-    y = y.astype(np.float64) / half * zoom
-
-    # Convert to polar coordinates
-    r = np.sqrt(x**2 + y**2)
-    theta = np.arctan2(y, x)
-
-    # Apply N-fold symmetry by wrapping theta
-    # This creates the kaleidoscope effect
-    theta_sym = theta * symmetry
-
-    # Animation phase (0-2pi for full rotation)
-    anim_phase = phase * 2 * np.pi
-
-    # Build layered fractal pattern
-    # All animated components must complete INTEGER cycles when phase goes 0 -> 1
-    # This ensures perfect looping (frame 0 == frame N mathematically)
-    pattern = np.zeros_like(r)
-
-    for layer in range(layers):
-        # Each layer has different spatial frequency but same temporal frequency
-        freq = complexity * (layer + 1) * 0.7
-
-        # Static phase offset per layer (doesn't affect looping)
-        layer_offset = layer * 2 * np.pi / layers
-
-        # Radial component - rings that pulse inward (toward center)
-        # +anim_phase means pattern shifts toward center as time progresses
-        # Completes exactly 1 cycle as anim_phase goes 0 -> 2pi
-        radial = np.sin(r * freq * np.pi + anim_phase + layer_offset)
-
-        # Angular component - creates the N-fold symmetric spokes
-        # Completes exactly 1 cycle (not 0.5!) as anim_phase goes 0 -> 2pi
-        angular = np.cos(theta_sym + anim_phase + layer_offset)
-
-        # Combine with varying weights per layer
-        weight = 1.0 / (layer + 1)
-        pattern += weight * (radial * 0.6 + angular * 0.4)
-
-    # Add a secondary swirling pattern for visual interest
-    # +anim_phase makes swirl move inward, *2 completes 2 cycles for perfect looping
-    swirl = np.sin(theta_sym + r * complexity * 2 + anim_phase * 2)
-    pattern += swirl * 0.3
-
-    # Use fixed normalization range based on theoretical bounds
-    # Since we're summing weighted sin/cos, the range is bounded
-    # This ensures consistent normalization across all frames for perfect looping
-    max_possible = sum(1.0 / (layer + 1) for layer in range(layers)) + 0.3
-    pattern = (pattern + max_possible) / (2 * max_possible)
-    pattern = np.clip(pattern, 0, 1)
-
-    # Apply color shift for flowing colors
-    pattern = (pattern + color_shift) % 1.0
-
-    # Map to colors
     if len(colors) == 1:
         color = colors[0]
         intensity = (pattern * 255).astype(np.uint8)
@@ -216,6 +142,246 @@ def generate_fractal_frame(
             color_high = np.array([colors[j][i] for j in idx_high.flat]).reshape(size, size)
             img_array[:, :, i] = ((1 - blend) * color_low + blend * color_high).astype(np.uint8)
 
+    return img_array
+
+
+def generate_smooth_frame(
+    size: int,
+    symmetry: int,
+    phase: float,
+    colors: List[Tuple[int, int, int]],
+    complexity: float = 3.0,
+    zoom: float = 1.0,
+    layers: int = 5,
+    color_shift: float = 0.0,
+) -> Image.Image:
+    """Generate a smooth/organic kaleidoscope frame with N-fold symmetry.
+
+    Uses layered sinusoidal patterns for a flowing, organic look.
+    """
+    # Create coordinate grid centered at origin
+    half = size // 2
+    y, x = np.ogrid[-half:size-half, -half:size-half]
+    x = x.astype(np.float64) / half * zoom
+    y = y.astype(np.float64) / half * zoom
+
+    # Convert to polar coordinates
+    r = np.sqrt(x**2 + y**2)
+    theta = np.arctan2(y, x)
+
+    # Apply N-fold symmetry
+    theta_sym = theta * symmetry
+
+    # Animation phase (0-2pi for full rotation)
+    anim_phase = phase * 2 * np.pi
+
+    # Build layered pattern - all components complete integer cycles for perfect looping
+    pattern = np.zeros_like(r)
+
+    for layer in range(layers):
+        freq = complexity * (layer + 1) * 0.7
+        layer_offset = layer * 2 * np.pi / layers
+
+        # Radial rings moving inward
+        radial = np.sin(r * freq * np.pi + anim_phase + layer_offset)
+
+        # Angular spokes with N-fold symmetry
+        angular = np.cos(theta_sym + anim_phase + layer_offset)
+
+        weight = 1.0 / (layer + 1)
+        pattern += weight * (radial * 0.6 + angular * 0.4)
+
+    # Secondary swirl (2 cycles for looping)
+    swirl = np.sin(theta_sym + r * complexity * 2 + anim_phase * 2)
+    pattern += swirl * 0.3
+
+    # Fixed normalization for consistent looping
+    max_possible = sum(1.0 / (layer + 1) for layer in range(layers)) + 0.3
+    pattern = (pattern + max_possible) / (2 * max_possible)
+    pattern = np.clip(pattern, 0, 1)
+
+    # Apply color shift
+    pattern = (pattern + color_shift) % 1.0
+
+    img_array = apply_color_gradient(pattern, colors, size)
+    return Image.fromarray(img_array, mode='RGB')
+
+
+def generate_crystal_frame(
+    size: int,
+    symmetry: int,
+    phase: float,
+    colors: List[Tuple[int, int, int]],
+    complexity: float = 3.0,
+    zoom: float = 1.0,
+    layers: int = 5,
+    color_shift: float = 0.0,
+    motion: str = "in",
+) -> Image.Image:
+    """Generate a crystal frame with pure N-fold rotational symmetry.
+
+    No mirroring - creates N identical wedges.
+
+    Motion types:
+    - "in": Inward radial flow (zoom into center)
+    - "rotate": Rotation only
+    - "spiral": Combined inward + rotation (spiral into center)
+    """
+    return _generate_symmetric_frame(
+        size=size,
+        symmetry=symmetry,
+        phase=phase,
+        colors=colors,
+        complexity=complexity,
+        zoom=zoom,
+        layers=layers,
+        color_shift=color_shift,
+        motion=motion,
+        mirror=False,
+    )
+
+
+def generate_kaleidoscope_frame(
+    size: int,
+    symmetry: int,
+    phase: float,
+    colors: List[Tuple[int, int, int]],
+    complexity: float = 3.0,
+    zoom: float = 1.0,
+    layers: int = 5,
+    color_shift: float = 0.0,
+    motion: str = "in",
+) -> Image.Image:
+    """Generate a kaleidoscope frame with mirrored N-fold symmetry.
+
+    Creates N wedges with alternating mirror reflections for that
+    classic kaleidoscope look.
+
+    Motion types:
+    - "in": Inward radial flow (zoom into center)
+    - "rotate": Rotation only
+    - "spiral": Combined inward + rotation (spiral into center)
+    """
+    return _generate_symmetric_frame(
+        size=size,
+        symmetry=symmetry,
+        phase=phase,
+        colors=colors,
+        complexity=complexity,
+        zoom=zoom,
+        layers=layers,
+        color_shift=color_shift,
+        motion=motion,
+        mirror=True,
+    )
+
+
+def _generate_symmetric_frame(
+    size: int,
+    symmetry: int,
+    phase: float,
+    colors: List[Tuple[int, int, int]],
+    complexity: float,
+    zoom: float,
+    layers: int,
+    color_shift: float,
+    motion: str,
+    mirror: bool,
+) -> Image.Image:
+    """Internal: Generate symmetric frame with configurable mirroring.
+
+    The pattern is designed to loop perfectly by ensuring all animated
+    components complete integer cycles when phase goes 0 -> 1.
+    """
+    half = size // 2
+    y, x = np.ogrid[-half:size-half, -half:size-half]
+    x = x.astype(np.float64) / half * zoom
+    y = y.astype(np.float64) / half * zoom
+
+    # Polar coordinates
+    r = np.sqrt(x**2 + y**2)
+    theta = np.arctan2(y, x)
+
+    # Apply N-fold symmetry
+    wedge_angle = 2 * np.pi / symmetry
+
+    if mirror:
+        # Mirror effect gives 2N apparent symmetry (N segments, each mirrored)
+        theta_in_wedge = np.mod(theta, wedge_angle)
+        mirror_mask = np.mod(np.floor(theta / wedge_angle), 2) == 1
+        theta_in_wedge[mirror_mask] = wedge_angle - theta_in_wedge[mirror_mask]
+    else:
+        # Pure rotation symmetry (no mirroring)
+        theta_in_wedge = np.mod(theta, wedge_angle)
+
+    # Normalized angle within wedge (0 to 1)
+    theta_norm = theta_in_wedge / wedge_angle
+
+    # Determine animation components based on motion type
+    # All must complete INTEGER cycles for perfect looping
+    if motion == "in":
+        r_phase = phase  # 1 radial cycle
+        theta_phase = 0.0  # No rotation
+    elif motion == "rotate":
+        r_phase = 0.0  # No radial motion
+        theta_phase = phase  # 1 rotation cycle
+    elif motion == "spiral":
+        r_phase = phase  # 1 radial cycle
+        theta_phase = phase  # 1 rotation cycle (combined = spiral)
+    else:
+        r_phase = phase
+        theta_phase = 0.0
+
+    # Build pattern
+    pattern = np.zeros_like(r)
+
+    for layer in range(layers):
+        freq = complexity * (layer + 1) * 0.5
+        layer_offset = layer / layers
+
+        # Radial component with inward flow
+        r_animated = r * freq + r_phase
+        radial_fold = np.mod(r_animated, 1.0)
+        radial_fold = np.abs(radial_fold - 0.5) * 2  # Triangle wave
+
+        # Angular component with rotation
+        theta_animated = theta_norm + theta_phase
+        theta_animated = np.mod(theta_animated, 1.0)
+        if mirror:
+            angular_fold = np.abs(theta_animated - 0.5) * 2  # Mirrored
+        else:
+            angular_fold = theta_animated  # Linear gradient
+
+        # Combine radial and angular
+        combined = radial_fold * 0.5 + angular_fold * 0.3
+
+        # Interference term
+        interference_phase = (radial_fold + angular_fold) * 2 * np.pi
+        combined += np.sin(interference_phase + layer_offset * 2 * np.pi) * 0.2
+
+        weight = 1.0 / (layer + 1)
+        pattern += weight * combined
+
+    # Fine detail layer
+    detail_r = r * complexity * 2 + r_phase * 2
+    detail_theta = theta_norm + theta_phase
+    detail = np.sin(detail_r * np.pi) * np.cos(detail_theta * np.pi * 2)
+    pattern += np.abs(detail) * 0.15
+
+    # Spiral element
+    spiral_phase = theta_in_wedge * 2 + (r * complexity + r_phase + theta_phase) * 2 * np.pi
+    spiral = np.sin(spiral_phase)
+    pattern += spiral * 0.1
+
+    # Normalize with fixed bounds
+    max_possible = sum(1.0 / (layer + 1) for layer in range(layers)) + 0.25
+    pattern = (pattern + max_possible * 0.5) / (max_possible * 1.5)
+    pattern = np.clip(pattern, 0, 1)
+
+    # Apply color shift
+    pattern = (pattern + color_shift) % 1.0
+
+    img_array = apply_color_gradient(pattern, colors, size)
     return Image.fromarray(img_array, mode='RGB')
 
 
@@ -228,6 +394,8 @@ def generate_unique_frames(
     zoom: float,
     layers: int,
     color_cycle: bool,
+    style: str = "smooth",
+    motion: str = "in",
 ) -> List[Image.Image]:
     """Generate all frames for one complete animation cycle.
 
@@ -240,13 +408,15 @@ def generate_unique_frames(
         zoom: Zoom level
         layers: Number of pattern layers
         color_cycle: Whether to cycle colors through the animation
+        style: Render style - "smooth", "crystal", or "kaleidoscope"
+        motion: Motion type for crystal/kaleidoscope - "in", "rotate", or "spiral"
 
     Returns:
         List of PIL Images
     """
     frames = []
 
-    print(f"[info] Generating {unique_frames} frames at {size}x{size}...", file=sys.stderr)
+    print(f"[info] Generating {unique_frames} {style} frames at {size}x{size}...", file=sys.stderr)
 
     for i in range(unique_frames):
         # Animation phase (0 to 1 for full cycle)
@@ -255,16 +425,52 @@ def generate_unique_frames(
         # Color shift for flowing color effect
         color_shift = phase if color_cycle else 0.0
 
-        frame = generate_fractal_frame(
-            size=size,
-            symmetry=symmetry,
-            phase=phase,
-            colors=colors,
-            complexity=complexity,
-            zoom=zoom,
-            layers=layers,
-            color_shift=color_shift,
-        )
+        if style == "smooth":
+            frame = generate_smooth_frame(
+                size=size,
+                symmetry=symmetry,
+                phase=phase,
+                colors=colors,
+                complexity=complexity,
+                zoom=zoom,
+                layers=layers,
+                color_shift=color_shift,
+            )
+        elif style == "crystal":
+            frame = generate_crystal_frame(
+                size=size,
+                symmetry=symmetry,
+                phase=phase,
+                colors=colors,
+                complexity=complexity,
+                zoom=zoom,
+                layers=layers,
+                color_shift=color_shift,
+                motion=motion,
+            )
+        elif style == "kaleidoscope":
+            frame = generate_kaleidoscope_frame(
+                size=size,
+                symmetry=symmetry,
+                phase=phase,
+                colors=colors,
+                complexity=complexity,
+                zoom=zoom,
+                layers=layers,
+                color_shift=color_shift,
+                motion=motion,
+            )
+        else:
+            frame = generate_smooth_frame(
+                size=size,
+                symmetry=symmetry,
+                phase=phase,
+                colors=colors,
+                complexity=complexity,
+                zoom=zoom,
+                layers=layers,
+                color_shift=color_shift,
+            )
 
         frames.append(frame)
 
@@ -378,7 +584,25 @@ def main():
         help="Milliseconds per frame (low-level control, must be multiple of 10)",
     )
 
-    # Fractal parameters
+    # Style
+    parser.add_argument(
+        "--style",
+        type=str,
+        choices=["smooth", "crystal", "kaleidoscope"],
+        default="smooth",
+        help="Visual style: smooth (organic/flowing), crystal (N-fold rotational), kaleidoscope (mirrored, N->2N fold) (default: smooth)",
+    )
+
+    # Motion type (for crystal/kaleidoscope styles)
+    parser.add_argument(
+        "--motion",
+        type=str,
+        choices=["in", "rotate", "spiral"],
+        default="in",
+        help="Motion type: in (zoom inward), rotate (rotation only), spiral (combined) (default: in)",
+    )
+
+    # Pattern parameters
     parser.add_argument(
         "--symmetry",
         type=int,
@@ -418,8 +642,8 @@ def main():
     parser.add_argument(
         "--colors",
         type=str,
-        default="black|purple|magenta|cyan|white",
-        help="Pipe or comma-separated colors for gradient (default: black|purple|magenta|cyan|white)",
+        default="black|#FF008E|#00FF71|#BA33B1|#2AFF4E",
+        help="Pipe or comma-separated colors for gradient (default: house palette)",
     )
 
     parser.add_argument(
@@ -509,7 +733,9 @@ def main():
     calc = calculate_frame_requirements(cps, int(fps), args.symmetry)
 
     print(f"[info] Configuration: {cps:.2f} cps, {fps:.1f}fps ({ms_per_frame}ms/frame), {args.symmetry}-fold symmetry", file=sys.stderr)
-    print(f"[info] Complexity: {args.complexity}, Layers: {args.layers}, Zoom: {args.zoom}", file=sys.stderr)
+    print(f"[info] Style: {args.style}, Complexity: {args.complexity}, Layers: {args.layers}, Zoom: {args.zoom}", file=sys.stderr)
+    if args.style in ("crystal", "kaleidoscope"):
+        print(f"[info] Motion: {args.motion}", file=sys.stderr)
 
     # Check if we need to suggest alternatives
     if calc['unique_frames'] > args.max_unique_frames:
@@ -546,6 +772,8 @@ def main():
         zoom=args.zoom,
         layers=args.layers,
         color_cycle=args.color_cycle,
+        style=args.style,
+        motion=args.motion,
     )
 
     # Save output

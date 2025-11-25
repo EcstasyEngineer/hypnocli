@@ -29,6 +29,8 @@ Curated color combinations for hypnotic loops. Use with `--colors "color1|color2
 | **Cosmic Hypnosis**<br>$\textcolor{#800080}{\blacksquare}$ $\textcolor{#FF00FF}{\blacksquare}$ $\textcolor{#FFC0CB}{\blacksquare}$ $\textcolor{#00FFFF}{\blacksquare}$ $\textcolor{#0000FF}{\blacksquare}$ | Purple to magenta, pink, cyan, and blue - mesmerizing spiral gradient.<br>`purple\|magenta\|pink\|cyan\|blue` |
 | **Bisexual Pride**<br>$\textcolor{#D60270}{\blacksquare}$ $\textcolor{#9B4F96}{\blacksquare}$ $\textcolor{#0038A8}{\blacksquare}$ | Bisexual pride flag colors.<br>`#D60270\|#9B4F96\|#0038A8` |
 | **Trans Pride**<br>$\textcolor{#5BCEFA}{\blacksquare}$ $\textcolor{#F5A9B8}{\blacksquare}$ $\textcolor{#FFFFFF}{\blacksquare}$ $\textcolor{#F5A9B8}{\blacksquare}$ $\textcolor{#5BCEFA}{\blacksquare}$ | Transgender pride flag colors.<br>`#5BCEFA\|#F5A9B8\|#FFFFFF\|#F5A9B8\|#5BCEFA` |
+| **Ultraviolet Pulse**<br>$\textcolor{#000000}{\blacksquare}$ $\textcolor{#C0C0C0}{\blacksquare}$ $\textcolor{#000000}{\blacksquare}$ $\textcolor{#FF00FF}{\blacksquare}$ $\textcolor{blue}{\blacksquare}$ $\textcolor{#300030}{\blacksquare}$ | Black/grey strobe with magenta, blue, and dark purple accents.<br>`#000000\|#C0C0C0\|#000000\|magenta\|blue\|#300030` |
+| **Pastel Dreams**<br>$\textcolor{#0080FF}{\blacksquare}$ $\textcolor{#E0FFFF}{\blacksquare}$ $\textcolor{#00CED1}{\blacksquare}$ $\textcolor{#FF85C0}{\blacksquare}$ $\textcolor{#D400D4}{\blacksquare}$ $\textcolor{#FFFACD}{\blacksquare}$ $\textcolor{#FFFF00}{\blacksquare}$ | Blue to whitish teal, teal, pink, magenta, light yellow, and yellow.<br>`#0080FF\|#E0FFFF\|#00CED1\|#FF85C0\|#D400D4\|#FFFACD\|#FFFF00` |
 
 ---
 
