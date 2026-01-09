@@ -2,6 +2,71 @@
 
 Generate complete hypnosis sessions using any OpenAI-compatible LLM. Consistent tone, contextual awareness across segments.
 
+---
+
+## New: Phase-Based Generator (v5.1 Taxonomy)
+
+The new `phase_chat_generator.py` uses a structured taxonomy with validated phases and techniques. It generates a plan first, then writes each phase with full context.
+
+### Quick Start
+
+```bash
+python3 phase_chat_generator.py \
+  --theme "deep relaxation with gentle obedience" \
+  --style Permissive \
+  --tone "warm, soothing, confident" \
+  --variant standard \
+  --duration "10 minutes" \
+  --optional "P7,P9" \
+  --out_dir my_session
+```
+
+### Variants
+
+| Variant | Description |
+|---------|-------------|
+| `standard` | Full arc: P1→P2→P3→P4→P5→P6 (context, induction, deepening, cognitive reduction, suggestions, emergence) |
+| `loop` | No emergence, loops via P13 for ambient/background content |
+| `twostage` | Fractionation between suggestion layers for complex programming |
+| `series` | Assumes prior conditioning, uses instant induction |
+
+### Optional Phases
+
+Add with `--optional "P7,P9,P10"`:
+- **P7** Safety/Consent - protective boundaries after context
+- **P8** Fractionation - wake/sleep cycling for depth
+- **P9** Scenario Immersion - detailed visualization
+- **P10** Trigger Installation - conditioned responses
+- **P11** Demonstration - trigger activation, bliss, proof
+- **P12** Behavioral Bridge - real-world action commands
+
+### Using an Existing Plan
+
+Skip the planning step by providing a plan.json:
+
+```bash
+# Edit plan.json to customize phases, techniques, durations...
+python3 phase_chat_generator.py --plan my_plan.json --out_dir out
+```
+
+### Outputs
+
+- `plan.json` - Phase structure with technique IDs
+- `structure.csv` - Timeline view
+- `script.txt` - Full script with phase markers
+
+### Reference
+
+See `hypnosis_taxonomy.md` for complete phase and technique documentation.
+
+---
+
+## Legacy: Segment-Based Generator
+
+The original `compose_session.py` offers more freeform control with rich instruction fields. See examples in `examples/`.
+
+---
+
 ## Setup
 
 ```bash

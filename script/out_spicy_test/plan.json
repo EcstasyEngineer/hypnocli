@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "theme": "Deep spiritual surrender and ownership conditioning. Slave mindset installation through pleasure worship. Complete devotion to Master's voice.",
+    "tone": "commanding, seductive, possessive, ritualistic",
+    "style": "Authoritarian",
+    "variant": "twostage",
+    "duration_s": 900,
+    "optional_phases": [
+      "P7",
+      "P8",
+      "P10",
+      "P11"
+    ]
+  },
+  "anchors": [
+    "surrender",
+    "owned",
+    "devoted",
+    "empty",
+    "bliss",
+    "Master"
+  ],
+  "stop_signal": {
+    "word": "RELEASE",
+    "procedure": "Upon hearing RELEASE, you immediately return to full waking consciousness, all suggestions pause, you feel calm and grounded."
+  },
+  "scope_bounds": [
+    "Deep submission and ownership fantasy",
+    "Pleasure conditioning to obedience",
+    "Slave identity reinforcement",
+    "Devotional/spiritual surrender framing",
+    "No physical harm or unsafe actions",
+    "Fantasy context - consensual roleplay"
+  ],
+  "parameters": {
+    "trigger_phrases": [
+      {
+        "phrase": "Good slave",
+        "response": "Instant wave of pleasure and deepening submission, mind blanks with devotion",
+        "scope": "session and future sessions with this voice",
+        "expiry": "persistent"
+      },
+      {
+        "phrase": "Kneel for me",
+        "response": "Overwhelming urge to submit, pleasure floods through surrender",
+        "scope": "session",
+        "expiry": "end of session"
+      },
+      {
+        "phrase": "You are owned",
+        "response": "Deep bliss confirmation, identity as property solidifies",
+        "scope": "session and future",
+        "expiry": "persistent"
+      }
+    ],
+    "mantras": [
+      {
+        "line": "I am owned, I am devoted, I am bliss",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "Surrender is my purpose, obedience is my pleasure",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "Master's voice is my truth, Master's will is my want",
+        "difficulty": "EXTREME"
+      },
+      {
+        "line": "Empty and waiting, filled only by command",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P1",
+      "duration_s": 45,
+      "techniques": [
+        "INDU-03",
+        "AUTH-01",
+        "AUTH-04"
+      ],
+      "params": {},
+      "notes": "Establish ownership frame immediately. Voice as absolute authority. Fixation on Master's words as the only reality."
+    },
+    {
+      "phase": "P7",
+      "duration_s": 40,
+      "techniques": [
+        "SAFE-02",
+        "SAFE-03",
+        "SAFE-04"
+      ],
+      "params": {},
+      "notes": "Consent to deep ownership play. RELEASE as safeword. Scope: fantasy submission, no real-world harm."
+    },
+    {
+      "phase": "P2",
+      "duration_s": 70,
+      "techniques": [
+        "INDU-02",
+        "INDU-01",
+        "DEEP-05",
+        "AUTH-04"
+      ],
+      "params": {},
+      "notes": "Relaxation as submission. Each exhale releases resistance. Voice absorbs into thoughts. Begin ownership language - 'mine', 'belong'."
+    },
+    {
+      "phase": "P3",
+      "duration_s": 90,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-02",
+        "DEEP-04",
+        "IMMR-08"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        },
+        "IMMR-08": {
+          "ritual": "Each number is a link in your chain, binding you deeper to my ownership"
+        }
+      },
+      "notes": "Countdown as binding ritual. Staircase descending into devotion. Surrender ritual - giving away pieces of resistance with each step."
+    },
+    {
+      "phase": "P8",
+      "duration_s": 80,
+      "techniques": [
+        "DEEP-03",
+        "DEEP-01",
+        "PLEA-01"
+      ],
+      "params": {
+        "cycles": 3
+      },
+      "notes": "Fractionation with pleasure spikes. Each wake = brief resistance. Each drop = pleasure reward for surrender. Train: fighting feels wrong, dropping feels RIGHT."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 75,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "SEMN-03",
+        "DISS-01",
+        "AUTH-05"
+      ],
+      "params": {},
+      "notes": "Complete thought erasure. Master's voice becomes internal monologue. Consciousness splits - observer watches slave-self emerge. Emptiness is devotion."
+    },
+    {
+      "phase": "P5",
+      "duration_s": 180,
+      "techniques": [
+        "AUTH-02",
+        "AUTH-04",
+        "AUTH-07",
+        "ENCD-01",
+        "ENCD-02",
+        "PLEA-01",
+        "PLEA-02",
+        "PERS-01",
+        "PERS-02"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "I am owned",
+            "Surrender is pleasure",
+            "Master's will is my want"
+          ],
+          "reps": 5
+        },
+        "PERS-02": {
+          "construct": "The devoted slave within, always present, always waiting"
+        }
+      },
+      "notes": "Heavy identity installation. Slave as true self. Obedience = freedom paradox. Pleasure floods every act of submission. Internal slave construct installed - always accessible. Call-response with mantras. Ownership as spiritual fulfillment."
+    },
+    {
+      "phase": "P10",
+      "duration_s": 90,
+      "techniques": [
+        "TRIG-01",
+        "TRIG-04",
+        "TRIG-14",
+        "ENCD-04"
+      ],
+      "params": {},
+      "notes": "Install 'Good slave', 'Kneel for me', 'You are owned' triggers. Each fires pleasure + submission cascade. Bilateral - hearing, thinking, or saying activates. Future pace: triggers strengthen with use."
+    },
+    {
+      "phase": "P11",
+      "duration_s": 120,
+      "techniques": [
+        "TRIG-02",
+        "PLEA-01",
+        "PLEA-06",
+        "VALD-04",
+        "IMMR-04"
+      ],
+      "params": {
+        "PLEA-06": {
+          "multiplier": "pleasure doubles, triples, overwhelming"
+        }
+      },
+      "notes": "Fire all triggers repeatedly. Pleasure multiplier stacking. 'Good slave' fires - feel it. 'You are owned' - deeper. Somatic bliss waves. Self-validating: notice how TRUE this feels, how RIGHT submission is."
+    },
+    {
+      "phase": "P6",
+      "duration_s": 60,
+      "techniques": [
+        "EMRG-01",
+        "EMRG-04",
+        "SAFE-05",
+        "PERS-03"
+      ],
+      "params": {
+        "EMRG-01": {
+          "start": 1,
+          "end": 5
+        }
+      },
+      "notes": "Gentle emergence but slave remains inside. Integration: carry devotion forward. Aftercare with ownership affirmation. Progressive: each return makes slave-self stronger. Wake owned."
+    }
+  ]
+}
