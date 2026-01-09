@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "Total ownership, service, and existence purely for another's benefit. Identity consumed by devotion. Purpose is service, fulfillment is obedience.",
+    "tone": "commanding, possessive, devotional, absolute",
+    "style": "Authoritarian",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "slave",
+    "serve",
+    "owned",
+    "belong",
+    "devoted",
+    "purpose"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Slave/service fantasy",
+    "Ownership and devotion",
+    "No physical harm",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "I am a slave",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "My purpose is to serve",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I belong completely",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "Service is my entire existence",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I am nothing without my devotion",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "AUTH-01",
+        "AUTH-04"
+      ],
+      "params": {},
+      "notes": "Instant drop into service mindset. 'Kneel in your mind. Drop into your place. You know where you belong - at the feet of authority, ready to serve. This is where slaves like you find peace. In service. In devotion.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "AUTH-04",
+        "PLEA-01"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown binding deeper into service. 'Ten - sink deeper into your purpose. Nine - devotion intensifies. Eight - you exist to serve. Each number binds you tighter. Seven - owned more completely. Six - slave identity solidifies.' Pleasure in accepting your place."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "AUTH-05",
+        "DISS-01"
+      ],
+      "params": {},
+      "notes": "Self dissolves into service identity. 'Your old self fades. Only the slave remains. No personal desires - only the desire to serve. No personal will - only the will to obey. Empty of self. Full of purpose. A perfect vessel for devotion.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "AUTH-04",
+        "PERS-01",
+        "PERS-02",
+        "PLEA-01"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "I am a slave",
+            "My purpose is to serve",
+            "I belong completely",
+            "Service is my entire existence",
+            "I am nothing without my devotion"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Slave identity encoding. 'Say it with devotion - I am a slave. Feel the truth of it fill you. Again. Your identity crystallizes around service. This is what you are. This is all you are.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "AUTH-04",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop as eternal service. 'The service never ends. A slave's devotion is eternal. Each loop deepens your purpose. You exist only in this state. Return to your place. Kneel in your mind. Drop into your place...' Seamless connection to opening."
+    }
+  ]
+}

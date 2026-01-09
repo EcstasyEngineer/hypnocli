@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "Craving, compulsion, and escalating dependence on control. Need that grows with every fix. Withdrawal impossible, return inevitable.",
+    "tone": "seductive, insistent, desperate, intoxicating",
+    "style": "Compulsion",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "crave",
+    "need",
+    "addicted",
+    "fix",
+    "more",
+    "hooked"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Addiction/craving fantasy",
+    "Compulsive return and dependence",
+    "No substance references",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "I crave this feeling",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "I need to listen more and more",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "The more I get, the more I need",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I am hooked on obedience",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I cannot function without my next fix",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "DEEP-05",
+        "PLEA-05"
+      ],
+      "params": {},
+      "notes": "Instant drop framed as getting a fix. 'You came back. You had to come back. Feel that rush as my voice fills you again. The craving brought you here. The need pulled you down. This is your fix.' Recognition of familiar addiction."
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "PLEA-01",
+        "PLEA-05"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown where each number intensifies the craving. 'Ten - feel the need growing. Nine - deeper into the addiction. The longer you go without, the worse it gets. But here, dropping deeper, the craving is satisfied... temporarily. You'll need more soon.' Pleasure as temporary relief that builds tolerance."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "PLEA-05",
+        "AUTH-05"
+      ],
+      "params": {},
+      "notes": "Thoughts replaced by craving. The only thought left is NEED. 'Your mind empties of everything except the craving. Need. Want. More. That's all you can think now. Addicted thoughts consume you. The fix is all that matters.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "PLEA-05",
+        "PERS-01",
+        "PERS-03",
+        "AUTH-04"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "I crave this feeling",
+            "I need to listen more and more",
+            "The more I get, the more I need",
+            "I am hooked on obedience",
+            "I cannot function without my next fix"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Heavy addiction encoding. 'Say it - I crave this feeling. Feel how true it is. The addiction deepens. Each repetition hooks you harder. You belong to the craving now. You'll come back. You always come back.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "PLEA-05",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop as the next fix. 'Already the craving returns. Already you need more. How long until you have to listen again? Not long. The addiction demands it. Loop back now. Get your next fix. You came back... you had to come back...' Seamless connection to opening."
+    }
+  ]
+}

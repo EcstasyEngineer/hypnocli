@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "Playful simplification, carefree joy, and pretty-minded bliss. Thoughts float away leaving giggles and sparkles. Smart is hard, ditzy is easy and fun.",
+    "tone": "playful, bubbly, teasing, sweet",
+    "style": "Permissive",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "pretty",
+    "giggly",
+    "empty",
+    "sparkles",
+    "ditzy",
+    "pink"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Bimbo/airhead fantasy",
+    "Thought simplification and joy",
+    "Playful, consensual context",
+    "No degradation - emphasis on happy emptiness"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "Thinking is hard, smiling is easy",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "My mind feels bubbly and pink",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "Smart thoughts float away like bubbles",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I giggle instead of think",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "No thoughts left, only sparkles",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "DEEP-05",
+        "PLEA-01"
+      ],
+      "params": {},
+      "notes": "Instant drop into bubbly space. 'Sink down into the pink, pretty place. Feel the giggles starting already. So easy to let go here. Thoughts get lighter and lighter. Everything feels sparkly and soft. Just relax into ditzy bliss.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "LOAD-02",
+        "PLEA-01"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown where each number pops a thought bubble. 'Ten - pop - there goes a complicated thought, like a pretty bubble. Nine - pop - another one floats away. So much easier without it. Eight - giggle - getting emptier and happier.' Each number makes you ditzier and happier."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "PLEA-02",
+        "DISS-01"
+      ],
+      "params": {},
+      "notes": "Thoughts replaced by sparkles and giggles. 'Smart thoughts are so heavy. Let them go. Replace them with pink sparkles. Giggles instead of worries. Bubbles instead of stress. Empty head feels so good. Pretty and vacant and happy.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "PLEA-01",
+        "PERS-01",
+        "PERS-02",
+        "AUTH-02"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "Thinking is hard, smiling is easy",
+            "My mind feels bubbly and pink",
+            "Smart thoughts float away like bubbles",
+            "I giggle instead of think",
+            "No thoughts left, only sparkles"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Bimbo programming with joy reward. 'Say it with a giggle - thinking is hard, smiling is easy. Tee hee! So true. Again, more giggly. Feel how happy empty feels. You're such a good bimbo.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "PLEA-01",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop as endless bimbo bliss. 'Stay in the pink sparkly place. Time doesn't matter to a pretty empty head. Just giggles and bubbles forever. Loop back into the bliss. Sink down into the pink, pretty place... feel the giggles starting...' Seamless connection to opening."
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "Openness, receptivity, and effortless absorption of commands. Mind becomes endlessly writable. Suggestions sink in instantly and permanently.",
+    "tone": "smooth, penetrating, inevitable, hypnotic",
+    "style": "Compulsion",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "open",
+    "receptive",
+    "absorb",
+    "accept",
+    "sink",
+    "writable"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Suggestibility and openness",
+    "Mental receptivity training",
+    "No specific behavioral commands",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "I am open and receptive",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "Words sink straight into my mind",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "My mind bends to every suggestion",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I possess zero resistance",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "My mind is permanently writable",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "DEEP-05",
+        "SEMN-01"
+      ],
+      "params": {},
+      "notes": "Instant drop into receptive state. 'Open up. Feel your mind become soft and receptive. Every word I say sinks in effortlessly. No barriers. No filters. Just pure, perfect absorption. You're already accepting everything.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "LOAD-02",
+        "PLEA-01"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown opening the mind wider. 'Ten - your mind opens a little more. Nine - suggestions sink in deeper. Eight - even more receptive now. The more you try to resist, the more open you become. Each number removes another barrier.' Resistance paradox - trying to filter makes you more suggestible."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "SEMN-03",
+        "AUTH-05"
+      ],
+      "params": {},
+      "notes": "Critical mind dissolves completely. 'Your analytical mind shuts down. No more evaluating. No more questioning. Just accepting. Every word becomes truth. My voice writes directly onto your mind. No buffer. No delay. Instant acceptance.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "AUTH-04",
+        "PLEA-01",
+        "PERS-01",
+        "PERS-03"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "I am open and receptive",
+            "Words sink straight into my mind",
+            "My mind bends to every suggestion",
+            "I possess zero resistance",
+            "My mind is permanently writable"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Suggestibility programming. 'Accept this truth - I am open and receptive. Feel it become part of you. Again. Each repetition writes deeper. Your mind is clay. Every suggestion shapes you permanently.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "ENCD-04",
+        "VALD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop as continuous opening. 'Your mind stays open. Permanently receptive. Each listen opens you wider. You can't close it anymore. Loop back and sink deeper into acceptance. Open up... feel your mind become soft and receptive...' Seamless connection to opening."
+    }
+  ]
+}

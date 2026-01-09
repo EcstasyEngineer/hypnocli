@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "The profound joy of yielding completely to external will. Submission as freedom, surrender as peace. Finding bliss in giving up control.",
+    "tone": "warm, yielding, blissful, devoted",
+    "style": "Mixed",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "submit",
+    "yield",
+    "kneel",
+    "surrender",
+    "belong",
+    "peace"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Submission and yielding",
+    "Control surrender",
+    "No physical commands",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "It feels good to submit",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "I find freedom in submission",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "My will aligns with command",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "Submission is my bliss",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I cannot imagine life without submission",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-01",
+        "DEEP-05",
+        "PLEA-03"
+      ],
+      "params": {},
+      "notes": "Gentle drop into submission. 'Sink down and submit. Feel your will softening, yielding. It's such a relief to stop fighting. To simply... give in. Submission wraps around you like a warm blanket. Safe. Peaceful. Right.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "PLEA-01",
+        "AUTH-07"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown as will surrendering. 'Ten - feel your will soften. Nine - yielding comes so easily. Eight - submission deepens. Seven - freedom in surrender. The paradox is true - the more you submit, the freer you feel. Six - kneeling in your mind...' Obedience = freedom framing."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "SEMN-03",
+        "PLEA-03",
+        "AUTH-05"
+      ],
+      "params": {},
+      "notes": "Will replaced by willingness to submit. 'Your own will quiets. In its place - a beautiful willingness. Willingness to yield. Willingness to kneel. Willingness to belong. No more struggle. Just peaceful submission filling every part of you.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "PLEA-01",
+        "PLEA-03",
+        "PERS-01",
+        "PERS-03"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "It feels good to submit",
+            "I find freedom in submission",
+            "My will aligns with command",
+            "Submission is my bliss",
+            "I cannot imagine life without submission"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Submission encoding with bliss reward. 'Say it with peace - it feels good to submit. Feel how true it is. Again. Each repetition deepens the surrender. Submission becomes your nature. Your identity.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "PLEA-03",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop as eternal yielding. 'Stay in submission. It's where you belong. Each loop surrenders you deeper. Time softens in this peaceful place. Return to the beginning. Sink down and submit... feel your will softening...' Seamless connection to opening."
+    }
+  ]
+}

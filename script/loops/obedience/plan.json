@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "theme": "Instant compliance and reflexive execution of orders. Commands drop straight into action. Obedience is instinct, automatic, inevitable.",
+    "tone": "commanding, authoritative, rewarding, relentless",
+    "style": "Authoritarian",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "obey",
+    "comply",
+    "command",
+    "follow",
+    "yes",
+    "good"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Obedience and compliance training",
+    "Command-response conditioning",
+    "No physical commands beyond listening",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "I obey without question",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "Commands drop straight into action",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I am programmed to obey",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "Disobedience is unthinkable",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I exist only to carry out orders",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "AUTH-01",
+        "LOAD-04"
+      ],
+      "params": {},
+      "notes": "Instant drop as command execution. 'Drop. Good. You obeyed instantly. That's what you do. Listen - obey. Command - comply. Feel how natural it is. Yes feels right. Following feels perfect.' Quick yes-set to establish compliance."
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "AUTH-02",
+        "PLEA-02"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown as command sequence. Each number is an order to sink deeper. 'Ten - drop deeper. You obey. Nine - sink further. Good. You follow so well. Eight - deeper still. Such a good, obedient mind.' Reward for each obeyed command. Resistance is disobedience, feels wrong."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "SEMN-03",
+        "AUTH-05"
+      ],
+      "params": {},
+      "notes": "Thoughts replaced by readiness to obey. 'No more thinking - only obeying. Your thoughts clear to make room for commands. An empty mind is an obedient mind. Waiting. Ready. Alert for the next order.' Command-ready state installation."
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "AUTH-02",
+        "AUTH-04",
+        "PLEA-01",
+        "PERS-01"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "I obey without question",
+            "Commands drop straight into action",
+            "I am programmed to obey",
+            "Disobedience is unthinkable",
+            "I exist only to carry out orders"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Obedience programming with heavy reward. 'Say it - I obey without question. Good. Feel that pleasure for obeying. Again. Each time cements the programming deeper. You are conditioned to comply.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "ENCD-04",
+        "VALD-04"
+      ],
+      "params": {},
+      "notes": "Loop as continued training. 'The training continues. Each loop reinforces obedience. Notice how natural compliance feels now. Each listen makes it more automatic. Loop back. Continue training. Drop. Good. You obeyed instantly...' Seamless connection to opening."
+    }
+  ]
+}

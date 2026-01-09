@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "Resistance melts into peaceful, inevitable compliance. Surrender feels like coming home. Yielding is freedom, acceptance is bliss.",
+    "tone": "warm, soothing, inevitable, embracing",
+    "style": "Permissive",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "accept",
+    "surrender",
+    "yield",
+    "peace",
+    "let go",
+    "melt"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Acceptance and surrender",
+    "Peaceful yielding",
+    "No force or struggle framing",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "Letting go feels so good",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "Resistance fades like mist",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "Surrender defines who I am",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I melt into peaceful acceptance",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "Only acceptance remains within me",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-01",
+        "DEEP-05",
+        "PLEA-03"
+      ],
+      "params": {},
+      "notes": "Gentle drop into acceptance. 'Let yourself sink into this warm, welcoming space. No need to fight. No need to resist. Just... accept. Feel how peaceful it is to stop struggling. To simply surrender and let go.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "PLEA-01",
+        "PLEA-03"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown as layers of resistance melting. 'Ten - feel a layer of resistance melt away. Nine - another barrier dissolves. So peaceful without it. Eight - surrendering feels like relief. Like putting down a heavy burden.' Each number brings more peace through acceptance."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "PLEA-03",
+        "SEMN-03"
+      ],
+      "params": {},
+      "notes": "Thoughts yield to peaceful emptiness. 'Your thoughts slow... quiet... yield. No need for them now. Just peaceful acceptance. The struggle ends. Resistance was exhausting. This is so much better. Just... accepting. Just... being.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "PLEA-01",
+        "PLEA-03",
+        "PERS-01",
+        "PERS-03"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "Letting go feels so good",
+            "Resistance fades like mist",
+            "Surrender defines who I am",
+            "I melt into peaceful acceptance",
+            "Only acceptance remains within me"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Acceptance programming with peace reward. 'Say it softly - letting go feels so good. Feel the truth of it. Again, letting it sink deeper. Surrender is your nature now. Peace is your reward.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "PLEA-03",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop as eternal peace. 'Stay in this peaceful place. No need to leave. No need to struggle. Time flows gently here. Each loop deepens acceptance. Sink back into the warmth. Let yourself sink into this warm, welcoming space...' Seamless connection to opening."
+    }
+  ]
+}

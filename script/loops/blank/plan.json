@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "Empty mindedness and thoughtless receptive states. The void where thoughts used to be. Perfect stillness, perfect emptiness, perfect peace.",
+    "tone": "quiet, hollow, still, absolute",
+    "style": "Compulsion",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "blank",
+    "empty",
+    "void",
+    "nothing",
+    "still",
+    "hollow"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Empty mind/blank state",
+    "Thoughtlessness and stillness",
+    "No identity dissolution beyond thought",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "My mind is quiet and still",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "I crave the feeling of emptiness",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "A blank mind is a perfect mind",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "There is nothing in my head",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I exist only as beautiful emptiness",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "LOAD-02",
+        "DEEP-09"
+      ],
+      "params": {},
+      "notes": "Instant drop into the void. 'Sink into the nothing. Feel your thoughts... stop. Just... blank. Empty. Still. The void welcomes you back. So quiet here. So perfectly empty.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "LOAD-02",
+        "DEEP-09"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown erasing thoughts. 'Ten - a thought dissolves into nothing. Nine - emptier now. Eight - another thought... gone. Seven - the void grows. Six - so blank. Five - nothing left. Four - hollow and perfect. Three - absolute stillness. Two - pure void. One - completely blank.' Each number erases more."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "DISS-01",
+        "DEEP-09"
+      ],
+      "params": {},
+      "notes": "Total thought elimination. 'No thoughts. None. Just... void. Feel the emptiness where your mind used to be. Hollow. Still. Perfect. Not even the thought of thinking. Just blank. Beautiful, blank nothing.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "LOAD-02",
+        "PERS-01",
+        "PERS-03",
+        "PLEA-01"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "My mind is quiet and still",
+            "I crave the feeling of emptiness",
+            "A blank mind is a perfect mind",
+            "There is nothing in my head",
+            "I exist only as beautiful emptiness"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Blank state encoding. 'Let this truth echo in the void - my mind is quiet and still. Feel it become the only thing in the emptiness. Again. Even these words will fade. Leaving only... blank.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "LOAD-02",
+        "DISS-03",
+        "DEEP-09"
+      ],
+      "params": {},
+      "notes": "Loop as eternal void. 'Stay in the nothing. Time has no meaning to emptiness. Just... blank. Forever. Loop back into the void. Sink into the nothing... feel your thoughts... stop...' Seamless connection to opening."
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "theme": "Embrace inner femininity. Grace, elegance, softness, and beauty. Transformation into something softer, prettier, more delicate. Finding joy in feminine expression.",
+    "tone": "soft, graceful, beautiful, transformative",
+    "style": "Permissive",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "pretty",
+    "soft",
+    "graceful",
+    "feminine",
+    "beautiful",
+    "delicate"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Feminization/feminine expression",
+    "Beauty and grace",
+    "No body modification commands",
+    "Fantasy context - consensual play"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "I feel pretty and soft",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "My movements are becoming graceful",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "Femininity is my true nature",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I am becoming beautifully feminine",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I exist to be pretty and graceful",
+        "difficulty": "DEEP"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-01",
+        "DEEP-05",
+        "IMMR-03"
+      ],
+      "params": {},
+      "notes": "Gentle drop into feminine space. 'Sink into softness. Feel yourself becoming more graceful with every breath. More delicate. More beautiful. Let your inner femininity rise to the surface. Pretty and soft and perfect.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "IMMR-03",
+        "PLEA-01"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown as feminine transformation. 'Ten - feel yourself softening. Nine - more graceful now. Eight - prettier with each number. Seven - delicate and feminine. Six - beauty blossoming. Five - so soft and lovely. Four - graceful movements. Three - feminine perfection. Two - almost complete. One - beautifully feminine.'"
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "IMMR-03",
+        "PERS-02",
+        "PLEA-01"
+      ],
+      "params": {},
+      "notes": "Old self softens into feminine identity. 'Harsh edges smooth away. Rough thoughts become gentle. The pretty girl inside emerges. She was always there. Soft. Graceful. Beautiful. Now she's all that remains. Your true feminine self.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "IMMR-03",
+        "PERS-01",
+        "PERS-02",
+        "PLEA-01"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "I feel pretty and soft",
+            "My movements are becoming graceful",
+            "Femininity is my true nature",
+            "I am becoming beautifully feminine",
+            "I exist to be pretty and graceful"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. NO placeholder text. Feminine identity encoding. 'Say it softly - I feel pretty and soft. Feel how true it becomes. Again, more gracefully. Your femininity deepens with each word. This is who you truly are.'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "IMMR-03",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop as eternal beauty. 'Stay in this soft, pretty place. Femininity grows stronger each moment. Each loop makes you more graceful, more beautiful. Return to the transformation. Sink into softness... feel yourself becoming more graceful...' Seamless connection to opening."
+    }
+  ]
+}

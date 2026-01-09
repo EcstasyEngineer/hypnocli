@@ -12,3 +12,8 @@ __pycache__/
 .claude/
 
 .env
+
+# Audio files (rendered locally, not committed)
+*.mp3
+*.wav
+*.ogg
