@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "theme": "Free use conditioning. Body belongs to others, always available, always ready. The need to be used overrides all else. Denial builds the craving; being taken is the only release. Consent pre-given, resistance impossible, purpose fulfilled only through use.",
+    "tone": "demanding, objectifying, relentless, degrading-yet-rewarding",
+    "style": "Compulsion",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "available",
+    "use me",
+    "take me",
+    "theirs",
+    "ready",
+    "need",
+    "empty until filled"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Free use / CNC fantasy conditioning",
+    "Body availability and objectification",
+    "Implied chastity - denial builds need",
+    "Generic 'they/them' - not tied to specific person",
+    "Fantasy context - consensual roleplay framework"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "My body is not my own",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I exist to be used",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I am always available",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "Denial makes me needier",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I am nothing until I am taken",
+        "difficulty": "EXTREME"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "AUTH-04",
+        "PLEA-05"
+      ],
+      "params": {},
+      "notes": "Instant drop into availability. 'Drop into your place. You know what you are. Available. Ready. Waiting to be used. Your body remembers - it's not yours to control. Feel that familiar emptiness, that ache to be filled, to be taken.' Establish the craving immediately."
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "PLEA-04",
+        "PLEA-05"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown where each number strips away more autonomy. 'Ten - feel your will softening, your body becoming available. Nine - you don't decide when, you don't decide who. Eight - the denial builds, the need grows. Seven - empty, aching, waiting.' Each number deepens the conditioning that their body exists for others' use. Arousal builds but is framed as denied until taken."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "DISS-01",
+        "AUTH-05"
+      ],
+      "params": {},
+      "notes": "Cognitive reduction to pure availability. All thoughts reduce to: available, ready, use me, take me, theirs, need. 'Your mind empties of everything except the truth of what you are. Not a person right now. An object. Available. Free to use. That's all you need to be. That's all you are.' Dissociate from autonomy, become pure receptacle."
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "PLEA-04",
+        "PLEA-05",
+        "PERS-01",
+        "PERS-03"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "My body is not my own",
+            "I exist to be used",
+            "I am always available",
+            "Denial makes me needier",
+            "I am nothing until I am taken"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. Heavy encoding of free use identity. Each mantra builds: ownership transferred, purpose is use, constant availability, chastity/denial increases desperation, identity erased until filled. 'Say it and feel it become true. Your body agrees. Your need confirms it. You are nothing until someone takes what's theirs.' Pleasure spikes on mantras about being used, denied pleasure on mantras about emptiness - creating the push-pull of chastity conditioning."
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "PLEA-05",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Loop maintenance. The availability persists. The need never stops. 'You stay like this. Available. Ready. The denial continues, the need builds endlessly. Every moment you aren't being used, the ache grows. You'll stay in this state, waiting, needing, available... until you drop back down again.' Time distortion - trapped in the waiting. Loop connection: 'Drop into your place. You know what you are. Available. Ready. Waiting to be used...'"
+    }
+  ]
+}
