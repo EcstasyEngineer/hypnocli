@@ -59,10 +59,10 @@ Scripts leave listeners in one or more of these state categories:
 | **Duration** | 10 min |
 | **Intensity** | Medium |
 | **Ending State** | identity-shifted, empty, receptive |
-| **Core Loop** | Thoughts pop away → giggly → pink → empty → happy |
-| **Description** | Cognitive simplification through pink/sparkly aesthetic. Ditzy, carefree, thought-free joy. |
-| **Primes For** | feminine, suggestibility, acceptance |
-| **Primed By** | blank, acceptance |
+| **Core Loop** | Empty-headed → too dumb to think → vapid → giggly → pretty |
+| **Description** | Empty-headed bimbo bliss. Bridges from control themes - the emptiness transforms into vapid, giggly joy. Can't think for yourself, just pretty and pleasing. |
+| **Primes For** | feminine, suggestibility, acceptance, submission |
+| **Primed By** | blank, brainwashing, obedience, acceptance |
 
 ---
 
@@ -101,10 +101,10 @@ Scripts leave listeners in one or more of these state categories:
 | **Duration** | 10 min |
 | **Intensity** | Light-Medium |
 | **Ending State** | identity-shifted, receptive |
-| **Core Loop** | Soft → graceful → pretty → feminine → transformed |
-| **Description** | Feminization through softness and grace. Identity transformation toward feminine expression. |
+| **Core Loop** | Surrender → softness → grace → pretty → feminine |
+| **Description** | Existing surrender transforms into feminine grace. Emptiness fills with beauty. Bridges from control themes - yielding becomes graceful, pretty, delicate. |
 | **Primes For** | bimbo, submission, acceptance |
-| **Primed By** | acceptance, bimbo, blank |
+| **Primed By** | blank, submission, acceptance, brainwashing |
 
 ---
 
@@ -242,20 +242,20 @@ Compatibility ratings for A → B transitions:
                  TO:
 FROM:        accept addic bimbo blank brain femin harem obedi slave submi sugge free  free+ tease tease+
 acceptance     -    🟡    🟢    🟢    🔴    🟢    🔴    🟡    🔴    🟢    🟢    🟡    🟡    🟢    🟢
-addiction     🔴     -    🔴    🔴    🟡    🔴    🟡    🟢    🟡    🔴    🔴    🟡    🟡    🟢    🟢
+addiction     🔴     -    🟡    🔴    🟡    🔴    🟡    🟢    🟡    🔴    🔴    🟡    🟡    🟢    🟢
 bimbo         🟢    🔴     -    🟢    🔴    🟢    🔴    🟡    🔴    🟢    🟢    🔴    🔴    🔴    🔴
 blank         🟢    🟡    🟢     -    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢
-brainwashing  🔴    🟢    🔴    🔴     -    🔴    🟢    🟢    🟢    🟡    🔴    🟢    🟢    🟡    🟡
+brainwashing  🔴    🟢    🟢    🔴     -    🔴    🟢    🟢    🟢    🟡    🔴    🟢    🟢    🟡    🟡
 feminine      🟢    🔴    🟢    🟢    🔴     -    🔴    🔴    🔴    🟢    🟢    🔴    🔴    🔴    🔴
-harem         🔴    🟡    🔴    🔴    🟢    🔴     -    🟢    🟢    🟡    🔴    🟢    🟢    🟡    🟡
-obedience     🔴    🟡    🔴    🔴    🟢    🔴    🟢     -    🟢    🟡    🔴    🟢    🟢    🟡    🟡
-slave         🔴    🟡    🔴    🔴    🟢    🔴    🟢    🟢     -    🔴    🔴    🟢    🟢    🟢    🟢
+harem         🔴    🟡    🟡    🔴    🟢    🔴     -    🟢    🟢    🟡    🔴    🟢    🟢    🟡    🟡
+obedience     🔴    🟡    🟢    🔴    🟢    🔴    🟢     -    🟢    🟡    🔴    🟢    🟢    🟡    🟡
+slave         🔴    🟡    🟡    🔴    🟢    🔴    🟢    🟢     -    🔴    🔴    🟢    🟢    🟢    🟢
 submission    🟢    🔴    🟢    🟢    🟡    🟢    🟢    🟢    🟢     -    🟢    🟢    🟢    🟢    🟢
 suggestib.    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢     -    🟢    🟢    🟢    🟢
-free_use      🔴    🟢    🔴    🔴    🟢    🔴    🟢    🟢    🟢    🔴    🔴     -    🟢    🟢    🟢
-free_use+     🔴    🟢    🔴    🔴    🟢    🔴    🟢    🟢    🟢    🔴    🔴    🟢     -    🟢    🟢
+free_use      🔴    🟢    🟡    🔴    🟢    🔴    🟢    🟢    🟢    🔴    🔴     -    🟢    🟢    🟢
+free_use+     🔴    🟢    🟡    🔴    🟢    🔴    🟢    🟢    🟢    🔴    🔴    🟢     -    🟢    🟢
 tease_denial  🔴    🟢    🔴    🔴    🟡    🔴    🟡    🟢    🟢    🟡    🔴    🟢    🟢     -    🟢
-tease_d_obed  🔴    🟢    🔴    🔴    🟡    🔴    🟢    🟢    🟢    🔴    🔴    🟢    🟢    🟢     -
+tease_d_obed  🔴    🟢    🟡    🔴    🟡    🔴    🟢    🟢    🟢    🔴    🔴    🟢    🟢    🟢     -
 ```
 
 🟢 = smooth transition | 🟡 = workable with some friction | 🔴 = jarring, avoid

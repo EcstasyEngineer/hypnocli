@@ -1,18 +1,18 @@
 {
   "meta": {
-    "theme": "Playful simplification, carefree joy, and pretty-minded bliss. Thoughts float away leaving giggles and sparkles. Smart is hard, ditzy is easy and fun.",
-    "tone": "playful, bubbly, teasing, sweet",
+    "theme": "Empty-headed bimbo bliss. Too dumb to think, too pretty to care. Thoughts simply don't form anymore - just vapid, giggly emptiness. A dumb blonde who can't think for herself, focused only on being pretty and pleasing. The emptiness from trance becomes permanent airheaded joy.",
+    "tone": "vapid, giggly, empty-headed, sweetly dumb",
     "style": "Permissive",
     "variant": "loop",
     "duration_s": 600
   },
   "anchors": [
+    "empty-headed",
+    "dumb",
     "pretty",
     "giggly",
-    "empty",
-    "sparkles",
-    "ditzy",
-    "pink"
+    "vapid",
+    "can't think"
   ],
   "stop_signal": {
     "word": "AWAKEN",
@@ -59,7 +59,7 @@
         "PLEA-01"
       ],
       "params": {},
-      "notes": "Instant drop into bubbly space. 'Sink down into the pink, pretty place. Feel the giggles starting already. So easy to let go here. Thoughts get lighter and lighter. Everything feels sparkly and soft. Just relax into ditzy bliss.'"
+      "notes": "Instant drop into empty-headed space. The emptiness you already feel transforms into bimbo bliss. 'Your mind is already so empty... so easy to just stay that way. Too dumb to think now, too pretty to care. Feel how good it is to be empty-headed, vapid, giggly. You can't think for yourself anymore - and that feels so right. Just a dumb, pretty thing now, giggling instead of thinking.'"
     },
     {
       "phase": "P3",
@@ -88,7 +88,7 @@
         "DISS-01"
       ],
       "params": {},
-      "notes": "Thoughts replaced by sparkles and giggles. 'Smart thoughts are so heavy. Let them go. Replace them with pink sparkles. Giggles instead of worries. Bubbles instead of stress. Empty head feels so good. Pretty and vacant and happy.'"
+      "notes": "Complete cognitive emptiness - too dumb to form thoughts. 'Smart thoughts just don't happen anymore. You're too empty-headed for that. Too dumb. Too vapid. Thoughts try to form but you're just... too pretty to think. Giggling instead, empty and happy. Can't think for yourself - don't want to. Just a dumb, giggly thing with nothing in your pretty head.'"
     },
     {
       "phase": "P5",
