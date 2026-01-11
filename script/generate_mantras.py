@@ -152,7 +152,6 @@ class Mantra:
     tone: str
     has_subject: bool = False
     has_dominant: bool = False
-    tags: List[str] = field(default_factory=list)
 
 
 # -------------------------
@@ -224,21 +223,17 @@ Return a JSON array of mantra objects. Each object must have:
 - "text": The raw mantra text (human-readable, no placeholders)
 - "template": The templated version with {subject_*} and {dominant_*} placeholders
 - "difficulty": One of BASIC, LIGHT, MODERATE, DEEP, EXTREME
-- "tags": Array of 1-3 keyword tags
-
 Example output:
 [
   {
     "text": "I obey Master without question",
     "template": "{subject_subjective} [obey|obeys] {dominant_name} without question",
-    "difficulty": "MODERATE",
-    "tags": ["obedience", "compliance"]
+    "difficulty": "MODERATE"
   },
   {
     "text": "My thoughts slow and fade",
     "template": "{subject_possessive} thoughts slow and fade",
-    "difficulty": "LIGHT",
-    "tags": ["blank", "empty"]
+    "difficulty": "LIGHT"
   }
 ]
 """
@@ -375,16 +370,12 @@ def validate_mantra(m: Dict[str, Any], theme: str, tone: str) -> Optional[Mantra
     text = m.get("text", "").strip()
     template = m.get("template", text).strip()
     difficulty = m.get("difficulty", "MODERATE").upper()
-    tags = m.get("tags", [])
 
     if not text:
         return None
 
     if difficulty not in DIFFICULTIES:
         difficulty = "MODERATE"
-
-    if not isinstance(tags, list):
-        tags = []
 
     # Detect if template uses subject/dominant variables
     has_subject = "{subject_" in template or "[" in template
@@ -398,7 +389,6 @@ def validate_mantra(m: Dict[str, Any], theme: str, tone: str) -> Optional[Mantra
         tone=tone,
         has_subject=has_subject,
         has_dominant=has_dominant,
-        tags=tags[:5],  # Cap at 5 tags
     )
 
 
