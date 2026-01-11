@@ -75,16 +75,63 @@ def load_env(env_path: Optional[Path] = None) -> dict:
     return env_vars
 
 
+def load_aws_credentials(profile: str = 'default') -> dict:
+    """Load credentials from ~/.aws/credentials and ~/.aws/config."""
+    creds = {}
+
+    # Read credentials file
+    creds_path = Path.home() / '.aws' / 'credentials'
+    if creds_path.exists():
+        current_section = None
+        with open(creds_path) as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith('[') and line.endswith(']'):
+                    current_section = line[1:-1]
+                elif '=' in line and current_section == profile:
+                    key, value = line.split('=', 1)
+                    key = key.strip()
+                    value = value.strip()
+                    if key == 'aws_access_key_id':
+                        creds['access_key'] = value
+                    elif key == 'aws_secret_access_key':
+                        creds['secret_key'] = value
+
+    # Read config file for region
+    config_path = Path.home() / '.aws' / 'config'
+    if config_path.exists():
+        # Config uses [profile name] for non-default, [default] for default
+        section_name = 'default' if profile == 'default' else f'profile {profile}'
+        current_section = None
+        with open(config_path) as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith('[') and line.endswith(']'):
+                    current_section = line[1:-1]
+                elif '=' in line and current_section == section_name:
+                    key, value = line.split('=', 1)
+                    if key.strip() == 'region':
+                        creds['region'] = value.strip()
+
+    return creds
+
+
 def get_aws_config() -> dict:
-    """Get AWS configuration from environment or .env file."""
+    """Get AWS configuration from environment, .env file, or AWS CLI config."""
     env_vars = load_env()
 
-    # Merge with actual environment (env takes precedence)
+    # Determine profile to use
+    profile = os.environ.get('AWS_PROFILE', env_vars.get('AWS_PROFILE', 'default'))
+
+    # Load from AWS CLI credentials as fallback
+    aws_creds = load_aws_credentials(profile)
+
+    # Priority: environment > .env > AWS CLI credentials
     return {
-        'access_key': os.environ.get('AWS_ACCESS_KEY_ID', env_vars.get('AWS_ACCESS_KEY_ID', '')),
-        'secret_key': os.environ.get('AWS_SECRET_ACCESS_KEY', env_vars.get('AWS_SECRET_ACCESS_KEY', '')),
-        'region': os.environ.get('AWS_REGION', env_vars.get('AWS_REGION', 'us-east-1')),
-        'profile': os.environ.get('AWS_PROFILE', env_vars.get('AWS_PROFILE', '')),
+        'access_key': os.environ.get('AWS_ACCESS_KEY_ID', env_vars.get('AWS_ACCESS_KEY_ID', aws_creds.get('access_key', ''))),
+        'secret_key': os.environ.get('AWS_SECRET_ACCESS_KEY', env_vars.get('AWS_SECRET_ACCESS_KEY', aws_creds.get('secret_key', ''))),
+        'region': os.environ.get('AWS_REGION', env_vars.get('AWS_REGION', aws_creds.get('region', 'us-east-1'))),
+        'profile': profile if profile != 'default' else '',
     }
 
 
