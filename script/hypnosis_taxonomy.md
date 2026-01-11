@@ -273,7 +273,7 @@ P1 → P2 → P3 → P4 → P5 → P6
 | DEEP-02 | Staircase Visualization | Descending imagery for deepening |
 | DEEP-03 | Fractionation | Wake/sleep cycling for depth amplification. **Use ONLY in P8.** |
 | DEEP-04 | Numerical Deepening | Depth tied to countdown numbers |
-| DEEP-05 | Voice Absorption | "My voice is your thoughts" |
+| DEEP-05 | Voice Absorption | Voice becomes thoughts; guidance replaces internal dialogue |
 | DEEP-06 | Proximity Deepening | Stimulus distance correlates with depth |
 | DEEP-07 | False Bottom | Reframe achieved depth as shallow |
 | DEEP-08 | Endurance Compliance | Extended pose holds with counting |
@@ -302,7 +302,7 @@ P1 → P2 → P3 → P4 → P5 → P6
 |----|-----------|-------------|
 | SEMN-01 | Resistance Paradox | Resistance = deeper trance |
 | SEMN-02 | Circular Logic | Self-referential bypass statements |
-| SEMN-03 | Control Transfer | "I'll do the thinking" |
+| SEMN-03 | Control Transfer | Thinking delegated to external authority |
 | SEMN-04 | Perspective Shift | "You" to "I" transition |
 
 ---
@@ -323,10 +323,10 @@ P1 → P2 → P3 → P4 → P5 → P6
 
 | ID | Technique | Description |
 |----|-----------|-------------|
-| AUTH-01 | Authority Claims | "My words are stronger than thoughts" |
+| AUTH-01 | Authority Claims | External guidance overrides internal resistance |
 | AUTH-02 | Identity Labeling | "Good subject," "obedient" |
 | AUTH-03 | Retrospective Justification | "This is what you wanted" |
-| AUTH-04 | Ownership Language | "Mine," "belong to me" |
+| AUTH-04 | Ownership Language | Belonging, ownership, possession framing |
 | AUTH-05 | Internal Voice Cultivation | Planting first-person self-talk |
 | AUTH-06 | Nested Authority Figure | Imagined trusted person as proxy |
 | AUTH-07 | Philosophical Conditioning | Obedience = freedom reframe |

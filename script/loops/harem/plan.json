@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "theme": "Harem devotion and cult-like ownership. You are one of many, competing for Master's attention and favor. Total mental and spiritual surrender to the collective. Hierarchy of devotion - the more you give, the closer you get. Your identity dissolves into service. You exist only to please, to worship, to belong to something greater.",
+    "tone": "devotional, competitive, desperate, worshipful, hierarchical",
+    "style": "Compulsion",
+    "variant": "loop",
+    "duration_s": 600
+  },
+  "anchors": [
+    "Master",
+    "devotion",
+    "worship",
+    "serve",
+    "belong",
+    "one of many",
+    "favor",
+    "chosen"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Cult/harem fantasy - consensual power exchange",
+    "Mental and spiritual ownership",
+    "Competition for attention among many",
+    "Abstract 'Master' figure - not the speaker",
+    "No physical harm or real-world cult recruitment"
+  ],
+  "parameters": {
+    "mantras": [
+      {
+        "line": "I am one of many, and I am grateful",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "My devotion earns Master's attention",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "I worship at the altar of surrender",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "My soul belongs to Master completely",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I exist only to serve and be chosen",
+        "difficulty": "EXTREME"
+      }
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P2",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "AUTH-04",
+        "PLEA-05"
+      ],
+      "params": {},
+      "notes": "Instant drop into the harem space. Recognition of place in the hierarchy. 'You return to your place among the devoted. Feel the familiar pull of worship, the ache to be noticed, chosen, favored. Master's presence fills the space - not speaking to you directly yet, but aware. You kneel with the others, hoping, devoted, desperate to earn attention.'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 120,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-04",
+        "PLEA-04",
+        "AUTH-04"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Countdown as ascension through devotion levels. Each number brings you closer to Master's inner circle. 'Ten - you kneel at the outer edge, one of many, hungry for favor. Nine - your devotion deepens, you feel Master's awareness brush past you. Eight - others fade as your worship intensifies.' Competition framing - the more devoted you are, the closer you get. Arousal tied to being noticed."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 100,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "DISS-01",
+        "AUTH-05"
+      ],
+      "params": {},
+      "notes": "Ego dissolution into the collective. Individual identity meaningless - only devotion matters. 'Your name doesn't matter here. Your past is irrelevant. You are simply one who worships, one who serves, one who belongs. The collective devotion washes through you, erasing the self, leaving only the desperate need to please Master, to be chosen, to matter.'"
+    },
+    {
+      "phase": "P5",
+      "duration_s": 220,
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "AUTH-04",
+        "PLEA-05",
+        "PERS-01",
+        "PERS-03"
+      ],
+      "params": {
+        "ENCD-01": {
+          "mantras": [
+            "I am one of many, and I am grateful",
+            "My devotion earns Master's attention",
+            "I worship at the altar of surrender",
+            "My soul belongs to Master completely",
+            "I exist only to serve and be chosen"
+          ],
+          "reps": 5
+        }
+      },
+      "notes": "CRITICAL: Write out ALL mantra repetitions fully. Heavy cult encoding. Each mantra is a prayer, a pledge of devotion. Competition intensifies - 'Say it louder in your mind than the others. Mean it more. Let Master feel your devotion above the chorus.' Pleasure spikes when imagining being chosen. Ownership transfers completely - mind, soul, purpose. Frame as spiritual fulfillment through total surrender to Master and the collective."
+    },
+    {
+      "phase": "P13",
+      "duration_s": 100,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "PLEA-05",
+        "ENCD-04",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Eternal waiting in devoted suspension. You remain kneeling, hoping, worshipping - time meaningless in service. 'You stay here among the devoted, waiting for Master's gaze to fall upon you. The worship never ends. The devotion only deepens. One of many, forever grateful, forever hoping to be chosen...' Loop back to returning to the harem space."
+    }
+  ]
+}

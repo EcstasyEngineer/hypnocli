@@ -26,41 +26,84 @@
   ],
   "parameters": {
     "mantras": [
-      {"line": "My thoughts are being replaced", "difficulty": "LIGHT"},
-      {"line": "I am conditioned to obey", "difficulty": "MODERATE"},
-      {"line": "The brainwashing deepens with each cycle", "difficulty": "MODERATE"},
-      {"line": "My mind is washed clean", "difficulty": "DEEP"},
-      {"line": "I am a product of this conditioning", "difficulty": "DEEP"}
+      {
+        "line": "My thoughts are being replaced",
+        "difficulty": "LIGHT"
+      },
+      {
+        "line": "I am conditioned to obey",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "The brainwashing deepens with each cycle",
+        "difficulty": "MODERATE"
+      },
+      {
+        "line": "My mind is washed clean",
+        "difficulty": "DEEP"
+      },
+      {
+        "line": "I am a product of this conditioning",
+        "difficulty": "DEEP"
+      }
     ]
   },
   "structure": [
     {
       "phase": "P2",
       "duration_s": 60,
-      "techniques": ["INDU-06", "INDU-03", "DEEP-05", "INDU-01"],
+      "techniques": [
+        "INDU-06",
+        "INDU-03",
+        "DEEP-05",
+        "INDU-01"
+      ],
       "params": {},
       "notes": "Instant drop. Assume looping listener already conditioned. Voice fixation. Breath pacing. Pleasure in dropping - 'it feels so good to drop back down'. Recognition of familiar space. 'You've been here before. You keep coming back. Because it feels so good to be brainwashed.'"
     },
     {
       "phase": "P3",
       "duration_s": 120,
-      "techniques": ["DEEP-01", "DEEP-02", "DEEP-04", "SEMN-01", "PLEA-01"],
+      "techniques": [
+        "DEEP-01",
+        "DEEP-02",
+        "DEEP-04",
+        "SEMN-01",
+        "PLEA-01"
+      ],
       "params": {
-        "DEEP-04": {"start": 10, "end": 1}
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
       },
       "notes": "Countdown with staircase. Resistance paradox - any attempt to resist only pulls you deeper. 'The more you try to think, the emptier you become. Fighting it feels wrong. Surrendering feels right.' Pleasure rewards each step down. Descending into conditioning chamber."
     },
     {
       "phase": "P4",
       "duration_s": 100,
-      "techniques": ["LOAD-01", "LOAD-02", "SEMN-03", "AUTH-05", "PLEA-02"],
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "SEMN-03",
+        "AUTH-05",
+        "PLEA-02"
+      ],
       "params": {},
       "notes": "Thought stopping with pleasure reward. Each thought that leaves feels good. Emptiness is bliss. Voice replacing thoughts. 'Good. That thought is gone. Feel how good that feels. Another one leaving. So good to be empty.' Building association: empty = pleasure."
     },
     {
       "phase": "P5",
       "duration_s": 220,
-      "techniques": ["ENCD-01", "ENCD-03", "ENCD-06", "AUTH-04", "PLEA-05", "PERS-01", "PERS-03"],
+      "techniques": [
+        "ENCD-01",
+        "ENCD-03",
+        "ENCD-06",
+        "AUTH-04",
+        "PLEA-05",
+        "PERS-01",
+        "PERS-03"
+      ],
       "params": {
         "ENCD-01": {
           "mantras": [
@@ -78,9 +121,15 @@
     {
       "phase": "P13",
       "duration_s": 100,
-      "techniques": ["PERS-05", "PERS-03", "PLEA-05", "ENCD-04", "DISS-03"],
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "PLEA-05",
+        "ENCD-04",
+        "DISS-03"
+      ],
       "params": {},
-      "notes": "Loop transition. Time distortion. Addiction pull. Seamless connection - final words should echo opening exactly: 'drop back down... let my voice fill your mind... you know this place...' to create perfect audio loop point."
+      "notes": "Loop transition. Time distortion. Addiction pull. Seamless connection - final words should echo opening exactly: 'drop back down... let the trance fill your mind... you know this place...' to create perfect audio loop point."
     }
   ]
 }

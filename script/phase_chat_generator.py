@@ -544,6 +544,18 @@ def generate_script_from_plan(
         if notes:
             phase_brief += f"\nPhase notes: {notes}\n"
 
+        # Add loop-specific guidance for P13
+        if phase == "P13" and plan.get("meta", {}).get("variant") == "loop":
+            phase_brief += """
+LOOP TRANSITION RULES:
+- The final 2-3 sentences should be theme-agnostic to enable cross-theme playlists
+- End with abstract anchors that work across themes: "trance", "sink", "deeper", "yield", "surrender", "drop"
+- AVOID theme-specific anchors in the final sentences
+- AVOID speaker-centric closings like "my voice", "addicted to me"
+- Structure: [theme content] → [abstract transition] → [generic sink/drop that mirrors P2 opening]
+- The ending should flow seamlessly into ANY P2 induction, not just this theme's P2
+"""
+
         # Compute max tokens for this phase
         max_toks = max_tokens_for_words(target_words, buffer_mult=2.0)
 

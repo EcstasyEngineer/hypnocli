@@ -220,27 +220,42 @@ Scripts leave listeners in one or more of these state categories:
 
 ---
 
+### harem
+
+| Field | Value |
+|-------|-------|
+| **Duration** | 10 min |
+| **Intensity** | Extreme |
+| **Ending State** | owned, obedient, identity-shifted |
+| **Core Loop** | Kneel → compete → worship → dissolve → belong |
+| **Description** | Cult-like harem devotion. One of many competing for Master's favor. Ego dissolution into collective worship. Heavy spiritual ownership. |
+| **Primes For** | slave, obedience, brainwashing |
+| **Primed By** | submission, suggestibility, brainwashing |
+
+---
+
 ## Transition Matrix
 
 Compatibility ratings for A → B transitions:
 
 ```
                  TO:
-FROM:        accept addic bimbo blank brain femin obedi slave submi sugge free  free+ tease tease+
-acceptance     -    🟡    🟢    🟢    🔴    🟢    🟡    🔴    🟢    🟢    🟡    🟡    🟢    🟢
-addiction     🔴     -    🔴    🔴    🟡    🔴    🟢    🟡    🔴    🔴    🟡    🟡    🟢    🟢
-bimbo         🟢    🔴     -    🟢    🔴    🟢    🟡    🔴    🟢    🟢    🔴    🔴    🔴    🔴
-blank         🟢    🟡    🟢     -    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢
-brainwashing  🔴    🟢    🔴    🔴     -    🔴    🟢    🟢    🟡    🔴    🟢    🟢    🟡    🟡
-feminine      🟢    🔴    🟢    🟢    🔴     -    🔴    🔴    🟢    🟢    🔴    🔴    🔴    🔴
-obedience     🔴    🟡    🔴    🔴    🟢    🔴     -    🟢    🟡    🔴    🟢    🟢    🟡    🟡
-slave         🔴    🟡    🔴    🔴    🟢    🔴    🟢     -    🔴    🔴    🟢    🟢    🟢    🟢
-submission    🟢    🔴    🟢    🟢    🟡    🟢    🟢    🟢     -    🟢    🟢    🟢    🟢    🟢
-suggestib.    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢     -    🟢    🟢    🟢    🟢
-free_use      🔴    🟢    🔴    🔴    🟢    🔴    🟢    🟢    🔴    🔴     -    🟢    🟢    🟢
-free_use+     🔴    🟢    🔴    🔴    🟢    🔴    🟢    🟢    🔴    🔴    🟢     -    🟢    🟢
-tease_denial  🔴    🟢    🔴    🔴    🟡    🔴    🟢    🟢    🟡    🔴    🟢    🟢     -    🟢
-tease_d_obed  🔴    🟢    🔴    🔴    🟡    🔴    🟢    🟢    🔴    🔴    🟢    🟢    🟢     -
+FROM:        accept addic bimbo blank brain femin harem obedi slave submi sugge free  free+ tease tease+
+acceptance     -    🟡    🟢    🟢    🔴    🟢    🔴    🟡    🔴    🟢    🟢    🟡    🟡    🟢    🟢
+addiction     🔴     -    🔴    🔴    🟡    🔴    🟡    🟢    🟡    🔴    🔴    🟡    🟡    🟢    🟢
+bimbo         🟢    🔴     -    🟢    🔴    🟢    🔴    🟡    🔴    🟢    🟢    🔴    🔴    🔴    🔴
+blank         🟢    🟡    🟢     -    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢
+brainwashing  🔴    🟢    🔴    🔴     -    🔴    🟢    🟢    🟢    🟡    🔴    🟢    🟢    🟡    🟡
+feminine      🟢    🔴    🟢    🟢    🔴     -    🔴    🔴    🔴    🟢    🟢    🔴    🔴    🔴    🔴
+harem         🔴    🟡    🔴    🔴    🟢    🔴     -    🟢    🟢    🟡    🔴    🟢    🟢    🟡    🟡
+obedience     🔴    🟡    🔴    🔴    🟢    🔴    🟢     -    🟢    🟡    🔴    🟢    🟢    🟡    🟡
+slave         🔴    🟡    🔴    🔴    🟢    🔴    🟢    🟢     -    🔴    🔴    🟢    🟢    🟢    🟢
+submission    🟢    🔴    🟢    🟢    🟡    🟢    🟢    🟢    🟢     -    🟢    🟢    🟢    🟢    🟢
+suggestib.    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢    🟢     -    🟢    🟢    🟢    🟢
+free_use      🔴    🟢    🔴    🔴    🟢    🔴    🟢    🟢    🟢    🔴    🔴     -    🟢    🟢    🟢
+free_use+     🔴    🟢    🔴    🔴    🟢    🔴    🟢    🟢    🟢    🔴    🔴    🟢     -    🟢    🟢
+tease_denial  🔴    🟢    🔴    🔴    🟡    🔴    🟡    🟢    🟢    🟡    🔴    🟢    🟢     -    🟢
+tease_d_obed  🔴    🟢    🔴    🔴    🟡    🔴    🟢    🟢    🟢    🔴    🔴    🟢    🟢    🟢     -
 ```
 
 🟢 = smooth transition | 🟡 = workable with some friction | 🔴 = jarring, avoid
