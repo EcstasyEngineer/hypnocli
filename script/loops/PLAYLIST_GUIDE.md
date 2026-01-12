@@ -294,6 +294,12 @@ tease_denial_obedience → free_use_extended → slave
 tease_denial → free_use → tease_denial (cycle)
 ```
 
+### Cult Indoctrination (sex cult pipeline)
+```
+blank → suggestibility → brainwashing → harem → free_use → addiction → tease_denial_obedience
+```
+Runtime: ~77 min. Full mental and physical ownership sequence. Mind emptied, made receptive, reprogrammed with cult devotion, body made communal property, dependency locked in, sealed with denial-fueled obedience.
+
 ---
 
 ## Bot Implementation Notes
