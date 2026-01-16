@@ -603,8 +603,7 @@ Environment variables (or in .env file):
                        help="Suppress progress output")
     parser.add_argument("--keep-chunks", "-k", action="store_true",
                        help="Debug: preserve chunk files in {output}_chunks/ directory")
-    parser.add_argument("--ssml", "-s", action="store_true",
-                       help="Treat input as SSML (adds --text-type ssml, wraps chunks in <speak> tags)")
+    # Note: SSML is auto-detected via [Xms] pause markers - no flag needed
 
     args = parser.parse_args()
 
@@ -636,8 +635,7 @@ Environment variables (or in .env file):
             region=args.region,
             profile=args.profile,
             verbose=not args.quiet,
-            keep_chunks=args.keep_chunks,
-            ssml=args.ssml
+            keep_chunks=args.keep_chunks
         )
 
     sys.exit(0 if success else 1)
