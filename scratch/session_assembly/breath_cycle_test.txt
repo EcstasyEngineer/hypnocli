@@ -1,0 +1,9 @@
+<speak>
+<prosody rate="90%">
+We'll breathe together. In for four counts. Hold for two. Release for six. Follow my voice.
+
+<break time="800ms"/>
+
+Breathe in slowly<break time="600ms"/> one<break time="1000ms"/> two<break time="1000ms"/> three<break time="1000ms"/> four.<break time="300ms"/> Hold it there<break time="600ms"/> one<break time="1000ms"/> two.<break time="300ms"/> Now release<break time="600ms"/> one<break time="1000ms"/> two<break time="1000ms"/> three<break time="1000ms"/> four<break time="1000ms"/> five<break time="1000ms"/> six.<break time="500ms"/> Feel your body grow heavy already. Good. Sink a little more.
+</prosody>
+</speak>

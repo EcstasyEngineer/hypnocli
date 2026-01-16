@@ -27,7 +27,7 @@ python script/generate_mantras.py \
   --output mantras.json
 ```
 
-Pre-built loop scripts available in `script/loops/`.
+Pre-built module scripts available in `script/modules/`.
 
 ### tts/
 AWS Polly integration for text-to-speech rendering.

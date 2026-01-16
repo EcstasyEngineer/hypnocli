@@ -11,7 +11,7 @@ This document tracks the status of all script generation improvements. Update th
 | # | Title | Priority | Status |
 |---|-------|----------|--------|
 | [#31](https://github.com/EcstasyEngineer/hypnocli/issues/31) | Upgrade JSON taxonomy from 5.1 to 5.2 | HIGH | ✅ Done |
-| [#32](https://github.com/EcstasyEngineer/hypnocli/issues/32) | Script copywriting overhaul (repetition, leaky language) | HIGH | Open |
+| [#32](https://github.com/EcstasyEngineer/hypnocli/issues/32) | Script copywriting overhaul (repetition, leaky language) | HIGH | ✅ Done |
 | [#33](https://github.com/EcstasyEngineer/hypnocli/issues/33) | Use technique names instead of IDs in markers | MEDIUM | Open |
 | [#34](https://github.com/EcstasyEngineer/hypnocli/issues/34) | Goddess/Venus variant (warm devotional alternative) | MEDIUM | Open |
 | [#35](https://github.com/EcstasyEngineer/hypnocli/issues/35) | Visualization/immersion audit | MEDIUM | Open |
@@ -69,30 +69,37 @@ This document tracks the status of all script generation improvements. Update th
 
 **Goal:** Fix repetition, leaky language, and visualization
 
-| Script | Repetition | Leaky Lang | Visualization | Breathing | Status |
-|--------|------------|------------|---------------|-----------|--------|
-| acceptance | ❌ SEVERE | ✅ OK | ✅ Abstract OK | ❌ Missing | ⬜ Fix repetition, add breathing |
-| addiction | ⚠️ Moderate | ✅ OK | ❌ Nebulous | ⚠️ Vague | ⬜ Add concrete viz |
-| bimbo | ❌ SEVERE | ❌ "Tee hee" | ✅ Good (pink/bubbles) | ⚠️ Missing | ⬜ Fix giggle sounds |
-| blank | ❌ SEVERE | ✅ OK | ❌ Nebulous | ❌ Missing | ⬜ Major rewrite needed |
-| brainwashing | ⚠️ Moderate | ✅ OK | ❌ Nebulous | ⚠️ Vague | ⬜ Add viz, fix breathing |
-| dumbdown | ❌ SEVERE | ❌ Dehumanizing | ❌ Nebulous | ❌ Missing | ⬜ Major rewrite needed |
-| feminine | ✅ OK | ✅ OK | ✅ Good | ⚠️ Conceptual | ✅ Model script |
-| fractionation_bridge | ✅ OK | ✅ OK | N/A | N/A | ✅ Bridge only |
-| free_use | ⚠️ Moderate | ✅ OK | ⚠️ Implicit | ⚠️ Conceptual | ⬜ Minor fixes |
-| free_use_extended | ⚠️ Moderate | ✅ OK | ⚠️ Implicit | ⚠️ Conceptual | ⬜ Minor fixes |
-| harem | ⚠️ Moderate | ❌ "hierarchy" | ✅ Good | ❌ Missing | ⬜ Fix leaky lang, add breathing |
-| intro | ⚠️ Moderate | ✅ OK | ✅ Good (staircase) | ✅ EXCELLENT | ✅ Model script |
-| obedience | ❌ SEVERE | ✅ OK | ❌ Nebulous | ❌ Missing | ⬜ Major rewrite needed |
-| slave | ⚠️ Moderate | ✅ OK | ❌ Nebulous | ⚠️ Weak | ⬜ Add viz |
-| submission | ⚠️ Moderate | ✅ OK | ❌ Nebulous | ✅ Good | ✅ Model script (warmth) |
-| suggestibility | ⚠️ Moderate | ❌ "writable" | ❌ Nebulous | ❌ Missing | ⬜ Fix tech language |
-| tease_denial | ⚠️ Moderate | ✅ OK | ✅ Good | ✅ Good | ✅ Model script |
-| tease_denial_obedience | ⚠️ Moderate | ✅ OK | ✅ Good | ❌ Missing | ⬜ Add breathing |
-| wakener | ✅ OK | ✅ OK | ✅ Partial | ✅ Good | ✅ Good emergence |
-| cult_indoctrination | ? | ❌ "hierarchy" | ? | ? | ⬜ Not yet audited |
+**Status:** ✅ **COMPLETED** - All scripts rewritten with consistent voice, 3x mantras, warm language
 
-**Model scripts to reference:** intro (breathing), submission (warmth), feminine (natural language), tease_denial (metaphor)
+| Script | Status | Changes |
+|--------|--------|---------|
+| acceptance | ✅ Done | Removed P2, 5x5→3x, added warmth |
+| addiction | ✅ Done | Removed P2, 5x→3x |
+| bimbo | ✅ Done | Removed P2, "Tee hee"→natural language, 5x→3x |
+| blank | ✅ Done | Major rewrite - lake visualization, warm language |
+| brainwashing | ✅ Done | Removed P2, staircase viz, 5x→3x |
+| dumbdown | ✅ Done | Classy degradation, removed crude language |
+| feminine | ✅ Done | Removed P2, 5x→3x |
+| fractionation_bridge | ✅ OK | Bridge only - no changes needed |
+| free_use | ✅ Done | Removed P2, removed "waiting meat", 5x→3x |
+| free_use_extended | ✅ Done | Removed P2, kept fractionation, 5x→3x |
+| harem | ✅ Done | "hierarchy"→connection, competition→belonging |
+| intro | ✅ OK | Model script with pause markers |
+| obedience | ✅ Done | Major rewrite - warm compliance, honey metaphor |
+| slave | ✅ Done | Removed P2, 5x→3x |
+| submission | ✅ Done | Removed P2, 5x→3x |
+| suggestibility | ✅ Done | "writable"→moldable/receptive |
+| tease_denial | ✅ Done | Removed P2, 5x→3x |
+| tease_denial_obedience | ✅ Done | Removed P2, 5x→3x |
+| wakener | ✅ OK | Emergence script - no changes needed |
+
+**Consistent patterns applied:**
+- Start at P3 Deepening (conditioning loops have no P2 Induction)
+- 10-count deepening with line breaks between numbers
+- 3x mantras with slight variation between repetitions
+- Warm language throughout (warmth, pleasure, peace, belonging)
+- Short sentences for pacing
+- Echoing mantras in P13 Maintenance
 
 ### Stream 4: Technique Examples
 
@@ -205,6 +212,9 @@ Breathe in[400] one[750] two[750] three[750] four.[1.5s] Out[400] six[750] five[
 | 2026-01-16 | Fixed breathing pacing | 4-hold-6 pattern, ~6 breaths/min, countdown on exhale |
 | 2026-01-16 | Updated SYSTEM_WRITER | Added warmth/breathing/pause markup guidance |
 | 2026-01-16 | Deleted script_ssml.txt | Replaced with pause markers in script.txt |
+| 2026-01-16 | Completed copywriting overhaul (#32) | All 16 loop scripts rewritten with 3x mantras, consistent voice |
+| 2026-01-16 | Implemented [dominant] placeholder system | harem + wakener use placeholders, build_session.py has --dominant-title flag |
+| 2026-01-16 | Created session specs | v1.md, v2.md, v3_master.md, v3_goddess.md under script/sessions/ |
 
 ---
 
@@ -229,7 +239,11 @@ Techniques with embedded `params` in JSON (flow: MD → JSON → phase planner �
 2. ~~**Technique examples Tier 1 (#38)**~~ - ✅ Done (technique_examples.json)
 3. ~~**Copywriting audit**~~ - ✅ Done (all 19 scripts analyzed)
 4. ~~**Hypernym prototype (#37)**~~ - ✅ Done (hypernym_lookup.py)
-5. **Implement technique names (#33)** - Change line 615 in phase_chat_generator.py
-6. **Listen through scripts** - User to re-listen for proper notes
-7. **Copywriting fixes (#32)** - Apply fixes based on audit (blank, dumbdown, obedience need major work)
-8. **Test hypernym_lookup.py** - Verify WordNet integration works
+5. ~~**Implement technique names (#33)**~~ - ✅ Done (line 615 in phase_chat_generator.py)
+6. ~~**Copywriting fixes (#32)**~~ - ✅ Done (all 16 loop scripts rewritten)
+7. **Listen through scripts** - User to re-listen for proper notes
+8. ~~**Test hypernym_lookup.py**~~ - Tracked in GitHub issue #37
+9. ~~**Session playlists**~~ - ✅ Done (script/sessions/v1.md, v2.md, v3_master.md, v3_goddess.md)
+10. ~~**Close GitHub issue #32**~~ - ✅ Done
+11. ~~**Implement dominant title in build_session.py**~~ - ✅ Done (`--dominant-title` flag with fail-fast and pronoun check)
+12. ~~**Rename loops → modules**~~ - ✅ Done

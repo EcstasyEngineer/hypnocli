@@ -1,0 +1,7 @@
+<speak>
+We will breathe together. In for four counts. Hold for two. Release for six. Follow my voice.
+
+<break time="500ms"/>
+
+Breathe in slowly<break time="400ms"/> one<break time="700ms"/> two<break time="700ms"/> three<break time="700ms"/> four.<break time="200ms"/> Hold it there<break time="400ms"/> one<break time="700ms"/> two.<break time="200ms"/> Now release<break time="400ms"/> one<break time="700ms"/> two<break time="700ms"/> three<break time="700ms"/> four<break time="700ms"/> five<break time="700ms"/> six.<break time="400ms"/> Feel your body grow heavy already. Good. Sink a little more.
+</speak>

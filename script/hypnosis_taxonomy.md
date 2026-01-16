@@ -1,5 +1,14 @@
 # Canonical Taxonomy for Hypnosis Script Generation
-## Version 5.1 — Complete Reference
+## Version 5.2 — Complete Reference
+
+**Changes from v5.1:**
+- Restructured phases: 6 required (P1-P6) + 4 optional modules (M1-M4)
+- Merged P7 (Safety/Consent) into P1 (Context + Safety)
+- Demoted P8 (Fractionation) to technique-only (DEEP-03 usable during P3)
+- Merged P9 (Scenario Immersion) into P5 (Core Suggestion + Immersion)
+- Renamed remaining optional phases to modules (M1-M4)
+- Added XFER category for transfer/persistence techniques
+- Added new EMRG techniques (EMRG-06 through EMRG-10)
 
 **Changes from v5:**
 - Added EMRG category for emergence (fixes DEEP-03 overload)
@@ -36,26 +45,24 @@
 
 | ID | Phase | Listener Task | Typical Duration |
 |----|-------|---------------|------------------|
-| P1 | Context Setting | Accept frame, establish attention focus | 30-60s |
+| P1 | Context + Safety | Accept frame, establish attention focus, receive protective boundaries | 30-90s |
 | P2 | Induction | Release conscious control, enter trance | 60-90s |
 | P3 | Deepening | Descend deeper through guided progression | 90-180s |
-| P4 | Cognitive Reduction | Release analytical thinking, accept receptive state | 60-120s |
-| P5 | Core Suggestion | Accept and internalize primary suggestions | 120-300s |
-| P6 | Emergence | Return to normal consciousness | 30-90s |
+| P4 | Core Suggestion + Immersion | Accept and internalize primary suggestions, enter detailed visualization | 120-300s |
+| P5 | Emergence | Return to normal consciousness | 30-90s |
 
-### Optional Phases
+### Optional Modules
 
-| ID | Phase | Listener Task | Insert After | Duration |
-|----|-------|---------------|--------------|----------|
-| P7 | Safety/Consent | Receive protective boundaries | P1 | 30-60s |
-| P8 | Fractionation | Experience wake/sleep cycling | P3 | 60-120s |
-| P9 | Scenario Immersion | Enter detailed visualization | P4 | 90-180s |
-| P10 | Trigger Installation | Accept conditioned responses | P5 | 60-120s |
-| P11 | Demonstration | Experience trigger activation, bliss states, or proof of hypnosis | P5/P10 | 60-180s |
-| P12 | Behavioral Bridge | Receive real-world action commands | P5 | 30-60s |
-| P13 | Maintenance/Loop | Sustain trance for loop restart | P5 (terminal) | 60-90s |
+| ID | Module | Listener Task | Insert Point | Duration |
+|----|--------|---------------|--------------|----------|
+| M1 | Critical Softening | Release analytical thinking, accept receptive state | Between P3 and P4 | 60-120s |
+| M2 | Transfer | Accept conditioned responses, receive real-world action commands | After P4, before P5 | 60-120s |
+| M3 | Demonstration | Experience trigger activation, bliss states, or proof of hypnosis | After P4 or M2, before P5 | 60-180s |
+| M4 | Maintenance/Loop | Sustain trance for loop restart | Terminal (replaces P5) | 60-90s |
 
-**Total: 6 required + 7 optional = 13 phases**
+**Note on Fractionation:** Wake/sleep cycling (DEEP-03) is a technique, not a phase. Use during P3 when depth amplification is needed.
+
+**Total: 5 required phases + 4 optional modules**
 
 ---
 
@@ -64,80 +71,85 @@
 ### Required Ordering (Standard Scripts)
 
 ```
-P1 → P2 → P3 → P4 → P5 → P6
-     │              │
-     └─[P7]─┘       └─[P8-P12]─┘
+P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
+                                          ↓
+                                     or [M4]
 ```
 
 **Rules:**
-1. P1 (Context Setting) must be first
+1. P1 (Context + Safety) must be first (may skip for loops/series after episode 1)
 2. P2 (Induction) must precede P3 (Deepening)
-3. P3 (Deepening) must precede P4 (Cognitive Reduction)
-4. P4 (Cognitive Reduction) must precede P5 (Core Suggestions)
-5. P5 (Core Suggestions) must precede P6 (Emergence)
-6. P6 (Emergence) must be final (unless looping with P13)
+3. P3 (Deepening) must precede P4 (Core Suggestion + Immersion)
+4. P4 must precede P5 (Emergence) or M4 (Loop)
+5. P5 (Emergence) must be final, OR M4 (Maintenance/Loop) replaces P5 as terminal
 
-### Optional Phase Insertion Matrix
+### Module Insertion Matrix
 
-| Optional Phase | Valid Insertion Points |
-|----------------|------------------------|
-| P7 Safety/Consent | After P1, before P2 |
-| P8 Fractionation | During P3, or after P3 before P4 |
-| P9 Scenario Immersion | After P4, before P5 |
-| P10 Trigger Installation | After P5, before P6 |
-| P11 Demonstration | After P5 or P10, before P6 |
-| P12 Behavioral Bridge | After P5, before P6 |
-| P13 Maintenance/Loop | Terminal (replaces P6) |
+| Module | Valid Insertion Points | Notes |
+|--------|------------------------|-------|
+| M1 Critical Softening | Between P3 and P4 | Cognitive reduction before suggestions |
+| M2 Transfer | After P4, before P5/M4 | Trigger installation + real-world bridging |
+| M3 Demonstration | After P4 or M2, before P5/M4 | "Fun time" - trigger activation, bliss, proof |
+| M4 Maintenance/Loop | Terminal (replaces P5) | Sustain trance, prepare loop restart |
+
+**Note:** Fractionation (DEEP-03) is a technique used *within* P3, not a separate module.
 
 ---
 
 ## 1.3 Structural Variants
 
 ### Variant: standard
-**Sequence:** P1 → P2 → P3 → P4 → P5 → P6
+**Sequence:** P1 → P2 → P3 → P4 → P5
 **Characteristics:** Full induction-deepening-suggestion-emergence arc
 **Use Case:** Standalone sessions, first-time listeners
 
-### Variant: loop
-**Sequence:** P2 → P3 → P10 → P11 → P13 (loops to P2)
+### Variant: deep
+**Sequence:** P1 → P2 → P3 → M1 → P4 → P5
 **Characteristics:**
-- Skips P1 (Context Setting) - assumes opt-in
-- Skips P6 (Emergence) - replaced by P13 (Maintenance)
+- Includes Critical Softening (M1) before suggestions
+- Deeper cognitive reduction for complex programming
+**Use Case:** Identity work, behavioral change, complex suggestions
+
+### Variant: loop
+**Sequence:** P2 → P3 → M2 → M3 → M4 (loops to P2)
+**Characteristics:**
+- Skips P1 (Context + Safety) - assumes opt-in
+- Skips P5 (Emergence) - replaced by M4 (Maintenance)
 - Uses instant/conditioned induction (INDU-06)
 - Terminal state mirrors opening for seamless loop
 **Use Case:** Background/ambient trance, extended sessions
 
 ### Variant: twostage
-**Sequence:** P1 → P2 → P3 + light suggestions → P8 → P4 (deep) → P5 (deep) → P6
+**Sequence:** P1 → P2 → P3 + light suggestions → P3 [DEEP-03] → M1 → P4 → P5
 **Characteristics:**
 - Light suggestions during initial deepening
-- Fractionation creates stage boundary
-- Deep cognitive reduction after fractionation
+- P3 with fractionation (DEEP-03) creates stage boundary
+- Critical Softening (M1) after fractionation
 - Deep suggestions after blank state achieved
 **Use Case:** Complex programming, multi-layered suggestions
 
 ### Variant: series
-**Sequence:** P2 (instant via INDU-06) → P3 → P4 → P5 (reinforcement) → P6
+**Sequence:** P2 (instant via INDU-06) → P3 → P4 → P5
 **Characteristics:**
 - References prior conditioning from previous episodes
 - Trigger reinforcement rather than installation
-- Can skip Context Setting after episode 1
+- Can skip Context + Safety after episode 1
 - Assumes listener has series exposure
 **Use Case:** Multi-part series, progressive training
 
 ---
 
-## 1.4 Required Phase Detail (P1–P6)
+## 1.4 Required Phase Detail (P1–P5)
 
-### P1: Context Setting
-- **Function:** Establish participation frame; set anchors; start authority/rapport; boundary normal→hypnotic.
-- **Entry:** Session start. **Exit:** Oriented, focused attention. **Success:** Breathing settled, focus established.
+### P1: Context + Safety
+- **Function:** Establish participation frame; set anchors; start authority/rapport; boundary normal→hypnotic; protective boundaries.
+- **Entry:** Session start. **Exit:** Oriented, focused attention, boundaries affirmed. **Success:** Breathing settled, focus established, trust increased.
 - **Use when:** First-time listeners; therapeutic/relaxation; any time safety/trust needs priming.
 - **Skip/Compress when:** Looping/series after episode 1; ultra-short runtime; pre-conditioned audience.
-- **Techniques:** INDU-01, INDU-02, INDU-03, IMMR-01, AUTH-01.
+- **Techniques:** INDU-01, INDU-02, INDU-03, IMMR-01, AUTH-01, SAFE-01–SAFE-05.
 
 ### P2: Induction
-- **Function:** Transition consciousness; narrow attention; reduce movement; establish compliance.
+- **Function:** Transition consciousness; narrow attention; reduce movement; establish cooperation.
 - **Entry:** Context set. **Exit:** Initial trance, eyes closed. **Success:** Relaxation response, absorption.
 - **Use when:** Standard/first sessions; whenever no instant trigger is assumed.
 - **Skip/Compress when:** Using instant/conditioned induction (INDU-06) in looping/series; time budget <4 min.
@@ -147,99 +159,71 @@ P1 → P2 → P3 → P4 → P5 → P6
 ### P3: Deepening
 - **Function:** Increase depth; create progression; set depth markers; install first deepening triggers.
 - **Entry:** Initial trance. **Exit:** Deeper trance, reduced critical faculty. **Success:** Countdown accepted; markers in place.
-- **Use when:** Any non-looping script; when later cognitive reduction/suggestions need headroom.
-- **Skip/Compress when:** Looping variant with short runtime; if P4 is merged and runtime is tight.
+- **Use when:** Any script requiring depth before suggestions.
+- **Skip/Compress when:** Looping variant with short runtime; ultra-short scripts.
 - **Techniques:** DEEP-01–DEEP-09, INDU-05.
+- **Note:** Fractionation (DEEP-03) is used here when depth amplification via wake/sleep cycling is needed.
 
-### P4: Cognitive Reduction
-- **Function:** Suspend analytical thinking; create blank state; voice replaces thoughts.
-- **Entry:** Depth achieved. **Exit:** Critical faculty suspended. **Success:** Thought cessation accepted.
-- **Use when:** Installing identity/behavioral change; authoritarian/challenge styles; complex triggers.
-- **Skip/Compress when:** Light relaxation/wellness; short scripts where P3 carries light thought-quieting.
-- **Techniques:** LOAD-01–LOAD-06, SEMN-01–SEMN-04, AUTH-04, AUTH-05.
-
-### P5: Core Suggestion
-- **Function:** Install primary suggestions; convert state → identity/behavior; reward linkage; persistence.
-- **Entry:** Cognitive reduction achieved. **Exit:** Core suggestions accepted. **Success:** Identity/behavior shifts acknowledged.
-- **Use when:** Any goal beyond relaxation; triggers/behavior/identity changes; post-P4 blankness achieved.
+### P4: Core Suggestion + Immersion
+- **Function:** Install primary suggestions; convert state → identity/behavior; reward linkage; persistence; experiential visualization; sensory layering.
+- **Entry:** Depth achieved (or M1 Critical Softening completed). **Exit:** Core suggestions accepted, immersed in scene. **Success:** Identity/behavior shifts acknowledged, sensory buy-in.
+- **Use when:** Any goal beyond relaxation; triggers/behavior/identity changes; transformation/narrative themes.
 - **Skip/Compress when:** None for functional hypnosis; only reduce density if runtime is under ~5 min.
-- **Techniques:** AUTH-01–AUTH-07, ENCD-01–ENCD-07, PLEA-01–PLEA-06, PERS-01–PERS-06, IMMR-08.
+- **Techniques:** AUTH-01–AUTH-07, ENCD-01–ENCD-07, PLEA-01–PLEA-06, PERS-01–PERS-06, IMMR-01–IMMR-08.
 
-### P6: Emergence
+### P5: Emergence
 - **Function:** Safe return; maintain installs; re-energize; close frame.
 - **Entry:** Suggestions installed. **Exit:** Normal consciousness. **Success:** Alert, oriented, positive affect.
 - **Use when:** All non-looping scripts; anytime duty-of-care applies.
-- **Skip/Compress when:** Looping variant with P13; live sessions transitioning to another induction immediately.
-- **Techniques:** EMRG-01–EMRG-05, SAFE-05.
-- **v5.1 CRITICAL:** Use EMRG category for emergence. Do NOT use DEEP-03 here.
+- **Skip/Compress when:** Looping variant with M4; live sessions transitioning to another induction immediately.
+- **Techniques:** EMRG-01–EMRG-10, SAFE-05.
+- **CRITICAL:** Use EMRG category for emergence. Do NOT use DEEP-03 here.
 
 ---
 
-## 1.5 Optional Phase Detail (P7–P13)
+## 1.5 Optional Module Detail (M1–M4)
 
-### P7: Safety/Consent (30–60s)
-- **Function:** Protective boundaries, consent validation, safety nets.
-- **Entry:** After P1 (ideal); can appear late if missed. **Exit:** Boundaries affirmed. **Success:** Trust increased; scope constraints accepted.
-- **Use when:** First-timers; erotic/control content; platform/TOS sensitivity; low-trust audiences.
-- **Skip/Compress when:** Pre-consented captive audience; ultra-short loops.
-- **Techniques:** SAFE-01–SAFE-05, DISS-01, DISS-02.
+### M1: Critical Softening (60–120s)
+- **Function:** Suspend analytical thinking; create blank state; voice replaces thoughts.
+- **Entry:** After P3 (Deepening). **Exit:** Critical faculty suspended. **Success:** Thought cessation accepted.
+- **Use when:** Installing identity/behavioral change; authoritarian/challenge styles; complex triggers; deep programming.
+- **Skip when:** Light relaxation/wellness; short scripts where P3 carries light thought-quieting.
+- **Techniques:** ABSR-01–ABSR-09, AUTH-04, AUTH-05.
 
-### P8: Fractionation (60–120s)
-- **Function:** Depth amplification via cycling; train rapid state changes.
-- **Entry:** During/after P3. **Exit:** Stronger depth. **Success:** Faster drops each cycle.
-- **Use when:** Two-Stage or series; need depth fast; challenge style proving depth.
-- **Skip/Compress when:** Relaxation-only; time-critical pieces; when listener fatigues.
-- **Techniques:** DEEP-03, DEEP-01.
-- **v5.1 NOTE:** DEEP-03 is ONLY for fractionation (P8). Never use in P6.
+### M2: Transfer (60–120s)
+- **Function:** Install conditioned responses; real-world commands; post-hypnotic actions; generalization to waking life.
+- **Entry:** After P4 (Core Suggestion). **Exit:** Triggers encoded, actions accepted. **Success:** Associations formed, bridge to real-world established.
+- **Use when:** Series/looping; behavioral bridges; future sessions; habit installation.
+- **Skip when:** Single-use relaxation; no post-hypnotic need; no external ask.
+- **Techniques:** TRIG-01, TRIG-03–TRIG-14, PERS-04, PERS-06, ENCD-04.
 
-### P9: Scenario Immersion (90–180s)
-- **Function:** Experiential visualization; sensory layering; role projection.
-- **Entry:** After P4. **Exit:** Immersed in scene. **Success:** Sensory buy-in; identification.
-- **Use when:** Transformation/identity themes; pleasure/escape; narrative-heavy pieces.
-- **Skip/Compress when:** Pure obedience/minimalist scripts; time constraints.
-- **Techniques:** IMMR-01–IMMR-08.
-
-### P10: Trigger Installation (60–120s)
-- **Function:** Install conditioned responses.
-- **Entry:** After P5. **Exit:** Trigger encoded. **Success:** Association formed.
-- **Use when:** Series/looping; behavioral bridges; future sessions.
-- **Skip/Compress when:** Single-use relaxation; no post-hypnotic need.
-- **Techniques:** TRIG-01, TRIG-03–TRIG-14.
-
-### P11: Demonstration (60–180s)
-- **Function:** Activate installed triggers; sustain bliss states; provide subjective proof of hypnosis. The "fun time" phase.
-- **Entry:** After P5 or P10. **Exit:** Proof/pleasure experienced. **Success:** Listener perceives phenomenon; desire to stay/return.
+### M3: Demonstration (60–180s)
+- **Function:** Activate installed triggers; sustain bliss states; provide subjective proof of hypnosis. The "fun time" module.
+- **Entry:** After P4 or M2. **Exit:** Proof/pleasure experienced. **Success:** Listener perceives phenomenon; desire to stay/return.
 - **Use when:** Challenge style; reward loops; pleasure themes; low-belief listeners needing proof.
-- **Skip/Compress when:** Risk of failure (asynchronous); wellness contexts where tests feel invasive.
+- **Skip when:** Risk of failure (asynchronous); wellness contexts where tests feel invasive.
 - **Techniques:** TRIG-02 (Trigger Activation), PLEA-01–PLEA-06, VALD-01–VALD-08.
 
-### P12: Behavioral Bridge (30–60s)
-- **Function:** Real-world commands; post-hypnotic actions.
-- **Entry:** After P5. **Exit:** Action accepted. **Success:** Action likely/initiated.
-- **Use when:** Marketing/social calls-to-action; habit installation.
-- **Skip/Compress when:** Therapy/relaxation with no external ask.
-- **Techniques:** PERS-04, PERS-06, TRIG-09.
-
-### P13: Maintenance/Loop (60–90s)
+### M4: Maintenance/Loop (60–90s)
 - **Function:** Sustain trance indefinitely; prepare loop restart; no emergence.
-- **Entry:** After P5 (loop terminal). **Exit:** Stable loop state. **Success:** State mirrors opening; listener can continue.
+- **Entry:** After P4 or M2/M3 (loop terminal). **Exit:** Stable loop state. **Success:** State mirrors opening; listener can continue.
 - **Use when:** Looping/ambient content; background playback.
-- **Skip/Compress when:** Any script requiring wake/aftercare.
-- **Techniques:** PERS-05, PERS-03, LOAD-02, VALD-04.
+- **Skip when:** Any script requiring wake/aftercare.
+- **Techniques:** PERS-05, PERS-03, ABSR-02, VALD-04.
+- **Note:** M4 replaces P5 (Emergence) as the terminal state.
 
 ---
 
-## 1.6 Phase Selection Checklist
+## 1.6 Module Selection Checklist
 
-| Phase | Use If | Avoid If | Best For |
-|-------|--------|----------|----------|
-| P7 Safety | First-timers; erotic/control; TOS/care needs | Pre-consented captive; ultra-short loops | Trust, risk mitigation |
-| P8 Fractionation | Need depth fast; Two-Stage/Series; proof | Relax-only; fatigue risk; tight time | Depth amplification |
-| P9 Scenario | Transformation/narrative; pleasure/escape | Minimalist obedience; tight runtime | Immersion, identity |
-| P10 Triggers | Future control/series; behavior asks | One-off relaxation | Reusable control |
-| P11 Demonstration | Trigger use; bliss/reward; proof needed | High failure risk; wellness | "Fun time", proof |
-| P12 Behavioral Bridge | Real-world asks | Pure relaxation/therapy | Actions/marketing |
-| P13 Maintenance | Loop/ambient | Any script needing wake | Endless play |
+| Module | Use If | Avoid If | Best For |
+|--------|--------|----------|----------|
+| M1 Critical Softening | Identity/behavior change; authoritarian style; complex triggers | Light relaxation; short scripts | Deep programming |
+| M2 Transfer | Series/looping; future sessions; real-world asks | One-off relaxation; no post-hypnotic need | Triggers, behavioral bridge |
+| M3 Demonstration | Trigger use; bliss/reward; proof needed | High failure risk; wellness | "Fun time", proof |
+| M4 Maintenance/Loop | Loop/ambient content | Any script needing wake | Endless play |
+
+**Note:** Fractionation (DEEP-03) is a technique used within P3, not a separate module. Use when depth amplification via wake/sleep cycling is needed.
 
 ---
 
@@ -281,29 +265,22 @@ P1 → P2 → P3 → P4 → P5 → P6
 
 ---
 
-### Category LOAD: Cognitive Load Techniques
-*Purpose: Exhaust or overwhelm processing capacity (P4)*
+### Category ABSR: Absorption & Critical Softening Techniques
+*Purpose: Quiet analytical thinking, create receptive state (M1, P3)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
-| LOAD-01 | Thought Stopping | "No need to think" directives |
-| LOAD-02 | Emptiness Installation | "Blank mind" suggestions |
-| LOAD-03 | Metaphoric Shutdown | "Conscious mind takes a nap" |
-| LOAD-04 | Yes Set/Compliance Ladder | Rapid yes-responses building momentum |
-| LOAD-05 | Confusion Technique | Disorientation interjections |
-| LOAD-06 | Garbled/Overlapping Audio | Fragmented phrases to induce overload |
+| ABSR-01 | Cognitive Quieting | "No need to think" / "thoughts drift away" directives |
+| ABSR-02 | Mental Spaciousness | "Blank mind" / "empty" suggestions |
+| ABSR-03 | Metaphoric Shutdown | "Conscious mind takes a nap" |
+| ABSR-04 | Yes Set/Compliance Ladder | Rapid yes-responses building momentum |
+| ABSR-05 | Confusion Technique | Disorientation interjections |
+| ABSR-06 | Resistance Paradox | Resistance = deeper trance |
+| ABSR-07 | Circular Logic | Self-referential bypass statements |
+| ABSR-08 | Control Transfer | Thinking delegated to external authority |
+| ABSR-09 | Perspective Shift | "You" to "I" transition |
 
----
-
-### Category SEMN: Semantic Restructuring Techniques
-*Purpose: Alter meaning/evaluation frames (P4, P5)*
-
-| ID | Technique | Description |
-|----|-----------|-------------|
-| SEMN-01 | Resistance Paradox | Resistance = deeper trance |
-| SEMN-02 | Circular Logic | Self-referential bypass statements |
-| SEMN-03 | Control Transfer | Thinking delegated to external authority |
-| SEMN-04 | Perspective Shift | "You" to "I" transition |
+*Note: v5.2 merged former LOAD and SEMN categories. LOAD-06 (Garbled/Overlapping Audio) removed as accessibility-unfriendly.*
 
 ---
 
@@ -431,8 +408,39 @@ P1 → P2 → P3 → P4 → P5 → P6
 
 ---
 
+### Category XFER: Transfer & Generalization Techniques
+*Purpose: Bridge suggestions from trance to waking life (M2, P4)*
+
+| ID | Technique | Description |
+|----|-----------|-------------|
+| XFER-01 | Portable Retrieval Cue | Breath/phrase/touch cue for re-accessing target state |
+| XFER-02 | Implementation Intention | "If X happens, then I do Y" framing |
+| XFER-03 | Context Generalization | Rehearse suggestions across multiple real-life scenes |
+| XFER-04 | Waking Bridge | Suggestions delivered during/near emergence for integration |
+| XFER-05 | Temporal Bounding | Explicit trigger/effect expiration unless renewed |
+| XFER-06 | Revocation Protocol | Explicit "cancel" phrase or "this ends when I choose" |
+| XFER-07 | Practice Schedule | Instructions for short, safe practice reps post-session |
+
+---
+
+### Category CHECK: State Management Techniques
+*Purpose: Pacing controls, state checks, coherence (all phases)*
+
+| ID | Technique | Description |
+|----|-----------|-------------|
+| CHECK-01 | Anchor Selection | Explicitly choose breath/body/voice/count as main anchor |
+| CHECK-02 | Pacing-Leading | Describe present experience, then guide change |
+| CHECK-03 | Micro-ratification | "You may notice..." small, non-demanding confirmations |
+| CHECK-04 | Coherence Lock | Don't switch sensory channel abruptly early in trance |
+| CHECK-05 | Return-Path Reminder | Periodic "later you'll come back feeling clear..." |
+| CHECK-06 | Anti-Stuck Filter | Avoid "can't wake / can't move" unless consented |
+| CHECK-07 | Comfort Check | Quick "still comfortable / breathing easy?" gate |
+| CHECK-08 | Dissociation Check | "If you feel spaced-out, open eyes and orient" |
+
+---
+
 ### Category SAFE: Safety Techniques
-*Purpose: Protective framing and boundaries (P7)*
+*Purpose: Protective framing and boundaries (P1, P5)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -441,11 +449,16 @@ P1 → P2 → P3 → P4 → P5 → P6
 | SAFE-03 | Stop Signal | Clear way to pause/stop and return to baseline |
 | SAFE-04 | Scope Boundaries | Define what suggestions will/won't cover |
 | SAFE-05 | Aftercare | Post-session grounding and stabilization |
+| SAFE-06 | Suitability Prompt | "If you have X condition, consult a professional" |
+| SAFE-07 | Context Gate | Not while driving/operating machinery |
+| SAFE-08 | Agency Reminder | "You remain in control; you can stop any time" |
+| SAFE-09 | Comfort Permission | "Swallow, move, scratch, adjust—then return" |
+| SAFE-10 | Exit Protocol | Micro-protocol: open eyes, look around, orient, breathe |
 
 ---
 
-### Category EMRG: Emergence Techniques (v5.1 addition)
-*Purpose: Safe return to waking consciousness (P6)*
+### Category EMRG: Emergence Techniques
+*Purpose: Safe return to waking consciousness (P5)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -454,6 +467,11 @@ P1 → P2 → P3 → P4 → P5 → P6
 | EMRG-03 | Orientation Restoration | Awareness of room, time, surroundings |
 | EMRG-04 | Suggestion Integration | Carry positive effects forward |
 | EMRG-05 | Drift-to-Sleep Option | Alternative ending for bedtime scripts |
+| EMRG-06 | Waking Suggestion | Reinforce core suggestions during emergence for better integration |
+| EMRG-07 | Physiological Reset | Normal muscle tone, steady breathing, clear head |
+| EMRG-08 | Reorientation Sweep | Room, sounds, time, body awareness checklist |
+| EMRG-09 | Post-session Safety | Pause before standing/driving, hydrate |
+| EMRG-10 | Self-efficacy Tag | "You can reaccess this state when you want"
 
 ---
 
@@ -475,21 +493,17 @@ P1 → P2 → P3 → P4 → P5 → P6
 
 *Primary = most common, Secondary = less frequent but valid.*
 
-| Phase | Primary Techniques | Secondary Techniques |
-|-------|-------------------|---------------------|
-| P1 Context | INDU-03, AUTH-01, INDU-01 | INDU-04, DEEP-05, IMMR-05 |
-| P2 Induction | INDU-02, IMMR-01, INDU-01, INDU-03, LOAD-02 | DEEP-05, INDU-06, LOAD-01 |
-| P3 Deepening | DEEP-01, DEEP-02, IMMR-01, INDU-02, LOAD-02 | AUTH-02, AUTH-01, PLEA-01, DEEP-04 |
-| P4 Cognitive | LOAD-01, LOAD-02, SEMN-03, DISS-01 | LOAD-03, AUTH-04, AUTH-05, SEMN-01 |
-| P5 Core Suggestion | ENCD-01, AUTH-02, PLEA-01, PERS-01, ENCD-02 | AUTH-07, ENCD-04, IMMR-08, PERS-03 |
-| P6 Emergence | EMRG-01, EMRG-02, SAFE-05 | EMRG-03, EMRG-04, PERS-01, PERS-02 |
-| P7 Safety | SAFE-01, SAFE-02, SAFE-03, SAFE-04 | DISS-01, DISS-02 |
-| P8 Fractionation | DEEP-03, DEEP-01 | TRIG-08, DEEP-02, INDU-06 |
-| P9 Scenario | IMMR-01, IMMR-02, IMMR-03, IMMR-04 | VALD-03, VALD-02, DEEP-01, PLEA-01 |
-| P10 Trigger Install | TRIG-01, TRIG-03, TRIG-04, ENCD-04 | AUTH-02, PLEA-01, IMMR-05, PERS-03 |
-| P11 Demonstration | TRIG-02, VALD-03, VALD-06, PLEA-01 | INDU-06, IMMR-01, IMMR-08, VALD-04, PLEA-06 |
-| P12 Behavioral Bridge | PERS-04, TRIG-09, ENCD-04 | PERS-06, VALD-05 |
-| P13 Maintenance | PERS-05, PERS-03, LOAD-02, VALD-04 | ENCD-05 |
+| Phase/Module | Primary Techniques | Secondary Techniques |
+|--------------|-------------------|---------------------|
+| P1 Context + Safety | INDU-03, AUTH-01, INDU-01, SAFE-01–SAFE-04 | INDU-04, DEEP-05, IMMR-05, SAFE-06–SAFE-10 |
+| P2 Induction | INDU-02, IMMR-01, INDU-01, INDU-03, ABSR-02 | DEEP-05, INDU-06, ABSR-01 |
+| P3 Deepening | DEEP-01, DEEP-02, IMMR-01, INDU-02, DEEP-03 | AUTH-02, AUTH-01, PLEA-01, DEEP-04 |
+| P4 Core Suggestion | ENCD-01, AUTH-02, PLEA-01, PERS-01, ENCD-02, IMMR-01–IMMR-08 | AUTH-07, ENCD-04, PERS-03 |
+| P5 Emergence | EMRG-01, EMRG-02, SAFE-05, EMRG-06 | EMRG-03, EMRG-04, EMRG-07–EMRG-10 |
+| M1 Critical Softening | ABSR-01, ABSR-02, ABSR-08, DISS-01 | ABSR-03–ABSR-07, AUTH-04, AUTH-05 |
+| M2 Transfer | TRIG-01, TRIG-03, TRIG-04, ENCD-04, PERS-04 | AUTH-02, PLEA-01, PERS-06, TRIG-09 |
+| M3 Demonstration | TRIG-02, VALD-03, VALD-06, PLEA-01 | INDU-06, IMMR-01, IMMR-08, VALD-04, PLEA-06 |
+| M4 Maintenance | PERS-05, PERS-03, ABSR-02, VALD-04 | ENCD-05 |
 
 ---
 
@@ -511,35 +525,37 @@ For production-grade consistency, pre-pick parameters:
 Default to "low-failure" validation in audio:
 - Prefer VALD-04 (self-validating language) over "arm stuck" unless your audience expects it.
 
-### 4) v5.1 Critical Rules
-- **DEEP-03 is ONLY for fractionation (P8).** Never use DEEP-03 in P6 emergence.
-- **P6 emergence MUST use EMRG category:** EMRG-01 (count-up), EMRG-02 (body wake), EMRG-03 (orientation), EMRG-04 (integration), or EMRG-05 (drift-to-sleep).
+### 4) v5.2 Critical Rules
+- **DEEP-03 is for fractionation during P3.** Never use DEEP-03 in P5 emergence.
+- **P5 emergence MUST use EMRG category:** EMRG-01 through EMRG-10.
 - **One technique ID = one meaning.** Do not overload.
+- **ABSR techniques replace LOAD/SEMN.** Use ABSR-01 through ABSR-09 for critical softening.
 
 ---
 
 ## Appendix: Taxonomy Statistics
 
-### Coverage (v5.1)
-- **13 phases** (6 required, 7 optional)
-- **92 techniques** across 14 categories
+### Coverage (v5.2)
+- **9 phases/modules** (5 required phases + 4 optional modules)
+- **122 techniques** across 15 categories
 - **7 style modifiers**
-- **4 structural variants**
+- **5 structural variants**
 
 ### Technique Distribution by Category
-| Category | Count | Primary Phase |
-|----------|-------|---------------|
+| Category | Count | Primary Phase/Module |
+|----------|-------|---------------------|
 | INDU: Induction | 9 | P2 |
 | DEEP: Deepening | 9 | P3 |
-| LOAD: Cognitive Load | 6 | P4 |
-| SEMN: Semantic | 4 | P4, P5 |
-| DISS: Dissociation | 3 | P4, P7 |
-| AUTH: Authority | 8 | P1, P5 |
-| ENCD: Encoding | 7 | P5 |
-| IMMR: Immersion | 8 | P9 |
-| VALD: Validation | 8 | P11 |
-| TRIG: Trigger | 14 | P10, P11 |
-| PLEA: Pleasure | 6 | P5, P11 |
-| PERS: Persistence | 6 | P5, P12 |
-| SAFE: Safety | 5 | P7 |
-| EMRG: Emergence | 5 | P6 |
+| ABSR: Absorption & Critical Softening | 9 | M1, P3 |
+| DISS: Dissociation | 3 | M1 |
+| AUTH: Authority | 8 | P1, P4 |
+| ENCD: Encoding | 7 | P4 |
+| IMMR: Immersion | 8 | P4 |
+| VALD: Validation | 8 | M3 |
+| TRIG: Trigger | 14 | M2 |
+| PLEA: Pleasure | 6 | P4, M3 |
+| PERS: Persistence | 6 | P4, M2 |
+| XFER: Transfer & Generalization | 7 | M2, P4 |
+| CHECK: State Management | 8 | All phases |
+| SAFE: Safety | 10 | P1, P5 |
+| EMRG: Emergence | 10 | P5 |

@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "theme": "Fractionation bridge to lock in depth. Rise slightly, acknowledge the state, then plunge twice as deep. Proves trance to the listener and amplifies susceptibility for subsequent modules.",
+    "tone": "teasing, then commanding, demonstrating control",
+    "style": "Authoritarian",
+    "variant": "standard",
+    "duration_s": 180
+  },
+  "anchors": [
+    "rise",
+    "drop",
+    "deeper",
+    "twice",
+    "notice",
+    "sink"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately."
+  },
+  "scope_bounds": [
+    "Depth amplification through fractionation",
+    "State demonstration and proof",
+    "No new suggestions - purely depth work"
+  ],
+  "parameters": {
+    "cycles": 2,
+    "multiplier_pattern": [
+      "twice",
+      "three times"
+    ]
+  },
+  "structure": [
+    {
+      "phase": "P8",
+      "duration_s": 60,
+      "techniques": [
+        "DEEP-03",
+        "VALD-04",
+        "INDU-06"
+      ],
+      "params": {},
+      "notes": "FIRST FRACTIONATION CYCLE. Rise slightly - not full waking. 'Rising now... just a little... becoming aware of your body again... the weight of your limbs... the sounds around you fading back in... But notice something. Notice how foggy your thoughts still are. How heavy you feel. How deep you went without even realizing. That depth is still there, waiting. And now...' PAUSE. 'Drop. Drop twice as deep. Plunge back down, faster than before, heavier, deeper. Twice as gone. Twice as blank. Twice as mine.' Immediate re-drop with multiplier."
+    },
+    {
+      "phase": "P8",
+      "duration_s": 60,
+      "techniques": [
+        "DEEP-03",
+        "DEEP-01",
+        "VALD-04"
+      ],
+      "params": {},
+      "notes": "SECOND FRACTIONATION CYCLE. 'Rising again... lighter this time... more aware... You can feel how much deeper you went on that second drop. How much easier it was to fall. How natural it's becoming to obey my command to sink. Your mind is learning. Every rise and fall trains you deeper. And now you know what's coming...' Build anticipation. 'Drop. Three times as deep. Let go completely. Surrender absolutely. Fall so far down you'll forget you were ever awake.' Massive depth drop."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 40,
+      "techniques": [
+        "LOAD-02",
+        "DEEP-05",
+        "VALD-04"
+      ],
+      "params": {},
+      "notes": "Lock the depth. 'Feel where you are now. So much deeper than before. So much more open. So much more... mine. The fractionation has trained your mind to drop on command. To surrender instantly. To go blank when I say blank. This depth is your baseline now. Everything that follows will only take you deeper still. You're ready. You're empty. You're perfectly prepared for what comes next...'"
+    },
+    {
+      "phase": "P13",
+      "duration_s": 20,
+      "techniques": [
+        "PERS-03",
+        "DEEP-05"
+      ],
+      "params": {},
+      "notes": "Brief transition. 'Stay in this depth. Let it hold you. The next module begins, and you're already so deep, so ready, so completely under. Sink into what comes next...'"
+    }
+  ]
+}
