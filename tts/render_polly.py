@@ -192,6 +192,114 @@ def chunk_text(text: str, max_chars: int = 2900) -> list[str]:
     return recursive_split(text.strip(), max_chars)
 
 
+def chunk_ssml(text: str, max_chars: int = 2900) -> list[str]:
+    """
+    SSML-aware chunking that preserves tag structure.
+
+    Strategy:
+    1. First try splitting on phase comments (<!-- PHASE:) as natural boundaries
+    2. Track open prosody/other tags and close/reopen them at chunk boundaries
+    3. Fall back to paragraph splits if phases are too large
+    """
+    # First, try splitting on phase comments
+    phase_pattern = r'(?=<!-- PHASE:)'
+    phase_chunks = re.split(phase_pattern, text)
+    phase_chunks = [c.strip() for c in phase_chunks if c.strip()]
+
+    # If phases are small enough, use them directly
+    if all(len(c) <= max_chars for c in phase_chunks):
+        return phase_chunks
+
+    # Otherwise, need to split large phases further
+    result = []
+    for phase in phase_chunks:
+        if len(phase) <= max_chars:
+            result.append(phase)
+        else:
+            # Split this phase, tracking open tags
+            result.extend(_split_ssml_chunk(phase, max_chars))
+
+    return result
+
+
+def _split_ssml_chunk(text: str, max_chars: int) -> list[str]:
+    """Split a single SSML chunk while preserving tag structure."""
+    # Find all open tags that need to be tracked
+    open_tags = []
+    tag_pattern = r'<(prosody|emphasis|phoneme|sub|lang|voice|amazon:\w+)([^>]*)>'
+    close_pattern = r'</(prosody|emphasis|phoneme|sub|lang|voice|amazon:\w+)>'
+
+    chunks = []
+    current_pos = 0
+
+    while current_pos < len(text):
+        # Find a good split point
+        end_pos = min(current_pos + max_chars, len(text))
+
+        if end_pos >= len(text):
+            # Last chunk
+            chunk = text[current_pos:]
+        else:
+            # Find a safe split point (paragraph or sentence boundary)
+            search_text = text[current_pos:end_pos]
+
+            # Look for paragraph break near the end
+            para_matches = list(re.finditer(r'\n\n+', search_text))
+            if para_matches:
+                # Use the last paragraph break
+                split_at = para_matches[-1].end()
+            else:
+                # Look for sentence break
+                sent_matches = list(re.finditer(r'[.!?]\s+', search_text))
+                if sent_matches:
+                    split_at = sent_matches[-1].end()
+                else:
+                    # Fall back to any whitespace
+                    ws_matches = list(re.finditer(r'\s+', search_text))
+                    if ws_matches:
+                        split_at = ws_matches[-1].end()
+                    else:
+                        split_at = len(search_text)
+
+            chunk = text[current_pos:current_pos + split_at]
+            current_pos += split_at
+            if current_pos < len(text):
+                current_pos = current_pos  # Will continue from here
+
+        # Track which tags are open at the start of this chunk
+        prefix_tags = ''.join(f'<{tag}{attrs}>' for tag, attrs in open_tags)
+
+        # Update open_tags based on this chunk's content
+        for match in re.finditer(tag_pattern, chunk):
+            open_tags.append((match.group(1), match.group(2)))
+        for match in re.finditer(close_pattern, chunk):
+            # Remove the most recent matching open tag
+            tag_name = match.group(1)
+            for i in range(len(open_tags) - 1, -1, -1):
+                if open_tags[i][0] == tag_name:
+                    open_tags.pop(i)
+                    break
+
+        # Close any tags still open at end of chunk
+        suffix_tags = ''.join(f'</{tag}>' for tag, _ in reversed(open_tags))
+
+        # Build the chunk with proper tag wrapping
+        if chunks:  # Not the first chunk, add prefix
+            chunk = prefix_tags + chunk
+
+        if current_pos < len(text) and open_tags:  # Not the last chunk, add suffix
+            chunk = chunk + suffix_tags
+
+        chunks.append(chunk.strip())
+
+        if end_pos >= len(text):
+            break
+
+        current_pos = end_pos if current_pos == 0 else current_pos
+
+    return [c for c in chunks if c]
+
+
 def render_chunk(
     text: str,
     output_path: str,
@@ -199,7 +307,8 @@ def render_chunk(
     engine: str = "neural",
     region: str = "us-east-1",
     profile: Optional[str] = None,
-    aws_env: Optional[dict] = None
+    aws_env: Optional[dict] = None,
+    ssml: bool = False
 ) -> bool:
     """Render a single text chunk using AWS Polly."""
     cmd = ["aws"]
@@ -207,6 +316,11 @@ def render_chunk(
     # Use profile if specified, otherwise rely on env vars
     if profile:
         cmd.extend(["--profile", profile])
+
+    # For SSML, wrap chunk in <speak> tags if not already wrapped
+    if ssml:
+        if not text.strip().startswith('<speak>'):
+            text = f"<speak>{text}</speak>"
 
     cmd.extend([
         "--region", region,
@@ -217,6 +331,10 @@ def render_chunk(
         "--engine", engine,
         output_path
     ])
+
+    if ssml:
+        cmd.insert(cmd.index("--text"), "--text-type")
+        cmd.insert(cmd.index("--text"), "ssml")
 
     # Set up environment with AWS credentials if provided
     env = os.environ.copy()
@@ -260,6 +378,48 @@ def clean_script_text(text: str) -> str:
     return text.strip()
 
 
+# ---- Pause Markup Auto-Conversion ----
+# Simple markup: [500] = 500ms pause, [1.5s] = 1.5 second pause
+# Scripts can stay as .txt with these markers and auto-convert to SSML
+
+PAUSE_PATTERN = re.compile(r'\[(\d+(?:\.\d+)?)(s|ms)?\]')
+
+
+def has_pause_markers(text: str) -> bool:
+    """Check if text contains pause markers like [500] or [1.5s]."""
+    return bool(PAUSE_PATTERN.search(text))
+
+
+def convert_pauses_to_ssml(text: str) -> str:
+    """Convert pause markers to SSML break tags.
+
+    Syntax:
+        [500]   -> <break time="500ms"/>   (default is ms)
+        [500ms] -> <break time="500ms"/>
+        [1.5s]  -> <break time="1500ms"/>
+        [2s]    -> <break time="2000ms"/>
+
+    Also wraps the result in <speak> tags for Polly.
+    """
+    def replace_pause(match):
+        value = float(match.group(1))
+        unit = match.group(2) or 'ms'
+        if unit == 's':
+            ms = int(value * 1000)
+        else:
+            ms = int(value)
+        return f'<break time="{ms}ms"/>'
+
+    # Remove HTML comments first
+    text = re.sub(r'<!--[^>]*-->', '', text)
+    # Collapse multiple newlines
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    # Convert pause markers
+    text = PAUSE_PATTERN.sub(replace_pause, text)
+
+    return text.strip()
+
+
 def render_script(
     input_file: str,
     output_file: str,
@@ -267,9 +427,16 @@ def render_script(
     engine: str = "neural",
     region: str = "us-east-1",
     profile: Optional[str] = None,
-    verbose: bool = True
+    verbose: bool = True,
+    keep_chunks: bool = False,
+    ssml: bool = False
 ) -> bool:
-    """Render a full script file to audio."""
+    """Render a full script file to audio.
+
+    Args:
+        keep_chunks: If True, preserves chunk files in a debug directory next to output file.
+        ssml: If True, treats input as SSML and passes --text-type ssml to Polly.
+    """
     aws_config = get_aws_config()
 
     # Use profile from config if not explicitly provided
@@ -285,10 +452,30 @@ def render_script(
     # Read and clean text
     with open(input_file) as f:
         text = f.read()
-    text = clean_script_text(text)
 
-    # Chunk the text
-    chunks = chunk_text(text)
+    # Auto-detect pause markers and convert to SSML
+    if not ssml and has_pause_markers(text):
+        if verbose:
+            print("Detected pause markers [Xms], auto-converting to SSML...")
+        text = convert_pauses_to_ssml(text)
+        ssml = True  # Enable SSML mode for rendering
+
+    # For SSML, strip outer <speak> tags before chunking (we'll re-add per chunk)
+    if ssml:
+        text = re.sub(r'^\s*<speak>\s*', '', text)
+        text = re.sub(r'\s*</speak>\s*$', '', text)
+        # Remove HTML comments but preserve SSML tags
+        text = re.sub(r'<!--[^>]*-->', '', text)
+        text = re.sub(r'\n{3,}', '\n\n', text)
+        text = text.strip()
+    else:
+        text = clean_script_text(text)
+
+    # Chunk the text (use SSML-aware chunking if needed)
+    if ssml:
+        chunks = chunk_ssml(text)
+    else:
+        chunks = chunk_text(text)
     if verbose:
         print(f"Split into {len(chunks)} chunks")
 
@@ -302,7 +489,7 @@ def render_script(
             if verbose:
                 print(f"  Rendering chunk {i+1}/{len(chunks)} ({len(chunk)} chars)...")
 
-            if not render_chunk(chunk, chunk_file, voice, engine, region, profile, aws_config):
+            if not render_chunk(chunk, chunk_file, voice, engine, region, profile, aws_config, ssml=ssml):
                 print(f"Failed on chunk {i+1}", file=sys.stderr)
                 return False
             chunk_files.append(chunk_file)
@@ -320,12 +507,25 @@ def render_script(
         return True
 
     finally:
-        # Cleanup temp files
-        for f in chunk_files:
-            if os.path.exists(f):
-                os.remove(f)
-        if os.path.exists(temp_dir):
-            os.rmdir(temp_dir)
+        if keep_chunks and chunk_files:
+            # Move chunks to debug directory next to output
+            debug_dir = Path(output_file).parent / f"{Path(output_file).stem}_chunks"
+            debug_dir.mkdir(parents=True, exist_ok=True)
+            for f in chunk_files:
+                if os.path.exists(f):
+                    import shutil
+                    shutil.move(f, debug_dir / Path(f).name)
+            if verbose:
+                print(f"Chunks preserved in: {debug_dir}")
+            if os.path.exists(temp_dir):
+                os.rmdir(temp_dir)
+        else:
+            # Cleanup temp files
+            for f in chunk_files:
+                if os.path.exists(f):
+                    os.remove(f)
+            if os.path.exists(temp_dir):
+                os.rmdir(temp_dir)
 
 
 def render_batch(
@@ -401,6 +601,10 @@ Environment variables (or in .env file):
                        help="Batch mode: process all .txt files in input directory")
     parser.add_argument("--quiet", "-q", action="store_true",
                        help="Suppress progress output")
+    parser.add_argument("--keep-chunks", "-k", action="store_true",
+                       help="Debug: preserve chunk files in {output}_chunks/ directory")
+    parser.add_argument("--ssml", "-s", action="store_true",
+                       help="Treat input as SSML (adds --text-type ssml, wraps chunks in <speak> tags)")
 
     args = parser.parse_args()
 
@@ -431,7 +635,9 @@ Environment variables (or in .env file):
             engine=args.engine,
             region=args.region,
             profile=args.profile,
-            verbose=not args.quiet
+            verbose=not args.quiet,
+            keep_chunks=args.keep_chunks,
+            ssml=args.ssml
         )
 
     sys.exit(0 if success else 1)

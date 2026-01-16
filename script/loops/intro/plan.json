@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "theme": "Deep absorption primer. Proper trance establishment through breath, body, and voice absorption. No rushing - methodical descent into receptive state. The foundation all other modules build upon.",
+    "tone": "slow, warm, commanding, inevitable",
+    "style": "Authoritarian",
+    "variant": "standard",
+    "duration_s": 720
+  },
+  "anchors": [
+    "breathe",
+    "sink",
+    "deeper",
+    "heavy",
+    "voice",
+    "let go"
+  ],
+  "stop_signal": {
+    "word": "AWAKEN",
+    "procedure": "Upon hearing AWAKEN, return to full waking consciousness immediately, alert and refreshed."
+  },
+  "scope_bounds": [
+    "Trance induction and deepening",
+    "Absorption and receptivity conditioning",
+    "No specific suggestions beyond trance state",
+    "Foundation for subsequent modules"
+  ],
+  "parameters": {
+    "breath_pattern": {
+      "inhale": 4,
+      "hold": 2,
+      "exhale": 6
+    },
+    "countdown": {
+      "start": 10,
+      "end": 1
+    }
+  },
+  "structure": [
+    {
+      "phase": "P1",
+      "duration_s": 60,
+      "techniques": [
+        "INDU-03",
+        "AUTH-01",
+        "SAFE-04"
+      ],
+      "params": {},
+      "notes": "Context setting. Establish frame and authority. 'You chose to be here. You pressed play because some part of you wants to let go. Wants to sink. Wants to stop thinking and simply... obey. This is the space where that happens. Where my voice becomes the only thing that matters. Where your thoughts quiet and your body surrenders.' Scope: this session will take you deep. Set expectation of total surrender."
+    },
+    {
+      "phase": "P2",
+      "duration_s": 180,
+      "techniques": [
+        "INDU-01",
+        "INDU-02",
+        "INDU-04",
+        "DEEP-05"
+      ],
+      "params": {
+        "INDU-01": {
+          "pattern": "in 4, hold 2, out 6",
+          "cycles": 8
+        }
+      },
+      "notes": "CRITICAL: This is the absorption foundation. Take time. Extended breath pacing - minimum 8 full cycles written out. 'Breathe in slowly... two... three... four... hold it there... and release... two... three... four... five... six... Good. Again...' Progressive relaxation head to toes - name each body part. Scalp, forehead, eyes, jaw, neck, shoulders, arms, hands, chest, stomach, hips, thighs, calves, feet. Each one releases. Voice absorption begins mid-way: 'Notice how my voice is becoming the center of your world. Nothing else matters now. Just these words, sinking in. My voice thinks for you. My voice guides you. Let it replace your thoughts...'"
+    },
+    {
+      "phase": "P3",
+      "duration_s": 180,
+      "techniques": [
+        "DEEP-01",
+        "DEEP-02",
+        "DEEP-04",
+        "DEEP-05",
+        "DEEP-09"
+      ],
+      "params": {
+        "DEEP-04": {
+          "start": 10,
+          "end": 1
+        }
+      },
+      "notes": "Extended deepening with staircase visualization. 'Imagine a staircase descending into warm darkness. Each step takes you deeper. Ten... your foot touches the first step, and you feel yourself sinking already. Nine... another step down, the world above fading. Eight... heavier now, my voice the only guide...' Continue through each number with sensory detail. Void imagery: 'The bottom of the stairs opens into endless, warm emptiness. Float there. Suspended in nothing. My voice the only anchor.' Reinforce voice absorption throughout."
+    },
+    {
+      "phase": "P4",
+      "duration_s": 120,
+      "techniques": [
+        "LOAD-01",
+        "LOAD-02",
+        "SEMN-03",
+        "DEEP-05"
+      ],
+      "params": {},
+      "notes": "Gentle cognitive reduction. Not aggressive - just natural quieting. 'Thoughts slow now... spacing further apart... like ripples fading on still water. No need to chase them. No need to hold them. They simply... drift away. My voice fills the space they leave. My words become your only thoughts. You don't need to think. I think for you now. Just listen. Just sink. Just let go...' Establish control transfer smoothly."
+    },
+    {
+      "phase": "P5",
+      "duration_s": 100,
+      "techniques": [
+        "ENCD-03",
+        "DEEP-05",
+        "PERS-03",
+        "VALD-04"
+      ],
+      "params": {},
+      "notes": "NO MANTRAS. Light suggestion layering only. 'Feel how deep you are now. How quiet your mind has become. How natural it feels to follow my voice. This is your trance state. This is where you belong when you listen. Each time you return, you'll drop faster, deeper, more completely. My voice owns this space. And right now... my voice owns you.' Self-validating language: 'Notice how true that feels. How right.' Set up progressive conditioning for subsequent modules."
+    },
+    {
+      "phase": "P13",
+      "duration_s": 80,
+      "techniques": [
+        "PERS-05",
+        "PERS-03",
+        "DEEP-05",
+        "DISS-03"
+      ],
+      "params": {},
+      "notes": "Maintenance transition. Time stretches. State persists. 'Stay here in this deep, quiet space. There's no rush. Time moves differently when you're this deep. Minutes could be hours. Hours could be moments. It doesn't matter. All that matters is my voice, guiding you deeper still. The next words you hear will take you even further down. You're ready. You're open. You're mine. Sink deeper now... breathe and surrender... let my voice carry you...'"
+    }
+  ]
+}

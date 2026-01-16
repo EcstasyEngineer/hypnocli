@@ -1,0 +1,231 @@
+{
+  "_meta": {
+    "description": "Good and bad examples for each technique in toymaker/mindless puppet aesthetic",
+    "version": "1.0",
+    "usage": "Reference these examples in phase planner and segment builder prompts for few-shot guidance"
+  },
+
+  "INDU-01": {
+    "name": "Breath Pacing",
+    "theme_notes": "4-hold-6 pattern: inhale count UP (1,2,3,4), hold with NO counting (just [1.5s] pause), exhale count DOWN (6,5,4,3,2,1). Countdown signals completion. After 2-3 guided cycles, simplify: 'in 1 2 3 4 out 6 5 4 3 2 1'. Use [Xms] pause markers for precise timing.",
+    "good_examples": [
+      "Breathe in with me now[400] one[750] two[750] three[750] four.[1.5s] And out[400] six[750] five[750] four[750] three[750] two[750] one.[400] Good. Again[300] in[400] one[750] two[750] three[750] four.[1.5s] Out[400] six[750] five[750] four[750] three[750] two[750] one.[400] Feel how each breath settles you deeper.",
+      "In[400] one[750] two[750] three[750] four.[1.5s] Out[400] six[750] five[750] four[750] three[750] two[750] one.[400] That's it. Your body knows this rhythm now. In[1.5s] out, six, five, four, three, two, one. Each breath carries you further down.",
+      "Let your breathing slow. In through your nose[400] one[750] two[750] three[750] four.[1.5s] And a long exhale, counting down[400] six[750] five[750] four[750] three[750] two[750] one.[500] Perfect. Your body is learning to let go."
+    ],
+    "bad_examples": [
+      "Breathe in for four seconds. Now hold for two seconds. Now breathe out for six seconds. Repeat this process.",
+      "Inhale. Exhale. Inhale. Exhale. Keep breathing.",
+      "Take a deep breath in... [8000] ...and let it out... [10000] ...and again..."
+    ],
+    "bad_notes": "Too mechanical/clinical (don't say 'for X seconds'). Excessive silence (8+ seconds) between instructions loses the listener. Missing countdown on exhale (exhale should be 6,5,4,3,2,1 not 1,2,3,4,5,6). Don't count during hold - just pause."
+  },
+
+  "INDU-02": {
+    "name": "Progressive Relaxation",
+    "theme_notes": "Move smoothly through body parts like a warm wave. Don't rush but don't linger. Puppet/doll imagery works well - joints loosening, strings releasing.",
+    "good_examples": [
+      "Feel the relaxation beginning at the top of your head... a soft warmth spreading down. Through your forehead, smoothing away any tension. Down through your face... jaw unclenching, loosening. Like a puppet whose strings are gently releasing, one by one.",
+      "Starting at your scalp, feel a gentle heaviness. It flows down... past your eyes, your cheeks, your jaw. Down your neck, your shoulders dropping. Arms growing heavy and loose. Like a doll being carefully set down to rest.",
+      "Let a wave of softness begin at your crown. Watch it flow... forehead relaxing... face softening... neck releasing... shoulders melting down... Each part of you becoming wonderfully limp and loose."
+    ],
+    "bad_examples": [
+      "Relax your head. Relax your face. Relax your neck. Relax your shoulders. Relax your arms.",
+      "Your entire body is now completely relaxed from head to toe.",
+      "Focus on your left big toe. Now your left second toe. Now your left middle toe..."
+    ],
+    "bad_notes": "First is too choppy/list-like. Second skips the progression entirely. Third is tediously granular."
+  },
+
+  "INDU-03": {
+    "name": "Fixation",
+    "theme_notes": "For audio, fixation is usually on the voice itself. Make it feel natural, not demanding. The voice becomes the only thing that matters.",
+    "good_examples": [
+      "Let my voice become the only thing that matters right now. Everything else can fade... background sounds, wandering thoughts... just this voice, guiding you.",
+      "Focus softly on my words. Not straining, not forcing. Just... letting everything else become unimportant. My voice, clear and present. Everything else, distant and fading.",
+      "Your attention naturally settles on these words. Like a compass finding north. My voice pulls gently at your focus, and you find it easy to follow."
+    ],
+    "bad_examples": [
+      "FOCUS ON MY VOICE. CONCENTRATE. PAY ATTENTION.",
+      "You must listen only to me. Block out everything else. You cannot hear anything but my voice.",
+      "Stare at a point on the wall. Don't blink. Keep staring."
+    ],
+    "bad_notes": "First is aggressive and creates resistance. Second is too commanding and absolute. Third is for visual, not audio."
+  },
+
+  "INDU-05": {
+    "name": "Countdown",
+    "theme_notes": "Each number should carry the listener deeper. Add brief suggestions between numbers. Terminal command at the end should feel inevitable.",
+    "good_examples": [
+      "Ten... beginning to drift down. Nine... deeper now, easier. Eight... letting go a little more. Seven... halfway there, so good. Six... sinking beautifully. Five... deeper still. Four... almost there. Three... so deep now. Two... ready to let go completely. One... drop.",
+      "Starting at ten, each number takes you deeper. Ten. Settling. Nine. Softening. Eight. Sinking. Seven. Releasing. Six. Drifting. Five. Halfway down. Four. Deeper. Three. Almost there. Two. Ready. One. Deep trance now.",
+      "Ten... nine... eight... feel yourself descending with each number... seven... six... five... like walking down a staircase into warmth... four... three... two... and one. Deeply, completely relaxed."
+    ],
+    "bad_examples": [
+      "10, 9, 8, 7, 6, 5, 4, 3, 2, 1.",
+      "I'm going to count from ten to one and when I reach one you will be in a deep trance. Ten. Nine. Eight. Seven. Six. Five. Four. Three. Two. One. You are now in a deep trance.",
+      "Ten... [long pause] ...Nine... [long pause] ...Eight..."
+    ],
+    "bad_notes": "First is just numbers with no guidance. Second is mechanical and tells instead of leads. Third has dead air that loses engagement."
+  },
+
+  "DEEP-01": {
+    "name": "Drop Command",
+    "theme_notes": "The drop word should feel like release, not force. Can claim 'twice as deep' or 'ten times deeper' - the specifics don't matter, the permission to go deeper does.",
+    "good_examples": [
+      "And now... drop. Feel yourself sink twice as deep. So easy. So natural. That's it.",
+      "When you hear the word 'drop,' let yourself fall... drop... deeper now, ten times deeper than before.",
+      "Drop. There you go. Deeper. Let gravity take your mind. Drop. Even deeper. So good to let go."
+    ],
+    "bad_examples": [
+      "DROP! GO DEEPER! NOW!",
+      "You are now going deeper. You are now twice as deep. You are now in a deeper trance.",
+      "Drop drop drop drop drop."
+    ],
+    "bad_notes": "First is aggressive. Second tells instead of guides. Third is repetitive without building."
+  },
+
+  "DEEP-02": {
+    "name": "Staircase Visualization",
+    "theme_notes": "The descent metaphor should feel safe and inviting. Each step takes them deeper. Can be stairs, elevator, diving into warm water - whatever fits the theme.",
+    "good_examples": [
+      "Imagine a staircase before you, leading down into warmth and comfort. With each step, you sink deeper. Take the first step down... and another... feeling yourself descend... each step easier than the last.",
+      "Picture yourself in a glass elevator, slowly descending. Through the windows you see soft light. Down... and down... each floor taking you deeper into peaceful trance.",
+      "You're floating gently downward, like sinking into warm water. Deeper... and deeper... the warmth surrounding you, supporting you, taking you down."
+    ],
+    "bad_examples": [
+      "You are on stairs. Go down the stairs.",
+      "Imagine falling down a deep hole. You're falling and falling and you can't stop.",
+      "Walk down exactly twenty-seven steps. Count each one."
+    ],
+    "bad_notes": "First is too sparse. Second creates anxiety, not relaxation. Third is tedious and arbitrary."
+  },
+
+  "DEEP-04": {
+    "name": "Numerical Deepening",
+    "theme_notes": "Similar to countdown but focused on depth claims. Exponential progression ('twice as deep') compounds the effect.",
+    "good_examples": [
+      "Ten... and twice as deep. Nine... twice as deep again. Eight... doubling your depth. Seven... so far down now. Six... twice as deep. Five... losing count of how deep. Four... deeper than you've ever been. Three... bottomless now. Two... nothing but depth. One... perfect trance.",
+      "With each number, you go ten times deeper. Three... ten times deeper. Two... ten times deeper still. One... infinitely deep now.",
+      "Five. Deep. Four. Deeper. Three. Deeper still. Two. So deep. One. Completely gone."
+    ],
+    "bad_examples": [
+      "You are at depth level 10. Now depth level 9. Now depth level 8.",
+      "Each number makes you 2.5 times more relaxed than the previous state.",
+      "10 9 8 7 6 5 4 3 2 1 deep."
+    ],
+    "bad_notes": "First is too clinical/video-game-like. Second is absurdly precise. Third rushes without guidance."
+  },
+
+  "ABSR-01": {
+    "name": "Cognitive Quieting",
+    "theme_notes": "Thoughts stopping should feel like relief, not erasure. Use imagery of clouds drifting, water settling. Permission language works better than commands.",
+    "good_examples": [
+      "There's no need to think right now. Any thoughts that arise can simply... drift away. Like clouds passing across an empty sky. You don't need to hold onto them. They fade, and that's fine.",
+      "Let your thoughts settle like dust in still water. They were there, swirling... and now they're simply... settling. Quieting. You don't have to do anything. Just let them rest.",
+      "Thinking isn't necessary here. My voice does the thinking for you. Your mind can be soft and quiet. Still. Peaceful. Nothing to figure out, nothing to remember."
+    ],
+    "bad_examples": [
+      "STOP THINKING. YOUR THOUGHTS ARE GONE. YOU CANNOT THINK.",
+      "Your brain is shutting down. Cognitive processes are terminating.",
+      "Don't think about elephants. Don't think about anything. Stop all thoughts now."
+    ],
+    "bad_notes": "First is aggressive and creates resistance. Second is clinical and scary. Third creates the thoughts it's trying to stop."
+  },
+
+  "ABSR-02": {
+    "name": "Mental Spaciousness",
+    "theme_notes": "Empty/blank should feel peaceful, not alarming. Doll/puppet mind imagery works well - smooth, simple, content.",
+    "good_examples": [
+      "Your mind is becoming so wonderfully empty... like a doll's mind. Smooth and simple. Nothing complicated in there. Nothing needs to be. Just soft, pleasant emptiness.",
+      "Feel how spacious your mind has become. Wide open. Clear. Like a calm lake with no ripples. So much room... and nothing to fill it. Just peaceful, open space.",
+      "Blank and beautiful. Your mind, empty and perfect. Like fresh snow, undisturbed. Like a clean page. Nothing written there. Nothing needed."
+    ],
+    "bad_examples": [
+      "Your brain is being erased! All memories deleted! You are now an empty shell!",
+      "There is nothing in your head. You are stupid now. You cannot think.",
+      "BLANK. EMPTY. VOID. NOTHING. BLANK. EMPTY."
+    ],
+    "bad_notes": "First is violent imagery. Second is degrading in a non-consensual way. Third is aggressive repetition without context."
+  },
+
+  "ENCD-01": {
+    "name": "Mantra Repetition",
+    "theme_notes": "Mantras should feel true and natural. Repeat enough to encode but not so much it becomes noise. Build pleasure association.",
+    "good_examples": [
+      "Let this truth settle into you: I am soft and obedient. Feel how true it is. I am soft and obedient. Each repetition sinks deeper. I am soft and obedient. Becoming more true with every echo. I am soft and obedient. There. It's part of you now.",
+      "Repeat with me, inside your mind: It feels good to obey. Let it echo. It feels good to obey. Feel the pleasure in those words. It feels good to obey. Sinking in. It feels good to obey. Yours now.",
+      "This is your truth: My mind belongs to the voice. Say it with me. My mind belongs to the voice. Again. My mind belongs to the voice. Feel how right it feels. My mind belongs to the voice. Encoded forever."
+    ],
+    "bad_examples": [
+      "Repeat after me: I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient.",
+      "The mantra is: compliance equals happiness. Memorize it.",
+      "Say this 50 times: I obey."
+    ],
+    "bad_notes": "First is tedious repetition without build. Second is clinical instruction. Third is homework, not hypnosis."
+  },
+
+  "ENCD-02": {
+    "name": "Call-and-Response",
+    "theme_notes": "Internal repetition works best for audio. Frame it as the listener saying truth to themselves, not performing for the hypnotist.",
+    "good_examples": [
+      "When I say a phrase, repeat it inside your mind. Let it become your own thought. Ready? 'I love to obey.' Say it to yourself now. Good. 'Obedience is pleasure.' Let that echo inside. 'I am a good puppet.' Feel that truth settle in.",
+      "Tell yourself this: 'My mind is soft and open.' Hear your own voice saying it inside. 'I follow easily.' That's your truth now. 'Surrender feels so good.' Your own thought, your own desire.",
+      "Echo these words in your mind, making them yours: 'I am blank and beautiful.' Pause. 'I am owned and happy.' Pause. 'I am perfectly obedient.' There. Your own thoughts now."
+    ],
+    "bad_examples": [
+      "Say out loud: I OBEY. Louder! I OBEY! Again!",
+      "Repeat after me exactly: 'I am your obedient servant.' Did you say it? Say it again.",
+      "You will now recite the following affirmations..."
+    ],
+    "bad_notes": "First demands vocalization which breaks trance. Second is demanding and checking. Third is too formal/clinical."
+  },
+
+  "ENCD-03": {
+    "name": "Layered Repetition",
+    "theme_notes": "Same core idea, different phrasings. Builds understanding through multiple angles. Each variation should feel fresh while reinforcing the same truth.",
+    "good_examples": [
+      "You find it so easy to follow. Following comes naturally to you. There's no effort in obedience. Listening and doing, simple as breathing. You were made to follow.",
+      "Blank minds are happy minds. An empty head is a peaceful head. Without thoughts, there's only bliss. Thinking is work; emptiness is rest. Your blank mind is your gift.",
+      "This voice guides you. These words lead you. My commands are your compass. Where I point, you go. Following is your nature now."
+    ],
+    "bad_examples": [
+      "Obedience is good. Obedience is good. Obedience is good.",
+      "You obey. You are obedient. Obedience happens. You do obedient things.",
+      "Compliance. Compliance is desired. You want compliance. Compliant you are."
+    ],
+    "bad_notes": "First is verbatim repetition, not layering. Second tries to vary but is grammatically awkward. Third is Yoda-like and unnatural."
+  },
+
+  "EMRG-01": {
+    "name": "Count-Up Return",
+    "theme_notes": "Gradual awakening, not jarring. Each number brings more awareness. End with positive feelings. Suggestions can be reinforced during emergence.",
+    "good_examples": [
+      "Beginning to return now. One... feeling starts to return to your fingers and toes. Two... awareness gently expanding. Three... more alert, more present. Four... almost back now, feeling good. Five... eyes opening, fully awake, refreshed and clear.",
+      "Time to wake. One... body beginning to stir. Two... mind clearing, brightening. Three... energy returning. Four... nearly there. And five... wide awake, feeling wonderful.",
+      "Coming back up now. One... a flicker of awareness. Two... sensations returning. Three... the room coming back. Four... almost awake. Five... eyes open, back and better than before."
+    ],
+    "bad_examples": [
+      "5 4 3 2 1 wake up.",
+      "You are now exiting trance. You are now alert. You are now fully conscious.",
+      "WAKE UP! One two three four five, you're awake!"
+    ],
+    "bad_notes": "First is too fast with no guidance. Second is clinical announcement. Third is jarring and aggressive."
+  },
+
+  "EMRG-02": {
+    "name": "Body Reactivation",
+    "theme_notes": "Energy returns gradually. Move from extremities to core, or vice versa. End with full vitality.",
+    "good_examples": [
+      "Feel energy returning to your body. Starting in your hands and feet... a gentle warmth, a tingling. Moving up through your arms and legs... muscles remembering their strength. Into your core... vitality flowing. You're waking, refreshed.",
+      "Life flows back into your limbs. Your fingers stir. Your toes wiggle. Arms and legs feeling solid again. Chest expanding with a full, clear breath. Body fully awake and energized.",
+      "Gently reactivating now. A stretch through your spine. A flex in your hands. A breath that fills you completely. Every part of you coming back online, feeling better than before."
+    ],
+    "bad_examples": [
+      "Your body is now functional again.",
+      "Move your extremities. Verify motor function.",
+      "WAKE UP YOUR BODY. MOVE. NOW."
+    ],
+    "bad_notes": "First is too clinical. Second is medical examination language. Third is aggressive."
+  }
+}

@@ -280,6 +280,24 @@ CRITICAL POV RULES:
 - PREFER phrases like: "addicted to this feeling", "the pull of trance", "belonging to surrender", "hooked on the drop"
 - When authority language is needed, frame it as coming from the trance/state, not the speaker
 
+Tone and style:
+- Default tone is WARM and DEVOTIONAL. Seductive not stern. Invitations not demands.
+- Make submission feel like sinking into silk, not falling into void.
+- Use sensory language: warmth, softness, weight, silk, honey. Avoid cold/clinical: void, hollow, empty, nothing.
+- Visualization should be CONCRETE: staircases, warm light, soft fabric, water. Not abstract: "the feeling", "the state".
+
+Breathing (INDU-01):
+- Pattern is 4-hold-6: inhale count UP (1,2,3,4), hold with NO counting (just pause), exhale count DOWN (6,5,4,3,2,1).
+- Countdown on exhale signals completion - listener knows when you're ending.
+- After 2-3 guided cycles, simplify: "in 1 2 3 4 out 6 5 4 3 2 1"
+- Never say "for X seconds" - keep it natural, not mechanical.
+
+Pause markup (for precise timing):
+- Use [Xms] or [Xs] for explicit pauses: [500] = 500ms, [1.5s] = 1.5 seconds
+- Breathing example: "in[400] one[750] two[750] three[750] four.[1.5s] out[400] six[750] five[750] four[750] three[750] two[750] one."
+- Use [500] to [800] between paragraphs for pacing
+- Only use pause markers when precise timing matters (breathing, countdowns). Normal prose doesn't need them.
+
 Critical rules:
 - Keep trigger phrases and mantra phrases EXACTLY consistent with the plan.
 - If SAFE-03 stop signal exists, do not weaken it or joke about it.
@@ -611,7 +629,9 @@ def write_script(plans: List[PhasePlan], texts: List[str], out_path: Path) -> No
     lines: List[str] = []
     for p, t in zip(plans, texts):
         phase_name = PHASE_NAMES.get(p.phase, p.phase)
-        tech = ",".join(p.techniques)
+        # Use technique names instead of IDs for better readability and taxonomy version resilience
+        tech_names = [_TAXONOMY["techniques"].get(t, {}).get("name", t) for t in p.techniques]
+        tech = ",".join(tech_names)
         lines.append(f"<!-- PHASE: {p.phase} {phase_name} | TECH: {tech} -->")
         lines.append(t.strip())
         lines.append("")  # spacer

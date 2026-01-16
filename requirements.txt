@@ -1,1 +1,13 @@
-openai
+# Core dependencies
+openai>=1.0.0
+boto3>=1.26.0
+python-dotenv>=1.0.0
+
+# TTS rendering
+pydub>=0.25.0
+
+# Hypernym decontamination (quality gates)
+nltk>=3.8.0
+
+# Analysis (optional)
+numpy>=1.24.0
