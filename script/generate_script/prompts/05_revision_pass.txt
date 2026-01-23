@@ -1,0 +1,5 @@
+Here is a full draft:
+
+{draft}
+
+Revise the draft for clarity, flow, and completeness. Ensure the output is in consistent, clean Markdown format with clear section headers, bullet points, and proper structure. Suggest improvements and rewrite as needed.

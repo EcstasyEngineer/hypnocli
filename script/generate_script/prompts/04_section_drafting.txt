@@ -1,0 +1,8 @@
+Write a detailed draft for the following section of the outline:
+
+Section: {section}
+
+Full outline for context:
+{outline}
+
+Make the writing clear, engaging, and informative.
