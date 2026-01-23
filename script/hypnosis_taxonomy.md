@@ -405,6 +405,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | PERS-04 | Behavioral Bridge | Real-world action commands |
 | PERS-05 | Timelessness Framing | "Stay as long as you like" |
 | PERS-06 | Viral Propagation | Commands to share/spread |
+| PERS-07 | Fetish Object | Imbuing a physical object with ongoing hypnotic significance (anthropological sense: an object believed to hold power or embody connection). Headphones as ritual gateway, collar as ownership symbol, pendant as connection anchor. Distinct from TRIG (stimulus→response)—fetish objects carry persistent symbolic meaning rather than triggering discrete state changes. Etymology: Portuguese *feitiço* (charm, sorcery). |
 
 ---
 
@@ -436,6 +437,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | CHECK-06 | Anti-Stuck Filter | Avoid "can't wake / can't move" unless consented |
 | CHECK-07 | Comfort Check | Quick "still comfortable / breathing easy?" gate |
 | CHECK-08 | Dissociation Check | "If you feel spaced-out, open eyes and orient" |
+| CHECK-09 | Expectation Seeding | Explicitly previewing session structure/agenda before induction. Reduces listener uncertainty and cognitive load, increasing compliance. "In this session, you'll experience three things..." Common in professional hypnosis as "pretalk." Can be distinct section before P1 or woven into Context Setting. |
 
 ---
 
@@ -537,7 +539,7 @@ Default to "low-failure" validation in audio:
 
 ### Coverage (v5.2)
 - **9 phases/modules** (5 required phases + 4 optional modules)
-- **122 techniques** across 15 categories
+- **124 techniques** across 15 categories
 - **7 style modifiers**
 - **5 structural variants**
 
@@ -554,8 +556,8 @@ Default to "low-failure" validation in audio:
 | VALD: Validation | 8 | M3 |
 | TRIG: Trigger | 14 | M2 |
 | PLEA: Pleasure | 6 | P4, M3 |
-| PERS: Persistence | 6 | P4, M2 |
+| PERS: Persistence | 7 | P4, M2 |
 | XFER: Transfer & Generalization | 7 | M2, P4 |
-| CHECK: State Management | 8 | All phases |
+| CHECK: State Management | 9 | All phases |
 | SAFE: Safety | 10 | P1, P5 |
 | EMRG: Emergence | 10 | P5 |

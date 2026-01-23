@@ -45,7 +45,7 @@ from pathlib import Path
 # Paths relative to this script
 SCRIPT_DIR = Path(__file__).parent
 REPO_ROOT = SCRIPT_DIR.parent.parent
-MODULES_DIR = REPO_ROOT / "script" / "loops"
+MODULES_DIR = REPO_ROOT / "script" / "modules"
 AUDIO_DIR = REPO_ROOT / "audio"
 TTS_DIR = REPO_ROOT / "tts"
 PHASE_GENERATOR = REPO_ROOT / "script" / "phase_chat_generator.py"
