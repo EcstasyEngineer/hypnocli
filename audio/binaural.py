@@ -2,17 +2,21 @@
 """
 Binaural/Isochronic Generator
 
-Generates entrainment audio with multiple modes:
-- simple: Basic binaural beats
-- isochronic: Single-band amplitude-modulated pulsing
-- bambi: Advanced dual-band isochronic with harmonic ladder design
+Generates entrainment audio using composable primitives:
+- --add-iso: Add isochronic tone (carrier, pulse, amplitude, ear)
+- --add-binaural: Add binaural pair (carrier, beat, amplitude)
+- --preset: Use predefined configurations
+- --json-input: Load timeline/sweep configuration from JSON
 """
 
 import argparse
+import json
+import os
+from dataclasses import dataclass
+from typing import Optional
+
 import numpy as np
 from scipy.io import wavfile
-from scipy import signal
-import os
 
 # Constants
 SAMPLE_RATE = 44100
@@ -20,46 +24,58 @@ BIT_DEPTH = 16
 MAX_INT16 = 32767
 
 
+# === Data Structures ===
+
+@dataclass
+class ToneSpec:
+    """Specification for a single tone (isochronic or continuous)."""
+    carrier_hz: float
+    pulse_hz: float  # 0 = continuous tone (no isochronic modulation)
+    amplitude_db: float
+    ear: str  # 'L', 'R', or 'LR' (both)
+
+
+@dataclass
+class LayerSpec:
+    """Specification for a binaural layer (used with JSON timeline)."""
+    name: str
+    center_hz: float
+    pulse_hz: float  # 0 = continuous tone
+    amplitude_db: float
+
+
 # === Presets ===
 
-BAMBI_PRESETS = {
-    "ladder": {
-        "description": "Smooth theta gradient (3.25 -> 4.125 -> 5.0 Hz)",
-        "harmonic_target": 4.125,
-    },
-    "alpha8": {
-        "description": "Theta + alpha boundary (8 Hz harmonic)",
-        "harmonic_target": 8.0,
-    },
-    "alpha10": {
-        "description": "Theta + mid-alpha (10 Hz harmonic)",
-        "harmonic_target": 10.0,
-    },
+PRESETS = {
+    'drone': [
+        ToneSpec(310, 5.0, 0, 'L'),
+        ToneSpec(314, 5.0, 0, 'R'),
+        ToneSpec(58, 3.25, -6, 'L'),
+        ToneSpec(62, 3.25, -6, 'R'),
+    ],
 }
 
 
 # === Utility Functions ===
 
-def db_to_linear(db):
+def db_to_linear(db: float) -> float:
     """Convert decibels to linear amplitude."""
     return 10 ** (db / 20)
 
 
-def linear_to_db(linear):
+def linear_to_db(linear: float) -> float:
     """Convert linear amplitude to decibels."""
     return 20 * np.log10(linear + 1e-10)
 
 
-def apply_fade(signal_data, fade_in_samples, fade_out_samples):
+def apply_fade(signal_data: np.ndarray, fade_in_samples: int, fade_out_samples: int) -> np.ndarray:
     """Apply fade in/out to signal."""
     result = signal_data.copy()
 
-    # Fade in
     if fade_in_samples > 0:
         fade_in = np.linspace(0, 1, fade_in_samples)
         result[:fade_in_samples] *= fade_in
 
-    # Fade out
     if fade_out_samples > 0:
         fade_out = np.linspace(1, 0, fade_out_samples)
         result[-fade_out_samples:] *= fade_out
@@ -67,18 +83,7 @@ def apply_fade(signal_data, fade_in_samples, fade_out_samples):
     return result
 
 
-def delay_signal(signal_data, delay_ms, sample_rate):
-    """Delay a signal by specified milliseconds."""
-    delay_samples = int(sample_rate * delay_ms / 1000)
-    if delay_samples <= 0:
-        return signal_data
-
-    # Pad beginning with zeros, trim end to keep same length
-    delayed = np.concatenate([np.zeros(delay_samples), signal_data[:-delay_samples]])
-    return delayed
-
-
-def normalize_to_db(signal_data, target_db):
+def normalize_to_db(signal_data: np.ndarray, target_db: float) -> np.ndarray:
     """Normalize signal to target RMS level in dB."""
     current_rms = np.sqrt(np.mean(signal_data ** 2))
     target_rms = db_to_linear(target_db) * MAX_INT16
@@ -87,189 +92,115 @@ def normalize_to_db(signal_data, target_db):
     return signal_data
 
 
-def isochronic_envelope(t, rate, phase=0):
+def isochronic_envelope(t: np.ndarray, rate: float, phase_offset: float = 0.0) -> np.ndarray:
     """
     Generate isochronic envelope using raised cosine.
     Returns values from 0 to 1.
-    """
-    return 0.5 * (1 + np.cos(2 * np.pi * rate * t + np.pi + phase))
-
-
-def save_wav(filename, left, right, sample_rate=SAMPLE_RATE):
-    """Save stereo WAV file."""
-    # Stack to stereo
-    stereo = np.column_stack([left, right])
-
-    # Clip and convert to int16
-    stereo = np.clip(stereo, -MAX_INT16, MAX_INT16).astype(np.int16)
-
-    wavfile.write(filename, sample_rate, stereo)
-    print(f"Saved: {filename}")
-
-    # Report levels
-    rms_l = np.sqrt(np.mean(left ** 2))
-    rms_r = np.sqrt(np.mean(right ** 2))
-    peak = np.max(np.abs(stereo))
-    print(f"  RMS: L={linear_to_db(rms_l/MAX_INT16):.1f} dB, R={linear_to_db(rms_r/MAX_INT16):.1f} dB")
-    print(f"  Peak: {linear_to_db(peak/MAX_INT16):.1f} dB")
-
-
-# === Generator Modes ===
-
-def generate_simple(carrier, beat, duration, fade_in=1.0, fade_out=1.0, target_db=-20):
-    """
-    Generate simple binaural beat.
 
     Args:
-        carrier: Base frequency in Hz
-        beat: Binaural beat frequency in Hz
-        duration: Duration in seconds
-        fade_in: Fade in time in seconds
-        fade_out: Fade out time in seconds
+        t: Time array in seconds
+        rate: Pulse rate in Hz
+        phase_offset: Phase offset in radians (default 0)
+    """
+    return 0.5 * (1 + np.cos(2 * np.pi * rate * t + np.pi + phase_offset))
+
+
+def interpolate_keyframes(keyframes: list[dict], duration_sec: float, sample_rate: int) -> np.ndarray:
+    """
+    Interpolate binaural_hz values across time from keyframes.
+
+    Args:
+        keyframes: List of {time_sec, binaural_hz} dicts
+        duration_sec: Total duration in seconds
+        sample_rate: Sample rate in Hz
+
+    Returns:
+        Array of binaural_hz values for each sample
+    """
+    num_samples = int(sample_rate * duration_sec)
+    t = np.arange(num_samples) / sample_rate
+
+    # Sort keyframes by time
+    sorted_kf = sorted(keyframes, key=lambda k: k['time_sec'])
+
+    # Build interpolation arrays
+    times = [kf['time_sec'] for kf in sorted_kf]
+    values = [kf['binaural_hz'] for kf in sorted_kf]
+
+    # Linear interpolation
+    return np.interp(t, times, values)
+
+
+# === Generator Functions ===
+
+def generate_composite(
+    tones: list[ToneSpec],
+    duration_sec: float,
+    fade_in_sec: float = 1.0,
+    fade_out_sec: float = 1.0,
+    sample_rate: int = SAMPLE_RATE,
+    target_db: float = -28,
+    interleave_ms: float = 100.0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Generate composite audio from multiple tone specifications.
+
+    Args:
+        tones: List of ToneSpec objects defining each tone
+        duration_sec: Duration in seconds
+        fade_in_sec: Fade in time in seconds
+        fade_out_sec: Fade out time in seconds
+        sample_rate: Sample rate in Hz
         target_db: Target RMS level in dB
+        interleave_ms: Phase offset for R channel isochronic envelopes in ms (default 100)
+                       At 100ms with 5 Hz pulse, this creates 180-degree offset (alternating L/R)
 
     Returns:
-        left, right: Numpy arrays of audio samples
+        (left, right): Tuple of numpy arrays for stereo audio
     """
-    num_samples = int(SAMPLE_RATE * duration)
-    t = np.arange(num_samples) / SAMPLE_RATE
+    # TODO: Auto-pair L/R isochronic tones and apply 180-degree phase offset automatically
+    # Currently interleave_ms is applied uniformly, which gives 180° at 5 Hz but ~117° at 3.25 Hz
+    # Ideal: detect paired tones (same pulse_hz, opposite ears) and offset by exactly pi radians
+    # TODO: Support interleave in JSON/keyframe mode (generate_layered)
 
-    # Generate carriers
-    left = np.sin(2 * np.pi * carrier * t)
-    right = np.sin(2 * np.pi * (carrier + beat) * t)
+    num_samples = int(sample_rate * duration_sec)
+    t = np.arange(num_samples) / sample_rate
+
+    left = np.zeros(num_samples)
+    right = np.zeros(num_samples)
+
+    for tone in tones:
+        # Generate carrier
+        carrier = np.sin(2 * np.pi * tone.carrier_hz * t)
+
+        # Apply isochronic envelope if pulse_hz > 0
+        if tone.pulse_hz > 0:
+            # Apply phase offset for R channel to create L/R ping-pong effect
+            # phase_offset = 2*pi*pulse_hz*(interleave_ms/1000)
+            # At 100ms and 5 Hz: offset = pi (180°, perfect alternation)
+            # At 100ms and 3.25 Hz: offset = 0.65*pi (~117°)
+            if tone.ear == 'R':
+                phase_offset = 2 * np.pi * tone.pulse_hz * (interleave_ms / 1000)
+            else:
+                phase_offset = 0.0
+            envelope = isochronic_envelope(t, tone.pulse_hz, phase_offset)
+            signal = carrier * envelope
+        else:
+            signal = carrier
+
+        # Apply amplitude
+        amplitude = db_to_linear(tone.amplitude_db)
+        signal = signal * amplitude
+
+        # Route to channels
+        if tone.ear in ('L', 'LR'):
+            left += signal
+        if tone.ear in ('R', 'LR'):
+            right += signal
 
     # Apply fades
-    fade_in_samples = int(SAMPLE_RATE * fade_in)
-    fade_out_samples = int(SAMPLE_RATE * fade_out)
-    left = apply_fade(left, fade_in_samples, fade_out_samples)
-    right = apply_fade(right, fade_in_samples, fade_out_samples)
-
-    # Normalize
-    left = normalize_to_db(left, target_db)
-    right = normalize_to_db(right, target_db)
-
-    return left, right
-
-
-def generate_isochronic(carrier, pulse_rate, duration, fade_in=1.0, fade_out=1.0, target_db=-20):
-    """
-    Generate single-band isochronic tone.
-
-    Args:
-        carrier: Carrier frequency in Hz
-        pulse_rate: Isochronic pulse rate in Hz
-        duration: Duration in seconds
-        fade_in: Fade in time in seconds
-        fade_out: Fade out time in seconds
-        target_db: Target RMS level in dB
-
-    Returns:
-        left, right: Numpy arrays of audio samples (identical)
-    """
-    num_samples = int(SAMPLE_RATE * duration)
-    t = np.arange(num_samples) / SAMPLE_RATE
-
-    # Generate carrier
-    carrier_signal = np.sin(2 * np.pi * carrier * t)
-
-    # Generate envelope
-    envelope = isochronic_envelope(t, pulse_rate)
-
-    # Apply envelope
-    signal_data = carrier_signal * envelope
-
-    # Apply fades
-    fade_in_samples = int(SAMPLE_RATE * fade_in)
-    fade_out_samples = int(SAMPLE_RATE * fade_out)
-    signal_data = apply_fade(signal_data, fade_in_samples, fade_out_samples)
-
-    # Normalize
-    signal_data = normalize_to_db(signal_data, target_db)
-
-    # Mono output
-    return signal_data, signal_data.copy()
-
-
-def generate_bambi(
-    high_carrier=312.5,
-    high_beat=5.0,
-    low_beat=3.25,
-    low_db=-6.0,
-    interleave_ms=100.0,
-    harmonic_target=4.125,
-    duration=600,
-    fade_in=3.0,
-    fade_out=3.0,
-    target_db=-31,
-):
-    """
-    Generate advanced dual-band isochronic with harmonic ladder design.
-
-    Args:
-        high_carrier: High band center frequency in Hz
-        high_beat: High band binaural/isochronic rate in Hz
-        low_beat: Low band binaural/isochronic rate in Hz
-        low_db: Low band level relative to high in dB
-        interleave_ms: R channel delay for spatial effect in ms
-        harmonic_target: Target harmonic beat frequency in Hz
-        duration: Duration in seconds
-        fade_in: Fade in time in seconds
-        fade_out: Fade out time in seconds
-        target_db: Target RMS level in dB (standalone)
-
-    Returns:
-        left, right: Numpy arrays of audio samples
-    """
-    # Calculate derived frequencies
-    low_carrier = (high_carrier - harmonic_target) / 5
-
-    high_L = high_carrier - high_beat / 2
-    high_R = high_carrier + high_beat / 2
-    low_L = low_carrier - low_beat / 2
-    low_R = low_carrier + low_beat / 2
-
-    # Report calculated frequencies
-    print(f"=== Bambi Mode Frequencies ===")
-    print(f"High band: {high_L:.3f} / {high_R:.3f} Hz (mid: {high_carrier:.3f}, beat: {high_beat:.3f} Hz)")
-    print(f"Low band:  {low_L:.3f} / {low_R:.3f} Hz (mid: {low_carrier:.3f}, beat: {low_beat:.3f} Hz)")
-    print(f"Low level: {low_db:.1f} dB")
-    print(f"Interleave: {interleave_ms:.1f} ms")
-    print(f"Harmonic: 5 x {low_carrier:.3f} = {5*low_carrier:.3f} Hz")
-    print(f"Harmonic beat: {high_carrier:.3f} - {5*low_carrier:.3f} = {high_carrier - 5*low_carrier:.3f} Hz")
-    print()
-
-    # Generate time array
-    num_samples = int(SAMPLE_RATE * duration)
-    t = np.arange(num_samples) / SAMPLE_RATE
-
-    # Generate isochronic envelopes (mono, to be applied to both channels)
-    high_env = isochronic_envelope(t, high_beat)
-    low_env = isochronic_envelope(t, low_beat)
-
-    # Generate carriers for each channel (different frequencies for binaural)
-    high_L_carrier = np.sin(2 * np.pi * high_L * t)
-    high_R_carrier = np.sin(2 * np.pi * high_R * t)
-    low_L_carrier = np.sin(2 * np.pi * low_L * t)
-    low_R_carrier = np.sin(2 * np.pi * low_R * t)
-
-    # Apply envelopes to carriers
-    high_L_signal = high_env * high_L_carrier
-    high_R_signal = high_env * high_R_carrier
-
-    low_amplitude = db_to_linear(low_db)
-    low_L_signal = low_env * low_L_carrier * low_amplitude
-    low_R_signal = low_env * low_R_carrier * low_amplitude
-
-    # Mix bands
-    left = high_L_signal + low_L_signal
-    right = high_R_signal + low_R_signal
-
-    # Apply interleave (delay R channel)
-    right = delay_signal(right, interleave_ms, SAMPLE_RATE)
-
-    # Apply fades
-    fade_in_samples = int(SAMPLE_RATE * fade_in)
-    fade_out_samples = int(SAMPLE_RATE * fade_out)
+    fade_in_samples = int(sample_rate * fade_in_sec)
+    fade_out_samples = int(sample_rate * fade_out_sec)
     left = apply_fade(left, fade_in_samples, fade_out_samples)
     right = apply_fade(right, fade_in_samples, fade_out_samples)
 
@@ -280,9 +211,159 @@ def generate_bambi(
     return left, right
 
 
+def generate_layered(
+    layers: list[LayerSpec],
+    duration_sec: float,
+    binaural_hz: Optional[float] = None,
+    keyframes: Optional[list[dict]] = None,
+    fade_in_sec: float = 1.0,
+    fade_out_sec: float = 1.0,
+    sample_rate: int = SAMPLE_RATE,
+    target_db: float = -28,
+) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Generate layered audio with dynamic binaural beat from JSON config.
+
+    All layers share the same binaural beat (sweep in lockstep).
+    Uses phase-continuous sine generation for smooth frequency sweeps.
+
+    Args:
+        layers: List of LayerSpec objects
+        duration_sec: Duration in seconds
+        binaural_hz: Static binaural beat (if no keyframes)
+        keyframes: List of {time_sec, binaural_hz} for dynamic sweep
+        fade_in_sec: Fade in time in seconds
+        fade_out_sec: Fade out time in seconds
+        sample_rate: Sample rate in Hz
+        target_db: Target RMS level in dB
+
+    Returns:
+        (left, right): Tuple of numpy arrays for stereo audio
+    """
+    num_samples = int(sample_rate * duration_sec)
+    t = np.arange(num_samples) / sample_rate
+
+    # Get binaural offset per sample (static or interpolated from keyframes)
+    if keyframes:
+        binaural_values = interpolate_keyframes(keyframes, duration_sec, sample_rate)
+    elif binaural_hz is not None:
+        binaural_values = np.full(num_samples, binaural_hz)
+    else:
+        binaural_values = np.zeros(num_samples)
+
+    left = np.zeros(num_samples)
+    right = np.zeros(num_samples)
+
+    for layer in layers:
+        # Calculate instantaneous frequencies for L and R
+        freq_l = layer.center_hz - binaural_values / 2
+        freq_r = layer.center_hz + binaural_values / 2
+
+        # Phase-continuous sine generation using cumulative sum
+        # phase(t) = integral of 2*pi*freq(t)*dt
+        phase_l = np.cumsum(2 * np.pi * freq_l / sample_rate)
+        phase_r = np.cumsum(2 * np.pi * freq_r / sample_rate)
+
+        carrier_l = np.sin(phase_l)
+        carrier_r = np.sin(phase_r)
+
+        # Apply isochronic envelope if pulse_hz > 0
+        if layer.pulse_hz > 0:
+            envelope = isochronic_envelope(t, layer.pulse_hz)
+            signal_l = carrier_l * envelope
+            signal_r = carrier_r * envelope
+        else:
+            signal_l = carrier_l
+            signal_r = carrier_r
+
+        # Apply amplitude
+        amplitude = db_to_linear(layer.amplitude_db)
+        left += signal_l * amplitude
+        right += signal_r * amplitude
+
+    # Apply fades
+    fade_in_samples = int(sample_rate * fade_in_sec)
+    fade_out_samples = int(sample_rate * fade_out_sec)
+    left = apply_fade(left, fade_in_samples, fade_out_samples)
+    right = apply_fade(right, fade_in_samples, fade_out_samples)
+
+    # Normalize to target level
+    left = normalize_to_db(left, target_db)
+    right = normalize_to_db(right, target_db)
+
+    return left, right
+
+
+# === Audio I/O ===
+
+def save_audio(
+    left: np.ndarray,
+    right: np.ndarray,
+    filepath: str,
+    sample_rate: int = SAMPLE_RATE,
+) -> None:
+    """
+    Save stereo audio to file. Format is auto-detected from extension.
+
+    Supported formats:
+    - .wav: Uncompressed WAV (16-bit, uses scipy)
+    - .mp3: MP3 (192 kbps, requires pydub/ffmpeg)
+    - .ogg: Ogg Vorbis (requires pydub/ffmpeg)
+
+    Args:
+        left: Left channel samples
+        right: Right channel samples
+        filepath: Output file path
+        sample_rate: Sample rate in Hz
+    """
+    ext = os.path.splitext(filepath)[1].lower()
+
+    # Stack to stereo and clip
+    stereo = np.column_stack([left, right])
+    stereo = np.clip(stereo, -MAX_INT16, MAX_INT16).astype(np.int16)
+
+    if ext == '.wav':
+        wavfile.write(filepath, sample_rate, stereo)
+    elif ext in ('.mp3', '.ogg'):
+        try:
+            from pydub import AudioSegment
+        except ImportError:
+            print(f"Error: pydub required for {ext} export. Install with: pip install pydub")
+            print("Falling back to WAV output.")
+            wav_path = filepath.rsplit('.', 1)[0] + '.wav'
+            wavfile.write(wav_path, sample_rate, stereo)
+            print(f"Saved: {wav_path}")
+            return
+
+        # Create AudioSegment from raw data
+        audio = AudioSegment(
+            stereo.tobytes(),
+            frame_rate=sample_rate,
+            sample_width=2,  # 16-bit = 2 bytes
+            channels=2,
+        )
+
+        if ext == '.mp3':
+            audio.export(filepath, format='mp3', bitrate='192k')
+        else:  # .ogg
+            audio.export(filepath, format='ogg')
+    else:
+        print(f"Warning: Unknown format '{ext}', saving as WAV")
+        wavfile.write(filepath, sample_rate, stereo)
+
+    print(f"Saved: {filepath}")
+
+    # Report levels
+    rms_l = np.sqrt(np.mean(left ** 2))
+    rms_r = np.sqrt(np.mean(right ** 2))
+    peak = np.max(np.abs(stereo))
+    print(f"  RMS: L={linear_to_db(rms_l/MAX_INT16):.1f} dB, R={linear_to_db(rms_r/MAX_INT16):.1f} dB")
+    print(f"  Peak: {linear_to_db(peak/MAX_INT16):.1f} dB")
+
+
 # === Mixing ===
 
-def mix_voice_and_drone(voice_path, drone_path, output_path, drone_level_db=-12):
+def mix_voice_and_drone(voice_path: str, drone_path: str, output_path: str, drone_level_db: float = -12) -> None:
     """
     Mix voice track with drone and normalize output.
 
@@ -304,7 +385,6 @@ def mix_voice_and_drone(voice_path, drone_path, output_path, drone_level_db=-12)
 
     # Match drone length to voice
     if len(drone) < len(voice):
-        # Loop drone
         loops_needed = (len(voice) // len(drone)) + 1
         drone = drone * loops_needed
     drone = drone[:len(voice)]
@@ -328,121 +408,222 @@ def mix_voice_and_drone(voice_path, drone_path, output_path, drone_level_db=-12)
     print(f"Mixed output saved: {output_path}")
 
 
-# === CLI ===
+# === CLI Argument Parsing ===
+
+def parse_add_iso(spec: str) -> ToneSpec:
+    """
+    Parse --add-iso argument: CARRIER,PULSE_RATE,AMPLITUDE_DB,EAR(S)
+
+    Example: "310,5.0,0,L" -> ToneSpec(310, 5.0, 0, 'L')
+    """
+    parts = spec.split(',')
+    if len(parts) != 4:
+        raise ValueError(f"Invalid --add-iso format: '{spec}'. Expected: CARRIER,PULSE,DB,EAR")
+
+    carrier = float(parts[0])
+    pulse = float(parts[1])
+    amplitude = float(parts[2])
+    ear = parts[3].upper()
+
+    if ear not in ('L', 'R', 'LR'):
+        raise ValueError(f"Invalid ear: '{ear}'. Must be L, R, or LR")
+
+    return ToneSpec(carrier, pulse, amplitude, ear)
+
+
+def parse_add_binaural(spec: str) -> list[ToneSpec]:
+    """
+    Parse --add-binaural argument: CARRIER,BEAT,AMPLITUDE_DB
+
+    Generates L = carrier - beat/2, R = carrier + beat/2 (continuous tones)
+    Example: "200,5,0" -> [ToneSpec(197.5, 0, 0, 'L'), ToneSpec(202.5, 0, 0, 'R')]
+    """
+    parts = spec.split(',')
+    if len(parts) != 3:
+        raise ValueError(f"Invalid --add-binaural format: '{spec}'. Expected: CARRIER,BEAT,DB")
+
+    carrier = float(parts[0])
+    beat = float(parts[1])
+    amplitude = float(parts[2])
+
+    return [
+        ToneSpec(carrier - beat / 2, 0, amplitude, 'L'),
+        ToneSpec(carrier + beat / 2, 0, amplitude, 'R'),
+    ]
+
+
+def load_json_config(filepath: str) -> dict:
+    """Load and validate JSON configuration file."""
+    with open(filepath, 'r') as f:
+        config = json.load(f)
+
+    # Validate required fields
+    if 'duration_sec' not in config:
+        raise ValueError("JSON config must include 'duration_sec'")
+    if 'layers' not in config:
+        raise ValueError("JSON config must include 'layers'")
+
+    # Validate layers
+    for i, layer in enumerate(config['layers']):
+        required = ['center_hz', 'pulse_hz', 'amplitude_db']
+        for field in required:
+            if field not in layer:
+                raise ValueError(f"Layer {i} missing required field: '{field}'")
+
+    # Check for binaural source
+    if 'keyframes' not in config and 'binaural_hz' not in config:
+        print("Warning: No 'keyframes' or 'binaural_hz' specified. Using binaural_hz=0.")
+
+    return config
+
+
+# === CLI Main ===
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Binaural/Isochronic Generator",
+        description="Binaural/Isochronic Generator with Composable Primitives",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Simple binaural beat
-  python binaural.py simple --carrier 200 --beat 5 --duration 600 -o simple.wav
+  # Drone preset (4 isochronic tones)
+  python binaural.py generate --preset drone --duration 120 -o drone.wav
 
-  # Isochronic pulse
-  python binaural.py isochronic --carrier 312 --pulse-rate 5 --duration 600 -o iso.wav
+  # Custom isochronic tones
+  python binaural.py generate \\
+    --add-iso 310,5.0,0,L \\
+    --add-iso 314,5.0,0,R \\
+    --add-iso 58,3.25,-6,L \\
+    --add-iso 62,3.25,-6,R \\
+    --duration 120 -o custom.wav
 
-  # Bambi mode with harmonic ladder preset
-  python binaural.py bambi --preset ladder --duration 600 -o bambi.wav
+  # Simple binaural beat (continuous tones)
+  python binaural.py generate --add-binaural 200,5,0 --duration 600 -o simple.ogg
 
-  # Bambi mode with alpha target
-  python binaural.py bambi --preset alpha8 --duration 600 -o alpha.wav
+  # Load from JSON (with binaural sweep)
+  python binaural.py generate --json-input config.json -o sweep.wav
 
   # Mix voice with drone
   python binaural.py mix --voice voice.mp3 --drone drone.wav -o final.mp3
 """
     )
 
-    subparsers = parser.add_subparsers(dest='mode', help='Generator mode')
+    subparsers = parser.add_subparsers(dest='mode', help='Command')
 
-    # Simple mode
-    simple_parser = subparsers.add_parser('simple', help='Basic binaural beat')
-    simple_parser.add_argument('--carrier', type=float, default=200, help='Carrier frequency (Hz)')
-    simple_parser.add_argument('--beat', type=float, default=5, help='Beat frequency (Hz)')
-    simple_parser.add_argument('--duration', type=float, default=600, help='Duration (seconds)')
-    simple_parser.add_argument('--fade-in', type=float, default=1, help='Fade in (seconds)')
-    simple_parser.add_argument('--fade-out', type=float, default=1, help='Fade out (seconds)')
-    simple_parser.add_argument('--level', type=float, default=-20, help='Target RMS level (dB)')
-    simple_parser.add_argument('-o', '--output', default='simple_binaural.wav', help='Output file')
+    # Generate subcommand
+    gen_parser = subparsers.add_parser('generate', help='Generate entrainment audio')
+    gen_parser.add_argument('--add-iso', action='append', metavar='SPEC',
+                            help='Add isochronic tone: CARRIER,PULSE,DB,EAR (e.g., 310,5.0,0,L)')
+    gen_parser.add_argument('--add-binaural', action='append', metavar='SPEC',
+                            help='Add binaural pair: CARRIER,BEAT,DB (e.g., 200,5,0)')
+    gen_parser.add_argument('--preset', choices=list(PRESETS.keys()),
+                            help='Use predefined configuration')
+    gen_parser.add_argument('--json-input', metavar='FILE',
+                            help='Load configuration from JSON file')
+    gen_parser.add_argument('--duration', type=float, default=600,
+                            help='Duration in seconds (default: 600)')
+    gen_parser.add_argument('--fade-in', type=float, default=1.0,
+                            help='Fade in duration in seconds (default: 1.0)')
+    gen_parser.add_argument('--fade-out', type=float, default=1.0,
+                            help='Fade out duration in seconds (default: 1.0)')
+    gen_parser.add_argument('--level', type=float, default=-28,
+                            help='Target RMS level in dB (default: -31)')
+    gen_parser.add_argument('--interleave-ms', type=float, default=100.0,
+                            help='R channel isochronic phase offset in ms (default: 100)')
+    gen_parser.add_argument('-o', '--output', default='output.wav',
+                            help='Output file (default: output.wav)')
 
-    # Isochronic mode
-    iso_parser = subparsers.add_parser('isochronic', help='Single-band isochronic')
-    iso_parser.add_argument('--carrier', type=float, default=312.5, help='Carrier frequency (Hz)')
-    iso_parser.add_argument('--pulse-rate', type=float, default=5, help='Pulse rate (Hz)')
-    iso_parser.add_argument('--duration', type=float, default=600, help='Duration (seconds)')
-    iso_parser.add_argument('--fade-in', type=float, default=1, help='Fade in (seconds)')
-    iso_parser.add_argument('--fade-out', type=float, default=1, help='Fade out (seconds)')
-    iso_parser.add_argument('--level', type=float, default=-20, help='Target RMS level (dB)')
-    iso_parser.add_argument('-o', '--output', default='isochronic.wav', help='Output file')
-
-    # Bambi mode
-    bambi_parser = subparsers.add_parser('bambi', help='Advanced dual-band isochronic')
-    bambi_parser.add_argument('--preset', choices=list(BAMBI_PRESETS.keys()), default='ladder',
-                              help='Preset configuration')
-    bambi_parser.add_argument('--high-carrier', type=float, default=312.5, help='High carrier (Hz)')
-    bambi_parser.add_argument('--high-beat', type=float, default=5.0, help='High beat rate (Hz)')
-    bambi_parser.add_argument('--low-beat', type=float, default=3.25, help='Low beat rate (Hz)')
-    bambi_parser.add_argument('--low-db', type=float, default=-6, help='Low band level (dB)')
-    bambi_parser.add_argument('--interleave-ms', type=float, default=100, help='R channel delay (ms)')
-    bambi_parser.add_argument('--harmonic-target', type=float, help='Override harmonic target (Hz)')
-    bambi_parser.add_argument('--duration', type=float, default=600, help='Duration (seconds)')
-    bambi_parser.add_argument('--fade-in', type=float, default=3, help='Fade in (seconds)')
-    bambi_parser.add_argument('--fade-out', type=float, default=3, help='Fade out (seconds)')
-    bambi_parser.add_argument('--level', type=float, default=-31, help='Target RMS level (dB)')
-    bambi_parser.add_argument('-o', '--output', default='bambi_drone.wav', help='Output file')
-
-    # Mix mode
+    # Mix subcommand
     mix_parser = subparsers.add_parser('mix', help='Mix voice with drone')
     mix_parser.add_argument('--voice', required=True, help='Voice audio file')
     mix_parser.add_argument('--drone', required=True, help='Drone audio file')
-    mix_parser.add_argument('--drone-level', type=float, default=-12, help='Drone level relative to voice (dB)')
+    mix_parser.add_argument('--drone-level', type=float, default=-12,
+                            help='Drone level relative to voice in dB (default: -12)')
     mix_parser.add_argument('-o', '--output', default='mixed.mp3', help='Output file')
 
     args = parser.parse_args()
 
-    if args.mode == 'simple':
-        left, right = generate_simple(
-            carrier=args.carrier,
-            beat=args.beat,
-            duration=args.duration,
-            fade_in=args.fade_in,
-            fade_out=args.fade_out,
-            target_db=args.level,
-        )
-        save_wav(args.output, left, right)
+    if args.mode == 'generate':
+        # Determine source of tones
+        if args.json_input:
+            # Load from JSON file
+            config = load_json_config(args.json_input)
 
-    elif args.mode == 'isochronic':
-        left, right = generate_isochronic(
-            carrier=args.carrier,
-            pulse_rate=args.pulse_rate,
-            duration=args.duration,
-            fade_in=args.fade_in,
-            fade_out=args.fade_out,
-            target_db=args.level,
-        )
-        save_wav(args.output, left, right)
+            layers = [
+                LayerSpec(
+                    name=layer.get('name', f'layer_{i}'),
+                    center_hz=layer['center_hz'],
+                    pulse_hz=layer['pulse_hz'],
+                    amplitude_db=layer['amplitude_db'],
+                )
+                for i, layer in enumerate(config['layers'])
+            ]
 
-    elif args.mode == 'bambi':
-        # Get harmonic target from preset or override
-        preset = BAMBI_PRESETS[args.preset]
-        harmonic_target = args.harmonic_target or preset['harmonic_target']
+            duration = config['duration_sec']
+            fade_in = config.get('fade_in_sec', args.fade_in)
+            fade_out = config.get('fade_out_sec', args.fade_out)
+            target_db = config.get('target_db', args.level)
 
-        print(f"Using preset: {args.preset} ({preset['description']})")
-        print()
+            binaural_hz = config.get('binaural_hz')
+            keyframes = config.get('keyframes')
 
-        left, right = generate_bambi(
-            high_carrier=args.high_carrier,
-            high_beat=args.high_beat,
-            low_beat=args.low_beat,
-            low_db=args.low_db,
-            interleave_ms=args.interleave_ms,
-            harmonic_target=harmonic_target,
-            duration=args.duration,
-            fade_in=args.fade_in,
-            fade_out=args.fade_out,
-            target_db=args.level,
-        )
-        save_wav(args.output, left, right)
+            print(f"=== JSON Configuration ===")
+            print(f"Duration: {duration}s")
+            print(f"Layers: {len(layers)}")
+            for layer in layers:
+                print(f"  - {layer.name}: {layer.center_hz} Hz, pulse={layer.pulse_hz} Hz, {layer.amplitude_db} dB")
+            if keyframes:
+                print(f"Keyframes: {len(keyframes)} points")
+                for kf in keyframes:
+                    print(f"  - t={kf['time_sec']}s: {kf['binaural_hz']} Hz")
+            elif binaural_hz is not None:
+                print(f"Static binaural: {binaural_hz} Hz")
+            print()
+
+            left, right = generate_layered(
+                layers=layers,
+                duration_sec=duration,
+                binaural_hz=binaural_hz,
+                keyframes=keyframes,
+                fade_in_sec=fade_in,
+                fade_out_sec=fade_out,
+                target_db=target_db,
+            )
+
+        else:
+            # Build tones from CLI arguments
+            tones = []
+
+            if args.preset:
+                tones.extend(PRESETS[args.preset])
+                print(f"Using preset: {args.preset}")
+                for tone in PRESETS[args.preset]:
+                    print(f"  - {tone.carrier_hz} Hz, pulse={tone.pulse_hz} Hz, {tone.amplitude_db} dB, {tone.ear}")
+                print(f"Interleave: {args.interleave_ms} ms (R channel phase offset)")
+                print()
+
+            if args.add_iso:
+                for spec in args.add_iso:
+                    tones.append(parse_add_iso(spec))
+
+            if args.add_binaural:
+                for spec in args.add_binaural:
+                    tones.extend(parse_add_binaural(spec))
+
+            if not tones:
+                print("Error: No tones specified. Use --preset, --add-iso, or --add-binaural")
+                parser.print_help()
+                return
+
+            left, right = generate_composite(
+                tones=tones,
+                duration_sec=args.duration,
+                fade_in_sec=args.fade_in,
+                fade_out_sec=args.fade_out,
+                target_db=args.level,
+                interleave_ms=args.interleave_ms,
+            )
+
+        save_audio(left, right, args.output)
 
     elif args.mode == 'mix':
         mix_voice_and_drone(
