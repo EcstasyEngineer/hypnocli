@@ -163,6 +163,54 @@ Track 3:     6 Hz ──────────────────> 3 Hz
 
 ---
 
+## Multi-Layer Pulse Rate Design
+
+When using multiple isochronic layers, integer pulse rates (e.g., 7, 5, 3 Hz) will synchronize every second, creating a repetitive "thump" pattern. To maximize rhythmic complexity and avoid predictable sync points, choose pulse rates with long **least common multiple (LCM)** periods.
+
+### The Math
+
+For two frequencies f₁ and f₂, the sync period = 1 / GCD(f₁, f₂).
+
+**Example:** Original drone uses 5 Hz and 3.25 Hz (= 13/4):
+- Express as fractions: 5 = 20/4, 3.25 = 13/4
+- GCD(20, 13) = 1, so GCD of frequencies = 1/4
+- Sync period = 4 seconds ✓
+
+**Problem:** 7, 5, 3 Hz (all integers) have GCD = 1 → sync every 1 second (boring)
+
+### Designing for Maximum Entropy
+
+To get different sync periods ≥4s for all pairs in a multi-layer design:
+
+| Layer | Freq | Fraction | Common (×20) |
+|-------|------|----------|--------------|
+| High | 7.0 Hz | 7/1 | 140/20 |
+| Mid-high | 4.6 Hz | 23/5 | 92/20 |
+| Mid-low | 3.3 Hz | 33/10 | 66/20 |
+| Low | 2.55 Hz | 51/20 | 51/20 |
+
+**Resulting sync periods:**
+
+| Pair | GCD | Sync Period |
+|------|-----|-------------|
+| High – Mid-high | 4 | 5s |
+| High – Mid-low | 2 | 10s |
+| High – Low | 1 | 20s |
+| Mid-high – Mid-low | 2 | 10s |
+| Mid-high – Low | 1 | 20s |
+| Mid-low – Low | 3 | 6.67s |
+
+All pairs ≥5s, all different — maximum rhythmic complexity.
+
+### Quick Reference
+
+- **Avoid** integer relationships (7:5:3, 6:4:2, etc.)
+- **Use** fractions with coprime numerators when reduced to common denominator
+- **Target** sync periods of 4-20+ seconds between all layer pairs
+- **Test** by listening for repetitive "thump" patterns — if you hear regular sync, adjust
+
+---
+
 ## Target Frequencies by Goal
 
 | Goal | Frequency | Band |

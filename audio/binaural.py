@@ -13,6 +13,8 @@ import argparse
 import json
 import os
 from dataclasses import dataclass
+from fractions import Fraction
+from math import gcd, lcm
 from typing import Optional
 
 import numpy as np
@@ -103,6 +105,56 @@ def isochronic_envelope(t: np.ndarray, rate: float, phase_offset: float = 0.0) -
         phase_offset: Phase offset in radians (default 0)
     """
     return 0.5 * (1 + np.cos(2 * np.pi * rate * t + np.pi + phase_offset))
+
+
+def sync_period(f1: float, f2: float, max_denom: int = 100) -> float:
+    """
+    Calculate the sync period between two frequencies.
+
+    The sync period is the smallest time T where both f1*T and f2*T
+    are whole numbers (i.e., both oscillators complete integer cycles).
+
+    Args:
+        f1: First frequency in Hz
+        f2: Second frequency in Hz
+        max_denom: Maximum denominator for fraction approximation
+
+    Returns:
+        Sync period in seconds
+    """
+    frac1 = Fraction(f1).limit_denominator(max_denom)
+    frac2 = Fraction(f2).limit_denominator(max_denom)
+    return lcm(frac1.denominator, frac2.denominator) / gcd(frac1.numerator, frac2.numerator)
+
+
+def check_pulse_sync(pulse_rates: list[tuple[str, float]], min_sync_sec: float = 3.0) -> None:
+    """
+    Check all pairs of pulse rates and warn if any sync faster than min_sync_sec.
+
+    Args:
+        pulse_rates: List of (name, pulse_hz) tuples for isochronic layers
+        min_sync_sec: Minimum acceptable sync period in seconds (default: 3.0)
+    """
+    # Filter to only isochronic (pulse > 0)
+    iso_rates = [(name, rate) for name, rate in pulse_rates if rate > 0]
+
+    if len(iso_rates) < 2:
+        return
+
+    warnings = []
+    for i in range(len(iso_rates)):
+        for j in range(i + 1, len(iso_rates)):
+            name1, rate1 = iso_rates[i]
+            name2, rate2 = iso_rates[j]
+            period = sync_period(rate1, rate2)
+            if period < min_sync_sec:
+                warnings.append(f"  {name1} ({rate1} Hz) + {name2} ({rate2} Hz) sync every {period:.2f}s")
+
+    if warnings:
+        print(f"Warning: Isochronic layers sync faster than {min_sync_sec}s (may sound repetitive):")
+        for w in warnings:
+            print(w)
+        print()
 
 
 def interpolate_keyframes(keyframes: list[dict], duration_sec: float, sample_rate: int) -> np.ndarray:
@@ -525,6 +577,10 @@ Examples:
             print(f"Note: --interleave-ms ignored in JSON mode (uses automatic 180° L/R offset)")
         print()
 
+        # Check for fast-syncing pulse rates
+        pulse_rates = [(layer.name, layer.pulse_hz) for layer in layers]
+        check_pulse_sync(pulse_rates)
+
         left, right = generate_layered(
             layers=layers,
             duration_sec=duration,
@@ -559,6 +615,14 @@ Examples:
             print("Error: No tones specified. Use --preset, --add-iso, or --add-binaural")
             parser.print_help()
             return
+
+        # Check for fast-syncing pulse rates (dedupe by pulse_hz)
+        seen_rates = {}
+        for tone in tones:
+            if tone.pulse_hz > 0 and tone.pulse_hz not in seen_rates:
+                seen_rates[tone.pulse_hz] = f"{tone.carrier_hz}Hz@{tone.pulse_hz}"
+        pulse_rates = [(name, rate) for rate, name in seen_rates.items()]
+        check_pulse_sync(pulse_rates)
 
         left, right = generate_composite(
             tones=tones,
