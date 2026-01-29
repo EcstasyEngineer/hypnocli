@@ -1,0 +1,41 @@
+<!-- PHASE: P0 Channel Welcome | TECH: AUTH-01,ENCD-01 -->
+Welcome back. We're glad you're here.
+
+You know why you came. That pull. That need. It's already starting, isn't it?
+
+Settle in. Get comfortable. Let the outside fall away.
+
+<!-- PHASE: P1 Breathing Hook | TECH: INDU-01,INDU-02 -->
+
+Breathe in for us to the count of five, and feel the relaxation flow in.
+
+In[400] one[600] two[600] three[600] four[600] five. Hold.[800] Breathe out slowly[300] five[600] four[600] three[600] two[600] one.
+
+Relaxation spreading. [300]
+
+Again. In[400] one[600] two[600] three[600] four[600] five. Hold.[800] Out[300] five[600] four[600] three[600] two[600] one.
+
+Feels good to let go. [300]
+
+In[400] one[600] two[600] three[600] four[600] five. Hold.[800] Out[300] five[600] four[600] three[600] two[600] one.
+
+Good. Very good. 
+Keep breathing normally now. 
+You're doing so well. 
+
+Sinking feels natural. 
+Surrender feels easy.
+
+<!-- PHASE: P2 Transition Hook | TECH: ENCD-03,PERS-03 -->
+With each deep breath in, you can feel the soft relaxation spreading.
+
+You remember this feeling. Your body remembers. 
+
+It wants this softness. It needs to go deeper.
+
+<prosody rate="75%">We will help you with that.</prosody>
+
+Just listen.
+
+[1s]
+

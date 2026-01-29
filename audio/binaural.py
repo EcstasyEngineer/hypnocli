@@ -158,9 +158,10 @@ def generate_composite(
     Returns:
         (left, right): Tuple of numpy arrays for stereo audio
     """
-    # TODO: Auto-pair L/R isochronic tones and apply 180-degree phase offset automatically
-    # Currently interleave_ms is applied uniformly, which gives 180° at 5 Hz but ~117° at 3.25 Hz
-    # Ideal: detect paired tones (same pulse_hz, opposite ears) and offset by exactly pi radians
+    # NOTE: In CLI mode (--add-iso), interleave_ms is applied uniformly to all R-channel tones.
+    # This gives exact 180° only at 5 Hz; other frequencies get approximate offsets.
+    # For precise 180° L/R alternation at any frequency, use JSON mode (generate_layered)
+    # which automatically applies π radians offset within each layer.
 
     num_samples = int(sample_rate * duration_sec)
     t = np.arange(num_samples) / sample_rate
@@ -219,13 +220,13 @@ def generate_layered(
     fade_out_sec: float = 1.75,
     sample_rate: int = SAMPLE_RATE,
     target_db: float = -28,
-    interleave_ms: float = 100.0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Generate layered audio with dynamic binaural beat from JSON config.
 
     All layers share the same binaural beat (sweep in lockstep).
     Uses phase-continuous sine generation for smooth frequency sweeps.
+    Isochronic envelopes automatically use 180° L/R phase offset for alternation.
 
     Args:
         layers: List of LayerSpec objects
@@ -236,7 +237,6 @@ def generate_layered(
         fade_out_sec: Fade out time in seconds
         sample_rate: Sample rate in Hz
         target_db: Target RMS level in dB
-        interleave_ms: Phase offset for R channel isochronic envelopes in ms (default 100)
 
     Returns:
         (left, right): Tuple of numpy arrays for stereo audio
@@ -271,9 +271,8 @@ def generate_layered(
         # Apply isochronic envelope if pulse_hz > 0
         if layer.pulse_hz > 0:
             envelope_l = isochronic_envelope(t, layer.pulse_hz, phase_offset=0.0)
-            # R channel gets phase offset for L/R ping-pong effect
-            phase_offset_r = 2 * np.pi * layer.pulse_hz * (interleave_ms / 1000)
-            envelope_r = isochronic_envelope(t, layer.pulse_hz, phase_offset=phase_offset_r)
+            # R channel gets π radians (180°) offset for perfect L/R alternation
+            envelope_r = isochronic_envelope(t, layer.pulse_hz, phase_offset=np.pi)
             signal_l = carrier_l * envelope_l
             signal_r = carrier_r * envelope_r
         else:
@@ -522,9 +521,9 @@ Examples:
                 print(f"  - t={kf['time_sec']}s: {kf['binaural_hz']} Hz")
         elif binaural_hz is not None:
             print(f"Static binaural: {binaural_hz} Hz")
+        if args.interleave_ms != 100.0:
+            print(f"Note: --interleave-ms ignored in JSON mode (uses automatic 180° L/R offset)")
         print()
-
-        interleave = config.get('interleave_ms', args.interleave_ms)
 
         left, right = generate_layered(
             layers=layers,
@@ -534,7 +533,6 @@ Examples:
             fade_in_sec=fade_in,
             fade_out_sec=fade_out,
             target_db=target_db,
-            interleave_ms=interleave,
         )
 
     else:
