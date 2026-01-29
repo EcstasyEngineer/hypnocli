@@ -361,53 +361,6 @@ def save_audio(
     print(f"  Peak: {linear_to_db(peak/MAX_INT16):.1f} dB")
 
 
-# === Mixing ===
-
-def mix_voice_and_drone(voice_path: str, drone_path: str, output_path: str, drone_level_db: float = -12) -> None:
-    """
-    Mix voice track with drone and normalize output.
-
-    Args:
-        voice_path: Path to voice MP3/WAV
-        drone_path: Path to drone WAV
-        output_path: Output path
-        drone_level_db: Drone level relative to voice in dB
-    """
-    try:
-        from pydub import AudioSegment
-    except ImportError:
-        print("Error: pydub required for mixing. Install with: pip install pydub")
-        return
-
-    # Load audio
-    voice = AudioSegment.from_file(voice_path)
-    drone = AudioSegment.from_file(drone_path)
-
-    # Match drone length to voice
-    if len(drone) < len(voice):
-        loops_needed = (len(voice) // len(drone)) + 1
-        drone = drone * loops_needed
-    drone = drone[:len(voice)]
-
-    # Adjust drone level
-    drone = drone + drone_level_db
-
-    # Mix
-    mixed = voice.overlay(drone)
-
-    # Normalize to -1 dB peak
-    peak_db = mixed.max_dBFS
-    mixed = mixed - peak_db - 1
-
-    # Export
-    if output_path.endswith('.mp3'):
-        mixed.export(output_path, format='mp3', bitrate='192k')
-    else:
-        mixed.export(output_path, format='wav')
-
-    print(f"Mixed output saved: {output_path}")
-
-
 # === CLI Argument Parsing ===
 
 def parse_add_iso(spec: str) -> ToneSpec:
@@ -486,10 +439,10 @@ def main():
         epilog="""
 Examples:
   # Drone preset (4 isochronic tones)
-  python binaural.py generate --preset drone --duration 120 -o drone.wav
+  python binaural.py --preset drone --duration 120 -o drone.wav
 
   # Custom isochronic tones
-  python binaural.py generate \\
+  python binaural.py \\
     --add-iso 310,5.0,0,L \\
     --add-iso 314,5.0,0,R \\
     --add-iso 58,3.25,-6,L \\
@@ -497,144 +450,121 @@ Examples:
     --duration 120 -o custom.wav
 
   # Simple binaural beat (continuous tones)
-  python binaural.py generate --add-binaural 200,5,0 --duration 600 -o simple.ogg
+  python binaural.py --add-binaural 200,5,0 --duration 600 -o simple.ogg
 
   # Load from JSON (with binaural sweep)
-  python binaural.py generate --json-input config.json -o sweep.wav
-
-  # Mix voice with drone
-  python binaural.py mix --voice voice.mp3 --drone drone.wav -o final.mp3
+  python binaural.py --json-input config.json -o sweep.wav
 """
     )
 
-    subparsers = parser.add_subparsers(dest='mode', help='Command')
-
-    # Generate subcommand
-    gen_parser = subparsers.add_parser('generate', help='Generate entrainment audio')
-    gen_parser.add_argument('--add-iso', action='append', metavar='SPEC',
-                            help='Add isochronic tone: CARRIER,PULSE,DB,EAR (e.g., 310,5.0,0,L)')
-    gen_parser.add_argument('--add-binaural', action='append', metavar='SPEC',
-                            help='Add binaural pair: CARRIER,BEAT,DB (e.g., 200,5,0)')
-    gen_parser.add_argument('--preset', choices=list(PRESETS.keys()),
-                            help='Use predefined configuration')
-    gen_parser.add_argument('--json-input', metavar='FILE',
-                            help='Load configuration from JSON file')
-    gen_parser.add_argument('--duration', type=float, default=600,
-                            help='Duration in seconds (default: 600)')
-    gen_parser.add_argument('--fade-in', type=float, default=1.0,
-                            help='Fade in duration in seconds (default: 1.0)')
-    gen_parser.add_argument('--fade-out', type=float, default=1.0,
-                            help='Fade out duration in seconds (default: 1.0)')
-    gen_parser.add_argument('--level', type=float, default=-28,
-                            help='Target RMS level in dB (default: -31)')
-    gen_parser.add_argument('--interleave-ms', type=float, default=100.0,
-                            help='R channel isochronic phase offset in ms (default: 100)')
-    gen_parser.add_argument('-o', '--output', default='output.wav',
-                            help='Output file (default: output.wav)')
-
-    # Mix subcommand
-    mix_parser = subparsers.add_parser('mix', help='Mix voice with drone')
-    mix_parser.add_argument('--voice', required=True, help='Voice audio file')
-    mix_parser.add_argument('--drone', required=True, help='Drone audio file')
-    mix_parser.add_argument('--drone-level', type=float, default=-12,
-                            help='Drone level relative to voice in dB (default: -12)')
-    mix_parser.add_argument('-o', '--output', default='mixed.mp3', help='Output file')
+    parser.add_argument('--add-iso', action='append', metavar='SPEC',
+                        help='Add isochronic tone: CARRIER,PULSE,DB,EAR (e.g., 310,5.0,0,L)')
+    parser.add_argument('--add-binaural', action='append', metavar='SPEC',
+                        help='Add binaural pair: CARRIER,BEAT,DB (e.g., 200,5,0)')
+    parser.add_argument('--preset', choices=list(PRESETS.keys()),
+                        help='Use predefined configuration')
+    parser.add_argument('--json-input', metavar='FILE',
+                        help='Load configuration from JSON file')
+    parser.add_argument('--duration', type=float, default=600,
+                        help='Duration in seconds (default: 600)')
+    parser.add_argument('--fade-in', type=float, default=1.0,
+                        help='Fade in duration in seconds (default: 1.0)')
+    parser.add_argument('--fade-out', type=float, default=1.0,
+                        help='Fade out duration in seconds (default: 1.0)')
+    parser.add_argument('--level', type=float, default=-28,
+                        help='Target RMS level in dB (default: -28)')
+    parser.add_argument('--interleave-ms', type=float, default=100.0,
+                        help='R channel isochronic phase offset in ms (default: 100)')
+    parser.add_argument('-o', '--output', default='output.wav',
+                        help='Output file (default: output.wav)')
 
     args = parser.parse_args()
 
-    if args.mode == 'generate':
-        # Determine source of tones
-        if args.json_input:
-            # Load from JSON file
-            config = load_json_config(args.json_input)
+    # Check if any input specified
+    if not args.json_input and not args.preset and not args.add_iso and not args.add_binaural:
+        parser.print_help()
+        return
 
-            layers = [
-                LayerSpec(
-                    name=layer.get('name', f'layer_{i}'),
-                    center_hz=layer['center_hz'],
-                    pulse_hz=layer['pulse_hz'],
-                    amplitude_db=layer['amplitude_db'],
-                )
-                for i, layer in enumerate(config['layers'])
-            ]
+    if args.json_input:
+        # Load from JSON file
+        config = load_json_config(args.json_input)
 
-            duration = config['duration_sec']
-            fade_in = config.get('fade_in_sec', args.fade_in)
-            fade_out = config.get('fade_out_sec', args.fade_out)
-            target_db = config.get('target_db', args.level)
-
-            binaural_hz = config.get('binaural_hz')
-            keyframes = config.get('keyframes')
-
-            print(f"=== JSON Configuration ===")
-            print(f"Duration: {duration}s")
-            print(f"Layers: {len(layers)}")
-            for layer in layers:
-                print(f"  - {layer.name}: {layer.center_hz} Hz, pulse={layer.pulse_hz} Hz, {layer.amplitude_db} dB")
-            if keyframes:
-                print(f"Keyframes: {len(keyframes)} points")
-                for kf in keyframes:
-                    print(f"  - t={kf['time_sec']}s: {kf['binaural_hz']} Hz")
-            elif binaural_hz is not None:
-                print(f"Static binaural: {binaural_hz} Hz")
-            print()
-
-            left, right = generate_layered(
-                layers=layers,
-                duration_sec=duration,
-                binaural_hz=binaural_hz,
-                keyframes=keyframes,
-                fade_in_sec=fade_in,
-                fade_out_sec=fade_out,
-                target_db=target_db,
+        layers = [
+            LayerSpec(
+                name=layer.get('name', f'layer_{i}'),
+                center_hz=layer['center_hz'],
+                pulse_hz=layer['pulse_hz'],
+                amplitude_db=layer['amplitude_db'],
             )
+            for i, layer in enumerate(config['layers'])
+        ]
 
-        else:
-            # Build tones from CLI arguments
-            tones = []
+        duration = config['duration_sec']
+        fade_in = config.get('fade_in_sec', args.fade_in)
+        fade_out = config.get('fade_out_sec', args.fade_out)
+        target_db = config.get('target_db', args.level)
 
-            if args.preset:
-                tones.extend(PRESETS[args.preset])
-                print(f"Using preset: {args.preset}")
-                for tone in PRESETS[args.preset]:
-                    print(f"  - {tone.carrier_hz} Hz, pulse={tone.pulse_hz} Hz, {tone.amplitude_db} dB, {tone.ear}")
-                print(f"Interleave: {args.interleave_ms} ms (R channel phase offset)")
-                print()
+        binaural_hz = config.get('binaural_hz')
+        keyframes = config.get('keyframes')
 
-            if args.add_iso:
-                for spec in args.add_iso:
-                    tones.append(parse_add_iso(spec))
+        print(f"=== JSON Configuration ===")
+        print(f"Duration: {duration}s")
+        print(f"Layers: {len(layers)}")
+        for layer in layers:
+            print(f"  - {layer.name}: {layer.center_hz} Hz, pulse={layer.pulse_hz} Hz, {layer.amplitude_db} dB")
+        if keyframes:
+            print(f"Keyframes: {len(keyframes)} points")
+            for kf in keyframes:
+                print(f"  - t={kf['time_sec']}s: {kf['binaural_hz']} Hz")
+        elif binaural_hz is not None:
+            print(f"Static binaural: {binaural_hz} Hz")
+        print()
 
-            if args.add_binaural:
-                for spec in args.add_binaural:
-                    tones.extend(parse_add_binaural(spec))
-
-            if not tones:
-                print("Error: No tones specified. Use --preset, --add-iso, or --add-binaural")
-                parser.print_help()
-                return
-
-            left, right = generate_composite(
-                tones=tones,
-                duration_sec=args.duration,
-                fade_in_sec=args.fade_in,
-                fade_out_sec=args.fade_out,
-                target_db=args.level,
-                interleave_ms=args.interleave_ms,
-            )
-
-        save_audio(left, right, args.output)
-
-    elif args.mode == 'mix':
-        mix_voice_and_drone(
-            voice_path=args.voice,
-            drone_path=args.drone,
-            output_path=args.output,
-            drone_level_db=args.drone_level,
+        left, right = generate_layered(
+            layers=layers,
+            duration_sec=duration,
+            binaural_hz=binaural_hz,
+            keyframes=keyframes,
+            fade_in_sec=fade_in,
+            fade_out_sec=fade_out,
+            target_db=target_db,
         )
 
     else:
-        parser.print_help()
+        # Build tones from CLI arguments
+        tones = []
+
+        if args.preset:
+            tones.extend(PRESETS[args.preset])
+            print(f"Using preset: {args.preset}")
+            for tone in PRESETS[args.preset]:
+                print(f"  - {tone.carrier_hz} Hz, pulse={tone.pulse_hz} Hz, {tone.amplitude_db} dB, {tone.ear}")
+            print(f"Interleave: {args.interleave_ms} ms (R channel phase offset)")
+            print()
+
+        if args.add_iso:
+            for spec in args.add_iso:
+                tones.append(parse_add_iso(spec))
+
+        if args.add_binaural:
+            for spec in args.add_binaural:
+                tones.extend(parse_add_binaural(spec))
+
+        if not tones:
+            print("Error: No tones specified. Use --preset, --add-iso, or --add-binaural")
+            parser.print_help()
+            return
+
+        left, right = generate_composite(
+            tones=tones,
+            duration_sec=args.duration,
+            fade_in_sec=args.fade_in,
+            fade_out_sec=args.fade_out,
+            target_db=args.level,
+            interleave_ms=args.interleave_ms,
+        )
+
+    save_audio(left, right, args.output)
 
 
 if __name__ == '__main__':

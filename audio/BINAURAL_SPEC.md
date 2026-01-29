@@ -42,13 +42,13 @@ Generates continuous tones (no isochronic modulation):
 ### Generate with Preset
 
 ```bash
-python audio/binaural.py generate --preset drone --duration 120 -o drone.wav
+python audio/binaural.py --preset drone --duration 120 -o drone.wav
 ```
 
 ### Generate with Custom Tones
 
 ```bash
-python audio/binaural.py generate \
+python audio/binaural.py \
   --add-iso 310,5.0,0,L \
   --add-iso 314,5.0,0,R \
   --add-iso 58,3.2,-6,L \
@@ -59,19 +59,13 @@ python audio/binaural.py generate \
 ### Simple Binaural Beat
 
 ```bash
-python audio/binaural.py generate --add-binaural 200,5,0 --duration 600 -o simple.ogg
+python audio/binaural.py --add-binaural 200,5,0 --duration 600 -o simple.ogg
 ```
 
 ### Generate from JSON (with sweep)
 
 ```bash
-python audio/binaural.py generate --json-input config.json -o sweep.wav
-```
-
-### Mix Voice with Drone
-
-```bash
-python audio/binaural.py mix --voice voice.mp3 --drone drone.wav -o final.mp3
+python audio/binaural.py --json-input config.json -o sweep.wav
 ```
 
 ---
@@ -180,10 +174,8 @@ Format is auto-detected from file extension:
 
 ## CLI Reference
 
-### `generate` Command
-
 ```
-python audio/binaural.py generate [options]
+python audio/binaural.py [options]
 ```
 
 | Option | Default | Description |
@@ -198,19 +190,6 @@ python audio/binaural.py generate [options]
 | `--level DB` | -28 | Target RMS level in dB |
 | `--interleave-ms MS` | 100 | R channel isochronic phase offset (creates L/R ping-pong) |
 | `-o, --output FILE` | output.wav | Output file path |
-
-### `mix` Command
-
-```
-python audio/binaural.py mix [options]
-```
-
-| Option | Default | Description |
-|--------|---------|-------------|
-| `--voice FILE` | (required) | Voice audio file |
-| `--drone FILE` | (required) | Drone audio file |
-| `--drone-level DB` | -12 | Drone level relative to voice |
-| `-o, --output FILE` | mixed.mp3 | Output file path |
 
 ---
 
@@ -260,7 +239,7 @@ Use `analysis/scripts/binaural_analyzer.py` to verify generated audio matches ex
 
 ```bash
 # Generate
-python audio/binaural.py generate --preset drone --duration 30 -o test_drone.wav
+python audio/binaural.py --preset drone --duration 30 -o test_drone.wav
 
 # Analyze
 python analysis/scripts/binaural_analyzer.py test_drone.wav --window 10 --step 5
@@ -290,7 +269,7 @@ Create `test_sweep.json`:
 
 ```bash
 # Generate
-python audio/binaural.py generate --json-input test_sweep.json -o test_sweep.wav
+python audio/binaural.py --json-input test_sweep.json -o test_sweep.wav
 
 # Analyze
 python analysis/scripts/binaural_analyzer.py test_sweep.wav --window 10 --step 5
