@@ -136,8 +136,8 @@ def interpolate_keyframes(keyframes: list[dict], duration_sec: float, sample_rat
 def generate_composite(
     tones: list[ToneSpec],
     duration_sec: float,
-    fade_in_sec: float = 1.0,
-    fade_out_sec: float = 1.0,
+    fade_in_sec: float = 1.75,
+    fade_out_sec: float = 1.75,
     sample_rate: int = SAMPLE_RATE,
     target_db: float = -28,
     interleave_ms: float = 100.0,
@@ -161,7 +161,6 @@ def generate_composite(
     # TODO: Auto-pair L/R isochronic tones and apply 180-degree phase offset automatically
     # Currently interleave_ms is applied uniformly, which gives 180° at 5 Hz but ~117° at 3.25 Hz
     # Ideal: detect paired tones (same pulse_hz, opposite ears) and offset by exactly pi radians
-    # TODO: Support interleave in JSON/keyframe mode (generate_layered)
 
     num_samples = int(sample_rate * duration_sec)
     t = np.arange(num_samples) / sample_rate
@@ -216,10 +215,11 @@ def generate_layered(
     duration_sec: float,
     binaural_hz: Optional[float] = None,
     keyframes: Optional[list[dict]] = None,
-    fade_in_sec: float = 1.0,
-    fade_out_sec: float = 1.0,
+    fade_in_sec: float = 1.75,
+    fade_out_sec: float = 1.75,
     sample_rate: int = SAMPLE_RATE,
     target_db: float = -28,
+    interleave_ms: float = 100.0,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Generate layered audio with dynamic binaural beat from JSON config.
@@ -236,6 +236,7 @@ def generate_layered(
         fade_out_sec: Fade out time in seconds
         sample_rate: Sample rate in Hz
         target_db: Target RMS level in dB
+        interleave_ms: Phase offset for R channel isochronic envelopes in ms (default 100)
 
     Returns:
         (left, right): Tuple of numpy arrays for stereo audio
@@ -269,9 +270,12 @@ def generate_layered(
 
         # Apply isochronic envelope if pulse_hz > 0
         if layer.pulse_hz > 0:
-            envelope = isochronic_envelope(t, layer.pulse_hz)
-            signal_l = carrier_l * envelope
-            signal_r = carrier_r * envelope
+            envelope_l = isochronic_envelope(t, layer.pulse_hz, phase_offset=0.0)
+            # R channel gets phase offset for L/R ping-pong effect
+            phase_offset_r = 2 * np.pi * layer.pulse_hz * (interleave_ms / 1000)
+            envelope_r = isochronic_envelope(t, layer.pulse_hz, phase_offset=phase_offset_r)
+            signal_l = carrier_l * envelope_l
+            signal_r = carrier_r * envelope_r
         else:
             signal_l = carrier_l
             signal_r = carrier_r
@@ -467,10 +471,10 @@ Examples:
                         help='Load configuration from JSON file')
     parser.add_argument('--duration', type=float, default=600,
                         help='Duration in seconds (default: 600)')
-    parser.add_argument('--fade-in', type=float, default=1.0,
-                        help='Fade in duration in seconds (default: 1.0)')
-    parser.add_argument('--fade-out', type=float, default=1.0,
-                        help='Fade out duration in seconds (default: 1.0)')
+    parser.add_argument('--fade-in', type=float, default=1.75,
+                        help='Fade in duration in seconds (default: 1.75)')
+    parser.add_argument('--fade-out', type=float, default=1.75,
+                        help='Fade out duration in seconds (default: 1.75)')
     parser.add_argument('--level', type=float, default=-28,
                         help='Target RMS level in dB (default: -28)')
     parser.add_argument('--interleave-ms', type=float, default=100.0,
@@ -520,6 +524,8 @@ Examples:
             print(f"Static binaural: {binaural_hz} Hz")
         print()
 
+        interleave = config.get('interleave_ms', args.interleave_ms)
+
         left, right = generate_layered(
             layers=layers,
             duration_sec=duration,
@@ -528,6 +534,7 @@ Examples:
             fade_in_sec=fade_in,
             fade_out_sec=fade_out,
             target_db=target_db,
+            interleave_ms=interleave,
         )
 
     else:

@@ -51,8 +51,8 @@ python audio/binaural.py --preset drone --duration 120 -o drone.wav
 python audio/binaural.py \
   --add-iso 310,5.0,0,L \
   --add-iso 314,5.0,0,R \
-  --add-iso 58,3.2,-6,L \
-  --add-iso 62,3.2,-6,R \
+  --add-iso 58,3.25,-6,L \
+  --add-iso 62,3.25,-6,R \
   --duration 120 -o custom.wav
 ```
 
@@ -99,8 +99,8 @@ For dynamic binaural sweeps, use a JSON configuration file.
 ```json
 {
   "duration_sec": 120,
-  "fade_in_sec": 1.0,
-  "fade_out_sec": 1.0,
+  "fade_in_sec": 1.75,
+  "fade_out_sec": 1.75,
   "target_db": -28,
 
   "layers": [
@@ -123,8 +123,8 @@ For dynamic binaural sweeps, use a JSON configuration file.
 | `layers` | Yes | - | Array of layer definitions |
 | `keyframes` | No | - | Array of binaural sweep points |
 | `binaural_hz` | No | 0 | Static binaural beat (if no keyframes) |
-| `fade_in_sec` | No | 1.0 | Fade in duration |
-| `fade_out_sec` | No | 1.0 | Fade out duration |
+| `fade_in_sec` | No | 1.75 | Fade in duration |
+| `fade_out_sec` | No | 1.75 | Fade out duration |
 | `target_db` | No | -28 | Target RMS level |
 
 ### Layer Definition
@@ -185,8 +185,8 @@ python audio/binaural.py [options]
 | `--preset NAME` | - | Use predefined configuration |
 | `--json-input FILE` | - | Load from JSON file |
 | `--duration SECS` | 600 | Duration in seconds |
-| `--fade-in SECS` | 1.0 | Fade in duration |
-| `--fade-out SECS` | 1.0 | Fade out duration |
+| `--fade-in SECS` | 1.75 | Fade in duration |
+| `--fade-out SECS` | 1.75 | Fade out duration |
 | `--level DB` | -28 | Target RMS level in dB |
 | `--interleave-ms MS` | 100 | R channel isochronic phase offset (creates L/R ping-pong) |
 | `-o, --output FILE` | output.wav | Output file path |
