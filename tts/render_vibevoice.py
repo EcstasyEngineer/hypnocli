@@ -155,6 +155,8 @@ def convert_to_vibevoice_format(text: str, speaker_name: str = "Speaker") -> str
     """
     # Remove HTML comments
     text = re.sub(r'<!--[^>]*-->', '', text)
+    # Remove SSML/prosody tags (keep inner content)
+    text = re.sub(r'<[^>]+>', '', text)
 
     # Convert pause markers to ellipses/natural breaks
     def replace_pause(match):

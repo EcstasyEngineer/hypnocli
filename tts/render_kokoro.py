@@ -128,6 +128,8 @@ def convert_pauses_to_silence(text: str) -> list[tuple[str, Optional[float]]]:
     """
     # Remove HTML comments
     text = re.sub(r'<!--[^>]*-->', '', text)
+    # Remove SSML/prosody tags (keep inner content)
+    text = re.sub(r'<[^>]+>', '', text)
     # Collapse multiple newlines
     text = re.sub(r'\n{3,}', '\n\n', text)
 
