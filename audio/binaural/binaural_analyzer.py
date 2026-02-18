@@ -1557,9 +1557,11 @@ def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
                 if gap > merge_gap_sec:
                     continue
 
-                f_med_cur = float(np.median(cur['freqs']))
-                f_med_tb = float(np.median(tb['freqs']))
-                if abs(f_med_cur - f_med_tb) > merge_df_hz:
+                # Compare tail of cur to head of tb — median-to-median would
+                # fail for drifting carriers where early/late segments differ.
+                f_tail = float(np.median(cur['freqs'][-max(1, len(cur['freqs'])//5):]))
+                f_head = float(np.median(tb['freqs'][:max(1, len(tb['freqs'])//5)]))
+                if abs(f_tail - f_head) > merge_df_hz:
                     continue
 
                 # Merge tb into cur
@@ -1578,7 +1580,7 @@ def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
 
 
 def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
-                   prom_thresh=8.0, gap_max=3):
+                   prom_thresh=8.0, gap_max=8, min_median_power=10.0):
     """Phase 1 ridge tracker: extract frequency tracks and render spectrogram.
 
     Pass 1 only — no beat rate analysis. Outputs a spectrogram PNG with teal
@@ -1665,16 +1667,22 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
                                       min_track_frames=min_track_frames)
     del peaks_L, peaks_R
     gc.collect()
-    print(f"Tracks (pre-merge): {len(tracks_L)} L, {len(tracks_R)} R")
+
+    # Drop tracks whose median whitened power is below threshold — these are
+    # transient music/voice harmonics, not persistent carriers. Real binaural
+    # carriers like 648 Hz hit 15-31 dB median; noise tracks sit at 7-9 dB.
+    tracks_L = [tr for tr in tracks_L if float(np.median(tr['powers'])) >= min_median_power]
+    tracks_R = [tr for tr in tracks_R if float(np.median(tr['powers'])) >= min_median_power]
+    print(f"Tracks (pre-merge, median≥{min_median_power}dB): {len(tracks_L)} L, {len(tracks_R)} R")
 
     # Merge co-linear fragments: same carrier broken up by speech/music masking.
     # Allow a larger gap for longer files where masking windows are also longer.
     merge_gap_sec = min(120.0, max(30.0, duration * 0.05))
-    tracks_L = _merge_colinear_tracks(tracks_L, merge_df_hz=8.0,
+    tracks_L = _merge_colinear_tracks(tracks_L, merge_df_hz=15.0,
                                        merge_gap_sec=merge_gap_sec)
-    tracks_R = _merge_colinear_tracks(tracks_R, merge_df_hz=8.0,
+    tracks_R = _merge_colinear_tracks(tracks_R, merge_df_hz=15.0,
                                        merge_gap_sec=merge_gap_sec)
-    print(f"Tracks (post-merge, Δf≤8Hz gap≤{merge_gap_sec:.0f}s): "
+    print(f"Tracks (post-merge, Δf≤15Hz gap≤{merge_gap_sec:.0f}s): "
           f"{len(tracks_L)} L, {len(tracks_R)} R "
           f"(min fragment: {min_track_frames} frames / ~{min_track_frames * hop_dur:.1f}s)")
 
