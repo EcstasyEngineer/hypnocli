@@ -47,7 +47,17 @@ try:
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     from matplotlib.ticker import FuncFormatter
+    from matplotlib.colors import LinearSegmentedColormap, Normalize
     HAS_MATPLOTLIB = True
+    # Per-channel colormaps: dark (low dB) → bright (high dB)
+    _CMAP_LEFT = LinearSegmentedColormap.from_list(
+        'teal_heat', ['#000011', '#002233', '#005577', '#009999', '#44eedd'], N=256)
+    _CMAP_RIGHT = LinearSegmentedColormap.from_list(
+        'red_heat', ['#110000', '#330000', '#880000', '#cc3300', '#ff8855'], N=256)
+    _CMAP_MONO = 'viridis'
+    # Marker colors for L/R carrier trajectories
+    _COLOR_L = '#00ccbb'   # teal
+    _COLOR_R = '#ff4422'   # red
 except ImportError:
     HAS_MATPLOTLIB = False
 
@@ -1177,19 +1187,15 @@ def generate_spectrogram(filepath, carrier_trajectories=None, carrier_pairs=None
     print(f"Loading audio for spectrogram (target sr={target_sr} Hz, "
           f"range {freq_min}-{render_max} Hz)...")
 
-    if lr_split:
-        y, _ = librosa.load(filepath, sr=target_sr, mono=False)
-        if y.ndim == 1:
-            y_left_ds, y_right_ds = y, y.copy()
-        else:
-            y_left_ds, y_right_ds = y[0], y[1]
-        del y
-        gc.collect()
-        duration = len(y_left_ds) / target_sr
+    # Always load stereo — needed for both overlay and split modes
+    y, _ = librosa.load(filepath, sr=target_sr, mono=False)
+    if y.ndim == 1:
+        y_left_ds, y_right_ds = y, y.copy()
     else:
-        mono_ds, _ = librosa.load(filepath, sr=target_sr, mono=True)
-        duration = len(mono_ds) / target_sr
-        y_left_ds = y_right_ds = None
+        y_left_ds, y_right_ds = y[0], y[1]
+    del y
+    gc.collect()
+    duration = len(y_left_ds) / target_sr
 
     filename = os.path.basename(filepath)
 
@@ -1200,34 +1206,87 @@ def generate_spectrogram(filepath, carrier_trajectories=None, carrier_pairs=None
     else:
         n_fft, hop_length = 2048, 2048
 
+    vmin_db, vmax_db = -80, 0
+
     if lr_split:
         fig, (ax_l, ax_r) = plt.subplots(2, 1, figsize=(16, 10), sharex=True)
         panels = [('Left', y_left_ds, ax_l), ('Right', y_right_ds, ax_r)]
     else:
         fig, ax = plt.subplots(1, 1, figsize=(16, 6))
-        panels = [('Mono (L+R)', mono_ds, ax)]
+        panels = [('Overlay', (y_left_ds, y_right_ds), ax)]
 
     for label, sig, ax_panel in panels:
-        S = librosa.stft(sig, n_fft=n_fft, hop_length=hop_length)
-        S_db = librosa.amplitude_to_db(np.abs(S), ref=np.max)
-        del S
-        gc.collect()
-
         freqs = librosa.fft_frequencies(sr=target_sr, n_fft=n_fft)
-        times = librosa.frames_to_time(np.arange(S_db.shape[1]),
-                                        sr=target_sr, hop_length=hop_length)
-
         freq_mask = (freqs >= freq_min) & (freqs <= render_max)
-        img = ax_panel.pcolormesh(times, freqs[freq_mask], S_db[freq_mask, :],
-                                   shading='gouraud', cmap='viridis',
-                                   vmin=-80, vmax=0)
-        ax_panel.set_ylabel(f'{label}\nFrequency (Hz)')
-        ax_panel.set_ylim(freq_min, render_max)
 
+        if label == 'Overlay':
+            # Compute STFT for each channel separately
+            y_l, y_r = sig
+            S_l = librosa.stft(y_l, n_fft=n_fft, hop_length=hop_length)
+            S_db_l = librosa.amplitude_to_db(np.abs(S_l), ref=np.max)
+            del S_l; gc.collect()
+
+            S_r = librosa.stft(y_r, n_fft=n_fft, hop_length=hop_length)
+            S_db_r = librosa.amplitude_to_db(np.abs(S_r), ref=np.max)
+            del S_r; gc.collect()
+
+            times = librosa.frames_to_time(np.arange(S_db_l.shape[1]),
+                                            sr=target_sr, hop_length=hop_length)
+
+            # Normalize dB to [0, 1] and apply per-channel colormaps → RGBA
+            l_norm = np.clip((S_db_l[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
+            r_norm = np.clip((S_db_r[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
+            del S_db_l, S_db_r; gc.collect()
+
+            rgba_l = _CMAP_LEFT(l_norm)   # [freq_bins, time_bins, 4]
+            rgba_r = _CMAP_RIGHT(r_norm)
+            del l_norm, r_norm; gc.collect()
+
+            # Screen blend: 1 - (1-a)(1-b) — prevents oversaturation where both are loud
+            rgba_blend = np.empty_like(rgba_l)
+            rgba_blend[..., :3] = 1.0 - (1.0 - rgba_l[..., :3]) * (1.0 - rgba_r[..., :3])
+            rgba_blend[..., 3] = 1.0
+            del rgba_l, rgba_r; gc.collect()
+
+            extent = [times[0], times[-1], freqs[freq_mask][0], freqs[freq_mask][-1]]
+            ax_panel.imshow(rgba_blend, aspect='auto', origin='lower', extent=extent,
+                            interpolation='bilinear')
+            del rgba_blend; gc.collect()
+
+            ax_panel.set_ylabel('L (teal) / R (red)\nFrequency (Hz)')
+            ax_panel.set_ylim(freq_min, render_max)
+
+            # Two colorbars via ScalarMappable
+            norm = Normalize(vmin=vmin_db, vmax=vmax_db)
+            sm_l = plt.cm.ScalarMappable(cmap=_CMAP_LEFT, norm=norm)
+            sm_r = plt.cm.ScalarMappable(cmap=_CMAP_RIGHT, norm=norm)
+            cbar_l = fig.colorbar(sm_l, ax=ax_panel, pad=0.01, fraction=0.025)
+            cbar_l.set_label('L dB')
+            cbar_r = fig.colorbar(sm_r, ax=ax_panel, pad=0.055, fraction=0.025)
+            cbar_r.set_label('R dB')
+
+        else:
+            # L/R split panels — per-channel colormap, pcolormesh
+            S = librosa.stft(sig, n_fft=n_fft, hop_length=hop_length)
+            S_db = librosa.amplitude_to_db(np.abs(S), ref=np.max)
+            del S; gc.collect()
+
+            times = librosa.frames_to_time(np.arange(S_db.shape[1]),
+                                            sr=target_sr, hop_length=hop_length)
+
+            panel_cmap = _CMAP_LEFT if label == 'Left' else _CMAP_RIGHT
+            img = ax_panel.pcolormesh(times, freqs[freq_mask], S_db[freq_mask, :],
+                                       shading='gouraud', cmap=panel_cmap,
+                                       vmin=vmin_db, vmax=vmax_db)
+            ax_panel.set_ylabel(f'{label}\nFrequency (Hz)')
+            ax_panel.set_ylim(freq_min, render_max)
+
+            cbar = fig.colorbar(img, ax=ax_panel, pad=0.01)
+            cbar.set_label('dB')
+
+        # Carrier trajectory overlay (shared for both modes)
         if carrier_trajectories:
-            colors = plt.cm.tab10(np.linspace(0, 1, min(len(carrier_trajectories), 10)))
             for idx, traj in enumerate(carrier_trajectories):
-                color = colors[idx % len(colors)]
                 t_arr = np.array(traj['times'])
                 l_arr = np.array(traj['left_hz'], dtype=float)
                 r_arr = np.array(traj['right_hz'], dtype=float)
@@ -1243,19 +1302,16 @@ def generate_spectrogram(filepath, carrier_trajectories=None, carrier_pairs=None
                 valid_l = np.isfinite(l_arr)
                 if np.any(valid_l):
                     ax_panel.scatter(t_arr[valid_l], l_arr[valid_l],
-                                     color=color, marker='<', s=12, alpha=0.8,
-                                     zorder=5, linewidths=0.5, edgecolors='black',
+                                     color=_COLOR_L, marker='<', s=14, alpha=0.9,
+                                     zorder=5, linewidths=0.5, edgecolors='#003322',
                                      label=(f"{label_base} L" if label_base and is_first_panel else None))
 
                 valid_r = np.isfinite(r_arr)
                 if np.any(valid_r):
                     ax_panel.scatter(t_arr[valid_r], r_arr[valid_r],
-                                     color=color, marker='>', s=12, alpha=0.8,
-                                     zorder=5, linewidths=0.5, edgecolors='white',
+                                     color=_COLOR_R, marker='>', s=14, alpha=0.9,
+                                     zorder=5, linewidths=0.5, edgecolors='#330000',
                                      label=(f"{label_base} R" if label_base and is_first_panel else None))
-
-        cbar = fig.colorbar(img, ax=ax_panel, pad=0.01)
-        cbar.set_label('dB')
 
     last_ax = panels[-1][2]
     last_ax.set_xlabel('Time')
