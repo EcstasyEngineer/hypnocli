@@ -39,6 +39,7 @@ import librosa
 from scipy import signal as scipy_signal
 from scipy.fft import fft, fftfreq
 from scipy.ndimage import median_filter, uniform_filter1d
+from scipy.optimize import linear_sum_assignment
 import sys
 import os
 import gc
@@ -59,6 +60,7 @@ try:
     # Marker colors for L/R carrier trajectories
     _COLOR_L = '#00ccbb'   # teal
     _COLOR_R = '#ff4422'   # red
+    _COLOR_PAIR = '#ffdd44'  # gold for binaural-paired merged tracks
 except ImportError:
     HAS_MATPLOTLIB = False
 
@@ -1579,21 +1581,154 @@ def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
     return tracks
 
 
-def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
-                   prom_thresh=8.0, gap_max=8, min_median_power=10.0):
-    """Phase 1 ridge tracker: extract frequency tracks and render spectrogram.
+def _pair_binaural_tracks(tracks_L, tracks_R, binaural_range=(0.3, 20.0),
+                          min_overlap=4):
+    """Match L and R frequency tracks that form binaural beat pairs.
 
-    Pass 1 only — no beat rate analysis. Outputs a spectrogram PNG with teal
-    polylines for L-channel tracks and red polylines for R-channel tracks.
-    Use --tracks to visually verify that ridge detection finds the right lines
-    before Phase 2 beat measurement is added.
+    Uses Hungarian assignment (linear_sum_assignment) to find the globally
+    optimal L↔R matching based on beat-frequency consistency.
+
+    Cost for (track_L, track_R):
+        overlap_frames = number of common time points in the L∩R time range
+        if overlap_frames < min_overlap:  cost = inf
+        beat_series = |fL(t) - fR(t)| over overlapping times (interpolated)
+        d = median(beat_series)
+        if d < binaural_range[0] or d > binaural_range[1]:  cost = inf
+        cost = variance(beat_series) * 10 + abs(d - 4.0)   # prefer ~4 Hz
+
+    Args:
+        tracks_L: List of L-channel track dicts
+        tracks_R: List of R-channel track dicts
+        binaural_range: (min_hz, max_hz) valid beat frequency range
+        min_overlap: Minimum overlapping time points to form a pair
+
+    Returns:
+        (pairs, solo_L, solo_R) where:
+        - pairs: list of BinauralPair dicts with keys:
+            track_L, track_R, t_start, t_end,
+            beat_hz_series, beat_hz_median, beat_hz_std
+        - solo_L: L tracks not matched to any R track
+        - solo_R: R tracks not matched to any L track
+    """
+    if not tracks_L or not tracks_R:
+        return [], list(tracks_L), list(tracks_R)
+
+    n_L, n_R = len(tracks_L), len(tracks_R)
+    cost_matrix = np.full((n_L, n_R), np.inf)
+    # Cache beat series for valid pairs to avoid recomputing after assignment
+    _beat_cache = {}
+
+    for i, tL in enumerate(tracks_L):
+        t_L = np.array(tL['times'])
+        t_L_start, t_L_end = t_L[0], t_L[-1]
+        for j, tR in enumerate(tracks_R):
+            t_R = np.array(tR['times'])
+            t_R_start, t_R_end = t_R[0], t_R[-1]
+
+            t_ov_start = max(t_L_start, t_R_start)
+            t_ov_end = min(t_L_end, t_R_end)
+            if t_ov_end <= t_ov_start:
+                continue
+
+            # Union of time points within overlap range
+            t_common = np.union1d(t_L, t_R)
+            t_common = t_common[(t_common >= t_ov_start) & (t_common <= t_ov_end)]
+            if len(t_common) < min_overlap:
+                continue
+
+            fL_i = np.interp(t_common, t_L, tL['freqs'])
+            fR_i = np.interp(t_common, t_R, tR['freqs'])
+            beat_series = np.abs(fL_i - fR_i)
+            d = float(np.median(beat_series))
+
+            if d < binaural_range[0] or d > binaural_range[1]:
+                continue
+
+            cost = float(np.var(beat_series)) * 10.0 + abs(d - 4.0)
+            cost_matrix[i, j] = cost
+            _beat_cache[(i, j)] = (t_ov_start, t_ov_end, beat_series)
+
+    # Hungarian assignment — replace inf with large sentinel since
+    # linear_sum_assignment requires finite values
+    cost_finite = np.where(np.isinf(cost_matrix), 1e9, cost_matrix)
+    row_ind, col_ind = linear_sum_assignment(cost_finite)
+
+    pairs = []
+    paired_L_idx = set()
+    paired_R_idx = set()
+
+    for i, j in zip(row_ind, col_ind):
+        if np.isinf(cost_matrix[i, j]):
+            continue
+        tL, tR = tracks_L[i], tracks_R[j]
+        t_ov_start, t_ov_end, beat_series = _beat_cache[(i, j)]
+        pairs.append({
+            'track_L': tL,
+            'track_R': tR,
+            't_start': float(t_ov_start),
+            't_end': float(t_ov_end),
+            'beat_hz_series': beat_series.tolist(),
+            'beat_hz_median': float(np.median(beat_series)),
+            'beat_hz_std': float(np.std(beat_series)),
+        })
+        paired_L_idx.add(i)
+        paired_R_idx.add(j)
+
+    solo_L = [tracks_L[i] for i in range(n_L) if i not in paired_L_idx]
+    solo_R = [tracks_R[j] for j in range(n_R) if j not in paired_R_idx]
+    return pairs, solo_L, solo_R
+
+
+def _measure_isochronic_for_track(track, y, sr, bandwidth=15):
+    """Detect isochronic rate for a single track's time span.
+
+    Slices the raw audio to the track's time range before calling
+    detect_isochronic_rate(), avoiding processing the entire file per track.
+
+    Args:
+        track: Track dict with 'times' and 'freqs' keys
+        y: Full raw audio channel (1-D array)
+        sr: Sample rate of y
+        bandwidth: Hz on each side of carrier for bandpass (default: 15)
+
+    Returns:
+        (pulse_hz, confidence) — same as detect_isochronic_rate()
+    """
+    t_start = track['times'][0]
+    t_end = track['times'][-1]
+    s0 = int(t_start * sr)
+    s1 = min(int(t_end * sr), len(y))
+    if s1 <= s0 or s0 >= len(y) or (s1 - s0) < sr:  # need at least 1 second
+        return (None, 0.0)
+    y_slice = y[s0:s1]
+    f_carrier = float(np.median(track['freqs']))
+    return detect_isochronic_rate(y_slice, sr, f_carrier, bandwidth=bandwidth)
+
+
+def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
+                   prom_thresh=8.0, gap_max=8, min_median_power=10.0,
+                   binaural_range=(0.3, 20.0), iso_bandwidth=15,
+                   iso_min_conf=1.0, pair_min_overlap=4):
+    """Phase 1+2 ridge tracker: extract tracks, pair binaurals, measure isochronic.
+
+    Phase 1: STFT per channel → whitening → peak detection → greedy track
+    linking → co-linear merge. Outputs a spectrogram PNG with track polylines.
+
+    Phase 2: Pairs L and R tracks whose frequency difference falls in the
+    binaural beat range (Hungarian assignment). Measures isochronic pulse rate
+    per track (bandpass → Hilbert → envelope FFT). Prints ASCII summary.
+    Paired tracks are rendered as a single gold line at their mean frequency
+    with beat-rate labels; solo tracks render in their channel color.
 
     Pipeline:
         1. STFT per channel
         2. Per-frame frequency-domain median whitening (preserves persistent tones)
         3. Peak detection with parabolic sub-bin interpolation
         4. Greedy track linking with gap tolerance
-        5. Screen-blend L/R spectrogram background + track polyline overlay
+        5. Co-linear fragment merging
+        6. Binaural pairing (Phase 2)
+        7. Isochronic measurement per track (Phase 2)
+        8. Screen-blend L/R spectrogram background + annotated track overlay
     """
     if not HAS_MATPLOTLIB:
         print("ERROR: matplotlib required for --tracks mode", file=sys.stderr)
@@ -1686,6 +1821,84 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
           f"{len(tracks_L)} L, {len(tracks_R)} R "
           f"(min fragment: {min_track_frames} frames / ~{min_track_frames * hop_dur:.1f}s)")
 
+    # --- Phase 2: Binaural pairing + isochronic measurement ---
+    print("Pairing binaural tracks...")
+    pairs, solo_L, solo_R = _pair_binaural_tracks(
+        tracks_L, tracks_R,
+        binaural_range=binaural_range,
+        min_overlap=pair_min_overlap,
+    )
+    print(f"Found {len(pairs)} binaural pair(s), "
+          f"{len(solo_L)} solo L, {len(solo_R)} solo R")
+
+    print("Measuring isochronic rates...")
+    y_raw, _ = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
+    y_L_raw = y_raw[0] if y_raw.ndim > 1 else y_raw
+    y_R_raw = y_raw[1] if y_raw.ndim > 1 else y_raw
+    del y_raw
+    gc.collect()
+
+    for pair in pairs:
+        iso_L = _measure_isochronic_for_track(pair['track_L'], y_L_raw, ANALYSIS_SR, iso_bandwidth)
+        iso_R = _measure_isochronic_for_track(pair['track_R'], y_R_raw, ANALYSIS_SR, iso_bandwidth)
+        best = max([iso_L, iso_R], key=lambda x: x[1])
+        pair['iso_hz'] = best[0]
+        pair['iso_conf'] = best[1]
+
+    for tr in solo_L:
+        iso_hz, iso_conf = _measure_isochronic_for_track(tr, y_L_raw, ANALYSIS_SR, iso_bandwidth)
+        tr['iso_hz'] = iso_hz
+        tr['iso_conf'] = iso_conf
+
+    for tr in solo_R:
+        iso_hz, iso_conf = _measure_isochronic_for_track(tr, y_R_raw, ANALYSIS_SR, iso_bandwidth)
+        tr['iso_hz'] = iso_hz
+        tr['iso_conf'] = iso_conf
+
+    del y_L_raw, y_R_raw
+    gc.collect()
+
+    # --- ASCII summary ---
+    def _fmt_time(sec):
+        return f"{int(sec // 60)}:{int(sec % 60):02d}"
+
+    def _fmt_iso(hz, conf):
+        if hz is not None and conf >= iso_min_conf:
+            return f"{hz:.1f} Hz (conf {conf:.1f})"
+        return "none"
+
+    print("\n=== Binaural Pairs ===")
+    if not pairs:
+        print("  (none)")
+    for idx, pair in enumerate(pairs):
+        tL, tR = pair['track_L'], pair['track_R']
+        f_L_med = float(np.median(tL['freqs']))
+        f_R_med = float(np.median(tR['freqs']))
+        center = (f_L_med + f_R_med) / 2
+        t_s = min(tL['times'][0], tR['times'][0])
+        t_e = max(tL['times'][-1], tR['times'][-1])
+        iso_str = _fmt_iso(pair.get('iso_hz'), pair.get('iso_conf', 0))
+        print(f"  [{idx}] ~{center:.0f} Hz  "
+              f"L={f_L_med:.1f}  R={f_R_med:.1f}  "
+              f"beat={pair['beat_hz_median']:.1f} Hz  "
+              f"iso={iso_str}  "
+              f"{_fmt_time(t_s)}-{_fmt_time(t_e)}")
+
+    print("\n=== Solo Tracks (unpaired) ===")
+    if not solo_L and not solo_R:
+        print("  (none)")
+    for tr in solo_L:
+        f_med = float(np.median(tr['freqs']))
+        t_s, t_e = tr['times'][0], tr['times'][-1]
+        iso_str = _fmt_iso(tr.get('iso_hz'), tr.get('iso_conf', 0))
+        print(f"  [L] ~{f_med:.0f} Hz  iso={iso_str}  {_fmt_time(t_s)}-{_fmt_time(t_e)}")
+    for tr in solo_R:
+        f_med = float(np.median(tr['freqs']))
+        t_s, t_e = tr['times'][0], tr['times'][-1]
+        iso_str = _fmt_iso(tr.get('iso_hz'), tr.get('iso_conf', 0))
+        print(f"  [R] ~{f_med:.0f} Hz  iso={iso_str}  {_fmt_time(t_s)}-{_fmt_time(t_e)}")
+    print()
+
     # --- Build screen-blend background ---
     print("Rendering background...")
     freq_mask = (freqs >= freq_min) & (freqs <= render_max)
@@ -1731,14 +1944,25 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
     cbar_r.set_label('R dB')
 
     # --- Overlay track polylines ---
-    # Only render tracks spanning at least min_render_sec.
-    # All tracks are still returned for Phase 2 processing.
+    # Tracks spanning < min_render_sec are skipped from the PNG (short bursts,
+    # not informative visually) but were still used for Phase 2 measurements.
     min_render_sec = max(10.0, duration * 0.01)  # e.g. 30s for a 50-min file
-    render_L = [tr for tr in tracks_L
-                if tr['times'][-1] - tr['times'][0] >= min_render_sec]
-    render_R = [tr for tr in tracks_R
-                if tr['times'][-1] - tr['times'][0] >= min_render_sec]
-    print(f"Rendering {len(render_L)} L tracks, {len(render_R)} R tracks "
+
+    # Paired tracks are rendered as a single merged gold line; exclude them from
+    # the per-channel solo lists so they don't appear twice.
+    paired_L_ids = {p['track_L']['id'] for p in pairs}
+    paired_R_ids = {p['track_R']['id'] for p in pairs}
+
+    render_L_solo = [tr for tr in tracks_L
+                     if tr['id'] not in paired_L_ids
+                     and tr['times'][-1] - tr['times'][0] >= min_render_sec]
+    render_R_solo = [tr for tr in tracks_R
+                     if tr['id'] not in paired_R_ids
+                     and tr['times'][-1] - tr['times'][0] >= min_render_sec]
+    render_pairs = [p for p in pairs
+                    if p['t_end'] - p['t_start'] >= min_render_sec]
+    print(f"Rendering {len(render_pairs)} pairs (gold), "
+          f"{len(render_L_solo)} solo L, {len(render_R_solo)} solo R "
           f"(min display duration: {min_render_sec:.1f}s)")
 
     def _plot_track(ax, tr, color, label, max_gap=5 * hop_dur):
@@ -1780,13 +2004,79 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
                     label=label if first_seg else None)
             first_seg = False
 
+    def _plot_paired_track(ax, pair, color, label, max_gap=5 * hop_dur):
+        """Plot a binaural pair as a single merged line at mean(L, R) frequency.
+
+        Collapses the two separate L/R lines into one gold line, resolving the
+        visual "two lines at 650 Hz" artifact from Phase 1.
+        """
+        tL, tR = pair['track_L'], pair['track_R']
+        t_L = np.array(tL['times'])
+        t_R = np.array(tR['times'])
+        t_ov_start, t_ov_end = pair['t_start'], pair['t_end']
+
+        t_common = np.union1d(t_L, t_R)
+        t_common = t_common[(t_common >= t_ov_start) & (t_common <= t_ov_end)]
+        if len(t_common) < 2:
+            return
+
+        fL_i = np.interp(t_common, t_L, tL['freqs'])
+        fR_i = np.interp(t_common, t_R, tR['freqs'])
+        f_mean = (fL_i + fR_i) / 2
+
+        # Light smoothing
+        win = min(11, max(3, (len(f_mean) // 10) * 2 + 1))
+        if len(f_mean) >= win:
+            f_mean = uniform_filter1d(f_mean, size=win)
+
+        if len(t_common) > 1:
+            split_pts = np.where(np.diff(t_common) > max_gap)[0] + 1
+        else:
+            split_pts = np.array([], dtype=int)
+
+        seg_starts = np.concatenate([[0], split_pts])
+        seg_ends = np.concatenate([split_pts, [len(t_common)]])
+
+        first_seg = True
+        for s, e in zip(seg_starts, seg_ends):
+            if e - s < 2:
+                continue
+            ax.plot(t_common[s:e], f_mean[s:e],
+                    color=color, linewidth=2.0, alpha=0.9, zorder=6,
+                    solid_capstyle='round',
+                    label=label if first_seg else None)
+            first_seg = False
+
+    # Render solo L/R tracks in their channel colors
     added_l = added_r = False
-    for tr in render_L:
-        _plot_track(ax, tr, _COLOR_L, 'L tracks' if not added_l else None)
+    for tr in render_L_solo:
+        _plot_track(ax, tr, _COLOR_L, 'L solo' if not added_l else None)
         added_l = True
-    for tr in render_R:
-        _plot_track(ax, tr, _COLOR_R, 'R tracks' if not added_r else None)
+    for tr in render_R_solo:
+        _plot_track(ax, tr, _COLOR_R, 'R solo' if not added_r else None)
         added_r = True
+
+    # Render binaural pairs as merged gold lines
+    added_pair = False
+    for pair in render_pairs:
+        _plot_paired_track(ax, pair, _COLOR_PAIR,
+                           'Binaural pairs' if not added_pair else None)
+        added_pair = True
+
+    # Beat-rate (and optional isochronic) annotations on paired tracks
+    for pair in render_pairs:
+        t_mid = (pair['t_start'] + pair['t_end']) / 2
+        f_mid = (float(np.median(pair['track_L']['freqs'])) +
+                 float(np.median(pair['track_R']['freqs']))) / 2
+        label_str = f"{pair['beat_hz_median']:.1f}Hz"
+        iso_hz = pair.get('iso_hz')
+        iso_conf = pair.get('iso_conf', 0)
+        if iso_hz is not None and iso_conf >= iso_min_conf:
+            label_str += f" / {iso_hz:.1f}Hz iso"
+        ax.text(t_mid, f_mid + 8, label_str,
+                color='white', fontsize=6,
+                ha='center', va='bottom', zorder=10,
+                bbox=dict(boxstyle='round,pad=0.1', fc='black', alpha=0.5))
 
     ax.set_xlabel('Time')
 
@@ -1800,7 +2090,8 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
 
     n_L = len(tracks_L)
     n_R = len(tracks_R)
-    fig.suptitle(f'{filename}  —  Ridge Tracks  (L:{n_L}  R:{n_R})',
+    fig.suptitle(f'{filename}  —  Ridge Tracks  '
+                 f'(L:{n_L}  R:{n_R}  pairs:{len(pairs)})',
                  fontsize=13, y=0.98)
     plt.tight_layout()
 
@@ -1811,7 +2102,7 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     plt.close()
     print(f"Track spectrogram saved: {output_path}")
-    return tracks_L, tracks_R
+    return tracks_L, tracks_R, pairs
 
 
 # === CLI ===
@@ -1888,9 +2179,21 @@ Examples:
 
     # Phase 1 ridge tracking mode
     parser.add_argument('--tracks', action='store_true',
-                        help='Phase 1 ridge tracking: extract frequency tracks and '
-                             'render spectrogram with track polylines. No beat analysis — '
-                             'use to visually verify ridge detection before Phase 2.')
+                        help='Phase 1+2 ridge tracking: extract tracks, pair binaurals, '
+                             'measure isochronic rates, render annotated spectrogram.')
+
+    # Phase 2 tuning parameters (--tracks mode)
+    parser.add_argument('--binaural-range', type=str, default='0.3,20',
+                        help='Valid beat Hz range for pairing as "min,max" '
+                             '(default: 0.3,20)')
+    parser.add_argument('--iso-bandwidth', type=float, default=15,
+                        help='Bandpass Hz on each side of carrier for isochronic '
+                             'detection (default: 15)')
+    parser.add_argument('--iso-min-conf', type=float, default=1.0,
+                        help='Min confidence to report isochronic rate (default: 1.0)')
+    parser.add_argument('--pair-min-overlap', type=int, default=4,
+                        help='Min overlapping time points to form a binaural pair '
+                             '(default: 4)')
 
     args = parser.parse_args()
 
@@ -1908,11 +2211,21 @@ Examples:
     freq_max_spectrum = args.freq_max if args.freq_max is not None else 600
 
     if args.tracks:
+        # Parse binaural range "min,max"
+        try:
+            _br = [float(x.strip()) for x in args.binaural_range.split(',')]
+            binaural_range = (min(_br), max(_br))
+        except Exception:
+            binaural_range = (0.3, 20.0)
         analyze_tracks(
             args.audio_file,
             freq_min=args.freq_min,
             freq_max=args.freq_max,
             output_path=args.output,
+            binaural_range=binaural_range,
+            iso_bandwidth=args.iso_bandwidth,
+            iso_min_conf=args.iso_min_conf,
+            pair_min_overlap=args.pair_min_overlap,
         )
     elif args.verify:
         verify_against_config(
