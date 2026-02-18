@@ -7,6 +7,11 @@ python-dotenv>=1.0.0
 pydub>=0.25.0
 soundfile>=0.12.0
 
+# TTS rendering — Windows only (render_winrt.py)
+# winrt-runtime>=3.0.0
+# winrt-Windows.Media.SpeechSynthesis>=3.0.0
+# winrt-Windows.Storage.Streams>=3.0.0
+
 # Audio processing (requires system sox: sudo apt-get install sox libsox-fmt-all)
 sox>=1.5.0
 
