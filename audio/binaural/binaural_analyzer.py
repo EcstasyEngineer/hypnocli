@@ -38,6 +38,7 @@ import numpy as np
 import librosa
 from scipy import signal as scipy_signal
 from scipy.fft import fft, fftfreq
+from scipy.ndimage import median_filter, uniform_filter1d
 import sys
 import os
 import gc
@@ -1339,6 +1340,472 @@ def generate_spectrogram(filepath, carrier_trajectories=None, carrier_pairs=None
     print(f"Spectrogram saved: {output_path}")
 
 
+# === Phase 1: Ridge Track Extraction ===
+
+def _whiten_spectrum(S_mag, kernel_bins=41):
+    """Per-frame frequency-domain median whitening.
+
+    For each time frame, subtracts the broadband spectral envelope estimated
+    by a median filter along the frequency axis. This removes voice/music
+    background while preserving persistent narrow-band tones (which are a
+    tiny fraction of the kernel width and thus don't shift the median).
+
+    Args:
+        S_mag: Magnitude spectrogram [freq_bins, time_bins]
+        kernel_bins: Frequency-axis kernel width in bins (~40 Hz at 1 Hz/bin)
+
+    Returns:
+        Whitened spectrogram in dB, non-negative, same shape as S_mag
+    """
+    S_db = librosa.amplitude_to_db(S_mag, ref=np.max)
+    # size=(kernel_bins, 1): filter along freq axis only, independent per frame
+    baseline = median_filter(S_db, size=(kernel_bins, 1))
+    return np.maximum(S_db - baseline, 0.0)
+
+
+def _peaks_from_whitened_frame(w_frame, freqs, freq_min, freq_max,
+                                prom_thresh=8.0, max_width_bins=5):
+    """Detect peaks in one whitened spectrum frame.
+
+    Uses parabolic (quadratic) sub-bin interpolation around each peak for
+    frequency precision finer than the bin width — essential for resolving
+    binaural beats < 1 Hz when bin width is ~1 Hz.
+
+    Args:
+        w_frame: 1-D whitened dB array [freq_bins]
+        freqs: Frequency array matching w_frame [freq_bins]
+        freq_min/freq_max: Hz bounds to search within
+        prom_thresh: Minimum peak prominence in whitened dB
+        max_width_bins: Maximum peak width at half-prominence (rejects broadband)
+
+    Returns:
+        List of (freq_hz, whitened_power_db) sorted by power descending,
+        capped at 8 peaks per frame.
+    """
+    mask = (freqs >= freq_min) & (freqs <= freq_max)
+    spec = w_frame[mask]
+    f_arr = freqs[mask]
+    if len(spec) < 5:
+        return []
+
+    peak_idx, _ = scipy_signal.find_peaks(
+        spec, prominence=prom_thresh, width=(1, max_width_bins)
+    )
+    if len(peak_idx) == 0:
+        return []
+
+    bin_hz = float(f_arr[1] - f_arr[0]) if len(f_arr) > 1 else 1.0
+    peaks = []
+    for k in peak_idx:
+        # Parabolic sub-bin interpolation
+        if 0 < k < len(spec) - 1:
+            a, b, c = float(spec[k - 1]), float(spec[k]), float(spec[k + 1])
+            denom = a - 2 * b + c
+            p = 0.5 * (a - c) / denom if denom != 0.0 else 0.0
+            p = max(-0.5, min(0.5, p))  # clamp to ±0.5 bin
+        else:
+            p = 0.0
+        f_hat = float(f_arr[k]) + p * bin_hz
+        peaks.append((f_hat, float(spec[k])))
+
+    peaks.sort(key=lambda x: -x[1])
+    return peaks[:8]
+
+
+def _link_peaks_to_tracks(peaks_by_frame, frame_times,
+                           df_max_abs=3.0, df_max_rel=0.005,
+                           gap_max=3, min_track_frames=5):
+    """Greedy peak-to-track linker.
+
+    For each time frame, assigns each peak to the nearest active track within
+    Δf_max. Tracks that miss more than gap_max consecutive frames are retired.
+    New tracks are started for unmatched peaks.
+
+    Δf_max(f) = max(df_max_abs, df_max_rel * f)
+    e.g. at 100 Hz: max(3 Hz, 0.5%) = 3 Hz
+         at 1000 Hz: max(3 Hz, 5 Hz) = 5 Hz
+
+    Args:
+        peaks_by_frame: list of [(freq_hz, power_db), ...] per frame
+        frame_times: array of time values (seconds) per frame
+        df_max_abs: absolute floor for frequency jump tolerance (Hz)
+        df_max_rel: relative frequency jump tolerance (fraction)
+        gap_max: max consecutive silent frames before a track is retired
+        min_track_frames: tracks shorter than this are discarded
+
+    Returns:
+        List of track dicts: {'id', 'times', 'freqs', 'powers'}
+    """
+    def df_max(f):
+        return max(df_max_abs, df_max_rel * abs(f))
+
+    active = []   # tracks still being extended
+    finished = []
+    _next_id = [0]
+
+    for t, peaks in zip(frame_times, peaks_by_frame):
+        # Build (track_id, peak_idx, cost) candidates
+        cands = []
+        for tr in active:
+            for pi, (f, p) in enumerate(peaks):
+                df = abs(f - tr['last_f'])
+                if df <= df_max(tr['last_f']):
+                    # Cost: frequency deviation + small penalty for low power
+                    cost = df + max(0.0, 30.0 - p) * 0.05
+                    cands.append((tr['id'], pi, cost))
+
+        cands.sort(key=lambda x: x[2])
+        used_tr, used_pk = set(), set()
+        assignment = {}
+        for tid, pi, _ in cands:
+            if tid not in used_tr and pi not in used_pk:
+                assignment[tid] = pi
+                used_tr.add(tid)
+                used_pk.add(pi)
+
+        # Update matched tracks, increment gaps on unmatched
+        to_retire = []
+        for tr in active:
+            if tr['id'] in assignment:
+                f, p = peaks[assignment[tr['id']]]
+                tr['times'].append(float(t))
+                tr['freqs'].append(f)
+                tr['powers'].append(p)
+                tr['last_f'] = f
+                tr['gap'] = 0
+            else:
+                tr['gap'] += 1
+                if tr['gap'] > gap_max:
+                    to_retire.append(tr)
+
+        for tr in to_retire:
+            finished.append(tr)
+            active.remove(tr)
+
+        # Start new tracks for unmatched peaks
+        for pi, (f, p) in enumerate(peaks):
+            if pi not in used_pk:
+                tr = {
+                    'id': _next_id[0],
+                    'last_f': f,
+                    'gap': 0,
+                    'times': [float(t)],
+                    'freqs': [f],
+                    'powers': [p],
+                }
+                _next_id[0] += 1
+                active.append(tr)
+
+    finished.extend(active)
+    return [tr for tr in finished if len(tr['times']) >= min_track_frames]
+
+
+def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
+    """Merge track fragments that are likely the same carrier.
+
+    Two fragments A and B are merged when:
+      - B starts after A ends (non-overlapping)
+      - time gap between them <= merge_gap_sec
+      - their median frequencies are within merge_df_hz of each other
+
+    Runs iteratively until no further merges are possible, so chains of
+    fragments (A→B→C all at the same freq) collapse in one pass.
+
+    Args:
+        tracks: list of track dicts from _link_peaks_to_tracks
+        merge_df_hz: max Hz difference between median frequencies to merge
+        merge_gap_sec: max time gap (seconds) to bridge between fragments
+
+    Returns:
+        Reduced list of merged track dicts
+    """
+    if not tracks:
+        return tracks
+
+    changed = True
+    while changed:
+        changed = False
+        # Sort by start time so we always try to merge earlier → later
+        tracks = sorted(tracks, key=lambda t: t['times'][0])
+        used = set()
+        merged = []
+
+        for i, ta in enumerate(tracks):
+            if i in used:
+                continue
+            cur = {
+                'id': ta['id'],
+                'last_f': ta['last_f'],
+                'gap': 0,
+                'times': list(ta['times']),
+                'freqs': list(ta['freqs']),
+                'powers': list(ta['powers']),
+            }
+            used.add(i)
+
+            for j, tb in enumerate(tracks):
+                if j in used:
+                    continue
+                t_end = cur['times'][-1]
+                t_start = tb['times'][0]
+
+                # Must be temporally after current track end
+                if t_start < t_end:
+                    continue
+
+                gap = t_start - t_end
+                if gap > merge_gap_sec:
+                    continue
+
+                f_med_cur = float(np.median(cur['freqs']))
+                f_med_tb = float(np.median(tb['freqs']))
+                if abs(f_med_cur - f_med_tb) > merge_df_hz:
+                    continue
+
+                # Merge tb into cur
+                cur['times'].extend(tb['times'])
+                cur['freqs'].extend(tb['freqs'])
+                cur['powers'].extend(tb['powers'])
+                cur['last_f'] = tb['last_f']
+                used.add(j)
+                changed = True
+
+            merged.append(cur)
+
+        tracks = merged
+
+    return tracks
+
+
+def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
+                   prom_thresh=8.0, gap_max=3):
+    """Phase 1 ridge tracker: extract frequency tracks and render spectrogram.
+
+    Pass 1 only — no beat rate analysis. Outputs a spectrogram PNG with teal
+    polylines for L-channel tracks and red polylines for R-channel tracks.
+    Use --tracks to visually verify that ridge detection finds the right lines
+    before Phase 2 beat measurement is added.
+
+    Pipeline:
+        1. STFT per channel
+        2. Per-frame frequency-domain median whitening (preserves persistent tones)
+        3. Peak detection with parabolic sub-bin interpolation
+        4. Greedy track linking with gap tolerance
+        5. Screen-blend L/R spectrogram background + track polyline overlay
+    """
+    if not HAS_MATPLOTLIB:
+        print("ERROR: matplotlib required for --tracks mode", file=sys.stderr)
+        return None, None
+
+    # Auto-detect freq_max from a short clip if not specified
+    if freq_max is None:
+        y_tmp, _ = librosa.load(filepath, sr=ANALYSIS_SR, mono=False, duration=30)
+        if y_tmp.ndim == 1:
+            freq_max = auto_detect_freq_range(y_tmp, y_tmp, ANALYSIS_SR)
+        else:
+            freq_max = auto_detect_freq_range(y_tmp[0], y_tmp[1], ANALYSIS_SR)
+        del y_tmp
+        gc.collect()
+        print(f"Auto-detected freq range: {freq_min}-{freq_max} Hz")
+
+    render_max = min(freq_max, 1200)
+    target_sr = max(int(render_max * 2.5), 4000)
+    filename = os.path.basename(filepath)
+
+    print(f"Loading audio (sr={target_sr} Hz, {freq_min}-{render_max} Hz)...")
+    y, _ = librosa.load(filepath, sr=target_sr, mono=False)
+    if y.ndim == 1:
+        y_L, y_R = y, y.copy()
+    else:
+        y_L, y_R = y[0], y[1]
+    del y
+    gc.collect()
+
+    duration = len(y_L) / target_sr
+    if duration < 600:
+        n_fft, hop_length = 4096, 512
+    elif duration < 1800:
+        n_fft, hop_length = 4096, 1024
+    else:
+        n_fft, hop_length = 2048, 2048
+
+    print(f"Computing STFT (n_fft={n_fft}, hop={hop_length}, "
+          f"bin={target_sr/n_fft:.2f} Hz/bin)...")
+    S_L = np.abs(librosa.stft(y_L, n_fft=n_fft, hop_length=hop_length))
+    S_R = np.abs(librosa.stft(y_R, n_fft=n_fft, hop_length=hop_length))
+    del y_L, y_R
+    gc.collect()
+
+    freqs = librosa.fft_frequencies(sr=target_sr, n_fft=n_fft)
+    times = librosa.frames_to_time(np.arange(S_L.shape[1]),
+                                    sr=target_sr, hop_length=hop_length)
+    n_frames = len(times)
+    hop_dur = float(times[1] - times[0]) if n_frames > 1 else float(hop_length / target_sr)
+    min_track_frames = max(4, int(3.0 / hop_dur))  # minimum ~3 seconds
+
+    # --- Whitening ---
+    print("Whitening spectra (per-frame frequency-domain median)...")
+    W_L = _whiten_spectrum(S_L)
+    W_R = _whiten_spectrum(S_R)
+
+    # --- Peak detection ---
+    print(f"Detecting peaks ({n_frames} frames × 2 channels)...")
+    peaks_L = [_peaks_from_whitened_frame(W_L[:, i], freqs, freq_min, render_max, prom_thresh)
+               for i in range(n_frames)]
+    peaks_R = [_peaks_from_whitened_frame(W_R[:, i], freqs, freq_min, render_max, prom_thresh)
+               for i in range(n_frames)]
+    del W_L, W_R
+    gc.collect()
+
+    # --- Track linking ---
+    print("Linking tracks...")
+    tracks_L = _link_peaks_to_tracks(peaks_L, times, gap_max=gap_max,
+                                      min_track_frames=min_track_frames)
+    tracks_R = _link_peaks_to_tracks(peaks_R, times, gap_max=gap_max,
+                                      min_track_frames=min_track_frames)
+    del peaks_L, peaks_R
+    gc.collect()
+    print(f"Tracks (pre-merge): {len(tracks_L)} L, {len(tracks_R)} R")
+
+    # Merge co-linear fragments: same carrier broken up by speech/music masking.
+    # Allow a larger gap for longer files where masking windows are also longer.
+    merge_gap_sec = min(120.0, max(30.0, duration * 0.05))
+    tracks_L = _merge_colinear_tracks(tracks_L, merge_df_hz=8.0,
+                                       merge_gap_sec=merge_gap_sec)
+    tracks_R = _merge_colinear_tracks(tracks_R, merge_df_hz=8.0,
+                                       merge_gap_sec=merge_gap_sec)
+    print(f"Tracks (post-merge, Δf≤8Hz gap≤{merge_gap_sec:.0f}s): "
+          f"{len(tracks_L)} L, {len(tracks_R)} R "
+          f"(min fragment: {min_track_frames} frames / ~{min_track_frames * hop_dur:.1f}s)")
+
+    # --- Build screen-blend background ---
+    print("Rendering background...")
+    freq_mask = (freqs >= freq_min) & (freqs <= render_max)
+    vmin_db, vmax_db = -80, 0
+
+    S_db_L = librosa.amplitude_to_db(S_L, ref=np.max)
+    S_db_R = librosa.amplitude_to_db(S_R, ref=np.max)
+    del S_L, S_R
+    gc.collect()
+
+    l_norm = np.clip((S_db_L[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
+    r_norm = np.clip((S_db_R[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
+    del S_db_L, S_db_R
+    gc.collect()
+
+    rgba_l = _CMAP_LEFT(l_norm)
+    rgba_r = _CMAP_RIGHT(r_norm)
+    del l_norm, r_norm
+    gc.collect()
+
+    rgba_blend = np.empty_like(rgba_l)
+    rgba_blend[..., :3] = 1.0 - (1.0 - rgba_l[..., :3]) * (1.0 - rgba_r[..., :3])
+    rgba_blend[..., 3] = 1.0
+    del rgba_l, rgba_r
+    gc.collect()
+
+    fig, ax = plt.subplots(1, 1, figsize=(16, 6))
+    extent = [times[0], times[-1], freqs[freq_mask][0], freqs[freq_mask][-1]]
+    ax.imshow(rgba_blend, aspect='auto', origin='lower', extent=extent,
+              interpolation='bilinear')
+    del rgba_blend
+    gc.collect()
+
+    ax.set_ylabel('L (teal) / R (red)\nFrequency (Hz)')
+    ax.set_ylim(freq_min, render_max)
+
+    norm = Normalize(vmin=vmin_db, vmax=vmax_db)
+    sm_l = plt.cm.ScalarMappable(cmap=_CMAP_LEFT, norm=norm)
+    sm_r = plt.cm.ScalarMappable(cmap=_CMAP_RIGHT, norm=norm)
+    cbar_l = fig.colorbar(sm_l, ax=ax, pad=0.01, fraction=0.025)
+    cbar_l.set_label('L dB')
+    cbar_r = fig.colorbar(sm_r, ax=ax, pad=0.055, fraction=0.025)
+    cbar_r.set_label('R dB')
+
+    # --- Overlay track polylines ---
+    # Only render tracks spanning at least min_render_sec.
+    # All tracks are still returned for Phase 2 processing.
+    min_render_sec = max(10.0, duration * 0.01)  # e.g. 30s for a 50-min file
+    render_L = [tr for tr in tracks_L
+                if tr['times'][-1] - tr['times'][0] >= min_render_sec]
+    render_R = [tr for tr in tracks_R
+                if tr['times'][-1] - tr['times'][0] >= min_render_sec]
+    print(f"Rendering {len(render_L)} L tracks, {len(render_R)} R tracks "
+          f"(min display duration: {min_render_sec:.1f}s)")
+
+    def _plot_track(ax, tr, color, label, max_gap=5 * hop_dur):
+        """Plot a track as polyline segments, breaking on large time gaps.
+
+        Merged tracks can have internal time jumps where two fragments were
+        joined across a gap. Drawing through those produces false diagonal
+        lines; instead we split the track at any gap > max_gap and render
+        each continuous segment separately.  The frequency trajectory is
+        lightly smoothed (rolling median) to reduce per-frame jitter.
+        """
+        t_arr = np.array(tr['times'], dtype=float)
+        f_arr = np.array(tr['freqs'], dtype=float)
+
+        # Light smoothing on frequency to reduce jitter (keep window odd)
+        win = min(11, max(3, (len(f_arr) // 10) * 2 + 1))
+        if len(f_arr) >= win:
+            f_arr = uniform_filter1d(f_arr, size=win)
+
+        # Find internal gap positions
+        if len(t_arr) > 1:
+            dt = np.diff(t_arr)
+            gap_mask = dt > max_gap
+            split_pts = np.where(gap_mask)[0] + 1  # indices that start new segments
+        else:
+            split_pts = np.array([], dtype=int)
+
+        # Build segment slices
+        seg_starts = np.concatenate([[0], split_pts])
+        seg_ends = np.concatenate([split_pts, [len(t_arr)]])
+
+        first_seg = True
+        for s, e in zip(seg_starts, seg_ends):
+            if e - s < 2:
+                continue
+            ax.plot(t_arr[s:e], f_arr[s:e],
+                    color=color, linewidth=1.5, alpha=0.85, zorder=5,
+                    solid_capstyle='round',
+                    label=label if first_seg else None)
+            first_seg = False
+
+    added_l = added_r = False
+    for tr in render_L:
+        _plot_track(ax, tr, _COLOR_L, 'L tracks' if not added_l else None)
+        added_l = True
+    for tr in render_R:
+        _plot_track(ax, tr, _COLOR_R, 'R tracks' if not added_r else None)
+        added_r = True
+
+    ax.set_xlabel('Time')
+
+    def format_time(x, _):
+        return f"{int(x // 60)}:{int(x % 60):02d}"
+    ax.xaxis.set_major_formatter(FuncFormatter(format_time))
+
+    handles, _ = ax.get_legend_handles_labels()
+    if handles:
+        ax.legend(loc='upper right', fontsize=8, framealpha=0.8)
+
+    n_L = len(tracks_L)
+    n_R = len(tracks_R)
+    fig.suptitle(f'{filename}  —  Ridge Tracks  (L:{n_L}  R:{n_R})',
+                 fontsize=13, y=0.98)
+    plt.tight_layout()
+
+    if output_path is None:
+        base, _ = os.path.splitext(filepath)
+        output_path = base + '_tracks.png'
+
+    plt.savefig(output_path, dpi=200, bbox_inches='tight')
+    plt.close()
+    print(f"Track spectrogram saved: {output_path}")
+    return tracks_L, tracks_R
+
+
 # === CLI ===
 
 def main():
@@ -1411,6 +1878,12 @@ Examples:
     parser.add_argument('--output', '-o', type=str, default=None,
                         help='Output path for spectrogram PNG')
 
+    # Phase 1 ridge tracking mode
+    parser.add_argument('--tracks', action='store_true',
+                        help='Phase 1 ridge tracking: extract frequency tracks and '
+                             'render spectrogram with track polylines. No beat analysis — '
+                             'use to visually verify ridge detection before Phase 2.')
+
     args = parser.parse_args()
 
     detect_pulse = not args.no_isochronic
@@ -1426,7 +1899,14 @@ Examples:
     # Default freq_max for spectrum mode (which doesn't auto-detect)
     freq_max_spectrum = args.freq_max if args.freq_max is not None else 600
 
-    if args.verify:
+    if args.tracks:
+        analyze_tracks(
+            args.audio_file,
+            freq_min=args.freq_min,
+            freq_max=args.freq_max,
+            output_path=args.output,
+        )
+    elif args.verify:
         verify_against_config(
             args.audio_file,
             args.verify,
