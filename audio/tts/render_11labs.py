@@ -61,7 +61,7 @@ def load_env() -> dict:
     """Load environment variables from .env file."""
     env_vars = {}
     search_paths = [
-        Path(__file__).resolve().parent.parent / '.env',
+        Path(__file__).resolve().parent.parent.parent / '.env',  # repo root
         Path(__file__).resolve().parent / '.env',
         Path.cwd() / '.env',
     ]

@@ -338,7 +338,7 @@ Key findings from Deep Research synthesis of entrainment and hypnosis neuroscien
 
 ## Tools & Scripts
 
-All analysis is handled by a single script: `analysis/scripts/binaural_analyzer.py`
+All analysis is handled by a single script: `audio/binaural/binaural_analyzer.py`
 
 ### Usage
 

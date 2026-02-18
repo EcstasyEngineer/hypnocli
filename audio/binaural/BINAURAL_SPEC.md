@@ -64,7 +64,7 @@ Two hybrid layers matching source material analysis (3.0 Hz binaural, dual isoch
 | low | 60 Hz | 3.25 Hz | -6 dB | 3.0 Hz |
 
 ```bash
-python audio/binaural.py --preset bimbo-drone --duration 1200 -o drone.ogg
+python audio/binaural/binaural.py --preset bimbo-drone --duration 1200 -o drone.ogg
 ```
 
 ### `reactor`
@@ -79,7 +79,7 @@ Four layers in musical fifth ratios with max-entropy pulse rates and per-layer b
 | low | 60 Hz | 2.55 Hz | -8 dB | 2.5 Hz |
 
 ```bash
-python audio/binaural.py --preset reactor -o reactor.ogg
+python audio/binaural/binaural.py --preset reactor -o reactor.ogg
 ```
 
 ### `descent`
@@ -95,7 +95,7 @@ Three layers targeting progressive theta-to-delta deepening:
 Pulse rates chosen for max entropy (all pairs sync ≥4s). Low carriers per Pratt et al. (2010) for stronger entrainment response.
 
 ```bash
-python audio/binaural.py --preset descent --duration 1200 -o descent.ogg
+python audio/binaural/binaural.py --preset descent --duration 1200 -o descent.ogg
 ```
 
 ---
@@ -264,7 +264,7 @@ Format is auto-detected from file extension:
 ## CLI Reference
 
 ```
-python audio/binaural.py [options]
+python audio/binaural/binaural.py [options]
 ```
 
 | Option | Default | Description |
@@ -334,12 +334,12 @@ ffmpeg (required by pydub)
 
 ## Verification
 
-Use `analysis/scripts/binaural_analyzer.py` to verify generated audio.
+Use `audio/binaural/binaural_analyzer.py` to verify generated audio.
 
 ### Auto-detect Mode
 
 ```bash
-python analysis/scripts/binaural_analyzer.py audio.wav --window 10 --step 5
+python audio/binaural/binaural_analyzer.py audio.wav --window 10 --step 5
 ```
 
 Automatically detects all carrier pairs and tracks binaural beats per carrier over time.
@@ -347,13 +347,13 @@ Automatically detects all carrier pairs and tracks binaural beats per carrier ov
 ### Known Carriers Mode
 
 ```bash
-python analysis/scripts/binaural_analyzer.py audio.wav --expected-carriers 60,90,135,202.5
+python audio/binaural/binaural_analyzer.py audio.wav --expected-carriers 60,90,135,202.5
 ```
 
 ### Verify Against Config
 
 ```bash
-python analysis/scripts/binaural_analyzer.py generated.wav --verify config.json
+python audio/binaural/binaural_analyzer.py generated.wav --verify config.json
 ```
 
 Compares measured binaural beats to expected values from the JSON config. Reports PASS/FAIL per window.
@@ -361,7 +361,7 @@ Compares measured binaural beats to expected values from the JSON config. Report
 ### Spectrum Debug
 
 ```bash
-python analysis/scripts/binaural_analyzer.py audio.wav --spectrum --start 0 --duration 60
+python audio/binaural/binaural_analyzer.py audio.wav --spectrum --start 0 --duration 60
 ```
 
 ---

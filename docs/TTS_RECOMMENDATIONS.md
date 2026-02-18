@@ -19,7 +19,7 @@
 
 **Speed Control:**
 ```bash
-python tts/render_kokoro.py script.txt output.wav --voice af_heart --speed 0.85
+python audio/tts/render_kokoro.py script.txt output.wav --voice af_heart --speed 0.85
 ```
 - Default: 1.0
 - For hypnosis/relaxation: 0.8-0.9 recommended
@@ -44,7 +44,7 @@ python tts/render_kokoro.py script.txt output.wav --voice af_heart --speed 0.85
 
 For cloning specific voices (e.g., ElevenLabs Natasha):
 ```bash
-python tts/render_xtts.py script.txt output.wav --speaker reference.wav
+python audio/tts/render_xtts.py script.txt output.wav --speaker reference.wav
 ```
 
 Requires a clean 6-15 second reference audio sample.
@@ -68,13 +68,13 @@ pip install flash-attn --no-build-isolation
 **Usage:**
 ```bash
 # Voice design mode
-python tts/render_qwen3.py script.txt output.wav --voice-design "A warm female voice speaking slowly"
+python audio/tts/render_qwen3.py script.txt output.wav --voice-design "A warm female voice speaking slowly"
 
 # Custom voice preset
-python tts/render_qwen3.py script.txt output.wav --speaker Ryan
+python audio/tts/render_qwen3.py script.txt output.wav --speaker Ryan
 
 # Voice cloning
-python tts/render_qwen3.py script.txt output.wav --ref-audio ref.wav --ref-text "Transcription"
+python audio/tts/render_qwen3.py script.txt output.wav --ref-audio ref.wav --ref-text "Transcription"
 ```
 
 **Note:** Without flash-attn, model loading takes 15+ minutes. With flash-attn and GPU, much faster.
@@ -93,7 +93,7 @@ Microsoft's conversational TTS. Currently has issues with script formatting.
 - Chinese: `zh-Xinran_woman`, `zh-Bowen_man`
 
 ```bash
-python tts/render_vibevoice.py script.txt output.wav --voice en-Alice_woman
+python audio/tts/render_vibevoice.py script.txt output.wav --voice en-Alice_woman
 ```
 
 **Workaround:** For hypnosis scripts, use Kokoro instead.

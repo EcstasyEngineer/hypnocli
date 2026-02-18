@@ -56,8 +56,8 @@ def load_env(env_path: Optional[Path] = None) -> dict:
     if env_path:
         search_paths.append(Path(env_path))
     search_paths.extend([
-        Path(__file__).resolve().parent.parent / '.env',  # hypnocli/.env
-        Path(__file__).resolve().parent / '.env',          # tts/.env
+        Path(__file__).resolve().parent.parent.parent / '.env',  # repo root
+        Path(__file__).resolve().parent / '.env',
         Path.cwd() / '.env',                               # current dir
     ])
 

@@ -52,7 +52,8 @@ def get_api_key() -> str:
         return key
 
     # Try loading from .env
-    env_path = Path(__file__).resolve().parent.parent / '.env'
+    # Walk up to repo root (audio/tts/ -> audio/ -> repo root)
+    env_path = Path(__file__).resolve().parent.parent.parent / '.env'
     if env_path.exists():
         for line in env_path.read_text().splitlines():
             line = line.strip()
