@@ -14,18 +14,22 @@ Modes:
     (default)     Sliding-window analysis with ASCII graph
     --spectrum    Detailed spectrum debug (peaks, candidates per window)
     --verify      Verify generated audio against a JSON config file
+    --spectrogram Generate spectrogram PNG with carrier trajectory overlay
 
 Options:
     --window SEC              Analysis window size in seconds (default: 10)
     --step SEC                Step between windows in seconds (default: 5)
     --expected-carriers HZ    Comma-separated center frequencies to look for
     --freq-min HZ             Min frequency for detection (default: 30)
-    --freq-max HZ             Max frequency for detection (default: 600)
+    --freq-max HZ             Max frequency for detection (default: auto-detect)
     --no-graph                Suppress ASCII graph output
     --no-isochronic           Skip isochronic pulse detection (faster)
     --csv                     Output CSV format
     --verify FILE             Verify against generator JSON config
     --spectrum                Show detailed spectrum debug
+    --spectrogram             Generate spectrogram PNG with carrier overlay
+    --spectrogram-lr          L/R split spectrogram (implies --spectrogram)
+    --output / -o PATH        Output path for spectrogram PNG
 """
 
 import argparse
@@ -36,37 +40,81 @@ from scipy import signal as scipy_signal
 from scipy.fft import fft, fftfreq
 import sys
 import os
+import gc
+
+try:
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import FuncFormatter
+    HAS_MATPLOTLIB = True
+except ImportError:
+    HAS_MATPLOTLIB = False
+
+# Reduced sample rate for analysis — sufficient for carriers up to ~3500 Hz,
+# cuts memory ~5.5x vs loading at 44100 Hz
+ANALYSIS_SR = 8000
 
 
 # === Spectrum Utilities ===
 
-def get_carrier_freq(y, sr, freq_min, freq_max):
-    """Get the dominant frequency in a range using parabolic interpolation."""
+def get_carrier_freq(y, sr, freq_min, freq_max, min_snr_db=10.0, guard_hz=1.0):
+    """Get the dominant frequency in a range, with SNR gating.
+
+    Returns dict {'freq_hz', 'peak_db', 'noise_db', 'snr_db'} or None
+    if no tone is significantly above the noise floor.
+    """
     n = len(y)
-    yf = np.abs(fft(y))[:n // 2]
+    if n < 8:
+        return None
+
+    win = np.hanning(n)
+    yf = np.abs(fft(y * win))[:n // 2]
     xf = fftfreq(n, 1 / sr)[:n // 2]
 
     mask = (xf >= freq_min) & (xf <= freq_max)
     yf_masked = yf[mask]
     xf_masked = xf[mask]
 
-    if len(yf_masked) == 0:
+    if len(yf_masked) < 8:
         return None
 
-    peak_idx = np.argmax(yf_masked)
+    yf_db = 20 * np.log10(yf_masked + 1e-12)
+    peak_idx = np.argmax(yf_db)
+    peak_db = float(yf_db[peak_idx])
 
     # Parabolic interpolation for sub-bin accuracy
-    if 0 < peak_idx < len(yf_masked) - 1:
-        alpha = yf_masked[peak_idx - 1]
-        beta = yf_masked[peak_idx]
-        gamma = yf_masked[peak_idx + 1]
+    freq_est = float(xf_masked[peak_idx])
+    if 0 < peak_idx < len(yf_db) - 1:
+        a, b, c = yf_db[peak_idx - 1], yf_db[peak_idx], yf_db[peak_idx + 1]
+        denom = a - 2 * b + c
+        if denom != 0:
+            p = 0.5 * (a - c) / denom
+            bin_hz = xf_masked[1] - xf_masked[0] if len(xf_masked) > 1 else 1.0
+            freq_est += p * bin_hz
 
-        if beta > 0 and (alpha - 2 * beta + gamma) != 0:
-            p = 0.5 * (alpha - gamma) / (alpha - 2 * beta + gamma)
-            freq_resolution = xf_masked[1] - xf_masked[0] if len(xf_masked) > 1 else 1
-            return xf_masked[peak_idx] + p * freq_resolution
+    # Noise floor: median of band excluding guard bins around peak
+    bin_hz = xf_masked[1] - xf_masked[0] if len(xf_masked) > 1 else 1.0
+    guard_bins = max(1, int(guard_hz / bin_hz))
+    lo = max(0, peak_idx - guard_bins)
+    hi = min(len(yf_db), peak_idx + guard_bins + 1)
+    noise_vals = np.concatenate([yf_db[:lo], yf_db[hi:]])
 
-    return xf_masked[peak_idx]
+    if len(noise_vals) < 4:
+        return None
+
+    noise_db = float(np.median(noise_vals))
+    snr_db = peak_db - noise_db
+
+    if snr_db < min_snr_db:
+        return None
+
+    return {
+        'freq_hz': freq_est,
+        'peak_db': peak_db,
+        'noise_db': noise_db,
+        'snr_db': snr_db,
+    }
 
 
 def get_spectrum(y, sr, freq_min=30, freq_max=600):
@@ -297,6 +345,170 @@ def build_carrier_ranges_from_centers(centers, margin=15, freq_min=30, freq_max=
     return ranges
 
 
+# === Auto-Detection ===
+
+def auto_detect_freq_range(y_left, y_right, sr, sample_duration=30, floor_db=40):
+    """Find the useful frequency ceiling from a short sample."""
+    n_samples = min(int(sample_duration * sr), len(y_left))
+    mono = (y_left[:n_samples] + y_right[:n_samples]) / 2
+
+    n = len(mono)
+    yf = np.abs(fft(mono))[:n // 2]
+    xf = fftfreq(n, 1 / sr)[:n // 2]
+
+    mask = (xf >= 30) & (xf <= 2000)
+    yf_masked = yf[mask]
+    xf_masked = xf[mask]
+
+    if len(yf_masked) == 0:
+        return 1200
+
+    yf_db = 20 * np.log10(yf_masked + 1e-10)
+    peak_db = np.max(yf_db)
+    above = xf_masked[yf_db > peak_db - floor_db]
+
+    if len(above) == 0:
+        return 1200
+
+    highest = float(np.max(above))
+    freq_max = max(600, int(np.ceil((highest * 1.2) / 50) * 50))
+    return min(freq_max, 2000)
+
+
+def detect_carriers_median(y_left, y_right, sr, freq_min=30, freq_max=600,
+                            n_segments=20, segment_sec=10,
+                            beat_range=(0.5, 20), threshold_db=25):
+    """
+    Detect carrier pairs using median spectrum analysis.
+
+    Samples N segments across the file, computes the FFT of each, and takes
+    the median power at each frequency bin. Pure tone carriers survive the
+    median; transient content (voice, music) gets suppressed.
+    """
+    total_samples = len(y_left)
+    seg_samples = min(int(segment_sec * sr), total_samples)
+
+    if total_samples <= int(seg_samples * 1.5):
+        starts = [0]
+    else:
+        usable = total_samples - seg_samples
+        actual_n = min(n_segments, max(3, total_samples // seg_samples))
+        starts = [int(i * usable / max(1, actual_n - 1)) for i in range(actual_n)]
+
+    half = seg_samples // 2
+    freq_bins = fftfreq(seg_samples, 1 / sr)[:half]
+    left_spectra = []
+    right_spectra = []
+
+    for start in starts:
+        l_seg = y_left[start:start + seg_samples]
+        r_seg = y_right[start:start + seg_samples]
+        win = np.hanning(len(l_seg))
+        left_spectra.append(np.abs(fft(l_seg * win))[:half])
+        right_spectra.append(np.abs(fft(r_seg * win))[:half])
+
+    left_median = np.median(np.array(left_spectra), axis=0)
+    right_median = np.median(np.array(right_spectra), axis=0)
+
+    mask = (freq_bins >= freq_min) & (freq_bins <= freq_max)
+    freqs = freq_bins[mask]
+    left_db = 20 * np.log10(left_median[mask] + 1e-10)
+    right_db = 20 * np.log10(right_median[mask] + 1e-10)
+
+    def _find_peaks_db(spectrum, freqs_arr):
+        if len(spectrum) == 0:
+            return []
+        threshold = np.max(spectrum) - threshold_db
+        idx, props = scipy_signal.find_peaks(spectrum, height=threshold, distance=5)
+        if len(idx) == 0:
+            return []
+        order = np.argsort(props['peak_heights'])[::-1][:20]
+        peaks = []
+        freq_res = freqs_arr[1] - freqs_arr[0] if len(freqs_arr) > 1 else 1.0
+        for i in order:
+            pi = idx[i]
+            f = freqs_arr[pi]
+            if 0 < pi < len(spectrum) - 1:
+                a, b, c = spectrum[pi - 1], spectrum[pi], spectrum[pi + 1]
+                denom = a - 2 * b + c
+                if denom != 0:
+                    f += 0.5 * (a - c) / denom * freq_res
+            peaks.append((f, props['peak_heights'][i]))
+        return peaks
+
+    l_peaks = _find_peaks_db(left_db, freqs)
+    r_peaks = _find_peaks_db(right_db, freqs)
+    if not l_peaks or not r_peaks:
+        return []
+
+    # Binaural pairs: L/R with beat-range frequency difference
+    raw_pairs = []
+    for lf, lp in l_peaks:
+        for rf, rp in r_peaks:
+            diff = abs(rf - lf)
+            if beat_range[0] <= diff <= beat_range[1]:
+                raw_pairs.append({
+                    'center_hz': (lf + rf) / 2,
+                    'left_hz': lf, 'right_hz': rf,
+                    'binaural_hz': diff,
+                    'avg_db': (lp + rp) / 2,
+                    'detection_type': 'binaural',
+                })
+
+    # Mono carriers: same freq in L and R (isochronic-only)
+    for lf, lp in l_peaks:
+        for rf, rp in r_peaks:
+            if abs(rf - lf) < 1.0:
+                center = (lf + rf) / 2
+                if not any(abs(center - p['center_hz']) < 25 for p in raw_pairs):
+                    raw_pairs.append({
+                        'center_hz': center,
+                        'left_hz': lf, 'right_hz': rf,
+                        'binaural_hz': 0.0,
+                        'avg_db': (lp + rp) / 2,
+                        'detection_type': 'mono',
+                    })
+
+    if not raw_pairs:
+        return []
+
+    # Cluster nearby (within 25 Hz), keep strongest
+    raw_pairs.sort(key=lambda p: -p['avg_db'])
+    result = []
+    used = set()
+    for i, pair in enumerate(raw_pairs):
+        if i in used:
+            continue
+        used.add(i)
+        for j in range(i + 1, len(raw_pairs)):
+            if j not in used and abs(raw_pairs[j]['center_hz'] - pair['center_hz']) < 25:
+                used.add(j)
+        margin = max(15, pair['binaural_hz'] * 2)
+        lo = max(freq_min, min(pair['left_hz'], pair['right_hz']) - margin)
+        hi = min(freq_max, max(pair['left_hz'], pair['right_hz']) + margin)
+        pair['search_range'] = (lo, hi)
+        result.append(pair)
+
+    result.sort(key=lambda p: p['center_hz'])
+    return result[:6]
+
+
+def update_carrier_search_ranges(carrier_pairs, window_results, freq_min, freq_max, max_drift_hz=5):
+    """Adaptively nudge carrier search ranges toward measured frequencies."""
+    for pair, result in zip(carrier_pairs, window_results):
+        if result['left_hz'] is None or result['right_hz'] is None:
+            continue
+        measured_center = result['center_hz']
+        current_center = (pair['search_range'][0] + pair['search_range'][1]) / 2
+        delta = measured_center - current_center
+        if abs(delta) > max_drift_hz:
+            delta = max_drift_hz if delta > 0 else -max_drift_hz
+        new_center = current_center + delta
+        half_width = (pair['search_range'][1] - pair['search_range'][0]) / 2
+        pair['search_range'] = (max(freq_min, new_center - half_width),
+                                min(freq_max, new_center + half_width))
+
+
 # === Analysis Functions ===
 
 def analyze_window(y_left, y_right, sr, carrier_pairs, detect_pulse=True):
@@ -320,10 +532,12 @@ def analyze_window(y_left, y_right, sr, carrier_pairs, detect_pulse=True):
     results = []
     for pair in carrier_pairs:
         fmin, fmax = pair['search_range']
-        left_freq = get_carrier_freq(y_left, sr, fmin, fmax)
-        right_freq = get_carrier_freq(y_right, sr, fmin, fmax)
+        left_m = get_carrier_freq(y_left, sr, fmin, fmax)
+        right_m = get_carrier_freq(y_right, sr, fmin, fmax)
 
-        if left_freq is not None and right_freq is not None:
+        if left_m is not None and right_m is not None:
+            left_freq = left_m['freq_hz']
+            right_freq = right_m['freq_hz']
             binaural = abs(right_freq - left_freq)
             dominant = 'R' if right_freq > left_freq else 'L'
             center = (left_freq + right_freq) / 2
@@ -340,8 +554,8 @@ def analyze_window(y_left, y_right, sr, carrier_pairs, detect_pulse=True):
             center = pair['center_hz']
             result = {
                 'center_hz': center,
-                'left_hz': left_freq,
-                'right_hz': right_freq,
+                'left_hz': None,
+                'right_hz': None,
                 'binaural_hz': None,
                 'dominant': None,
                 'pulse_hz': None,
@@ -371,39 +585,37 @@ def analyze_window(y_left, y_right, sr, carrier_pairs, detect_pulse=True):
 
 def analyze_binaural(filepath, window_sec=10, step_sec=5,
                      carrier_pairs=None, expected_carriers=None,
-                     freq_min=30, freq_max=600,
+                     freq_min=30, freq_max=None,
                      show_graph=True, csv_output=False,
-                     detect_pulse=True):
+                     detect_pulse=True,
+                     spectrogram=False, spectrogram_lr=False,
+                     output_path=None):
     """
     Analyze binaural beats and isochronic pulses in an audio file.
 
-    Detects all carrier pairs and tracks binaural beat and pulse rate
-    per pair over time.
-
-    Args:
-        filepath: Path to audio file
-        window_sec: Analysis window in seconds
-        step_sec: Step between windows
-        carrier_pairs: Pre-detected carrier pairs (skip auto-detection)
-        expected_carriers: List of center frequencies to search for
-        freq_min: Min frequency for auto-detection
-        freq_max: Max frequency for auto-detection
-        show_graph: Show ASCII graph
-        csv_output: Output CSV format
-        detect_pulse: Run isochronic pulse detection (default True)
+    Loads at reduced sample rate (ANALYSIS_SR) to prevent OOM on large files.
+    Uses median-spectrum carrier detection to reject voice/music content.
+    SNR-gated per-window tracking returns N/A when no tone is present.
 
     Returns:
-        List of result dicts per time window
+        (all_results, carrier_pairs) tuple
     """
-    y, sr = librosa.load(filepath, sr=None, mono=False)
+    y, sr = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
 
     if y.ndim == 1:
         print("ERROR: Mono file - cannot analyze binaural beats", file=sys.stderr)
-        return None
+        return None, None
 
     y_left, y_right = y[0], y[1]
+    del y
     duration = len(y_left) / sr
     filename = os.path.basename(filepath)
+
+    # Auto-detect frequency range if not specified
+    if freq_max is None:
+        freq_max = auto_detect_freq_range(y_left, y_right, sr)
+        if not csv_output:
+            print(f"Auto-detected freq range: {freq_min}-{freq_max} Hz")
 
     # Determine carrier pairs
     if carrier_pairs is None:
@@ -412,13 +624,16 @@ def analyze_binaural(filepath, window_sec=10, step_sec=5,
                 expected_carriers, freq_min=freq_min, freq_max=freq_max
             )
         else:
-            carrier_pairs = detect_carrier_pairs(
+            carrier_pairs = detect_carriers_median(
                 y_left, y_right, sr, freq_min=freq_min, freq_max=freq_max
             )
 
     if not carrier_pairs:
         print("No carrier pairs detected. Try --spectrum mode or --expected-carriers.")
-        return None
+        if spectrogram or spectrogram_lr:
+            generate_spectrogram(filepath, freq_min=freq_min, freq_max=freq_max,
+                                 output_path=output_path, lr_split=spectrogram_lr)
+        return None, None
 
     n_carriers = len(carrier_pairs)
 
@@ -431,19 +646,20 @@ def analyze_binaural(filepath, window_sec=10, step_sec=5,
         print(f"Sample rate: {sr} Hz | FFT resolution: ~{1 / window_sec:.4f} Hz")
         mode_str = "binaural + isochronic" if detect_pulse else "binaural only"
         print(f"Mode: {mode_str}")
-        print(f"Detected {n_carriers} carrier pair(s):")
+        print(f"Detected {n_carriers} carrier(s):")
         for i, pair in enumerate(carrier_pairs):
             center = pair['center_hz']
-            fmin, fmax = pair['search_range']
-            if pair.get('binaural_hz') is not None:
-                print(f"  [{i}] ~{center:.1f} Hz (range {fmin:.0f}-{fmax:.0f}) "
+            fmin_r, fmax_r = pair['search_range']
+            det_type = pair.get('detection_type', 'binaural')
+            if pair.get('binaural_hz') is not None and pair['binaural_hz'] > 0:
+                print(f"  [{i}] ~{center:.1f} Hz (range {fmin_r:.0f}-{fmax_r:.0f}) "
                       f"| L={pair['left_hz']:.1f} R={pair['right_hz']:.1f} "
-                      f"| beat={pair['binaural_hz']:.2f} Hz")
+                      f"| beat={pair['binaural_hz']:.2f} Hz ({det_type})")
             else:
-                print(f"  [{i}] ~{center:.1f} Hz (range {fmin:.0f}-{fmax:.0f})")
+                print(f"  [{i}] ~{center:.1f} Hz (range {fmin_r:.0f}-{fmax_r:.0f}) ({det_type})")
         print()
 
-    # Collect all data
+    # Collect all data with adaptive search range tracking
     all_results = []
     t = 0
     while t + window_sec <= duration:
@@ -455,6 +671,10 @@ def analyze_binaural(filepath, window_sec=10, step_sec=5,
         window_results = analyze_window(left_seg, right_seg, sr, carrier_pairs,
                                         detect_pulse=detect_pulse)
         all_results.append({'time': t, 'carriers': window_results})
+
+        # Adaptive search range update
+        update_carrier_search_ranges(carrier_pairs, window_results, freq_min, freq_max)
+
         t += step_sec
 
     if csv_output:
@@ -487,7 +707,7 @@ def analyze_binaural(filepath, window_sec=10, step_sec=5,
 
         if not all_binaurals:
             print("No binaural beats detected in any window.")
-            return all_results
+            return all_results, carrier_pairs
 
         graph_min = max(0, min(all_binaurals) - 0.5)
         graph_max = max(all_binaurals) + 0.5
@@ -589,13 +809,36 @@ def analyze_binaural(filepath, window_sec=10, step_sec=5,
             else:
                 print(f"  [{i}] ~{pair['center_hz']:.0f} Hz: no data")
 
-    return all_results
+    # Generate spectrogram if requested
+    if spectrogram or spectrogram_lr:
+        del y_left, y_right
+        gc.collect()
+
+        carrier_trajectories = []
+        for i in range(n_carriers):
+            times_list, left_list, right_list = [], [], []
+            for r in all_results:
+                t_mid = r['time'] + window_sec / 2
+                cr = r['carriers'][i]
+                times_list.append(t_mid)
+                left_list.append(cr['left_hz'] if cr.get('left_hz') is not None else float('nan'))
+                right_list.append(cr['right_hz'] if cr.get('right_hz') is not None else float('nan'))
+            carrier_trajectories.append({
+                'times': times_list, 'left_hz': left_list, 'right_hz': right_list,
+            })
+
+        generate_spectrogram(filepath, carrier_trajectories=carrier_trajectories,
+                             carrier_pairs=carrier_pairs,
+                             freq_min=freq_min, freq_max=freq_max,
+                             output_path=output_path, lr_split=spectrogram_lr)
+
+    return all_results, carrier_pairs
 
 
 def analyze_spectrum(filepath, start_sec=0, duration_sec=30, window_sec=10,
                      freq_min=30, freq_max=600):
     """Detailed spectrum analysis for debugging carrier detection."""
-    y, sr = librosa.load(filepath, sr=None, mono=False)
+    y, sr = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
 
     if y.ndim == 1:
         print("ERROR: Mono file", file=sys.stderr)
@@ -790,7 +1033,7 @@ def verify_against_config(filepath, config_path, window_sec=10, step_sec=5,
     verify_pulse = detect_pulse and has_pulse_config
 
     # Load audio and analyze
-    y, sr = librosa.load(filepath, sr=None, mono=False)
+    y, sr = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
     if y.ndim == 1:
         print("ERROR: Mono file", file=sys.stderr)
         return None
@@ -918,6 +1161,128 @@ def verify_against_config(filepath, config_path, window_sec=10, step_sec=5,
     return {'pass': pass_count, 'fail': fail_count, 'total': total, 'results': results}
 
 
+# === Spectrogram ===
+
+def generate_spectrogram(filepath, carrier_trajectories=None, carrier_pairs=None,
+                         freq_min=30, freq_max=1200, output_path=None,
+                         lr_split=False):
+    """Generate a spectrogram PNG with optional carrier trajectory overlay."""
+    if not HAS_MATPLOTLIB:
+        print("ERROR: matplotlib required for spectrogram: pip install matplotlib",
+              file=sys.stderr)
+        return
+
+    render_max = min(freq_max, 1200)
+    target_sr = max(int(render_max * 2.5), 4000)
+    print(f"Loading audio for spectrogram (target sr={target_sr} Hz, "
+          f"range {freq_min}-{render_max} Hz)...")
+
+    if lr_split:
+        y, _ = librosa.load(filepath, sr=target_sr, mono=False)
+        if y.ndim == 1:
+            y_left_ds, y_right_ds = y, y.copy()
+        else:
+            y_left_ds, y_right_ds = y[0], y[1]
+        del y
+        gc.collect()
+        duration = len(y_left_ds) / target_sr
+    else:
+        mono_ds, _ = librosa.load(filepath, sr=target_sr, mono=True)
+        duration = len(mono_ds) / target_sr
+        y_left_ds = y_right_ds = None
+
+    filename = os.path.basename(filepath)
+
+    if duration < 600:
+        n_fft, hop_length = 4096, 512
+    elif duration < 1800:
+        n_fft, hop_length = 4096, 1024
+    else:
+        n_fft, hop_length = 2048, 2048
+
+    if lr_split:
+        fig, (ax_l, ax_r) = plt.subplots(2, 1, figsize=(16, 10), sharex=True)
+        panels = [('Left', y_left_ds, ax_l), ('Right', y_right_ds, ax_r)]
+    else:
+        fig, ax = plt.subplots(1, 1, figsize=(16, 6))
+        panels = [('Mono (L+R)', mono_ds, ax)]
+
+    for label, sig, ax_panel in panels:
+        S = librosa.stft(sig, n_fft=n_fft, hop_length=hop_length)
+        S_db = librosa.amplitude_to_db(np.abs(S), ref=np.max)
+        del S
+        gc.collect()
+
+        freqs = librosa.fft_frequencies(sr=target_sr, n_fft=n_fft)
+        times = librosa.frames_to_time(np.arange(S_db.shape[1]),
+                                        sr=target_sr, hop_length=hop_length)
+
+        freq_mask = (freqs >= freq_min) & (freqs <= render_max)
+        img = ax_panel.pcolormesh(times, freqs[freq_mask], S_db[freq_mask, :],
+                                   shading='gouraud', cmap='viridis',
+                                   vmin=-80, vmax=0)
+        ax_panel.set_ylabel(f'{label}\nFrequency (Hz)')
+        ax_panel.set_ylim(freq_min, render_max)
+
+        if carrier_trajectories:
+            colors = plt.cm.tab10(np.linspace(0, 1, min(len(carrier_trajectories), 10)))
+            for idx, traj in enumerate(carrier_trajectories):
+                color = colors[idx % len(colors)]
+                t_arr = np.array(traj['times'])
+                l_arr = np.array(traj['left_hz'], dtype=float)
+                r_arr = np.array(traj['right_hz'], dtype=float)
+
+                label_base = None
+                if carrier_pairs and idx < len(carrier_pairs):
+                    cp = carrier_pairs[idx]
+                    det_type = cp.get('detection_type', 'binaural')
+                    label_base = f"C{idx}: ~{cp['center_hz']:.0f} Hz ({det_type})"
+
+                is_first_panel = (label == panels[0][0]) or not lr_split
+
+                valid_l = np.isfinite(l_arr)
+                if np.any(valid_l):
+                    ax_panel.scatter(t_arr[valid_l], l_arr[valid_l],
+                                     color=color, marker='<', s=12, alpha=0.8,
+                                     zorder=5, linewidths=0.5, edgecolors='black',
+                                     label=(f"{label_base} L" if label_base and is_first_panel else None))
+
+                valid_r = np.isfinite(r_arr)
+                if np.any(valid_r):
+                    ax_panel.scatter(t_arr[valid_r], r_arr[valid_r],
+                                     color=color, marker='>', s=12, alpha=0.8,
+                                     zorder=5, linewidths=0.5, edgecolors='white',
+                                     label=(f"{label_base} R" if label_base and is_first_panel else None))
+
+        cbar = fig.colorbar(img, ax=ax_panel, pad=0.01)
+        cbar.set_label('dB')
+
+    last_ax = panels[-1][2]
+    last_ax.set_xlabel('Time')
+
+    def format_time(x, _):
+        return f"{int(x // 60)}:{int(x % 60):02d}"
+    last_ax.xaxis.set_major_formatter(FuncFormatter(format_time))
+
+    if carrier_trajectories:
+        first_ax = panels[0][2]
+        handles, labels = first_ax.get_legend_handles_labels()
+        if handles:
+            first_ax.legend(loc='upper right', fontsize=7, framealpha=0.8,
+                            markerscale=1.5)
+
+    fig.suptitle(f'{filename}', fontsize=13, y=0.98)
+    plt.tight_layout()
+
+    if output_path is None:
+        base, _ = os.path.splitext(filepath)
+        output_path = base + '_spectrogram.png'
+
+    plt.savefig(output_path, dpi=200, bbox_inches='tight')
+    plt.close()
+    print(f"Spectrogram saved: {output_path}")
+
+
 # === CLI ===
 
 def main():
@@ -934,6 +1299,12 @@ Examples:
 
   # Specify known carrier centers
   python binaural_analyzer.py audio.wav --expected-carriers 60,90,135,202.5
+
+  # Generate spectrogram with carrier overlay
+  python binaural_analyzer.py audio.wav --spectrogram
+
+  # L/R split spectrogram with custom output path
+  python binaural_analyzer.py audio.wav --spectrogram-lr -o output.png
 
   # Verify generated audio against config (binaural + pulse)
   python binaural_analyzer.py generated.wav --verify config.json
@@ -955,8 +1326,8 @@ Examples:
                         help='Comma-separated center frequencies (e.g., 60,135,202.5)')
     parser.add_argument('--freq-min', type=float, default=30,
                         help='Min frequency for detection (default: 30)')
-    parser.add_argument('--freq-max', type=float, default=600,
-                        help='Max frequency for detection (default: 600)')
+    parser.add_argument('--freq-max', type=float, default=None,
+                        help='Max frequency for detection (default: auto-detect)')
     parser.add_argument('--no-graph', action='store_true', help='Suppress graph')
     parser.add_argument('--no-isochronic', action='store_true',
                         help='Skip isochronic pulse detection (binaural only, faster)')
@@ -976,14 +1347,28 @@ Examples:
     parser.add_argument('--tolerance', type=float, default=0.3,
                         help='Verification tolerance in Hz (default: 0.3)')
 
+    # Spectrogram mode
+    parser.add_argument('--spectrogram', action='store_true',
+                        help='Generate spectrogram PNG with carrier overlay')
+    parser.add_argument('--spectrogram-lr', action='store_true',
+                        help='L/R split spectrogram (implies --spectrogram)')
+    parser.add_argument('--output', '-o', type=str, default=None,
+                        help='Output path for spectrogram PNG')
+
     args = parser.parse_args()
 
     detect_pulse = not args.no_isochronic
+
+    if args.spectrogram_lr:
+        args.spectrogram = True
 
     # Parse expected carriers
     expected_carriers = None
     if args.expected_carriers:
         expected_carriers = [float(x.strip()) for x in args.expected_carriers.split(',')]
+
+    # Default freq_max for spectrum mode (which doesn't auto-detect)
+    freq_max_spectrum = args.freq_max if args.freq_max is not None else 600
 
     if args.verify:
         verify_against_config(
@@ -1001,7 +1386,7 @@ Examples:
             duration_sec=args.duration,
             window_sec=args.window,
             freq_min=args.freq_min,
-            freq_max=args.freq_max,
+            freq_max=freq_max_spectrum,
         )
     else:
         analyze_binaural(
@@ -1014,6 +1399,9 @@ Examples:
             show_graph=not args.no_graph,
             csv_output=args.csv,
             detect_pulse=detect_pulse,
+            spectrogram=args.spectrogram,
+            spectrogram_lr=args.spectrogram_lr,
+            output_path=args.output,
         )
 
 
