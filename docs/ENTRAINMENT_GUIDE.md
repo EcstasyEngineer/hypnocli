@@ -225,9 +225,9 @@ All pairs ≥5s, all different — maximum rhythmic complexity.
 
 ### Analysis Tips
 
-- Use `--no-high` flag when high carrier drops out mid-file
 - Run spectrum debug first on unfamiliar files to identify carrier ranges
-- Isochronic analysis only reliable on pure tone files (voice content masks modulation)
+- Use `--expected-carriers` when auto-detection misses or misidentifies carriers
+- Isochronic pulse detection is reliable on pure tones but noisy on vocal content
 
 ---
 
@@ -338,34 +338,61 @@ Key findings from Deep Research synthesis of entrainment and hypnosis neuroscien
 
 ## Tools & Scripts
 
-All analysis scripts are in `/analysis/scripts/`:
+All analysis is handled by a single script: `analysis/scripts/binaural_analyzer.py`
+
+### Usage
 
 ```
-binaural_analyzer.py    # Main analysis tool
-  --window SEC          # FFT window size (default: 20)
-  --step SEC            # Step between windows (default: 5)
-  --low-min/--low-max   # Low carrier frequency range
-  --high-min/--high-max # High carrier frequency range
-  --no-low/--no-high    # Disable carrier detection
-  --csv                 # Output CSV format
+binaural_analyzer.py <audio_file> [options]
 
-spectrum_debug.py       # Detailed frequency analysis
-  --start SEC           # Start time
-  --duration SEC        # Duration to analyze
-  --bin-size HZ         # Frequency bin resolution
-  --top N               # Show top N peaks
+Modes:
+  (default)              Sliding-window analysis with ASCII graph
+  --spectrum             Detailed spectrum debug (peaks, candidates per window)
+  --verify CONFIG        Verify generated audio against a JSON config
 
-isochronic_analyzer.py  # Amplitude modulation detection
-                        # (Note: unreliable on vocal content)
-
-analyze_folder.py       # Batch analysis wrapper
+Options:
+  --window SEC           Analysis window in seconds (default: 10)
+  --step SEC             Step between windows (default: 5)
+  --expected-carriers HZ Comma-separated center frequencies (e.g., 60,312)
+  --freq-min HZ          Min frequency for detection (default: 30)
+  --freq-max HZ          Max frequency for detection (default: 600)
+  --no-graph             Suppress ASCII graph output
+  --no-isochronic        Skip isochronic pulse detection (faster)
+  --csv                  Output CSV format
+  --tolerance HZ         Verification tolerance in Hz (default: 0.3)
 ```
 
----
+### Output Columns
 
-## Appendix: Analysis Tools
+Each window shows per carrier:
+- **Binaural Hz** — frequency difference between L and R channels (e.g., `3.00`)
+- **Dominant** — which ear has the higher frequency (`R` or `L`)
+- **Pulse Hz** — isochronic pulse rate detected via amplitude envelope analysis (e.g., `p=5.00`)
 
-Analysis scripts are in `/analysis/scripts/`. See Tools & Scripts section above for usage.
+### How It Works
+
+**Pass 1 (binaural):** Sliding-window FFT on L and R channels. Detects carrier pairs via peak matching, measures L/R frequency difference per carrier per window.
+
+**Pass 2 (isochronic):** For each detected carrier, bandpasses around the carrier frequency (±15 Hz, 4th-order Butterworth SOS), applies Hilbert transform for the amplitude envelope, then FFTs the envelope to find the dominant modulation frequency in 0.5–15 Hz.
+
+### Examples
+
+```bash
+# Auto-detect everything (binaural + isochronic)
+python binaural_analyzer.py audio.wav
+
+# Specify known carriers
+python binaural_analyzer.py audio.wav --expected-carriers 60,312
+
+# Verify against generator config
+python binaural_analyzer.py generated.wav --verify config.json
+
+# Binaural only (skip pulse detection)
+python binaural_analyzer.py audio.wav --no-isochronic
+
+# Spectrum debug
+python binaural_analyzer.py audio.wav --spectrum --start 0 --duration 60
+```
 
 ---
 

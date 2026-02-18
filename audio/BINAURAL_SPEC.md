@@ -2,7 +2,10 @@
 
 ## Overview
 
-Generate entrainment audio using composable primitives. Supports static multi-tone configurations via CLI and dynamic binaural sweeps via JSON timeline.
+Generate entrainment audio using composable primitives. Supports:
+- **CLI mode**: Static multi-tone configurations (`--add-iso`, `--add-binaural`, `--add-hybrid`)
+- **JSON mode**: Per-layer keyframing of all parameters (center_hz, pulse_hz, amplitude_db, binaural_hz)
+- **Presets**: `bimbo-drone`, `reactor`, `descent`
 
 ---
 
@@ -35,117 +38,187 @@ Generates continuous tones (no isochronic modulation):
 
 **Example:** `--add-binaural 200,5,0` - Creates 197.5 Hz (L) and 202.5 Hz (R) for 5 Hz beat
 
----
-
-## CLI Usage
-
-### Generate with Preset
+### `--add-hybrid`: Add Hybrid Layer
 
 ```bash
-python audio/binaural.py --preset drone --duration 120 -o drone.wav
+--add-hybrid CARRIER,BEAT,PULSE_RATE,AMPLITUDE_DB
 ```
 
-### Generate with Custom Tones
+Combines binaural + isochronic on the same carrier:
+- Left channel: `carrier - beat/2`, modulated at `pulse_rate` Hz
+- Right channel: `carrier + beat/2`, modulated at `pulse_rate` Hz
 
-```bash
-python audio/binaural.py \
-  --add-iso 310,5.0,0,L \
-  --add-iso 314,5.0,0,R \
-  --add-iso 58,3.25,-6,L \
-  --add-iso 62,3.25,-6,R \
-  --duration 120 -o custom.wav
-```
-
-### Simple Binaural Beat
-
-```bash
-python audio/binaural.py --add-binaural 200,5,0 --duration 600 -o simple.ogg
-```
-
-### Generate from JSON (with sweep)
-
-```bash
-python audio/binaural.py --json-input config.json -o sweep.wav
-```
+**Example:** `--add-hybrid 312,3,5,0` - 312 Hz carrier, 3 Hz binaural beat, 5 Hz isochronic pulse
 
 ---
 
 ## Presets
 
-### `drone`
+### `bimbo-drone`
 
-Replicates the static drone structure with 4 isochronic tones:
+Two hybrid layers matching source material analysis (3.0 Hz binaural, dual isochronic):
 
-| Carrier | Pulse | Amplitude | Ear |
-|---------|-------|-----------|-----|
-| 310 Hz | 5.0 Hz | 0 dB | L |
-| 314 Hz | 5.0 Hz | 0 dB | R |
-| 58 Hz | 3.25 Hz | -6 dB | L |
-| 62 Hz | 3.25 Hz | -6 dB | R |
+| Layer | Center | Pulse | Amplitude | Binaural |
+|-------|--------|-------|-----------|----------|
+| high | 312 Hz | 5.0 Hz | 0 dB | 3.0 Hz |
+| low | 60 Hz | 3.25 Hz | -6 dB | 3.0 Hz |
 
-This creates:
-- ~4 Hz binaural beat on both frequency bands
-- Separate isochronic pulses (5 Hz high, 3.25 Hz low)
-- L/R ping-pong effect via 100ms interleave (180° offset at 5 Hz, ~117° at 3.25 Hz)
+```bash
+python audio/binaural.py --preset bimbo-drone --duration 1200 -o drone.ogg
+```
+
+### `reactor`
+
+Four layers in musical fifth ratios with max-entropy pulse rates and per-layer binaural:
+
+| Layer | Center | Pulse | Amplitude | Binaural |
+|-------|--------|-------|-----------|----------|
+| high | 202.5 Hz | 7.0 Hz | 0 dB | 4.0 Hz |
+| mid_high | 135 Hz | 4.6 Hz | -4 dB | 3.5 Hz |
+| mid_low | 90 Hz | 3.3 Hz | -6 dB | 3.0 Hz |
+| low | 60 Hz | 2.55 Hz | -8 dB | 2.5 Hz |
+
+```bash
+python audio/binaural.py --preset reactor -o reactor.ogg
+```
+
+### `descent`
+
+Three layers targeting progressive theta-to-delta deepening:
+
+| Layer | Center | Pulse | Amplitude | Binaural |
+|-------|--------|-------|-----------|----------|
+| theta | 200 Hz | 5.0 Hz | 0 dB | 4.0 Hz |
+| deep_theta | 120 Hz | 3.25 Hz | -3 dB | 3.0 Hz |
+| delta | 55 Hz | 2.55 Hz | -6 dB | 2.0 Hz |
+
+Pulse rates chosen for max entropy (all pairs sync ≥4s). Low carriers per Pratt et al. (2010) for stronger entrainment response.
+
+```bash
+python audio/binaural.py --preset descent --duration 1200 -o descent.ogg
+```
 
 ---
 
 ## JSON Configuration
 
-For dynamic binaural sweeps, use a JSON configuration file.
+### Polymorphic Parameter Values
 
-### Basic Structure
+All numeric layer fields accept **either a static number or an array of keyframes**:
+
+```json
+// Static value
+{"center_hz": 312}
+
+// Keyframed value (linear interpolation between points)
+{"center_hz": [
+  {"time_sec": 0, "value": 312},
+  {"time_sec": 600, "value": 200}
+]}
+```
+
+This applies to: `center_hz`, `pulse_hz`, `amplitude_db`, `binaural_hz`
+
+### Per-Layer Binaural
+
+Each layer can specify its own `binaural_hz` (static or keyframed). If omitted, inherits from the global `binaural_hz` or `keyframes`.
 
 ```json
 {
   "duration_sec": 120,
-  "fade_in_sec": 1.75,
-  "fade_out_sec": 1.75,
-  "target_db": -28,
-
+  "ear_priority": "R",
   "layers": [
-    {"name": "high", "center_hz": 312, "pulse_hz": 5.0, "amplitude_db": 0},
-    {"name": "low", "center_hz": 60, "pulse_hz": 3.25, "amplitude_db": -6}
-  ],
-
-  "keyframes": [
-    {"time_sec": 0, "binaural_hz": 4.71},
-    {"time_sec": 120, "binaural_hz": 4.0}
+    {
+      "name": "high",
+      "center_hz": 312,
+      "pulse_hz": 5.0,
+      "amplitude_db": 0,
+      "binaural_hz": [
+        {"time_sec": 0, "value": 4.0},
+        {"time_sec": 120, "value": 2.0}
+      ]
+    },
+    {
+      "name": "low",
+      "center_hz": 60,
+      "pulse_hz": 3.25,
+      "amplitude_db": -6,
+      "binaural_hz": 4.0
+    }
   ]
 }
 ```
 
-### Fields
+### Global Config Fields
 
 | Field | Required | Default | Description |
 |-------|----------|---------|-------------|
 | `duration_sec` | Yes | - | Total duration in seconds |
 | `layers` | Yes | - | Array of layer definitions |
-| `keyframes` | No | - | Array of binaural sweep points |
-| `binaural_hz` | No | 0 | Static binaural beat (if no keyframes) |
+| `keyframes` | No | - | Global binaural sweep `[{time_sec, binaural_hz}]` (legacy format) |
+| `binaural_hz` | No | 0 | Global static binaural beat (fallback if layer has none) |
+| `ear_priority` | No | `"R"` | Which ear gets higher carrier: `"L"` or `"R"` |
 | `fade_in_sec` | No | 1.75 | Fade in duration |
 | `fade_out_sec` | No | 1.75 | Fade out duration |
 | `target_db` | No | -28 | Target RMS level |
 
-### Layer Definition
+### Layer Fields
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `name` | No | Layer identifier (for logging) |
-| `center_hz` | Yes | Center frequency in Hz |
-| `pulse_hz` | Yes | Isochronic pulse rate (0 = continuous) |
-| `amplitude_db` | Yes | Amplitude in dB |
+| Field | Required | Type | Description |
+|-------|----------|------|-------------|
+| `name` | No | string | Layer identifier (for logging) |
+| `center_hz` | Yes | number \| keyframes | Center carrier frequency |
+| `pulse_hz` | Yes | number \| keyframes | Isochronic pulse rate (0 = continuous) |
+| `amplitude_db` | Yes | number \| keyframes | Amplitude in dB |
+| `binaural_hz` | No | number \| keyframes | Per-layer binaural offset (inherits global if absent) |
 
-### Keyframes
+### Binaural Inheritance
 
-Keyframes define binaural beat values over time. Linear interpolation is used between points.
+1. If a layer has `binaural_hz` -> use that (static or keyframed)
+2. Else if config has `keyframes` -> use global keyframes (legacy `{time_sec, binaural_hz}` format)
+3. Else if config has `binaural_hz` -> use global static value
+4. Else -> 0 Hz (no binaural)
 
-- All layers share the same binaural beat (sweep in lockstep)
-- At each sample: `L = center_hz - binaural_hz/2`, `R = center_hz + binaural_hz/2`
+### Ear Priority
 
-### Static JSON (no keyframes)
+`ear_priority` controls which ear gets the higher carrier frequency:
+- `"R"` (default): `freq_right = center + binaural/2`, `freq_left = center - binaural/2`
+- `"L"`: Reversed (left ear gets higher frequency)
 
-For static configuration without sweeps:
+Not keyframeable - set once per config.
+
+---
+
+## Advanced Examples
+
+### Keyframed Center Frequency Sweep
+
+```json
+{
+  "duration_sec": 600,
+  "ear_priority": "R",
+  "layers": [
+    {
+      "name": "descending",
+      "center_hz": [
+        {"time_sec": 0, "value": 315},
+        {"time_sec": 600, "value": 200}
+      ],
+      "pulse_hz": [
+        {"time_sec": 0, "value": 6.5},
+        {"time_sec": 600, "value": 2.5}
+      ],
+      "amplitude_db": 0,
+      "binaural_hz": [
+        {"time_sec": 0, "value": 4.5},
+        {"time_sec": 600, "value": 2.0}
+      ]
+    }
+  ]
+}
+```
+
+### Static JSON (Legacy Format, Still Supported)
 
 ```json
 {
@@ -155,6 +228,22 @@ For static configuration without sweeps:
     {"name": "low", "center_hz": 60, "pulse_hz": 3.25, "amplitude_db": -6}
   ],
   "binaural_hz": 4.0
+}
+```
+
+### Global Keyframes (Legacy Format, Still Supported)
+
+```json
+{
+  "duration_sec": 120,
+  "layers": [
+    {"name": "high", "center_hz": 312, "pulse_hz": 5.0, "amplitude_db": 0},
+    {"name": "low", "center_hz": 60, "pulse_hz": 3.25, "amplitude_db": -6}
+  ],
+  "keyframes": [
+    {"time_sec": 0, "binaural_hz": 4.71},
+    {"time_sec": 120, "binaural_hz": 4.0}
+  ]
 }
 ```
 
@@ -182,13 +271,14 @@ python audio/binaural.py [options]
 |--------|---------|-------------|
 | `--add-iso SPEC` | - | Add isochronic tone (repeatable) |
 | `--add-binaural SPEC` | - | Add binaural pair (repeatable) |
-| `--preset NAME` | - | Use predefined configuration |
+| `--add-hybrid SPEC` | - | Add hybrid binaural+isochronic layer (repeatable) |
+| `--preset NAME` | - | Use predefined config (`bimbo-drone`, `reactor`, `descent`) |
 | `--json-input FILE` | - | Load from JSON file |
-| `--duration SECS` | 600 | Duration in seconds |
+| `--duration SECS` | 600 / preset | Duration in seconds |
 | `--fade-in SECS` | 1.75 | Fade in duration |
 | `--fade-out SECS` | 1.75 | Fade out duration |
 | `--level DB` | -28 | Target RMS level in dB |
-| `--interleave-ms MS` | 100 | R channel isochronic phase offset (creates L/R ping-pong) |
+| `--interleave-ms MS` | 100 | R channel isochronic phase offset (CLI mode only) |
 | `-o, --output FILE` | output.wav | Output file path |
 
 ---
@@ -197,15 +287,27 @@ python audio/binaural.py [options]
 
 ### Signal Generation
 
-**Isochronic Envelope:** Raised cosine for smooth pulsing
+**Isochronic Envelope (static rate):** Raised cosine for smooth pulsing
 ```python
 envelope = 0.5 * (1 + cos(2*pi*rate*t + pi))  # 0 to 1
 ```
 
-**Phase-Continuous Sweep:** For dynamic binaural, uses cumulative phase
+**Isochronic Envelope (dynamic rate):** Phase-continuous cumulative integration
+```python
+phase = cumsum(2*pi*pulse_hz_array/sample_rate)
+envelope = 0.5 * (1 + cos(phase + pi + offset))
+```
+Maintains exact 180-degree L/R anti-phase regardless of rate changes. No clipping.
+
+**Phase-Continuous Carrier Sweep:** Cumulative phase for smooth frequency changes
 ```python
 phase = cumsum(2*pi*freq/sample_rate)
 signal = sin(phase)
+```
+
+**Dynamic Amplitude:** Per-sample dB to linear conversion
+```python
+amplitude = 10^(amplitude_db_array / 20)
 ```
 
 ### Output Specifications
@@ -216,7 +318,6 @@ signal = sin(phase)
 | Bit depth | 16-bit |
 | Channels | Stereo |
 | Default level | -28 dB RMS |
-| Mixed level | -1 dB peak |
 
 ---
 
@@ -233,64 +334,35 @@ ffmpeg (required by pydub)
 
 ## Verification
 
-Use `analysis/scripts/binaural_analyzer.py` to verify generated audio matches expected parameters.
+Use `analysis/scripts/binaural_analyzer.py` to verify generated audio.
 
-### Test 1: Drone Preset (Static 4 Hz)
-
-```bash
-# Generate
-python audio/binaural.py --preset drone --duration 30 -o test_drone.wav
-
-# Analyze
-python analysis/scripts/binaural_analyzer.py test_drone.wav --window 10 --step 5
-```
-
-**Expected output:**
-- Carrier ranges detected: ~43-77 Hz (low), ~290-334 Hz (high)
-- Binaural: 4.0 Hz static throughout
-- Dominant: R (right channel has higher frequency)
-
-### Test 2: JSON Sweep (4.71 → 4.0 Hz)
-
-Create `test_sweep.json`:
-```json
-{
-  "duration_sec": 120,
-  "layers": [
-    {"name": "high", "center_hz": 312, "pulse_hz": 5.0, "amplitude_db": 0},
-    {"name": "low", "center_hz": 60, "pulse_hz": 3.25, "amplitude_db": -6}
-  ],
-  "keyframes": [
-    {"time_sec": 0, "binaural_hz": 4.71},
-    {"time_sec": 120, "binaural_hz": 4.0}
-  ]
-}
-```
+### Auto-detect Mode
 
 ```bash
-# Generate
-python audio/binaural.py --json-input test_sweep.json -o test_sweep.wav
-
-# Analyze
-python analysis/scripts/binaural_analyzer.py test_sweep.wav --window 10 --step 5
+python analysis/scripts/binaural_analyzer.py audio.wav --window 10 --step 5
 ```
 
-**Expected output:**
-- Start: ~4.65 Hz (slightly lower due to window averaging)
-- End: ~4.01 Hz
-- Sweep: downward (Δ -0.6 to -0.7 Hz)
+Automatically detects all carrier pairs and tracks binaural beats per carrier over time.
 
-### Reference: Bimbo Drone (from BINAURAL_ANALYSIS_SUMMARY.md)
+### Known Carriers Mode
 
-| Property | Expected Value |
-|----------|----------------|
-| High carriers | L=310 Hz, R=314 Hz |
-| Low carriers | L=58 Hz, R=62 Hz |
-| Binaural beat | 4.71 → 4.00 Hz sweep (2 min) |
-| Isochronic high | ~5 Hz |
-| Isochronic low | ~3.25 Hz |
-| Low band level | -6 dB relative to high |
-| Interleave | 100ms (R channel delayed) |
+```bash
+python analysis/scripts/binaural_analyzer.py audio.wav --expected-carriers 60,90,135,202.5
+```
+
+### Verify Against Config
+
+```bash
+python analysis/scripts/binaural_analyzer.py generated.wav --verify config.json
+```
+
+Compares measured binaural beats to expected values from the JSON config. Reports PASS/FAIL per window.
+
+### Spectrum Debug
+
+```bash
+python analysis/scripts/binaural_analyzer.py audio.wav --spectrum --start 0 --duration 60
+```
 
 ---
 
