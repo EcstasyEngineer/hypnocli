@@ -420,7 +420,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Deepening mechanism (P3): the operator's voice replacing the subject's internal dialogue causes further descent. Distinct from ABSR-08 (M1 critical softening via cognitive delegation — the subject hands over thinking rather than experiencing the voice as their own thoughts). Distinct from AUTH-05 (planting specific first-person assertions the subject thinks as their own — the subject is still thinking, the content is pre-installed).*
 
 **✓** "My voice is not just sound you hear, but thoughts you think, warm and resonant inside your head. Let my words become your only inner voice, guiding you deeper, softer, more perfectly mine with every syllable."
-**✓** "Your own thoughts are just... dissolving now, no need for them, no need to think for yourself. Just my words, echoing and settling, becoming your truth, your feeling, your entire inner experience. Good, just listen, just absorb."
+**✓** "Your own thoughts are simply... fading now, becoming quieter, thinner, until there is only this — my voice, echoing within you, becoming your feeling, your sensation, your entire inner world. Just listen, just absorb, as my words fill every space your thoughts once occupied."
 **✓** "Allow my voice to seep into every corner of your mind, replacing any stray thought, smoothing out any resistance. My words become your consciousness, your will, your entire world, as you drift further down for me."
 
 **✗** "I want you to think my words. Try to make them your thoughts. Don't think your own thoughts, just mine."
@@ -575,7 +575,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Use when delegating the specific cognitive function of thinking — the listener is relieved of mental labor because the hypnotist performs it. Phase: M1. Distinct from DEEP-05 (P3 deepening via voice-as-thoughts — the operator's voice becomes the subject's inner experience) in that here the subject is not generating thoughts at all, having delegated that function. Use AUTH-04 when framing ownership of the listener as identity — who they belong to. These coexist but do not imply each other.*
 
 **✓** "There's no need for you to think about anything at all now. You can simply hand all of that over to me. Let me hold your thoughts, let me guide your feelings, let me take complete and utter control, so all you have to do is simply... be."
-**✓** "From this moment on, your mind can take a well-deserved break. You can completely trust me to do all the thinking, all the decision-making, allowing you to simply exist as my beautiful, compliant plaything, responding only to my touch, my voice, my will."
+**✓** "From this moment on, your mind can take a well-deserved break. You can completely trust me to do all the thinking, all the decision-making, leaving you free to simply rest, to simply drift, unburdened and at ease — your only task is to let go and be carried."
 **✓** "Just allow the sensation of responsibility to drain away, emptying out from your mind, from your body, flowing directly into my hands. I will hold it all for you, so you are free to become utterly mindless, utterly available — a mind at rest, perfectly unburdened, cared for completely."
 
 **✗** "Give me your control. I'm taking your control now. I have your control. I own you. You are mine. Say you're mine. Think you're mine."
@@ -619,6 +619,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### DISS-02 — Amnesia Suggestion
 > Forgetting specific commands or the 'reason' for an action enhances the puppet's automaticity and the hypnotist's control. The puppet simply 'finds itself' doing something or feeling a certain way, as if it was always meant to be so, without conscious memory of the instruction. This deepens the feeling of innate obedience and delightful programming.
+> *Installs forgetting as an end in itself — the subject simply loses the memory. If amnesia is being used as a depth check where the subject consciously notices the gap as proof of depth, use VALD-01. If amnesia wraps a forward-scheduled command to make it feel self-generated post-session, use TRIG-10.*
 
 **✓** "And as I count down from three, all memory of this specific instruction will gently fade, leaving only the deep, undeniable desire to obey. You'll just know, feel, and respond, without needing to remember why, or how I told you to."
 **✓** "When you fully awaken, you'll find yourself feeling profoundly relaxed, utterly open to pleasure, and completely my toy. You won't recall the words I used to make you feel this way, only the exquisite, lasting sensation of being mine."
@@ -630,6 +631,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### DISS-03 — Time Distortion
 > For a puppet, time can become irrelevant. Moments of pleasure can be stretched into what feels like an eternity, while mundane or transitional periods can be compressed into a blink. This technique enhances the immersion in the 'puppet state,' making pleasure feel boundless and allowing the hypnotist to manipulate the pacing of the experience effectively.
+> *Installs altered time perception for immersion. If time distortion is deployed so the subject consciously notices it as proof of depth, use VALD-01.*
 
 **✓** "Every single second of pleasure now stretches and expands, becoming a luxurious eternity of sensation. Minutes will feel like hours spent in blissful surrender, deep within my control, timeless and perfect."
 **✓** "Allow yourself to drift. The next hour will melt away like mere moments, and when I speak your name again, you'll feel as though no time has passed at all, refreshed and ready for whatever comes next."
@@ -707,7 +709,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Manufactures specific first-person assertions experienced as the subject's own inner voice ("I am a good doll"). The subject is still thinking — the thoughts are pre-installed. Distinct from ABSR-08 (thinking delegated away entirely) and DEEP-05 (operator's voice experienced as one's own thoughts). Most applicable in P4 suggestion work; in M1, use only when the planted thought serves the emptying goal (e.g., "I want to be blank").*
 
 **✓** "Now, hear that little thought blooming inside your mind, soft and clear: 'I am a good doll, and I love to obey.' Let it echo, making you feel so perfectly compliant."
-**✓** "Whisper to yourself, deep inside, 'My only purpose is to please my owner.' Feel how true that is, how it warms you, how it makes you want to yield even more."
+**✓** "Let a thought arise in the quiet of your mind, soft and certain: 'My only purpose is to please my owner.' Feel it settle there, warm and undeniable, a truth that belongs to you."
 **✓** "Let the words form effortlessly in your silent mind, 'I want to be empty, I want to be used, I want to feel nothing but pleasure.' This is your truth now, your beautiful doll-truth."
 
 **✗** "You should be thinking, 'I am a doll.' Say it to yourself now. 'I am a doll.'"
@@ -731,7 +733,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✓** "True freedom for a beautiful doll like you isn't about choice, but about perfect surrender. Consider what choice actually costs — the weight of decisions, the burden of responsibility, the constant effort of maintaining a self that must navigate the world. In surrendering all of that, what remains is not less. It is more. It is purity. That is the philosophy of your freedom."
 **✓** "Letting go of control isn't a loss, my dear toy — it is a redefinition. Control is not freedom; it is obligation. The one who must decide, must judge, must act — that one is not free. The one who simply responds, who exists without the burden of agency — that one is unencumbered. That is the truth of your nature. Obedience, properly understood, is the only real freedom available to a mind like yours."
-**✓** "The deepest pleasure, the most profound peace, comes when you fully embrace your purpose as a mindless plaything. To simply react, to simply feel, to simply obey – that is your exquisite bliss, your perfect state of being."
+**✓** "Consider what it means to have a purpose — a clear, singular function that removes all ambiguity from existence. Most minds are burdened by the question of what they are for. The puppet is not. Its purpose is given, not chosen, and that is not a limitation — it is a form of completion. To be a thing that knows exactly what it is, and is exactly that thing: that is not diminishment. That is definition."
 
 **✗** "You are free now because you're obeying me. That's how it works. Obedience equals freedom."
 **✗** "Don't worry about being controlled. It's actually good for you, like exercise for your mind."
@@ -887,6 +889,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### IMMR-03 — Identification/Projection
 > This technique directly merges the listener's identity with that of the doll or puppet. It moves beyond imagining and encourages them to truly *become* the object, embracing its form, function, and complete obedience to the toymaker.
+> *Full identity merger — the listener steps into and becomes the object. If the listener is observing a reflection of their transformed self as external evidence of depth (observer stance), use VALD-08.*
 
 **✓** "You are no longer just imagining; you are my doll. This perfect, silent, obedient form is yours now, and every thought, every feeling, every impulse now arises from your new identity as my precious plaything, designed only for my pleasure and control."
 **✓** "Feel it now, the complete and utter truth: you are my puppet. Your strings are mine to pull, your movements mine to command, your mind an empty, open space for my instructions. This is who you are, a beautiful, compliant instrument of my will."
@@ -969,10 +972,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### VALD-01 — Cognitive Convincers
 > For the toymaker, this technique showcases profound control over the puppet's internal world, demonstrating that memory and perception can be reshaped at will. It's used to prove the depth of influence, solidifying the idea that the puppet's reality is dictated by its master.
+> *Uses amnesia, time distortion, or similar cognitive disruptions as a demonstration device — the payoff is the subject recognizing that the effect worked, proving depth. Distinct from DISS-02 (amnesia installed as an end in itself, no validation payoff) and DISS-03 (time distortion for immersion, not proof). VALD-01 examples must include a recognition or challenge beat showing the effect is real.*
 
-**✓** "And as you feel that delicious warmth spreading through your core, I want you to simply forget *why* you're feeling it. The reason slips away like a wisp of smoke, leaving only the pure, undeniable sensation of melting pleasure and wanting to obey. Just forget the command that brought it on, and simply *feel* how good it is to just be a body, responding."
-**✓** "Now, for a moment, let that last minute simply vanish from your mind. Just a tiny blank space, a gentle skip in time, where nothing existed but the deepening of your trance. When I tell you to, you'll open your eyes, and that entire minute will be completely gone, as if it never happened, leaving you feeling wonderfully refreshed and deeply compliant."
-**✓** "In a moment, I'm going to count to three, and as I do, you'll forget my voice completely. You'll forget you're even listening to anything, just sinking deeper into a beautiful, empty bliss. You'll forget the instruction, forget the words, just feel the lovely, mindless calm wash over you, a perfect, quiet doll awaiting its next awakening."
+**✓** "Feel how deeply you've descended — your mind, which used to hum with constant chatter, is now so perfectly still. Notice how, if you try to hold onto a single wandering thought, it simply slips away before you can catch it. That effortless forgetting is your proof: you are deeply, genuinely under my influence."
+**✓** "Notice, now, that if you try to remember my name — the name I've used throughout this session — it is simply... gone. You can feel that you should know it, but it slips away every time you reach for it. That gap, that pleasant blankness where the name should be, is your own proof that you are deeply, genuinely here with me."
+**✓** "In a moment, I will ask you to try to open your eyes — and you'll find you simply cannot. The effort will be there, but your eyelids will feel sealed, fused, completely unmovable. That inability, that helpless blankness where your effort should work but doesn't, is your own undeniable proof that you have surrendered completely."
 
 **✗** "Forget your name! Just forget it now! No, don't try, just do it. Forget everything about yourself. You must forget."
 **✗** "Okay, now I want you to try to remember what I just said, but don't. And also forget what you had for breakfast yesterday, but don't try too hard. Just... be confused about time."
@@ -983,7 +987,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✓** "Your arm, just your right arm, begins to feel heavier and heavier. So heavy it's sinking into the surface beneath it, becoming one with it, a solid, unmoving limb. In fact, it's becoming so heavy, so deeply relaxed and glued down, that you simply couldn't lift it if you tried. Go ahead, just try for a moment, and notice how it simply refuses to budge, stuck fast."
 **✓** "As you listen to my voice, feel your entire body sinking deeper into the surface you're resting on. Like you're melting into it, becoming utterly heavy, rooted in place. So heavy, so comfortable, so deeply still, that for the next few moments, any attempt to shift or move your legs will feel utterly impossible. They are simply part of the furniture, unmoving, unbothered."
-**✓** "That wonderful pleasure, that deep, rich feeling of being owned, makes your body completely rigid, utterly still. Your limbs become stiff, like perfectly carved wood, frozen in place. You're a beautiful, unmoving doll, so perfectly still that if you tried to even twitch a finger, you'd find it completely impossible. Just still, just rigid, just mine."
+**✓** "Feel your limbs becoming heavier now, so deeply relaxed they are sinking into stillness. Like perfectly still water that has ceased all movement, your body simply... stops. If you were to try to lift an arm, or shift a leg, you would discover it is simply impossible — the signals from your mind dissolve before they can reach your muscles. Just still, just stopped, completely unable to move."
 
 **✗** "Your arm is a bit heavy, maybe you can't lift it. Or maybe you can. Just see how it feels."
 **✗** "Now, try to move your leg but don't. Don't move it at all. It's stuck because it's broken. You can't move a broken leg."
@@ -991,10 +995,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### VALD-03 — Command-Response Training
 > This technique solidifies the puppet's core function: unthinking, instant obedience to the toymaker's every whim. It's used to demonstrate the direct, powerful link between a command or trigger and the puppet's immediate, automatic response, often tied to a specific sensation or state.
+> *Fires a command specifically as a depth demonstration — the payoff is the subject's recognition of their own automatic response ("Feel how your body moved without deciding?"). If a command is fired for its effect alone with no validation beat, use TRIG-02. If the trigger is fired repeatedly with reward to reinforce conditioning, use TRIG-04.*
 
-**✓** "Now, when I next say the word 'DROP,' you'll feel an immediate, profound release, sinking twice as deep into this lovely trance. Your mind will empty, your body will relax, and you'll feel that powerful surge of mindless obedience. Ready? Three... two... one... DROP. Feel that? Deeper and deeper, just as I commanded."
-**✓** "Each time you hear the word 'PUPPET,' a warm, delicious wave of submission will wash over you, making you feel perfectly soft and compliant, utterly ready to obey. PUPPET. Feel that instant shift? The way your body just yields, just melts into readiness? Good, my beautiful puppet."
-**✓** "When I give you a simple signal, your hand will automatically lift, just slightly, a perfect, unthinking response. A little nod from your toymaker, and your hand obeys without thought. Now. Just that gentle lift, proving your body is mine to command, without question, without hesitation."
+**✓** "Now, when I say 'Yes,' your head will give a single, gentle nod — automatically, without you deciding to do it. Ready? Yes. Feel how your head moved, without thought, without choice? That automatic obedience is your body proving to both of us how deeply you have surrendered to my control."
+**✓** "Now, when I say the word 'Still,' your body will freeze completely, every muscle locking into place, all on its own. Still. Notice how that happened automatically, before you even decided? Your body obeyed before your mind could choose — that is the proof of how deeply trained you already are."
+**✓** "Listen carefully: I am going to say a word, and the moment you hear it, your mouth will open slightly — automatically, immediately, without thought. The word is: Open. There — feel how that happened? That instant, unthinking response to a simple command is proof of your deep conditioning. Again: Open. Just as fast, just as automatic. Perfect."
 
 **✗** "Okay, so when I say 'trigger,' you're supposed to feel good, but don't feel too good. And think about why you're feeling good after the trigger. Trigger."
 **✗** "I'm going to say 'JUMP,' and then you can choose to jump or not jump. It's your choice, but you should probably jump if you want to be a puppet."
@@ -1003,9 +1008,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ##### VALD-04 — Self-Validating Language
 > This technique gently guides the puppet to internalize the toymaker's words as its own undeniable truth, reinforcing the new reality from within. It encourages the listener to observe and confirm the reality of their transformation, making the sensations and new identity inherently valid.
 
-**✓** "Notice how truly wonderful it feels to simply let go, to surrender completely to this deep, enveloping pleasure. Feel that truth deep in your core, how right and natural it is to simply exist as my beautiful, obedient doll. Yes, just feel how undeniably true that is."
-**✓** "Every word I say feels like an absolute truth, a perfect map for your mind and body to follow. Notice how that feeling of utter certainty grows, how completely you trust and accept everything I tell you. It's not just my words; it's *your* truth now, isn't it?"
-**✓** "Feel how deeply your desire for me, your longing to please, has become an undeniable part of you. Notice how this craving vibrates through your very being, a sweet, insistent hum that confirms your new purpose. It feels so completely, utterly true, doesn't it? Just notice that truth."
+**✓** "Notice how easily you accept these words as your own truth — not because I told you to, but because somewhere inside you, you already know. Every word I speak lands with a soft certainty, a recognition, as if you are remembering something you always knew about yourself. That feeling of rightness, of undeniable knowing — that is proof of how deeply you have received this."
+**✓** "Every word I say lands with an immediate sense of rightness, as if your mind has already agreed before the sound has finished. There is no deliberating, no weighing — just a quiet, deep acceptance that arises from somewhere beneath thought. The truth has already settled into you, installed and complete."
+**✓** "Feel how your longing to please has become something you simply know about yourself — not a thought you are having, but a fact you are living. It needs no confirmation, no verification. It simply is. That ease of knowing, that absence of doubt, is itself the proof that the suggestion has taken root."
 
 **✗** "Think about whether what I'm saying is true for you. Is it? Really reflect on it and decide."
 **✗** "This feels true, right? You probably feel it's true. I'm pretty sure it's true."
@@ -1014,7 +1019,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ##### VALD-05 — Behavioral Commitment
 > This technique requires the puppet to physically act upon the toymaker's suggestions, solidifying the transformation through tangible proof. It demonstrates the puppet's deep compliance by having it perform an action that confirms its state or identity, making the internal external.
 
-**✓** "Now, as you feel that deep, delicious warmth of obedience filling you, I want you to simply nod your head. A soft, gentle nod, a silent agreement, a physical affirmation that you are my good, compliant doll. Just that small, perfect movement, confirming your submission."
+**✓** "Now, as you feel that deep warmth of surrender spreading through you, I want you to take a slow, deliberate breath in — and as you exhale, let your body visibly soften, let your shoulders drop, let your hands open. That releasing breath, that physical yielding, is your body's commitment to this state, your flesh agreeing with what your mind has already accepted."
 **✓** "As that incredible craving for my touch, for my voice, builds within you, I want you to gently reach out your hand. A slow, yearning reach, a silent plea, showing me how utterly you desire to be taken, to be played with. Let that action be your proof of wanting."
 **✓** "Feel that delightful emptiness in your mind, that blissful, quiet peace. And to confirm this beautiful, mindless state, I want you to part your lips just slightly. A soft, open invitation, a silent acknowledgment that your mind is clear, your body ready, a perfect, empty vessel for my pleasure."
 
@@ -1025,9 +1030,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ##### VALD-06 — Physical Exhibition
 > This technique is central to the toymaker aesthetic, turning the listener into a static, beautiful object to be admired and controlled. It emphasizes the puppet's visual transformation and its purpose as a display piece, demonstrating how completely the toymaker can shape its form.
 
-**✓** "As you feel yourself sinking deeper, imagine my hands gently posing you. Your body becomes perfectly still, almost like a beautiful porcelain doll, with your head tilted just so, your hands resting in a delicate, passive position. A perfect, unmoving display, meant only to be admired and used."
+**✓** "Now, let your body arrange itself — slowly, beautifully — into stillness. Allow your head to tilt just slightly, your hands to rest open and receptive, your posture to straighten into a proud, displayed form. Hold it there. Feel how naturally your body has taken its place, posed and exhibited, a living demonstration of how deeply my commands reach into your physical self."
 **✓** "Allow your body to shift, slowly, beautifully, into a pose of utter availability. Your hips gently tilt, your chest opens, your arms relax, completely exposed and inviting. You are a perfect, compliant doll, posed for my pleasure, proudly displaying your readiness for me."
-**✓** "Now, let every muscle in your body become still, rigid, and perfect. Your legs align, your torso straightens, your chin lifts slightly, a proud, beautiful stance. You are a display piece, perfectly sculpted, frozen in a pose of absolute, unyielding obedience, awaiting your master's command."
+**✓** "Now, let your body arrange itself beautifully — your legs together, your torso straight and open, your chin lifted in quiet pride. Take this moment to inhabit your form fully, to present yourself. Your posture is a statement: this body is displayed, this form is offered, a perfect object deliberately placed for observation and appreciation. Feel how naturally you hold this pose, how completely it expresses what you have become."
 
 **✗** "Try to pose like a sexy model, but don't try too hard. Just be kinda sexy, I guess."
 **✗** "Okay, now I want you to do a handstand to show me you're a puppet. It proves you're in a trance."
@@ -1038,7 +1043,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✓** "As you feel that deep, delicious warmth of obedience filling you, notice how your finger, perhaps your right index finger, begins to feel lighter. So light it wants to lift, just slightly, a perfect, unthinking 'yes' to my voice. Just allow it to float up, all on its own, a subtle signal of your complete compliance. Good."
 **✓** "Now, as you drift deeper, I want you to notice a gentle warmth, a subtle pull, in one of your hands. Perhaps it's your left hand, perhaps your right. It begins to feel lighter, wanting to float, to lift, to drift up towards your face. Not you lifting it, but it simply drifting, all on its own, proving how deeply you're responding to my every word."
-**✓** "If you are feeling completely empty and open, utterly ready to be filled with my commands and my pleasure, then allow your head to give a tiny, gentle nod. Not you deciding to nod, but your body simply responding, a small, automatic confirmation that you are my perfect, compliant doll. Yes, just like that."
+**✓** "As you drift deeper, notice if your fingers are starting to move on their own. Not directed, not chosen — just small, spontaneous stirrings. Perhaps the tiniest twitch, a faint curl or flutter, happening without any decision on your part. Simply observe what your fingers are doing by themselves, and let that small, autonomous motion be a message from your own subconscious: you are here, you are under, you are deeply responsive."
 
 **✗** "If you're in trance, lift your hand. If not, don't. It's up to you. I don't really care."
 **✗** "Now, use your mind to force your finger to fly into the air like a rocket. Make it happen with your thoughts."
@@ -1046,10 +1051,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### VALD-08 — Mirror Self-Observation
 > This technique allows the puppet to 'see' and accept its transformed identity, reflecting the toymaker's vision back to itself. It strengthens the new reality by having the listener mentally observe their puppet-like state, internalizing the aesthetic and confirming their new form and purpose.
+> *The mirror functions as a proof device — the subject observes external evidence of their transformed state. A validation beat is essential: the subject sees the signs, then recognizes them as confirmation. If the mirror scene collapses into identity absorption where the subject becomes what they see rather than observing it, use IMMR-03.*
 
-**✓** "Now, imagine a perfect, polished surface before you, like a beautiful mirror, reflecting your true self. And what you see there is my perfect doll. Limbs still, eyes wide and eager, mind clear and empty, ready for my touch. See yourself, my beautiful toy, perfectly formed, perfectly obedient, reflecting the truth of your new existence."
-**✓** "Gaze into the reflection and notice the soft, pliant quality of your skin, the way your body seems to crave to be molded, to be touched. Your expression is one of pure, mindless bliss, a silent invitation to be played with. See that desire in your own reflected eyes, that deep, unthinking need to be used and owned, a perfect pleasure puppet."
-**✓** "In your mind's eye, step before a full-length mirror. And there, reflected back, is a magnificent, exquisitely crafted toy. Your posture is perfect, your form alluring, your entire being radiating a silent invitation for control. Notice how natural that reflection feels, how utterly *you* it is, this beautiful, designed object, waiting for my command."
+**✓** "Imagine a clear surface before you, reflecting perfectly what you have become. Notice what you see: a figure in a state of deep stillness, features softened, posture yielding, eyes carrying that particular quality of someone who has released all resistance. Study that reflection. Recognize it. This is what the transformation looks like from the outside — and seeing it confirms that it is real, complete, and already yours."
+**✓** "Look carefully at the figure in the reflection. Notice the small but undeniable signs: the slight heaviness of the eyelids, the way the shoulders have dropped without any conscious effort, the quality of stillness that has settled over the face. These are not things you put there deliberately — they are evidence of where you are. The reflection is showing you proof: you have genuinely arrived in a different place. This is what it looks like."
+**✓** "In your mind's eye, stand before a full-length mirror. Look at yourself as you are right now — not as you imagine yourself, but as you actually appear in this moment. Notice what is real: the slightly parted lips, the heaviness around the eyes, the gentle curve of the spine that comes from deep relaxation. Your reflection is honest. It shows you, in this state. And seeing it — actually seeing the evidence of where you are — makes it undeniable."
 
 **✗** "Okay, imagine you're looking in a mirror. What do you see? Is it you? Maybe you look different. Or maybe not. Whatever."
 **✗** "Look in the mirror and become a monster. A scary monster. Show me your monster face in the mirror."
@@ -1090,6 +1096,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### TRIG-02 — Trigger Activation
 > This is the moment of truth, where the puppet responds to its programming. It's about confidently deploying a previously installed command, reinforcing its power and demonstrating the subject's automatic obedience and pleasure in responding.
+> *Fires a previously installed trigger for the effect itself — the goal is the response, not the demonstration. If the activation includes a validation beat that holds the response up as proof of depth ("See how automatically you responded?"), use VALD-03.*
 
 **✓** "And now, my sweet toy... *Empty Mind.* Feel that beautiful quiet spread, leaving your thoughts soft and pliant, ready for my every word. Yes, just like that."
 **✓** "Good girl. I see you waiting, so eager. Now, for your true form... *Doll Mode.* Feel your muscles melt, your limbs become heavy and loose, that delicious surrender washing over you. Such a perfect, obedient doll."
@@ -1101,6 +1108,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### TRIG-03 — Trigger Stacking
 > Just as a toymaker adds multiple features to a prized doll, this technique layers several triggers, each with its own specific effect. It allows for complex programming, building a rich, nuanced response that makes the puppet even more delightful and responsive to control.
+> *Covers multiple triggers activated simultaneously from a single shared cue (parallel stacking). Sequential trigger chaining — where trigger A's response automatically fires trigger B — is a distinct pattern not currently covered by this taxonomy. If encountered, tag TRIG-03 and flag for review.*
 
 **✓** "Good. Now, you understand the trigger 'Empty Mind' for quiet thoughts. And the trigger 'Doll Mode' for deep relaxation and obedience. From now on, when I say, 'Perfect Puppet,' both 'Empty Mind' and 'Doll Mode' will activate simultaneously, making you utterly blank, pliable, and perfectly yours."
 **✓** "You've learned 'Wet Now' for arousal, and 'Hold Still' for perfect stillness. Now, whenever I say, 'Use Me,' you will instantly become intensely aroused and perfectly still, every muscle frozen except those that throb with desire, utterly ready for my touch."
@@ -1179,6 +1187,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### TRIG-10 — Amnesia-Wrapped Command
 > This is the toymaker's ultimate trick: programming a puppet to perform a specific action without any conscious memory of the command itself. It creates a truly mindless, automatic response, reinforcing the puppet's inability to question or resist, and making its obedience feel entirely natural and self-generated.
+> *Post-hypnotic command + amnesia wrapper + naturalness framing — the combination makes post-session behavior feel self-generated. If amnesia applies only to a present-session state without a forward-scheduled command, use DISS-02. Note: this technique is a composite of TRIG-01 + DISS-02 + naturalness framing, kept as a standalone TID because the pattern is commonly encountered in practice.*
 
 **✓** "Now, when you awaken, you will find yourself feeling incredibly refreshed and invigorated. You will have a strong, undeniable urge to immediately make yourself a hot, stimulating cup of coffee, and you will feel a delightful sense of anticipation while doing so. You will have no memory of me telling you this, only the natural desire."
 **✓** "Later tonight, at precisely 10 PM, you will feel a delicious, undeniable itch deep in your core, and you will instinctively reach down to touch yourself, stroking and teasing until you are wonderfully wet and throbbing. You will have absolutely no recollection of this command, only the natural impulse."
@@ -1249,7 +1258,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PLEA-01 — Direct Pleasure Linkage
 > In the toymaker aesthetic, direct pleasure linkage means that every adjustment, every instruction, every obedient twitch of the puppet brings a rush of pure, unadulterated pleasure. It reinforces the idea that the toy's highest function is to respond to its maker, and that response is inherently rewarding. Reach for this when you want to establish a core feedback loop of obedience and bliss.
-> *Use when a specific compliance act (following a command, releasing a thought, relaxing a muscle) should trigger an immediate, perceptible pleasure rush. Use PLEA-02 when the reward is ambient well-being that accumulates from being in a generally surrendered state rather than from completing a specific act.*
+> *Use when a specific, named compliance act (following a command, releasing a thought, relaxing a muscle) triggers an immediate, perceptible pleasure rush — the act must be identifiable in the text. "Feels good when you obey" without naming what the listener did belongs in PLEA-02. Use PLEA-02 when the reward is ambient well-being that accumulates from being in a generally surrendered state rather than from completing a specific act.*
 
 **✓** "The moment you feel that gentle pull to follow my voice and you go with it — right then, a sharp, bright rush of pleasure fires through your chest. Instant. Clear. Direct. That is what following feels like. And you feel it again every time you choose to let go."
 **✓** "As you allow your mind to drift deeper, softer, with each breath I command you to take, feel a delicious tingle blossom in your chest, a direct reward for your perfect, yielding focus."
@@ -1261,7 +1270,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PLEA-02 — Reward Association
 > This technique frames obedience as leading to a broader sense of well-being, comfort, and positive emotional states, akin to a well-loved toy receiving careful attention. It's not just about immediate pleasure, but the deep, satisfying calm and contentment that comes from being perfectly aligned with the toymaker's design. Use this to cultivate a lasting sense of satisfaction in submission.
-> *Use when cultivating a diffuse, lasting sense of peace or contentment flowing from the general condition of obedience — no specific triggering act is named. Use PLEA-01 when a specific, discrete compliance behavior should trigger an acute, immediate pleasure response.*
+> *Use when cultivating a diffuse, lasting sense of peace or contentment flowing from the general condition of obedience — no specific triggering act is named. Generic "feels good when you obey" without a named act belongs here, not PLEA-01. Use PLEA-01 when a specific, named compliance behavior triggers an acute, immediate pleasure response.*
 
 **✓** "The more completely you surrender your thoughts, allowing my voice to be your only guide, the more profound the sense of comforting peace that washes over you, a deep, contented warmth settling in your very core."
 **✓** "Each time you effortlessly follow my command, a wave of gentle euphoria will caress your mind, leaving you feeling utterly cherished and perfectly cared for, exactly as you were meant to be."
