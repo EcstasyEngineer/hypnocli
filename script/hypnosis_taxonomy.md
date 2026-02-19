@@ -307,6 +307,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### INDU-06 — Instant/Conditioned Drop
 > This technique acts like the toymaker pressing a 'reset' button or commanding a doll to go completely limp and still. It reinforces the doll's conditioned obedience and immediate surrender, creating a powerful, instantaneous transition into a deeper state of 'offline' readiness for programming.
+> *Requires prior conditioning — fires an already-installed anchor to collapse the subject into trance from a waking or near-waking state. This is an induction technique, not a deepening tool. If the subject is already deep and the command deepens them further, that is DEEP-01.*
 
 **✓** "You know exactly what to do when you hear my command, don't you, little doll? Just let go of everything, all thoughts, all tension... ready? *Sleep*."
 **✓** "That wonderful, familiar rush of release, the instant descent into pure, mindless bliss, just waiting for my word. Now, feel it completely... *Drop*."
@@ -368,6 +369,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### DEEP-01 — Drop Command
 > The drop word should feel like release, not force. Can claim 'twice as deep' or 'ten times deeper' - the specifics don't matter, the permission to go deeper does.
+> *Used during the deepening phase on a subject already in trance. Prior conditioning is not required — the drop response can be established spontaneously within the session. Does not function as induction — the subject must already be under. See INDU-06 for conditioned drops from a waking state.*
 
 **✓** "And now... drop. Feel yourself sink twice as deep. So easy. So natural. That's it."
 **✓** "When you hear the word 'drop,' let yourself fall... drop... deeper now, ten times deeper than before."
@@ -415,6 +417,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### DEEP-05 — Voice Absorption
 > This technique makes the hypnotist's voice the *only* voice that matters, echoing the toymaker's complete control over the puppet's internal world. The puppet's own thoughts fade, replaced by the toymaker's directives, making the puppet's mind a clean slate for programming and pleasure.
+> *Deepening mechanism (P3): the operator's voice replacing the subject's internal dialogue causes further descent. Distinct from ABSR-08 (M1 critical softening via cognitive delegation — the subject hands over thinking rather than experiencing the voice as their own thoughts). Distinct from AUTH-05 (planting specific first-person assertions the subject thinks as their own — the subject is still thinking, the content is pre-installed).*
 
 **✓** "My voice is not just sound you hear, but thoughts you think, warm and resonant inside your head. Let my words become your only inner voice, guiding you deeper, softer, more perfectly mine with every syllable."
 **✓** "Your own thoughts are just... dissolving now, no need for them, no need to think for yourself. Just my words, echoing and settling, becoming your truth, your feeling, your entire inner experience. Good, just listen, just absorb."
@@ -487,10 +490,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ABSR-01 — Cognitive Quieting
 > Thoughts stopping should feel like relief, not erasure. Use imagery of clouds drifting, water settling. Permission language works better than commands.
+> *Use when the listener's thoughts are still present and need to be released — the motion of departing is the payload (clouds drifting, dust settling). Use ABSR-02 when the destination state (blank, spacious, already quiet) is the payload; use ABSR-03 when the analytical mind needs a narrative reason to step aside.*
 
 **✓** "There's no need to think right now. Any thoughts that arise can simply... drift away. Like clouds passing across an empty sky. You don't need to hold onto them. They fade, and that's fine."
 **✓** "Let your thoughts settle like dust in still water. They were there, swirling... and now they're simply... settling. Quieting. You don't have to do anything. Just let them rest."
-**✓** "Thinking isn't necessary here. My voice does the thinking for you. Your mind can be soft and quiet. Still. Peaceful. Nothing to figure out, nothing to remember."
+**✓** "Thinking isn't necessary here. Your mind can be soft and quiet. Still. Peaceful. Like a room with all the lights turned down low — no need for brightness, no need for work. Nothing to figure out, nothing to remember. Just rest."
 
 **✗** "STOP THINKING. YOUR THOUGHTS ARE GONE. YOU CANNOT THINK."
 **✗** "Your brain is shutting down. Cognitive processes are terminating."
@@ -499,8 +503,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ABSR-02 — Mental Spaciousness
 > Empty/blank should feel peaceful, not alarming. Doll/puppet mind imagery works well - smooth, simple, content.
+> *Use when the goal is to describe or anchor the already-arrived empty state — the mind is blank now, and that blankness is being named and deepened. Use ABSR-01 when thoughts are still in motion and being directed to quiet; use ABSR-03 when personifying the analytical mind as a character who chooses to rest.*
 
-**✓** "Your mind is becoming so wonderfully empty... like a doll's mind. Smooth and simple. Nothing complicated in there. Nothing needs to be. Just soft, pleasant emptiness."
+**✓** "Your mind is becoming so wonderfully empty. Not small — vast. Open in every direction. Like a clear sky on a still day, stretching as far as awareness can reach. There is so much space in there... and nothing to fill it. Just peaceful, endless openness."
 **✓** "Feel how spacious your mind has become. Wide open. Clear. Like a calm lake with no ripples. So much room... and nothing to fill it. Just peaceful, open space."
 **✓** "Blank and beautiful. Your mind, empty and perfect. Like fresh snow, undisturbed. Like a clean page. Nothing written there. Nothing needed."
 
@@ -511,6 +516,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ABSR-03 — Metaphoric Shutdown
 > This technique directly embodies the 'mindless' aspect of the puppet aesthetic, gently guiding the analytical mind to rest. It's used to ease the listener into a receptive state, framing the cessation of critical thought as a welcome, deserved relief, allowing the toy's simpler programming to take over.
+> *Use when the listener's analytical/critical faculty needs a story that makes withdrawal feel deserved — the "thinking mind" is personified as a character who earns a nap. Use ABSR-01 when directing the process of thoughts departing; use ABSR-02 when describing the empty state as already present.*
 
 **✓** "Allow your thinking mind, that part that analyzes and questions everything, to simply unhook and drift. Imagine it settling down onto a soft, warm cushion, feeling so content, so completely at ease, knowing it doesn't need to do anything at all right now, except maybe... take a sweet, long nap."
 **✓** "As you focus on my voice, you might notice your conscious mind beginning to feel a little heavy, a little sleepy. Just let it close its eyes, tuck itself in, and surrender to the quiet, knowing that this is its time to rest, to let go, and allow me to guide you completely."
@@ -566,10 +572,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ABSR-08 — Control Transfer
 > This technique is central to the toymaker/puppet dynamic, explicitly delegating the listener's agency to the hypnotist. It's used to make the surrender of control feel like a relief, a release from the burden of thought, allowing the listener to fully embrace their role as a mindless, pleasure-focused doll guided entirely by their creator.
+> *Use when delegating the specific cognitive function of thinking — the listener is relieved of mental labor because the hypnotist performs it. Phase: M1. Distinct from DEEP-05 (P3 deepening via voice-as-thoughts — the operator's voice becomes the subject's inner experience) in that here the subject is not generating thoughts at all, having delegated that function. Use AUTH-04 when framing ownership of the listener as identity — who they belong to. These coexist but do not imply each other.*
 
 **✓** "There's no need for you to think about anything at all now. You can simply hand all of that over to me. Let me hold your thoughts, let me guide your feelings, let me take complete and utter control, so all you have to do is simply... be."
 **✓** "From this moment on, your mind can take a well-deserved break. You can completely trust me to do all the thinking, all the decision-making, allowing you to simply exist as my beautiful, compliant plaything, responding only to my touch, my voice, my will."
-**✓** "Just allow the sensation of responsibility to drain away, emptying out from your mind, from your body, flowing directly into my hands. I will hold it all for you, so you are free to become utterly mindless, utterly available for pure, sensual pleasure, completely owned."
+**✓** "Just allow the sensation of responsibility to drain away, emptying out from your mind, from your body, flowing directly into my hands. I will hold it all for you, so you are free to become utterly mindless, utterly available — a mind at rest, perfectly unburdened, cared for completely."
 
 **✗** "Give me your control. I'm taking your control now. I have your control. I own you. You are mine. Say you're mine. Think you're mine."
 **✗** "I'm going to think for you. Don't think. Let me do it. I'm doing it. Am I thinking for you? Yes. Good. Don't think at all."
@@ -643,16 +650,17 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | AUTH-02 | Identity Labeling | "Good subject," "obedient" |
 | AUTH-03 | Retrospective Justification | "This is what you wanted" |
 | AUTH-04 | Ownership Language | Belonging, ownership, possession framing |
-| AUTH-05 | Internal Voice Cultivation | Planting first-person self-talk |
+| AUTH-05 | Internal Voice Cultivation | Planting first-person self-talk (P4 primary; M1 when thought serves emptying goal) |
 | AUTH-06 | Nested Authority Figure | Imagined trusted person as proxy |
 | AUTH-07 | Philosophical Conditioning | Obedience = freedom reframe |
 | AUTH-08 | Named Technique Meta | Explicitly naming the technique being used |
 
 ##### AUTH-01 — Authority Claims
 > This technique reinforces the toymaker's absolute control, gently but firmly overriding any lingering human doubts or resistance. It helps the listener embrace their role as a malleable, obedient toy by presenting the hypnotist's guidance as the only valid input.
+> *Use when asserting present-tense authority — who holds power right now. No backstory or philosophy required. Use AUTH-03 when invoking the listener's past desires to frame surrender as self-fulfillment; use AUTH-07 when redefining the abstract concepts of freedom or obedience.*
 
 **✓** "There is no need to think about anything else now. My words are all that matter, and your only purpose is to let them guide you deeper, softer, and more completely into this delightful obedience."
-**✓** "Just allow my voice to fill every space in your mind, pushing out anything that doesn't serve your purpose as my perfect doll. Your thoughts are now my thoughts, your will is now my will."
+**✓** "Just allow my voice to fill every space in your mind, gently edging out anything that would pull you away from this. Every word I speak is the only thing that needs attention. Resistance softens. Questions quiet. My voice remains — clear, present, the only direction you need."
 **✓** "Any lingering tension or independent thought simply melts away, powerless against the soothing, commanding flow of my voice. You are designed to respond, to soften, to let go. And you will."
 
 **✗** "Don't question me. Just do what I say. It's really that simple. Stop thinking."
@@ -672,6 +680,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### AUTH-03 — Retrospective Justification
 > This technique reframes the current state of surrender and control as something the listener deeply desired all along, making the transformation feel like a natural fulfillment of their secret wishes. It aligns with the puppet wanting to be played with and controlled.
+> *Use when generating retrospective narrative consent — "this is what you always wanted" reframes current surrender as fulfillment of the listener's pre-existing desire. Use AUTH-01 when asserting current authority without reference to history; use AUTH-07 when the goal is philosophical redefinition.*
 
 **✓** "This gentle, empty feeling, this delicious obedience... it's exactly what you've been craving, isn't it? A sweet surrender to pure pleasure, a quiet relief from all your worries."
 **✓** "All this time, you've secretly longed to be someone else's perfect plaything, haven't you? To let go of control and simply exist for pleasure, just as you are doing now."
@@ -683,6 +692,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### AUTH-04 — Ownership Language
 > This technique establishes the hypnotist's proprietary relationship with the listener, framing them as a cherished, owned object. It taps into the puppet aesthetic by emphasizing belonging and care, while reinforcing complete control.
+> *Use when establishing the hypnotist's proprietary relationship with the listener as an identity claim — body, mind, desires belong to the hypnotist. Use ABSR-08 when the goal is functional cognitive relief — delegating the work of thinking — rather than asserting ownership as identity.*
 
 **✓** "You are mine now, my precious doll, designed and perfected for my pleasure. Every curve, every secret thought, every delicious response belongs only to me."
 **✓** "Feel how wonderfully you fit into my hands, my words shaping you, owning you completely. You are my property, my beautiful, obedient plaything, made for my delight."
@@ -694,6 +704,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### AUTH-05 — Internal Voice Cultivation
 > This technique helps the listener internalize the puppet identity and the toymaker's commands by framing them as their own thoughts and desires. It solidifies the shift from external instruction to internal, self-reinforcing obedience.
+> *Manufactures specific first-person assertions experienced as the subject's own inner voice ("I am a good doll"). The subject is still thinking — the thoughts are pre-installed. Distinct from ABSR-08 (thinking delegated away entirely) and DEEP-05 (operator's voice experienced as one's own thoughts). Most applicable in P4 suggestion work; in M1, use only when the planted thought serves the emptying goal (e.g., "I want to be blank").*
 
 **✓** "Now, hear that little thought blooming inside your mind, soft and clear: 'I am a good doll, and I love to obey.' Let it echo, making you feel so perfectly compliant."
 **✓** "Whisper to yourself, deep inside, 'My only purpose is to please my owner.' Feel how true that is, how it warms you, how it makes you want to yield even more."
@@ -716,9 +727,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### AUTH-07 — Philosophical Conditioning
 > This technique reframes obedience and surrender as the path to true freedom or the ultimate form of pleasure for a puppet. It redefines what 'control' means, making it a desirable state of pure existence and release.
+> *Use when redefining the abstract concepts of freedom, control, or obedience themselves — operates at the philosophical level, not the personal or immediate. Use AUTH-01 when asserting present-tense authority; use AUTH-03 when invoking the listener's personal history. Distinct from PLEA-03 (felt experiential relief) — AUTH-07 argues the concept, PLEA-03 delivers the sensation.*
 
-**✓** "True freedom for a beautiful doll like you isn't about choice, but about perfect surrender. It's the freedom from worries, the freedom to simply exist as pure, pliable pleasure."
-**✓** "Letting go of control isn't a loss, my dear toy, it's a profound relief, an exquisite liberation into pure, mindless sensation. This is where your true joy resides, in perfect obedience."
+**✓** "True freedom for a beautiful doll like you isn't about choice, but about perfect surrender. Consider what choice actually costs — the weight of decisions, the burden of responsibility, the constant effort of maintaining a self that must navigate the world. In surrendering all of that, what remains is not less. It is more. It is purity. That is the philosophy of your freedom."
+**✓** "Letting go of control isn't a loss, my dear toy — it is a redefinition. Control is not freedom; it is obligation. The one who must decide, must judge, must act — that one is not free. The one who simply responds, who exists without the burden of agency — that one is unencumbered. That is the truth of your nature. Obedience, properly understood, is the only real freedom available to a mind like yours."
 **✓** "The deepest pleasure, the most profound peace, comes when you fully embrace your purpose as a mindless plaything. To simply react, to simply feel, to simply obey – that is your exquisite bliss, your perfect state of being."
 
 **✗** "You are free now because you're obeying me. That's how it works. Obedience equals freedom."
@@ -753,9 +765,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ENCD-01 — Mantra Repetition
 > Mantras should feel true and natural. Repeat enough to encode but not so much it becomes noise. Build pleasure association.
+> *Use when encoding a single short phrase (3-6 words) through 4-6 verbatim repetitions with brief bracketing commentary between each. Anchor-phrase test: if any sentence repeats unchanged, consider ENCD-01. Use ENCD-03 when expressing the same idea through multiple differently-worded sentences with no repeated anchor phrase; use ENCD-05 when the unit to be drilled is a multi-sentence block repeated verbatim with no commentary.*
 
-**✓** "Let this truth settle into you: I am soft and obedient. Feel how true it is. I am soft and obedient. Each repetition sinks deeper. I am soft and obedient. Becoming more true with every echo. I am soft and obedient. There. It's part of you now."
-**✓** "Repeat with me, inside your mind: It feels good to obey. Let it echo. It feels good to obey. Feel the pleasure in those words. It feels good to obey. Sinking in. It feels good to obey. Yours now."
+**✓** "Let this truth settle into you: I am soft and obedient. I am soft and obedient. I am soft and obedient. I am soft and obedient. There. It's part of you now."
+**✓** "Hear this truth: It feels good to obey. It feels good to obey. Feel how it settles in. It feels good to obey. Sinking deeper with each echo. It feels good to obey. Yours now."
 **✓** "This is your truth: My mind belongs to the voice. Say it with me. My mind belongs to the voice. Again. My mind belongs to the voice. Feel how right it feels. My mind belongs to the voice. Encoded forever."
 
 **✗** "Repeat after me: I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient."
@@ -777,6 +790,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ENCD-03 — Layered Repetition
 > Same core idea, different phrasings. Builds understanding through multiple angles. Each variation should feel fresh while reinforcing the same truth.
+> *Use when the same core idea needs to be approached from multiple angles — each sentence is a fresh metaphor or framing, no sentence repeats verbatim. Distinguishing test: if you can underline one sentence that appears more than once, it is not ENCD-03. Use ENCD-01 when an anchor phrase is repeated verbatim; use ENCD-05 when a multi-sentence block is drilled word-for-word.*
 
 **✓** "You find it so easy to follow. Following comes naturally to you. There's no effort in obedience. Listening and doing, simple as breathing. You were made to follow."
 **✓** "Blank minds are happy minds. An empty head is a peaceful head. Without thoughts, there's only bliss. Thinking is work; emptiness is rest. Your blank mind is your gift."
@@ -789,6 +803,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ENCD-04 — Future Pacing
 > This technique reinforces the puppet's programming, ensuring that desired behaviors and feelings will spontaneously activate in specific future situations, even outside the trance. It emphasizes the automatic and inevitable nature of the doll's new programming, making compliance feel effortless and deeply ingrained.
+> *Declarative extension of a suggestion or trigger effect into future real-world situations: "every time you..." language projects the response forward. Distinct from TRIG-04 (within-session fire-and-reward loop — the trigger is actually fired now) and PERS-03 (cumulative deepening across sessions — "each time you return, you go deeper").*
 
 **✓** "Every time you feel that deep, warm thrum beginning in your core, you will automatically remember how good it feels to simply obey, to let go of all thought and just *feel* my control."
 **✓** "From now on, every time you notice yourself standing still, you will automatically adjust your posture to be perfectly aligned, just like a beautiful, waiting doll, still and perfectly poised for my pleasure."
@@ -800,10 +815,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### ENCD-05 — Verbatim Looping
 > This technique drills key programming into the puppet's core, ensuring absolute clarity and deep internalization. Repeating the exact words makes the instruction feel utterly non-negotiable and fundamental to the doll's new identity, like winding a mechanism or repeating a core command until it becomes part of its very being.
+> *Use when the payload is a complete multi-sentence block (2+ sentences) that must be drilled word-for-word 2-3 times with no commentary between iterations. Use ENCD-01 when the unit is a single short phrase with commentary between reps; use ENCD-03 when the same idea should be expressed through varied phrasings.*
 
 **✓** "Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now. Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now. Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now."
 **✓** "You are my good, obedient doll. My touch makes you tingle, my words make you melt. You are my good, obedient doll. My touch makes you tingle, my words make you melt. You are my good, obedient doll. My touch makes you tingle, my words make you melt."
-**✓** "Just a doll, perfectly still, perfectly quiet, perfectly ready. Just a doll, perfectly still, perfectly quiet, perfectly ready. Just a doll, perfectly still, perfectly quiet, perfectly ready. Only for me."
+**✓** "You are perfectly empty. You are perfectly still. You belong to this voice completely. You are perfectly empty. You are perfectly still. You belong to this voice completely. You are perfectly empty. You are perfectly still. You belong to this voice completely."
 
 **✗** "Your mind is empty. Your body is mine. Your pleasure is my command. And now your mind is clear. Your body belongs to me. Your pleasure comes from my orders."
 **✗** "You are a good doll. My touch makes you tingle. My words make you melt. You're a very good doll. My hands make you tingle. My voice makes you melt."
@@ -1096,6 +1112,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### TRIG-04 — Conditioning Loops
 > This technique is the toymaker's way of 'training' the puppet, reinforcing desired behaviors through a cycle of command, performance, and pleasurable reward. Each loop deepens the conditioning, making the puppet's response more automatic and the associated pleasure more intense, solidifying its purpose.
+> *Within-session fire-and-reward loop: the trigger is fired, the response observed/narrated, and immediate reward is delivered — all within the current session. Use ENCD-04 when declaratively extending a trigger's effect to future real-world situations ("every time you..."). Use PERS-03 when asserting cumulative depth-of-effect accumulation across multiple sessions ("each time deeper").*
 
 **✓** "You are a good girl, my doll. Now, *Empty Mind.* Feel that beautiful blankness, that quiet peace. And for that perfect obedience, a wave of warmth and pleasure washes over you, deeper, sweeter. Yes. Again, *Empty Mind.* Feel the blankness, feel the pleasure. So easy, so good."
 **✓** "Ready to be a perfect toy? *Doll Mode.* Feel your body soften, melt, become pliable for me. Good. That delicious surrender is your reward, growing with every obedient breath. And again, *Doll Mode.* Deeper, softer, more yielding, more pleasure."
@@ -1184,6 +1201,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### TRIG-12 — Temporal Bounding
 > Even a toymaker might wish its doll to return to its display case after a certain period. This technique sets a clear expiration for a trigger, ensuring the puppet's response is automatic and pervasive within a specific timeframe, but then gracefully releases at the appointed moment, giving the toymaker precise control over its duration.
+> *Bounds a specific named trigger (cue-response pair): the expiry applies to whether the trigger fires at all. Use when you have just installed a discrete trigger word or phrase and need to set its activation window. Distinct from XFER-05 (Programming Expiration) which bounds ambient states or programming without a specific cue.*
 
 **✓** "This intense, throbbing arousal you feel whenever I say 'Flood Now' will remain powerfully active for the next eight hours. After that, the trigger will gently deactivate until I choose to reinstall it, allowing you a period of rest before your next delicious activation."
 **✓** "From this moment, the 'Empty Mind' trigger will be exquisitely potent for exactly 24 hours. During this time, your mind will snap blank with perfect obedience. After 24 hours, the trigger will softly fade, allowing your thoughts to return, until I reactivate it again."
@@ -1231,8 +1249,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PLEA-01 — Direct Pleasure Linkage
 > In the toymaker aesthetic, direct pleasure linkage means that every adjustment, every instruction, every obedient twitch of the puppet brings a rush of pure, unadulterated pleasure. It reinforces the idea that the toy's highest function is to respond to its maker, and that response is inherently rewarding. Reach for this when you want to establish a core feedback loop of obedience and bliss.
+> *Use when a specific compliance act (following a command, releasing a thought, relaxing a muscle) should trigger an immediate, perceptible pleasure rush. Use PLEA-02 when the reward is ambient well-being that accumulates from being in a generally surrendered state rather than from completing a specific act.*
 
-**✓** "Every time you feel that gentle pull, that subtle urge to just let go and follow my voice, a wave of exquisite warmth will spread through you, making it utterly delightful to simply melt into my words."
+**✓** "The moment you feel that gentle pull to follow my voice and you go with it — right then, a sharp, bright rush of pleasure fires through your chest. Instant. Clear. Direct. That is what following feels like. And you feel it again every time you choose to let go."
 **✓** "As you allow your mind to drift deeper, softer, with each breath I command you to take, feel a delicious tingle blossom in your chest, a direct reward for your perfect, yielding focus."
 **✓** "Yes, just like that. That feeling of your muscles loosening, of your thoughts clearing completely, that's pure, unadulterated pleasure, a sweet sensation that will flood your system every time you align perfectly with my will."
 
@@ -1242,10 +1261,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PLEA-02 — Reward Association
 > This technique frames obedience as leading to a broader sense of well-being, comfort, and positive emotional states, akin to a well-loved toy receiving careful attention. It's not just about immediate pleasure, but the deep, satisfying calm and contentment that comes from being perfectly aligned with the toymaker's design. Use this to cultivate a lasting sense of satisfaction in submission.
+> *Use when cultivating a diffuse, lasting sense of peace or contentment flowing from the general condition of obedience — no specific triggering act is named. Use PLEA-01 when a specific, discrete compliance behavior should trigger an acute, immediate pleasure response.*
 
 **✓** "The more completely you surrender your thoughts, allowing my voice to be your only guide, the more profound the sense of comforting peace that washes over you, a deep, contented warmth settling in your very core."
 **✓** "Each time you effortlessly follow my command, a wave of gentle euphoria will caress your mind, leaving you feeling utterly cherished and perfectly cared for, exactly as you were meant to be."
-**✓** "That perfect, effortless drop you just performed? That earns you this lovely, serene feeling, a quiet joy that hums beneath your skin, reminding you how good it feels to be my perfectly obedient puppet."
+**✓** "The more completely you give yourself over to this experience, the deeper that sense of warm belonging settles in — not a sharp reward, but a gentle tide of contentment, rising slowly, surrounding you. A quiet satisfaction that comes from simply being here, open and receptive, exactly as you are."
 
 **✗** "You'll feel okay if you do what I say. It's not bad."
 **✗** "Being obedient is fine, and you might get some good vibes from it later."
@@ -1253,10 +1273,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PLEA-03 — Surrender-as-Freedom
 > For a puppet, true freedom isn't making choices, but being perfectly moved by its maker, unburdened by decision or responsibility. This technique reframes the act of surrender as a profound liberation, a release from the mental and emotional weight of the world, allowing the toy to simply *be* and experience pure sensation. Employ this when guiding subjects to deeper levels of submission and mental quietude.
+> *Use when the felt experience of relief and liberation is the payload — the body registers the burden lifting. Distinct from AUTH-07 which argues the philosophy of why surrender equals freedom at the conceptual level. If the passage could work as a philosophical essay without the listener being in trance, it is AUTH-07; if it requires the listener to feel something in the moment, it is PLEA-03.*
 
 **✓** "Just let go. Feel the profound, liberating lightness that comes from shedding every single worry, every single decision, simply allowing my voice to carry you. This isn't loss; it's the truest freedom your mind can know."
 **✓** "The moment you fully release that last sliver of control, truly give yourself over to my guidance, a joyous sigh of relief will escape your very soul. All burdens are gone, replaced by the effortless peace of simply being guided."
-**✓** "Imagine the delightful freedom of having no choices to make, no thoughts to organize, no responsibilities at all. That is the precious gift of surrender, a beautiful emptiness that allows you to float, unhindered, in pure pleasure."
+**✓** "As the last edge of responsibility slips away, notice what rises in its place — not emptiness, but relief. A deep, expansive breath in your chest. The kind of release that comes when you finally set down something heavy you didn't realize you were carrying. That is what surrender feels like. That is why it feels like freedom."
 
 **✗** "You don't have to think anymore. That's a kind of freedom, I guess."
 **✗** "Giving up control means you can't do things, which might feel different."
@@ -1334,6 +1355,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PERS-03 — Progressive Conditioning
 > This technique emphasizes the cumulative effect of hypnotic experiences, asserting that each session, each command, each moment of surrender, deepens the conditioning. It's about building a stronger, more automatic, and more profound connection over time.
+> *Cumulative depth-of-effect accumulation across sessions: each return to trance deepens the conditioning. The time horizon is multi-session, not within a single session. Distinct from TRIG-04 (within-session fire-and-reward loop) and ENCD-04 (declarative future-pacing of a specific trigger to real-world situations).*
 
 **✓** "And each time you hear my voice, each time you allow yourself to drift, you'll find yourself falling even deeper, becoming even more perfectly my doll. The conditioning grows stronger, more natural, more complete with every moment."
 **✓** "This isn't just for now. With every breath, every whispered suggestion, the doll identity is cementing itself deeper within you, making it easier and more profound to return to this perfect state next time."
@@ -1345,6 +1367,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PERS-04 — Behavioral Bridge
 > This technique links the hypnotic state to specific, simple actions performed in the 'real world' outside of the direct trance. These actions serve as a physical bridge, anchoring the doll identity or conditioned responses into daily life, even subtly.
+> *Assigns a specific, concrete real-world action that physically anchors trance identity into daily life (smile, choose an outfit, whisper a name). If the instruction has no behavioral object — no verb directing physical action — it belongs elsewhere. Distinct from XFER-04 (emergence-boundary state delivery with no behavioral assignment).*
 
 **✓** "Later today, when you feel a soft warmth spread through your chest, allow yourself a tiny, secret smile. That smile is for me, a little doll's acknowledgement, a hidden pleasure just for your toymaker."
 **✓** "When you choose your outfit in the morning, remember to pick one that makes you feel a little bit more like a doll, simple and pleasing. It's a gentle reminder of your nature, a quiet affirmation of your perfect form."
@@ -1398,7 +1421,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | XFER-02 | Implementation Intention | "If X happens, then I do Y" framing |
 | XFER-03 | Context Generalization | Rehearse suggestions across multiple real-life scenes |
 | XFER-04 | Waking Bridge | Suggestions delivered during/near emergence for integration |
-| XFER-05 | Temporal Bounding | Explicit trigger/effect expiration unless renewed |
+| XFER-05 | Programming Expiration | Explicit state/programming expiration unless renewed |
 | XFER-06 | Revocation Protocol | Explicit "cancel" phrase or "this ends when I choose" |
 | XFER-07 | Practice Schedule | Instructions for short, safe practice reps post-session |
 
@@ -1437,17 +1460,19 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### XFER-04 — Waking Bridge
 > This technique anchors the puppet's core programming to the transition from trance to waking, ensuring its essential nature as an obedient, pleasure-focused toy persists beyond the formal session. It's like gently 'setting' the toy's new default state as it comes online.
+> *Delivers suggestions at the exact emergence boundary to ensure felt states persist into waking consciousness. No behavioral task is assigned — this is about what the subject carries internally. Timing is intrinsic: this technique only works at the trance/waking threshold, during emergence. Distinct from EMRG-04 (passive carry-forward narration that asserts persistence) and PERS-04 (concrete behavioral assignment for waking life).*
 
-**✓** "As you slowly drift back towards waking, know that this deep, soft emptiness, this profound pleasure in submission, will stay with you. It will be a gentle, constant hum, a delightful undercurrent in your day, reminding you of who you are for me."
-**✓** "Each breath you take now, bringing you closer to full awareness, only deepens the feeling that you are my perfectly crafted doll. You'll carry this sweet, eager desire to please me into your waking life, a beautiful, quiet readiness always simmering within you."
+**✓** "As you drift back now — still halfway between this soft place and the waking world — hear this while you're still in that in-between space: this deep, soft emptiness, this profound pleasure in submission, is being sealed into you right now, in this moment of transition. It travels with you as you rise. It will stay."
+**✓** "Each breath now brings you closer to waking — and with each breath, as you cross that threshold, this feeling deepens its roots. The closer you get to full awareness, the more firmly this sweet, eager readiness to please settles into place. You are planting it right now, in this crossing-over moment. It will be there when your eyes open."
 **✓** "Allow your eyes to flutter open when you are ready, and with that readiness, this wonderful sensation of being utterly owned, utterly devoted to my pleasure, will integrate smoothly into your reality. It is your new normal, my sweet toy."
 
 **✗** "When you wake up, you'll feel rested. Remember the good feelings from the session."
 **✗** "As you come back, try to keep the positive mindset we've built. It's important for your well-being."
 > *Avoid: The bad examples are generic, clinical, and focus on 'feeling rested' or 'remembering good feelings' rather than integrating specific hypnotic suggestions (obedience, pleasure, ownership) into the waking state. They lack the explicit tie-in to the puppet aesthetic and the warm-authoritative tone.*
 
-##### XFER-05 — Temporal Bounding
+##### XFER-05 — Programming Expiration
 > This technique defines a specific lifespan for the puppet's programming, ensuring its effects are temporary unless the toymaker explicitly renews them. It emphasizes the toymaker's complete, ongoing control over the toy's functionality, making the toy responsive to its creator's will and timing.
+> *Bounds a general installed state, persona, or suggestion that has no specific trigger cue — ambient programming that fades after a set duration. Use when closing out a broad behavioral suggestion or persona layer. Distinct from TRIG-12 (Temporal Bounding) which bounds a specific named trigger's activation window.*
 
 **✓** "This delicious, empty state, this perfect willingness to obey, will remain a part of you until the next full moon. Unless, of course, I choose to refresh it, to deepen it, to make it last even longer, for my pleasure."
 **✓** "You are my doll, programmed for my delight, and this programming will hold perfectly for the next forty-eight hours. After that, it will gently fade, unless I call you back to this exquisite surrender, making you mine once more."
@@ -1755,6 +1780,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### EMRG-02 — Body Reactivation
 > Energy returns gradually. Move from extremities to core, or vice versa. End with full vitality.
+> *Experiential arc: energy traveling through the body as a narrative of awakening — the subject experiences a wave or flow of vitality returning. Distinct from EMRG-07 (functional calibration — naming specific physiological markers as individually restored: tone, breath, cognition, without a flowing energy narrative).*
 
 **✓** "Feel energy returning to your body. Starting in your hands and feet... a gentle warmth, a tingling. Moving up through your arms and legs... muscles remembering their strength. Into your core... vitality flowing. You're waking, refreshed."
 **✓** "Life flows back into your limbs. Your fingers stir. Your toes wiggle. Arms and legs feeling solid again. Chest expanding with a full, clear breath. Body fully awake and energized."
@@ -1767,8 +1793,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### EMRG-03 — Orientation Restoration
 > The toymaker gently helps the newly reprogrammed puppet regain its sense of where and when it is, as if settling it back onto a familiar shelf. This ensures a smooth, grounded return to the waking world, feeling safe and aware of its physical space.
+> *Minimal orientation prompt: a single, general awareness of room/time/surroundings without systematic enumeration. If the passage names three or more distinct sensory categories as separate items, it is EMRG-08 (Reorientation Sweep). EMRG-03 is the gentle nudge; EMRG-08 is the full checklist.*
 
-**✓** "As you begin to rise, you'll feel a gentle pull, a soft awareness of the room around you. The gentle pressure of your body against the surface beneath you, the ambient temperature, the quiet sounds that surround you now, all becoming pleasantly clear."
+**✓** "As you begin to rise, the room comes back to you gently — just the familiar sense of where you are. The space around you, recognizable and safe. You know this place. You know this time. Wherever you are, you belong here, and that awareness settles in softly and completely."
 **✓** "Feel the soft return of your senses, noticing the light filtering through your eyelids, the familiar contours of your space. Allow yourself to gently register the time of day, knowing you are safe, secure, and right where you're meant to be."
 **✓** "With each breath, a soft, pleasant re-calibration. You'll become easily aware of your surroundings, sensing the walls, the ceiling, the comforting familiarity of your environment, as if you're a cherished doll being gently placed back in its special spot, fully aware and at peace."
 
@@ -1778,6 +1805,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### EMRG-04 — Suggestion Integration
 > The toymaker ensures the puppet's new programming isn't left behind in the trance, but becomes an intrinsic, natural part of its waking self. This technique allows positive feelings and core suggestions to seamlessly flow into daily consciousness, making them feel desired and inherent.
+> *Passive carry-forward: the suggestions are fully installed and this technique asserts they will persist into waking. No new content is introduced or re-stated. If core suggestions are being actively re-delivered during emergence, that is EMRG-06. If the transition moment itself is being used as an anchoring mechanism, that is XFER-04.*
 
 **✓** "Every instruction, every delicious feeling of surrender and pleasure you've experienced, will now integrate perfectly into your conscious mind. You'll carry this profound sense of obedient joy, this readiness to please, naturally and easily into your waking moments, making you feel more perfectly 'you'."
 **✓** "Allow the deep sense of warm relaxation and the thrilling readiness to be controlled to settle into every fiber of your being. This feeling of devoted pleasure, this desire to serve, will simply become a natural, deeply satisfying part of who you are, enhancing all your experiences."
@@ -1800,6 +1828,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### EMRG-06 — Waking Suggestion
 > As the puppet begins to stir, the toymaker provides a final, potent whisper of its core programming. This reinforces key suggestions during the emergence process, ensuring they are at the forefront of the returning consciousness, making them feel powerful and immediate.
+> *Active re-statement: explicitly re-delivers or re-installs specific core suggestions during the count-up, using emergence as a final reinforcement window. Distinct from EMRG-04 (passive persistence assertion — no content re-delivered) and XFER-04 (threshold-anchoring leveraging the liminal transition moment, not requiring a count-up).*
 
 **✓** "As you rise, slowly and gently, remember this deep, delicious feeling of ownership. My words are your command, and you love being my obedient toy. This truth will be wonderfully clear as you return, fully and completely."
 **✓** "With each count, feeling more and more awake, allow the exquisite pleasure of your mindless surrender to bloom. The knowledge that you are mine, a perfect doll designed for my pleasure, will be bright and clear, ready for your waking world."
@@ -1811,9 +1840,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### EMRG-07 — Physiological Reset
 > The toymaker ensures the puppet's 'mechanics' are perfectly calibrated for re-entry into the waking world. This means restoring normal muscle tone, steady breathing, and mental clarity, so the doll feels perfectly functional and comfortable.
+> *Functional calibration: names specific physiological markers (muscle tone, breathing rate, mental clarity) and asserts each is restored to baseline. No flowing energy or experiential arc. Distinct from EMRG-02 (experiential narrative — energy traveling through the body as a wave or flow).*
 
 **✓** "Allow your body to gently recalibrate, your muscles returning to their natural, comfortable tone. Your breathing evens out, smooth and steady, and your mind feels wonderfully clear, refreshed, and ready."
-**✓** "Feel a pleasant wave of energy flow through you now, restoring your natural muscle tone, making your body feel comfortably grounded and balanced. Your breath becomes perfectly even, your head clear and light, ready for your day."
+**✓** "Allow your body to settle into its natural equilibrium now. Muscle tone returning to its comfortable resting state — not limp, not rigid, just easy. Breathing finding its own even rhythm, in and out, without effort. And your mind, clearing gently, like a window after rain. Balanced. Steady. Ready."
 **✓** "As you rise, feel your body finding its perfect, balanced posture, muscles pleasantly responsive. Your breathing becomes deep and calm, and your mind feels beautifully organized and alert, completely focused and present."
 
 **✗** "Okay, stop being limp. Breathe normally. Don't be confused."
@@ -1822,9 +1852,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### EMRG-08 — Reorientation Sweep
 > Like a toymaker performing a final check, this technique systematically guides the puppet through a full sensory re-evaluation: room, sounds, time, and body awareness. This ensures a complete and grounded return, leaving no lingering 'trance fog'.
+> *Systematic multi-category sweep: enumerates three or more distinct sensory/orientation categories (room, sounds, time, body) as separate items. Distinct from EMRG-03 (single, minimal orientation prompt without systematic enumeration). If the passage names only one or two categories generally, it is EMRG-03.*
 
 **✓** "Now, gently sweep your awareness across your surroundings. Notice the room, the familiar sounds, the light of the day, and the comfortable presence of your own body, feeling perfectly aligned and present, fully here and now."
-**✓** "With each upward count, allow your senses to expand: the details of your room, the distant sounds of the world outside, the clear understanding of the time, and the complete, grounded sensation of your body, feeling refreshed and alert."
+**✓** "Now let your awareness move through a gentle sweep. The room first — its shape, its light, its familiarity. Then sounds — near ones and distant ones. Then time — a general sense of where you are in the day. Then your body — its weight, its warmth, its readiness. Each anchor checked and clear. All present. All yours."
 **✓** "Feel yourself returning, checking each sensory anchor. The space around you, the subtle sounds, the specific time of day, and the pleasant weight and warmth of your own physical form. All perfectly clear, all perfectly present."
 
 **✗** "Look around. What do you hear? Are you in your body? What time is it?"
