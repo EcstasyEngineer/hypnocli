@@ -1165,9 +1165,9 @@
       "description": "Suggestions delivered during/near emergence for integration"
     },
     "XFER-05": {
-      "name": "Temporal Bounding",
+      "name": "Programming Expiration",
       "category": "XFER",
-      "description": "Explicit trigger/effect expiration unless renewed"
+      "description": "Ambient state/effect expiration without trigger cue"
     },
     "XFER-06": {
       "name": "Revocation Protocol",
@@ -1262,7 +1262,7 @@
     "SAFE-09": {
       "name": "Comfort Permission",
       "category": "SAFE",
-      "description": "\"Swallow, move, scratch, adjust—then return\""
+      "description": "\"Swallow, move, scratch, adjust\u2014then return\""
     },
     "SAFE-10": {
       "name": "Exit Protocol",
@@ -1397,7 +1397,7 @@
     "PERS-07": {
       "name": "Fetish Object",
       "category": "PERS",
-      "description": "Imbuing a physical object with ongoing hypnotic significance (anthropological sense: an object believed to hold power or embody connection). Headphones as ritual gateway, collar as ownership symbol, pendant as connection anchor. Distinct from TRIG (stimulus→response)—fetish objects carry persistent symbolic meaning rather than triggering discrete state changes. Etymology: Portuguese *feitiço* (charm, sorcery)."
+      "description": "Imbuing a physical object with ongoing hypnotic significance (anthropological sense: an object believed to hold power or embody connection). Headphones as ritual gateway, collar as ownership symbol, pendant as connection anchor. Distinct from TRIG (stimulus\u2192response)\u2014fetish objects carry persistent symbolic meaning rather than triggering discrete state changes. Etymology: Portuguese *feiti\u00e7o* (charm, sorcery)."
     }
   },
   "categories": {
@@ -1852,7 +1852,7 @@
   },
   "guardrails": {
     "anchor_continuity": "Decide 3-7 anchor phrases once (e.g., 'drop', 'blank', 'obedient'). Reuse them intentionally across phases.",
-    "parameterization": "Techniques with 'params' field have configurable options. Pass these from plan → segment builder. See individual technique definitions for available params.",
+    "parameterization": "Techniques with 'params' field have configurable options. Pass these from plan \u2192 segment builder. See individual technique definitions for available params.",
     "async_failure_risk": "Default to low-failure validation. Prefer VALD-04 (self-validating language) over 'arm stuck' unless audience expects it.",
     "safety_optional": "SAFE-* techniques are available but not mandatory. Use when audience/platform requires explicit safety framing. Do not force 'if you hear awake...' in every script.",
     "critical_rules": [
@@ -1866,7 +1866,7 @@
     "5.2": {
       "date": "2026-01-16",
       "changes": [
-        "Restructured phases: 6 required (P1-P6) + 7 optional (P7-P13) → 5 required (P1-P5) + 4 optional modules (M1-M4)",
+        "Restructured phases: 6 required (P1-P6) + 7 optional (P7-P13) \u2192 5 required (P1-P5) + 4 optional modules (M1-M4)",
         "Merged P9 (Scenario Immersion) into P4 (Core Suggestion + Immersion)",
         "Merged P10 (Trigger Installation) + P12 (Behavioral Bridge) into M2 (Transfer)",
         "Converted P4 (Cognitive Reduction) to M1 (Critical Softening) as optional module",

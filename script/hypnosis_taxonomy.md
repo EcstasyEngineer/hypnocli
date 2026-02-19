@@ -259,7 +259,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: Too mechanical/clinical (don't say 'for X seconds'). Excessive silence (8+ seconds) between instructions loses the listener. Missing countdown on exhale (exhale should be 6,5,4,3,2,1 not 1,2,3,4,5,6). Don't count during hold - just pause.*
 
 ##### INDU-02 — Progressive Relaxation
-> Move smoothly through body parts like a warm wave. Don't rush but don't linger. Puppet/doll imagery works well - joints loosening, strings releasing.
+> Move smoothly through body parts like a warm wave. Don't rush but don't linger. Imagery of joints loosening and limbs going heavy works well to make the progression feel embodied rather than mechanical.
 
 **✓** "Feel the relaxation beginning at the top of your head... a soft warmth spreading down. Through your forehead, smoothing away any tension. Down through your face... jaw unclenching, loosening. Like a puppet whose strings are gently releasing, one by one."
 **✓** "Starting at your scalp, feel a gentle heaviness. It flows down... past your eyes, your cheeks, your jaw. Down your neck, your shoulders dropping. Arms growing heavy and loose. Like a doll being carefully set down to rest."
@@ -283,7 +283,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is aggressive and creates resistance. Second is too commanding and absolute. Third is for visual, not audio.*
 
 ##### INDU-04 — Eye Closure
-> For a puppet, eye closure is often the first command, signaling a surrender of external awareness and a shift inward, ready to be 'switched off' or reprogrammed by the toymaker. It establishes the initial boundary between the outside world and the private space of the doll's mind, preparing them for deeper control.
+> Eye closure marks the shift from external to internal focus, establishing the boundary between ordinary awareness and the hypnotic space. Use early in induction to anchor the transition; it also signals the subject's willingness to follow direction. Permissive framing ("allow your eyes to close") tends to be more effective than commands.
 
 **✓** "Allow your eyelids to feel incredibly heavy now, as if they're weighted down with golden dust, just inviting themselves to gently close. No need to resist, just let them softly settle shut, bringing your focus entirely inward."
 **✓** "As you listen to my voice, you might find a wonderful sense of peace beginning to spread, and with that peace, your eyes may naturally choose to close, sinking you deeper into comfort and my control."
@@ -306,7 +306,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is just numbers with no guidance. Second is mechanical and tells instead of leads. Third has dead air that loses engagement.*
 
 ##### INDU-06 — Instant/Conditioned Drop
-> This technique acts like the toymaker pressing a 'reset' button or commanding a doll to go completely limp and still. It reinforces the doll's conditioned obedience and immediate surrender, creating a powerful, instantaneous transition into a deeper state of 'offline' readiness for programming.
+> Fires a previously installed anchor to collapse the subject into trance from a waking or near-waking state. The effect depends entirely on prior conditioning — the response is automatic, not built in the moment. Delivery must be confident and unhesitating; any uncertainty in the operator's voice will undercut the conditioned response.
 > *Requires prior conditioning — fires an already-installed anchor to collapse the subject into trance from a waking or near-waking state. This is an induction technique, not a deepening tool. If the subject is already deep and the command deepens them further, that is DEEP-01.*
 
 **✓** "You know exactly what to do when you hear my command, don't you, little doll? Just let go of everything, all thoughts, all tension... ready? *Sleep*."
@@ -318,7 +318,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first example blames the listener and assumes conditioning that might not be present, creating frustration rather than trance. The second example is hesitant, over-explanatory, and lacks the confident, authoritative delivery essential for an effective instant drop.*
 
 ##### INDU-07 — Kinesthetic Entrainment
-> For a puppet, this technique subtly mimics the toymaker gently guiding its movements, creating a feeling of effortless, automatic response. The swaying motion reinforces the idea of being a pliable, responsive object, subtly pulled and nudged by the hypnotist's influence, loosening control over one's own body.
+> Synchronizes subtle body movement with the operator's voice or a rhythmic stimulus, using physical rhythm as an induction pathway. The movement should be minimal and naturally arising — the goal is a felt sense of automatic response, not deliberate swaying. Works well when the subject has residual physical tension that needs an outlet.
 
 **✓** "Allow your body to sway ever so slightly with the rhythm of my voice, like a string puppet gently rocked by its master. Just allow that subtle movement to deepen your focus, pulling you further into trance."
 **✓** "Feel that gentle, almost imperceptible sway in your body? Allow it to grow, responding to the ebb and flow of my words, as if you're a perfectly balanced doll, just relaxing into my hands."
@@ -329,7 +329,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first example is too demanding and disruptive; the swaying should be subtle and naturally induced, not forced. The second example is too uncertain and passive, failing to provide the guidance and confidence needed to facilitate kinesthetic entrainment.*
 
 ##### INDU-08 — Pattern Interrupt
-> This technique is like the toymaker suddenly snapping their fingers, momentarily 'freezing' the puppet's conscious thoughts. It's a quick, disorienting jolt that bypasses the critical factor, leaving the doll's mind open and receptive to new programming and direct suggestions, ready to fall into mindless compliance.
+> Inserts a brief, unexpected element into the induction flow to disrupt the analytical mind's habitual processing. The gap created by the interruption is where suggestion slips through before the critical faculty re-engages. Requires smooth, immediate follow-through — the deepening command must land while the subject is still disoriented.
 
 **✓** "As you focus on my voice, feeling your body relax, sinking deeper, becoming still and pliable, ready for my words... and suddenly, a flash of red light in your mind, surprising you, just for a moment, before you *drop*."
 **✓** "Listen closely, feeling the warmth spread through you, every muscle softening, every thought drifting away, allowing yourself to become completely calm and peaceful... and just for a second, notice how cold your left pinky feels. Now, let it all go, falling deep."
@@ -340,7 +340,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first example pulls the listener out of the trance process by asking for conscious engagement and analysis. The second example is too self-aware and jocular, breaking the authoritative tone and making the interruption seem silly rather than disorienting or effective.*
 
 ##### INDU-09 — Environmental Dissociation
-> For a puppet, this is the act of the toymaker gently 'dimming the lights' on the outside world, enclosing the doll in its own private, controlled space. It reinforces the idea that the doll's reality is now internal and defined solely by the hypnotist's voice, removing all external distractions and making it feel completely owned.
+> Narrows awareness by guiding the subject to let the external world recede, leaving only the operator's voice as the relevant input. Useful when the subject is in a noisy or distracting environment, or when other induction approaches have left peripheral awareness still active. Frame the fade as effortless and natural rather than something the subject must work to achieve.
 
 **✓** "Now, allow the sounds of the room around you to simply fade away, becoming less and less important, like distant echoes you no longer need to hear. Only my voice remains, a clear, guiding thread, pulling you deeper."
 **✓** "The room you're in, the chair you're sitting on... begin to notice them dissolving, blurring at the edges, becoming unreal. Your awareness shifts entirely inward, leaving everything else behind, just you and my voice."
@@ -393,7 +393,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is too sparse. Second creates anxiety, not relaxation. Third is tedious and arbitrary.*
 
 ##### DEEP-03 — Fractionation
-> For the toymaker, fractionation is like a gentle but firm re-setting mechanism. Each little 'wake' moment is just long enough to appreciate the comfort of sinking back down, like a toy being lightly lifted and then set down again, settling more perfectly into its designated spot, becoming more inert and responsive with each cycle. It reinforces the idea that the only true state is deep, compliant trance.
+> Amplifies trance depth by cycling the subject between light waking and trance states. Each return to trance lands deeper than the previous entry because the contrast with the waking state heightens the felt sense of descent. The "up" phase should be brief — long enough to register the shift, not long enough for the analytical mind to fully re-engage.
 
 **✓** "And now, just for a moment, let your eyes open. Just a tiny peek at the world, and then allow them to close again, drifting even deeper down, feeling that comfort amplify as you sink into perfect, compliant stillness once more. Good toy."
 **✓** "A quick breath in, feeling yourself lift just a little, and then a slow, slow exhale, letting go completely, dropping twice as far into pure, soft obedience. Each time you rise, it's only to fall further, settling into your designated place for me."
@@ -416,7 +416,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is too clinical/video-game-like. Second is absurdly precise. Third rushes without guidance.*
 
 ##### DEEP-05 — Voice Absorption
-> This technique makes the hypnotist's voice the *only* voice that matters, echoing the toymaker's complete control over the puppet's internal world. The puppet's own thoughts fade, replaced by the toymaker's directives, making the puppet's mind a clean slate for programming and pleasure.
+> Replaces the subject's internal dialogue with the operator's voice, causing further descent as the subject stops generating their own thoughts. The mechanism is absorption, not suppression — the operator's voice fills the space rather than forcing thoughts out. Works best after basic quieting has already reduced mental chatter.
 > *Deepening mechanism (P3): the operator's voice replacing the subject's internal dialogue causes further descent. Distinct from ABSR-08 (M1 critical softening via cognitive delegation — the subject hands over thinking rather than experiencing the voice as their own thoughts). Distinct from AUTH-05 (planting specific first-person assertions the subject thinks as their own — the subject is still thinking, the content is pre-installed).*
 
 **✓** "My voice is not just sound you hear, but thoughts you think, warm and resonant inside your head. Let my words become your only inner voice, guiding you deeper, softer, more perfectly mine with every syllable."
@@ -428,7 +428,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too demanding and explicitly instructional, breaking flow and requiring effort. They fail to frame the absorption as a natural, effortless process of letting go and receiving, or connect it to the core aesthetic of easy compliance.*
 
 ##### DEEP-06 — Proximity Deepening
-> For the toymaker, proximity deepening emphasizes the puppet's complete surrender to external stimuli. As the sound or sensation moves closer, the puppet becomes more acutely aware of the toymaker's presence, responding with an involuntary deepening that reinforces absolute control and focus on the master.
+> Correlates perceived nearness of a stimulus (voice, sound, imagined presence) with trance depth — as it approaches, the subject descends further. Exploits the orienting reflex: the mind focuses sharply on something moving closer, narrowing attention in a way that accelerates absorption. Works on audio via tone/volume shifts or through purely imagined proximity.
 
 **✓** "Imagine my voice, drawing closer and closer, each word like a warm breath against your skin. As it nears, feel yourself sink deeper, pulled down by its presence, into pure, yielding focus for your master."
 **✓** "Hear that gentle sound, perhaps a soft chime or a brush of fabric, slowly, steadily, approaching you. As it comes closer, feel a profound relaxation wash over you, pulling you down, down, down, further into this perfect, quiet bliss."
@@ -439,7 +439,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are overly analytical and conversational, breaking trance by asking questions or giving explicit instructions that require conscious thought. They fail to frame the deepening as an automatic, effortless response to the perceived change in proximity, and lack evocative imagery or the 'toy' aesthetic.*
 
 ##### DEEP-07 — False Bottom
-> This technique highlights the toymaker's absolute authority and the puppet's infinite capacity for surrender. Just when the puppet feels it has reached its deepest point, the toymaker reveals there's always further to go, subtly reinforcing the idea of boundless depth and control, making the puppet even more eager to fall beyond perceived limits.
+> Reframes the subject's current depth as a starting point rather than a destination, removing the perceived ceiling and opening the way to further descent. Effective when a subject has plateaued — the reframe breaks the assumption that they have "arrived" and creates renewed momentum. Use affirming language: the achieved depth is real and good, but it is only the entry to something deeper.
 
 **✓** "That's it, you're so wonderfully deep now, perhaps the deepest you've ever been. And yet, this is just the beginning. This comfort, this stillness, is merely the surface of what you can feel. Prepare to fall so much further now."
 **✓** "You've settled into a lovely, compliant depth for your master, a perfect, soft obedience. But know this, my dear toy: you are only just touching the first layer of truly profound trance. There are so many more depths waiting for you to discover."
@@ -450,7 +450,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are dismissive and critical, which can cause resistance or confusion rather than deepening. They lack the warm-authoritative tone and fail to reframe the achieved depth as a springboard to *greater* depth, instead simply negating it.*
 
 ##### DEEP-08 — Endurance Compliance
-> This is a direct display of the toymaker's control over the puppet's physical form. Holding a pose, even a simple one, focuses the puppet's entire being on the toymaker's command, reinforcing their obedience and capacity for stillness. Each count is a small test of will, effortlessly overcome by the deepening trance, turning physical strain into a path to deeper submission and pleasure.
+> Uses a sustained physical hold — a lifted hand, parted lips, tilted chin — as a focus point that concentrates attention and builds compliance momentum. The mild physical effort creates a narrow channel of awareness that deepens absorption. Frame the holding as effortless rather than challenging; the count should signal progress toward release, not endurance of strain.
 
 **✓** "Now, gently lift just one hand, holding it still in the air for me. That's it, perfect. And as you hold it there, feeling a slight strain, allow that feeling to simply melt away, pulling you deeper and deeper into compliant bliss with every count. One. Two. Three..."
 **✓** "Just allow your lips to part slightly, holding that position. Feel the slight tension, and let it remind you of your absolute stillness, your perfect obedience. With each passing moment, each breath you take, simply fall further into this wonderful, soft emptiness for your toymaker. One, two, three..."
@@ -461,7 +461,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too demanding, punitive, and potentially unsafe (holding breath). They frame the task as difficult and threatening, rather than an effortless path to deeper trance or a demonstration of compliant stillness. They also lack the warm-authoritative tone and connection to the 'toy' aesthetic.*
 
 ##### DEEP-09 — Void/Floating Imagery
-> This technique transforms the puppet's environment into a boundless, limitless space, entirely subject to the toymaker's whims. Drifting in a void or floating without anchor emphasizes the puppet's detachment from its old self and its complete reliance on the toymaker for guidance and sensation. It's the ultimate state of passive, malleable existence, perfect for deep programming.
+> Removes the subject's felt sense of a physical environment, replacing it with boundless, featureless space. The absence of sensory anchors eliminates reference points that keep the analytical mind oriented, accelerating dissociation and depth. Emphasize comfort and warmth — void imagery can become anxiety-inducing if it feels like falling rather than drifting.
 
 **✓** "Feel the ground beneath you begin to dissolve, not falling, but simply melting away, leaving you perfectly suspended in a soft, dark, infinite void. No up, no down, just endless space to drift and become completely empty, completely mine."
 **✓** "Allow yourself to simply float now, gently, effortlessly, in a vast, warm emptiness. Every sensation of your body becoming diffused, every thought scattering into nothingness, leaving you just a perfect, pliable doll, drifting deeper and deeper for your toymaker."
@@ -502,7 +502,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is aggressive and creates resistance. Second is clinical and scary. Third creates the thoughts it's trying to stop.*
 
 ##### ABSR-02 — Mental Spaciousness
-> Empty/blank should feel peaceful, not alarming. Doll/puppet mind imagery works well - smooth, simple, content.
+> Empty/blank should feel peaceful, not alarming. Emphasize the quality of the empty state itself — vast, open, calm — rather than the absence of thoughts. Use imagery that conveys positive spaciousness: clear sky, still water, fresh snow.
 > *Use when the goal is to describe or anchor the already-arrived empty state — the mind is blank now, and that blankness is being named and deepened. Use ABSR-01 when thoughts are still in motion and being directed to quiet; use ABSR-03 when personifying the analytical mind as a character who chooses to rest.*
 
 **✓** "Your mind is becoming so wonderfully empty. Not small — vast. Open in every direction. Like a clear sky on a still day, stretching as far as awareness can reach. There is so much space in there... and nothing to fill it. Just peaceful, endless openness."
@@ -515,7 +515,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is violent imagery. Second is degrading in a non-consensual way. Third is aggressive repetition without context.*
 
 ##### ABSR-03 — Metaphoric Shutdown
-> This technique directly embodies the 'mindless' aspect of the puppet aesthetic, gently guiding the analytical mind to rest. It's used to ease the listener into a receptive state, framing the cessation of critical thought as a welcome, deserved relief, allowing the toy's simpler programming to take over.
+> Personifies the analytical mind as a character with its own needs, giving it a narrative reason to step aside rather than simply commanding it to stop. Framing the shutdown as earned rest makes the transition feel internally motivated rather than imposed. Especially effective for subjects with active critical faculties who resist more direct quieting approaches.
 > *Use when the listener's analytical/critical faculty needs a story that makes withdrawal feel deserved — the "thinking mind" is personified as a character who earns a nap. Use ABSR-01 when directing the process of thoughts departing; use ABSR-02 when describing the empty state as already present.*
 
 **✓** "Allow your thinking mind, that part that analyzes and questions everything, to simply unhook and drift. Imagine it settling down onto a soft, warm cushion, feeling so content, so completely at ease, knowing it doesn't need to do anything at all right now, except maybe... take a sweet, long nap."
@@ -527,7 +527,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is too aggressive and demanding, breaking the warm-authoritative tone and potentially causing resistance. The second is vague, asks direct questions that pull the listener out of trance, and lacks a clear, inviting metaphor for the shutdown, making it ineffective.*
 
 ##### ABSR-04 — Yes Set/Compliance Ladder
-> This technique subtly builds a pattern of willing agreement, establishing the inherent obedience of a puppet to its toymaker. By starting with undeniable truths and gradually escalating, it creates a momentum of compliance that reinforces the feeling of delightful submission and receptivity.
+> Builds a momentum of agreement by starting with undeniable, observable truths and gradually escalating toward suggestive statements. Each "yes" lowers resistance to the next one, leveraging the consistency principle — the subject's tendency to maintain agreement once established. Escalation must be gradual; large jumps break the pattern and invite critical re-evaluation.
 
 **✓** "As you listen to my voice, you're becoming aware of the quiet around you, aren't you? And you can feel your body relaxing, can't you? This feeling of calm is settling deeper within you, isn't that right? Allowing you to surrender more and more to my words."
 **✓** "You're breathing steadily, feeling the gentle rhythm of your own chest rising and falling, aren't you? And as you focus on that, you can feel a pleasant heaviness in your limbs, can't you? Letting your body settle further into comfort, feeling so good to just let go, yes?"
@@ -538,7 +538,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples use too many direct 'right?' or 'won't you?' questions, which can pull the listener out of trance or invite conscious deliberation rather than automatic 'yes' responses. The questions also lack a smooth progression from undeniable truths to suggestive statements, breaking the compliance momentum.*
 
 ##### ABSR-05 — Confusion Technique
-> This technique creates a momentary disorientation, like a doll being gently jiggled to settle its parts, bypassing the conscious mind. It's used to briefly disrupt analytical processing, making the subject more pliable and receptive to the simple, pleasure-focused directives of a puppet, ready to accept control without question.
+> Disrupts analytical processing through paradox, contradiction, or self-referential language that the logical mind cannot resolve. The resulting momentary confusion suspends critical evaluation and opens a window for suggestion. The confusion itself should feel interesting or pleasurable, not distressing — framing it as a delicious paradox rather than a puzzle to solve.
 
 **✓** "As you breathe in, the feeling of letting go deepens, and as you breathe out, you might notice your awareness expanding, while simultaneously narrowing, allowing the sensation of floating up while sinking down, so that the more you try to understand, the less you need to, simply relaxing into this delicious paradox."
 **✓** "Feel the weight of your body, or perhaps the lightness, as you realize that the more you listen, the less you need to think, and the less you think, the more deeply you listen, effortlessly drifting into a state where up is down and down is... perfectly irrelevant."
@@ -549,7 +549,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example directly states the technique and asks rhetorical questions, breaking immersion and inviting conscious analysis rather than unconscious processing. The second is too direct and overly explicit with its contradictions, which can be jarring or simply dismissed as nonsense rather than creating a subtle, trance-inducing disorientation.*
 
 ##### ABSR-06 — Resistance Paradox
-> This technique frames any internal resistance as merely another path to deeper submission, perfectly aligning with the toymaker's ultimate control. It reassures the listener that even their last vestiges of 'self' are part of the process, making the puppet's eventual surrender feel inevitable and even desired, regardless of initial hesitations.
+> Reframes internal resistance as another vector for deepening rather than an obstacle to it. Because resistance is acknowledged and folded into the process, the subject cannot use it to interrupt the session — any push against the suggestions becomes part of going deeper. Works best when delivered calmly and without urgency, so the reframe feels inevitable rather than argued.
 
 **✓** "And if you notice any part of you wanting to hold back, to question, just allow that feeling to simply melt, becoming yet another impulse that guides you deeper. Because even that small resistance simply pushes you further into the wonderful surrender that awaits you."
 **✓** "Should any stray thought try to pull you away, don't fight it. Instead, simply observe it, and notice how even the effort of noticing it just helps you sink further into the soft, yielding depths of your own mind. Every impulse, every feeling, simply takes you deeper."
@@ -560,7 +560,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is overly aggressive and demanding, directly challenging the listener and potentially creating actual resistance rather than reframing it. The second example actively encourages resistance in an almost comical way, which can break the trance state and the warm-authoritative tone, making the paradox feel forced and unnatural.*
 
 ##### ABSR-07 — Circular Logic
-> This technique creates a self-reinforcing loop of logic that bypasses the critical mind, much like a doll's simple programming. It's used to gently trap the listener in a pleasing, inescapable flow of thought, making the process of becoming more compliant and pleasure-focused feel naturally inevitable and effortlessly true.
+> Creates a self-reinforcing loop in which each element of the suggestion validates the next, making the overall effect feel inevitable. Because the logic folds back on itself, the analytical mind finds no external ground on which to object — it can only continue circling. The loop should feel pleasurable to inhabit, not logically trapped.
 
 **✓** "The more you breathe, the deeper you relax, and the deeper you relax, the more easily you breathe, creating a beautiful, never-ending spiral of calm that pulls you further down into my control, simply because it feels so good to let it be so."
 **✓** "As you notice my voice, you're allowing yourself to simply drift, and because you're drifting, my voice becomes clearer, and the clearer my voice becomes, the more completely you give yourself over to its guidance, perfectly and completely."
@@ -571,7 +571,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is overly simplistic and redundant, failing to create a sophisticated or trance-inducing loop; it's more confusing than hypnotic. The second introduces a direct question and makes a demand that pulls the listener out of the internal experience, rather than subtly guiding them into a self-validating trance state.*
 
 ##### ABSR-08 — Control Transfer
-> This technique is central to the toymaker/puppet dynamic, explicitly delegating the listener's agency to the hypnotist. It's used to make the surrender of control feel like a relief, a release from the burden of thought, allowing the listener to fully embrace their role as a mindless, pleasure-focused doll guided entirely by their creator.
+> Explicitly transfers cognitive agency to the operator, framing the handover as relief rather than loss. Use in M1 when the session goal is deep passive compliance; works best after basic absorption has reduced analytical resistance. The subject is not suppressing thoughts — they are delegating the function of thinking entirely, leaving mental effort behind.
 > *Use when delegating the specific cognitive function of thinking — the listener is relieved of mental labor because the hypnotist performs it. Phase: M1. Distinct from DEEP-05 (P3 deepening via voice-as-thoughts — the operator's voice becomes the subject's inner experience) in that here the subject is not generating thoughts at all, having delegated that function. Use AUTH-04 when framing ownership of the listener as identity — who they belong to. These coexist but do not imply each other.*
 
 **✓** "There's no need for you to think about anything at all now. You can simply hand all of that over to me. Let me hold your thoughts, let me guide your feelings, let me take complete and utter control, so all you have to do is simply... be."
@@ -583,7 +583,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is overly aggressive, demanding, and lacks the warm-authoritative tone, potentially creating resistance rather than willing surrender. The second example is clunky, repetitive, and uses direct questions that break the trance and pull the listener out of the experience of control being effortlessly transferred.*
 
 ##### ABSR-09 — Perspective Shift
-> This technique is crucial for fully embodying the puppet persona, gradually shifting the listener's self-perception from 'you' to 'I' as dictated by the toymaker. It reinforces the idea that their identity is now being shaped and defined externally, making them feel like a blank slate, ready to be molded into the perfect, pleasure-focused doll.
+> Gradually transitions the subject's grammatical self-reference from "you" to "I," shifting internal perspective so the operator's framing is experienced as the subject's own inner voice. The shift should be incremental and seamless — a sudden jump is jarring. Most effective in M1 after the analytical mind has already quieted.
 
 **✓** "And as you listen, you might notice something shifting, deep inside. The 'you' that was listening is softening, becoming less distinct, as 'I' begin to speak for you, to feel for you, to become the very core of your experience now."
 **✓** "Allow the idea of 'you' to simply float away, distant and unneeded. For now, there is only 'I' — 'I' who guides you, 'I' who feels this delicious surrender, 'I' who embodies this perfect, mindless obedience. I am your only identity now."
@@ -607,7 +607,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | DISS-03 | Time Distortion | Altered perception of time passing |
 
 ##### DISS-01 — Consciousness Splitting
-> In the toymaker aesthetic, consciousness splitting manifests as the puppet's body moving and responding automatically, while the mind either observes detachedly or drifts into a pleasant, hazy state. It emphasizes the relief of surrender, the body becoming a vessel for the hypnotist's commands, separate from the 'thinking' self. Useful for deep obedience and creating automatic responses.
+> Partitions awareness so that one part of the subject observes or drifts while another part remains available to receive and act on commands. Creates the subjective experience of the body responding automatically while the observing mind watches from a comfortable distance. Useful when the goal is automatic response without the friction of conscious deliberation.
 
 **✓** "Now, allow your thinking mind to float gently away, like a soft cloud drifting across the sky. Your body remains here, perfectly still, perfectly responsive, but your awareness can simply observe from a distance, or drift into a warm, comfortable haze."
 **✓** "Feel that delicious separation? Your thoughts become a quiet hum in the background, while your body becomes entirely mine. It moves only when I command, responds only to my touch, a perfect, eager little doll, acting purely on instinct and my voice."
@@ -618,7 +618,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example suggests complete unconsciousness, which removes the listener's ability to experience pleasure or follow commands, contradicting the purpose of erotic hypnosis. The second is confusing and uses aggressive, non-permissive language, failing to guide the listener into a pleasurable dissociated state.*
 
 ##### DISS-02 — Amnesia Suggestion
-> Forgetting specific commands or the 'reason' for an action enhances the puppet's automaticity and the hypnotist's control. The puppet simply 'finds itself' doing something or feeling a certain way, as if it was always meant to be so, without conscious memory of the instruction. This deepens the feeling of innate obedience and delightful programming.
+> Installs forgetting of a specific instruction as an end in itself, so the subject experiences the resulting state or behavior without access to the command that created it. The response feels self-generated rather than instructed. Avoid installing amnesia for the entire session — loss of recall of the full experience undermines the subject's ability to evaluate consent retrospectively.
 > *Installs forgetting as an end in itself — the subject simply loses the memory. If amnesia is being used as a depth check where the subject consciously notices the gap as proof of depth, use VALD-01. If amnesia wraps a forward-scheduled command to make it feel self-generated post-session, use TRIG-10.*
 
 **✓** "And as I count down from three, all memory of this specific instruction will gently fade, leaving only the deep, undeniable desire to obey. You'll just know, feel, and respond, without needing to remember why, or how I told you to."
@@ -630,7 +630,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is too broad, erasing the entire experience and potentially pleasure, which undermines the purpose of erotic hypnosis. The second example contradicts the desired outcome by suggesting the removal of an installed state (being horny), rather than just the *memory of the instruction* that created it.*
 
 ##### DISS-03 — Time Distortion
-> For a puppet, time can become irrelevant. Moments of pleasure can be stretched into what feels like an eternity, while mundane or transitional periods can be compressed into a blink. This technique enhances the immersion in the 'puppet state,' making pleasure feel boundless and allowing the hypnotist to manipulate the pacing of the experience effectively.
+> Alters the subject's subjective experience of time passing — stretching pleasurable states so they feel longer, or compressing transitional periods. Use when the session goal benefits from pleasure feeling extended or when real-world time constraints would otherwise intrude on immersion. Frame time distortion in positive terms; avoid associations with boredom or waiting.
 > *Installs altered time perception for immersion. If time distortion is deployed so the subject consciously notices it as proof of depth, use VALD-01.*
 
 **✓** "Every single second of pleasure now stretches and expands, becoming a luxurious eternity of sensation. Minutes will feel like hours spent in blissful surrender, deep within my control, timeless and perfect."
@@ -658,7 +658,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | AUTH-08 | Named Technique Meta | Explicitly naming the technique being used |
 
 ##### AUTH-01 — Authority Claims
-> This technique reinforces the toymaker's absolute control, gently but firmly overriding any lingering human doubts or resistance. It helps the listener embrace their role as a malleable, obedient toy by presenting the hypnotist's guidance as the only valid input.
+> Asserts the operator's present-tense authority by positioning their voice as the primary and sufficient guide, displacing competing internal voices or doubts. No backstory or philosophical argument is required — the assertion is made and accepted through tone and framing. Warm-authoritative delivery is more effective than aggressive dominance, which tends to generate resistance.
 > *Use when asserting present-tense authority — who holds power right now. No backstory or philosophy required. Use AUTH-03 when invoking the listener's past desires to frame surrender as self-fulfillment; use AUTH-07 when redefining the abstract concepts of freedom or obedience.*
 
 **✓** "There is no need to think about anything else now. My words are all that matter, and your only purpose is to let them guide you deeper, softer, and more completely into this delightful obedience."
@@ -667,10 +667,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Don't question me. Just do what I say. It's really that simple. Stop thinking."
 **✗** "I am in charge now. You will obey. There is no other option for you at this point in time, so just accept it."
-> *Avoid: The bad examples are too aggressive and demanding, which can break trance. They lack the warm-authoritative, permissive framing that encourages willing surrender. They also don't connect to the 'toymaker/puppet' aesthetic of gentle, absolute control.*
+> *Avoid: The bad examples are too aggressive and demanding, which can break trance. They lack the warm-authoritative, permissive framing that encourages willing surrender. Direct commands to "stop thinking" or "just obey" activate conscious resistance rather than bypassing it.*
 
 ##### AUTH-02 — Identity Labeling
-> This technique helps solidify the listener's new identity as a 'doll' or 'toy' by attaching positive, affirming labels to their compliant behavior. It reinforces the idea that being obedient and pleasure-focused is their true, perfect state.
+> Attaches affirming labels to the subject's compliant behavior, reinforcing the identity the session is building. The label should connect to what the subject just did or felt, not be generic praise — "so perfectly still" after stillness is more effective than "good job." Pair with a moment of recognized compliance for maximum anchoring.
 
 **✓** "You are such a good doll, softening and yielding to every suggestion, proving how perfectly you were made for this. So obedient, so beautifully empty and open."
 **✓** "My clever little toy, so perfectly responsive, so eager to please. Every breath you take deepens your submission, making you an even more delightful plaything."
@@ -678,10 +678,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You're doing great, subject. Keep listening. Good job."
 **✗** "You are a very obedient person. That's what you are now. You are always obedient."
-> *Avoid: The bad examples are generic and don't align with the 'toymaker/puppet' aesthetic. 'Good job' and 'obedient person' are too bland and fail to reinforce the desired doll/toy identity. They also don't connect the label to the specific behavior or the desired emotional state.*
+> *Avoid: The bad examples are generic and disconnected from the moment. 'Good job' and 'obedient person' are too bland and fail to reinforce the specific identity or emotional state the session is building. Labels must be tied to the specific behavior just observed and the desired feeling, not delivered as rote affirmation.*
 
 ##### AUTH-03 — Retrospective Justification
-> This technique reframes the current state of surrender and control as something the listener deeply desired all along, making the transformation feel like a natural fulfillment of their secret wishes. It aligns with the puppet wanting to be played with and controlled.
+> Reframes the subject's current state of surrender as the fulfillment of something they already wanted, rather than something being done to them. This shifts the felt locus of causation inward — the subject is not being acted upon but arriving at their own desire. Use with subjects whose enjoyment depends on feeling that the response is authentically theirs.
 > *Use when generating retrospective narrative consent — "this is what you always wanted" reframes current surrender as fulfillment of the listener's pre-existing desire. Use AUTH-01 when asserting current authority without reference to history; use AUTH-07 when the goal is philosophical redefinition.*
 
 **✓** "This gentle, empty feeling, this delicious obedience... it's exactly what you've been craving, isn't it? A sweet surrender to pure pleasure, a quiet relief from all your worries."
@@ -693,7 +693,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples sound accusatory or confrontational, which can break rapport and resistance. They lack the warm, gentle framing that allows the listener to comfortably accept the justification. They also don't connect the 'want' to the sensual or relief aspects of the experience.*
 
 ##### AUTH-04 — Ownership Language
-> This technique establishes the hypnotist's proprietary relationship with the listener, framing them as a cherished, owned object. It taps into the puppet aesthetic by emphasizing belonging and care, while reinforcing complete control.
+> Establishes the operator's proprietary relationship with the subject as an identity claim — body, mind, and desires framed as belonging to the operator. The emotional register must be warm and possessive rather than threatening; ownership framed as care and cherishing is more effective than ownership framed as domination. Use when the session goal explicitly includes belonging or possession themes.
 > *Use when establishing the hypnotist's proprietary relationship with the listener as an identity claim — body, mind, desires belong to the hypnotist. Use ABSR-08 when the goal is functional cognitive relief — delegating the work of thinking — rather than asserting ownership as identity.*
 
 **✓** "You are mine now, my precious doll, designed and perfected for my pleasure. Every curve, every secret thought, every delicious response belongs only to me."
@@ -702,10 +702,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I own you now. You are my property, so listen up."
 **✗** "You're mine now, so don't even think about resisting. You belong to me."
-> *Avoid: The bad examples use ownership language in a threatening or aggressive way, which can trigger fight-or-flight responses rather than willing surrender. They lack the warm, sensual, and caring undertone that makes the ownership feel like a safe, desirable state in the puppet aesthetic.*
+> *Avoid: The bad examples use ownership language in a threatening or aggressive way, which can trigger fight-or-flight responses rather than willing surrender. They lack the warm, sensual, and caring undertone that makes ownership feel like a safe and desirable state rather than a coercive one.*
 
 ##### AUTH-05 — Internal Voice Cultivation
-> This technique helps the listener internalize the puppet identity and the toymaker's commands by framing them as their own thoughts and desires. It solidifies the shift from external instruction to internal, self-reinforcing obedience.
+> Manufactures specific first-person assertions experienced as the subject's own inner voice, so that the suggestion is not received as external instruction but as self-generated thought or feeling. The subject is still thinking — the content is pre-installed. Most applicable in P4; use in M1 only when the planted thought serves the emptying goal (e.g., "I want to be blank").
 > *Manufactures specific first-person assertions experienced as the subject's own inner voice ("I am a good doll"). The subject is still thinking — the thoughts are pre-installed. Distinct from ABSR-08 (thinking delegated away entirely) and DEEP-05 (operator's voice experienced as one's own thoughts). Most applicable in P4 suggestion work; in M1, use only when the planted thought serves the emptying goal (e.g., "I want to be blank").*
 
 **✓** "Now, hear that little thought blooming inside your mind, soft and clear: 'I am a good doll, and I love to obey.' Let it echo, making you feel so perfectly compliant."
@@ -717,7 +717,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples sound like direct instructions to 'think a thought' rather than planting a thought that naturally arises. They lack the seamless integration and the sensory/emotional connection that makes the internal voice feel authentic to the subject. The second example is too explicit and could feel forced.*
 
 ##### AUTH-06 — Nested Authority Figure
-> This technique places the hypnotist within a larger hierarchy of control, often as the 'voice' or 'agent' of an even greater, benevolent 'Designer' or 'Owner.' It reinforces the idea that the puppet is being perfected for its ultimate purpose, adding a layer of inescapable yet comforting authority.
+> Places the operator within a larger hierarchy of authority, positioning them as the voice or agent of a greater, benevolent power. The effect is to deepen the felt weight of instruction by suggesting it flows from something larger than the operator alone. The imagined higher authority must be portrayed as deeply trustworthy and aligned with the subject's well-being — not threatening or arbitrary.
 
 **✓** "Understand that my words are merely the instructions from your ultimate Designer, refining you, perfecting you into the ideal toy you were always meant to be. You simply follow the blueprint."
 **✓** "Feel that deep, abiding trust in the ultimate Owner, whose perfect vision created you. I am merely helping you align with that exquisite purpose, becoming everything they desire."
@@ -725,10 +725,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Imagine a boss or someone you really respect telling you what to do. My voice is like that person's voice."
 **✗** "My friend, who is even more powerful than me, wants you to obey. He's really strict, so listen up."
-> *Avoid: The bad examples are too literal and break the immersion. 'A boss' or 'my friend' are not evocative of the toymaker/puppet aesthetic. The second example also introduces an external, potentially threatening figure, which contradicts the warm-authoritative tone.*
+> *Avoid: The bad examples are too literal and break the immersion. 'A boss' or 'my friend' are mundane and do not carry the weight or benevolence required for a nested authority figure. The second example introduces a potentially threatening external figure, which contradicts the warm-authoritative tone and may produce anxiety rather than surrender.*
 
 ##### AUTH-07 — Philosophical Conditioning
-> This technique reframes obedience and surrender as the path to true freedom or the ultimate form of pleasure for a puppet. It redefines what 'control' means, making it a desirable state of pure existence and release.
+> Reframes the abstract concepts of freedom, control, or obedience at the conceptual level, arguing that surrender is the truest form of freedom and that yielding agency removes burden rather than capacity. Requires sustained, carefully reasoned language — this is not a slogan but a philosophical argument that the listener accepts through the trance state's reduced critical resistance.
 > *Use when redefining the abstract concepts of freedom, control, or obedience themselves — operates at the philosophical level, not the personal or immediate. Use AUTH-01 when asserting present-tense authority; use AUTH-03 when invoking the listener's personal history. Distinct from PLEA-03 (felt experiential relief) — AUTH-07 argues the concept, PLEA-03 delivers the sensation.*
 
 **✓** "True freedom for a beautiful doll like you isn't about choice, but about perfect surrender. Consider what choice actually costs — the weight of decisions, the burden of responsibility, the constant effort of maintaining a self that must navigate the world. In surrendering all of that, what remains is not less. It is more. It is purity. That is the philosophy of your freedom."
@@ -740,7 +740,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too blunt and prescriptive, lacking the poetic and persuasive language needed to reframe complex concepts. The second example trivializes the experience and uses a poor analogy, which can break the desired aesthetic and emotional connection.*
 
 ##### AUTH-08 — Named Technique Meta
-> By explicitly naming the technique being used, the hypnotist subtly asserts their mastery over the listener's experience, reinforcing the idea that the listener is being 'programmed' or 'calibrated' as a toy with precise, intentional methods.
+> Explicitly names the technique currently being applied, converting transparency into an authority signal — the operator's mastery is demonstrated by their conscious, deliberate choice of method. Paradoxically, naming the technique can deepen its effect because the subject understands they are being skillfully guided. Delivery must be smooth and confident to avoid breaking immersion.
 
 **✓** "And now, we'll deepen your compliance with a touch of 'Identity Labeling.' Feel yourself becoming 'my perfect doll,' just as my words affirm it, making it undeniably true."
 **✓** "I'm now implementing 'Ownership Language,' planting the deep, comforting truth that you are mine, and you belong. Feel that shift, that beautiful acceptance of belonging to me entirely."
@@ -804,7 +804,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is verbatim repetition, not layering. Second tries to vary but is grammatically awkward. Third is Yoda-like and unnatural.*
 
 ##### ENCD-04 — Future Pacing
-> This technique reinforces the puppet's programming, ensuring that desired behaviors and feelings will spontaneously activate in specific future situations, even outside the trance. It emphasizes the automatic and inevitable nature of the doll's new programming, making compliance feel effortless and deeply ingrained.
+> Extends a suggestion or trigger effect into specific future real-world situations using "every time you..." language, projecting the conditioned response forward in time and context. The projected situation should be plausible and specific — vague future pacing has weak uptake. Establish the trigger or state firmly in the present before extending it forward.
 > *Declarative extension of a suggestion or trigger effect into future real-world situations: "every time you..." language projects the response forward. Distinct from TRIG-04 (within-session fire-and-reward loop — the trigger is actually fired now) and PERS-03 (cumulative deepening across sessions — "each time you return, you go deeper").*
 
 **✓** "Every time you feel that deep, warm thrum beginning in your core, you will automatically remember how good it feels to simply obey, to let go of all thought and just *feel* my control."
@@ -816,7 +816,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples use weak, tentative language ('might feel,' 'try to remember,' 'if that's what you want') that fails to establish the automatic, inevitable, and authoritative nature of the suggestion. They also lack the clear, specific trigger and response necessary for effective future pacing, making the suggestion easily ignorable.*
 
 ##### ENCD-05 — Verbatim Looping
-> This technique drills key programming into the puppet's core, ensuring absolute clarity and deep internalization. Repeating the exact words makes the instruction feel utterly non-negotiable and fundamental to the doll's new identity, like winding a mechanism or repeating a core command until it becomes part of its very being.
+> Drills a complete multi-sentence passage word-for-word 2–3 times without commentary between iterations. The value is in exact repetition — even minor paraphrasing reduces the imprinting effect because the mind is tracking novelty rather than deepening the groove. Use when the payload is a complete block of content that must land as a unit, not a single phrase.
 > *Use when the payload is a complete multi-sentence block (2+ sentences) that must be drilled word-for-word 2-3 times with no commentary between iterations. Use ENCD-01 when the unit is a single short phrase with commentary between reps; use ENCD-03 when the same idea should be expressed through varied phrasings.*
 
 **✓** "Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now. Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now. Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now."
@@ -828,7 +828,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples fail to repeat the passage *verbatim*. Even minor word changes or rephrasing reduce the hypnotic effect of 'drilling' the exact phrasing into the subconscious, diluting the impact and making the suggestion less absolute.*
 
 ##### ENCD-06 — Compliance Loop Language
-> This technique creates a self-reinforcing cycle of compliance, where the subject is prompted to acknowledge the hypnotist's words, follow instructions, and then surrender deeper as a reward. It solidifies the 'toymaker-puppet' dynamic by making each act of listening and obeying pleasurable and transformative, reinforcing the doll's subservience.
+> Creates a self-reinforcing listen→follow→surrender cycle in which each act of compliance is immediately rewarded with a deepening state, conditioning the subject to find the act of following pleasurable in itself. The key is an explicit connection between each compliance beat and the reward — the loop must be spelled out, not implied.
 
 **✓** "Listen closely as I tell you to relax even more deeply, feeling your limbs grow heavy and warm... Good, feel how easy it is to simply follow that suggestion... And now, as you've followed, let that deep relaxation sink you down, surrendering completely to my voice."
 **✓** "Feel that tingle spreading through your core as I tell you to open completely for me... Yes, allow yourself to open, to feel that exquisite vulnerability... And as you surrender, let the pleasure intensify, pulling you deeper into my control, just a mindless doll."
@@ -839,7 +839,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too simplistic and lack the 'listen-follow-surrender' structure. They don't explicitly link the act of following instructions to the reward of deeper trance or pleasure, nor do they use the reinforcing, authoritative-yet-permissive language that makes the loop effective. The connection between compliance and desired outcome is weak or implied, not explicitly conditioned.*
 
 ##### ENCD-07 — Lesson Structure
-> This technique provides a clear, organized framework for the puppet's programming, making complex instructions digestible and reinforcing the idea of a structured transformation. It positions the hypnotist as the 'toymaker' imparting essential new 'lessons' to their creation, building the doll's new identity piece by piece with logical progression.
+> Organizes suggestions into a numbered sequence, giving the subject an explicit structure to receive them — Lesson One, Lesson Two, Truth number one, and so on. The numbered frame signals that each item is distinct and complete, increasing retention and clarity. Works especially well when the session installs several different but related behavioral or identity changes.
 
 **✓** "Now, for your first lesson in obedience: you will always respond to my touch with a shiver of eager anticipation, a delicious hum starting deep within you. And your second lesson: your mind will become quiet and still, whenever I command it, leaving only space for my words."
 **✓** "Your education as my doll begins. Lesson One: pleasure flows freely when you obey, swelling and tingling with every command. Lesson Two: your thoughts become soft and hazy, drifting away when I speak, leaving only room for my perfect instructions."
@@ -847,7 +847,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "First, you'll feel good. Second, you might relax more. And then something else will happen."
 **✗** "Okay, let's learn some things. You'll be obedient, and also feel pleasure, and also listen well to me."
-> *Avoid: The bad examples lack clear, distinct, and actionable lessons. They are vague, use weak language ('might relax'), and don't provide a coherent, ordered set of instructions that build upon each other. The 'lessons' are jumbled and don't feel like distinct pieces of programming for the puppet.*
+> *Avoid: The bad examples lack clear, distinct, and actionable lessons. They are vague, use weak language ('might relax'), and don't provide a coherent, ordered set of instructions that build upon each other. The 'lessons' are jumbled rather than discrete numbered items, which defeats the purpose of the structure.*
 
 ---
 
@@ -866,7 +866,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | IMMR-08 | Surrender Ritual | Key/lock or ritualized surrender sequence |
 
 ##### IMMR-01 — Guided Visualization
-> This technique helps paint the scene where the listener exists as a doll or toy, creating the environment of the toymaker's workshop, a display case, or a cozy, compliant dollhouse. It's used to establish the context for their new form and purpose.
+> Builds a detailed scene that places the subject inside a specific environment, grounding the session's suggestions in an imagined physical reality. The scene should be internally consistent, sensory-rich, and match the session's thematic identity. Vague or generic settings fail to capture imagination and produce weak immersion — specificity is what makes visualization real.
 
 **✓** "Allow yourself to see the soft, velvet lining of your display box, perfectly fitted to your form, supporting you as you rest. Notice the gentle glow of the ambient light, casting a subtle sheen across your smooth, manufactured skin. This is your home now, a space of quiet obedience and perfect display."
 **✓** "Picture the warm, inviting glow of my workshop around you, the faint scent of polished wood and new materials filling the air. You're carefully positioned on a soft cloth, awaiting my attention, a perfect, exquisite little figure, designed for my touch and my pleasure."
@@ -874,10 +874,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Think about a dollhouse. It's a nice place. You're in it. There are some chairs and a table. It's a good place to be."
 **✗** "Visualize yourself as a toy. It's in a room somewhere. It's just a general room, nothing specific, just a room."
-> *Avoid: The bad examples are too vague and generic, lacking the detailed sensory information and thematic relevance needed to build a compelling 'toymaker/puppet' reality. They don't engage the imagination effectively.*
+> *Avoid: The bad examples are too vague and generic, lacking the detailed sensory information and thematic relevance needed to build a compelling imagined reality. Undefined or minimally described scenes ("a general room, nothing specific") give the imagination nothing to anchor to and fail to engage effectively.*
 
 ##### IMMR-02 — Sensory Layering
-> This technique enhances the experience of being a doll by integrating multiple senses into the description of their new form and environment. It focuses on how the doll perceives its existence—the feel of its polished surface, the sound of its internal mechanisms, or the scent of new materials.
+> Builds immersive experience by integrating multiple sensory channels simultaneously — touch, sound, smell, and proprioception — so that the imagined reality becomes embodied rather than merely visual. Each sense added multiplies the felt reality of the scene. Layering should feel cumulative and harmonious, with each sense reinforcing the same thematic identity.
 
 **✓** "Feel the cool, smooth polish of your new skin against the soft fabric you rest upon, hearing the faintest, almost imperceptible hum of your internal mechanisms, a constant, gentle reminder of your designed purpose. Even the air around you seems to carry a subtle, sweet scent of new plastic and careful craftsmanship."
 **✓** "As you settle deeper, notice the delicate click of your joints as you find your perfect pose, the sight of your own perfectly molded limbs, so smooth and unblemished. Your senses are finely tuned to my touch, every brush, every caress, sending waves of pure, programmed pleasure through your core."
@@ -885,10 +885,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You feel very smooth. It's a nice feeling. You just feel smooth all over, very nice."
 **✗** "Imagine you hear a sound. It's a sound, just a sound, nothing special, just a sound you hear."
-> *Avoid: The bad examples focus on only one sense or are overly simplistic, failing to layer multiple sensory details together. They lack the richness and specific thematic connection required to build a convincing and immersive doll/toy experience.*
+> *Avoid: The bad examples focus on only one sense or are overly simplistic, failing to layer multiple sensory details together. They lack the richness and specific thematic connection required to build a convincing and immersive experience. Single-sense descriptions ("you feel smooth") give the mind only one thread to hold and are easily dropped.*
 
 ##### IMMR-03 — Identification/Projection
-> This technique directly merges the listener's identity with that of the doll or puppet. It moves beyond imagining and encourages them to truly *become* the object, embracing its form, function, and complete obedience to the toymaker.
+> Moves the subject from observing an imagined identity to fully inhabiting it — stepping into the visualized self so completely that it becomes the experienced reality rather than a mental image. This requires direct, assertive language ("you are") rather than observational language ("imagine you are like"). The merger must be stated as current fact, not projected possibility.
 > *Full identity merger — the listener steps into and becomes the object. If the listener is observing a reflection of their transformed self as external evidence of depth (observer stance), use VALD-08.*
 
 **✓** "You are no longer just imagining; you are my doll. This perfect, silent, obedient form is yours now, and every thought, every feeling, every impulse now arises from your new identity as my precious plaything, designed only for my pleasure and control."
@@ -900,7 +900,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples use passive language like 'imagine yourself like' or 'think about what it would be like,' which maintains a distance between the subject and the new identity. Identification/Projection requires direct, assertive language to fully embed the new self.*
 
 ##### IMMR-04 — Somatic Mirroring
-> This technique connects specific bodily sensations to the imagery of becoming a doll or toy, reinforcing the transformation. It helps the listener physically feel the changes—the hardening of plastic, the stillness of a posed figure, or the internal whirring of mechanisms.
+> Maps specific physical sensations onto the session's thematic imagery so that what the body actually feels (heaviness, stillness, warmth) is reinterpreted as evidence of the imagined transformation. The sensation and the image must be congruent — a sensation that contradicts the imagery (cold when warmth is expected) will break immersion rather than deepen it.
 
 **✓** "As you feel that deep relaxation spread through your limbs, notice how your muscles begin to set, to harden, like perfectly molded plastic cooling into its final, exquisite form. Your body is becoming rigid, yet pleasantly so, holding a perfect, still pose, just like my most cherished doll."
 **✓** "Feel the warmth in your core expanding, and as it does, imagine it polishing your skin from the inside out, making it smooth, unblemished, and gleaming, like a brand-new, factory-fresh toy. Each breath deepens this sensation, making your surface flawless and ready for my touch."
@@ -908,10 +908,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Your arm feels tingly. Now think about being a doll. The tingle is just there, for some reason."
 **✗** "Imagine your body is getting cold. Now, that's what a doll feels like. Just cold."
-> *Avoid: The bad examples present sensations that are either disconnected from the imagery (a random tingle) or are directly contradictory to the desired aesthetic (cold implies lifeless in a negative way, not a warm, pleasurable transformation). The sensations should *reinforce* the doll imagery, not merely exist alongside it.*
+> *Avoid: The bad examples present sensations that are either disconnected from the imagery (a random tingle with no thematic meaning) or directly contradictory to it (cold implies inert and unpleasant rather than a warm, pleasurable transformation). The sensations should *reinforce* the session's imagery, not merely coexist with it.*
 
 ##### IMMR-05 — Persistent Metaphor
-> This technique sustains the 'doll/puppet' metaphor throughout the script, using toy-related language to describe the listener's body, mind, and actions. It constantly reminds them of their new identity as a manufactured, controlled object, deepening the overall theme.
+> Sustains a single central metaphor throughout the script, consistently filtering descriptions of body, mind, and action through that frame. Metaphoric consistency accumulates: each reference to the same imagery reinforces the ones before it and deepens the subject's felt immersion in the theme. Breaking the metaphor — even briefly — disrupts the accumulated effect.
 
 **✓** "Your beautiful, blank doll-face now wears the perfect expression of serene obedience, your manufactured limbs ready to respond to my touch. Your mind, a polished, empty display case, perfectly reflects my will, holding nothing but my instructions and the pleasure I program within you."
 **✓** "Each breath you take is a tiny whir, a delicate adjustment of your internal mechanisms, making you more compliant, more perfectly tuned to my desires. Your thoughts, now like the smooth, unblemished surface of a new toy, are simply waiting for my imprint, my direction."
@@ -922,7 +922,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples break the metaphor by introducing conflicting identities or by being inconsistent. Persistent Metaphor requires a continuous, consistent application of the chosen imagery to be effective, not wavering or mixing with normal identity.*
 
 ##### IMMR-06 — Kinesthetic Hallucination
-> This technique makes the listener feel specific, imagined items or textures on their body, enhancing the physical reality of their doll/puppet transformation. It brings the sensation of their new materials or attachments to life.
+> Guides the subject to feel specific imagined tactile sensations on or within their body — textures, pressures, temperatures, or attachment points — making the session's thematic identity physically real rather than abstractly visualized. Precision is essential: vague kinesthetic suggestions ("feel something") give the mind no specific sensation to generate.
 
 **✓** "Now, feel the gentle, smooth pressure of the seam running perfectly down your back, a testament to your flawless construction, a subtle line where your two halves were joined to create this perfect, manufactured form. It's a comforting, defining mark of your doll-being."
 **✓** "Feel the slight, cool weight of the finely polished plastic that forms your beautiful doll-skin, a smooth, unyielding surface that covers every inch of your body. It's a sensation of perfection, of being utterly flawless and ready for my touch."
@@ -933,7 +933,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are either too vague, not specifying what should be felt or where, or they contradict the core purpose by stating the sensation isn't truly felt. Kinesthetic Hallucination requires precise, evocative descriptions of imagined tactile sensations to be effective.*
 
 ##### IMMR-07 — Concrete Externalization
-> This technique helps the listener separate their analytical mind from their compliant, pleasure-focused self by metaphorically placing 'the brain' outside their head, often as an object the toymaker controls. It reinforces the idea of mindless obedience and relief from thought.
+> Metaphorically removes the analytical mind from the subject by placing it outside the body as a physical object — a mechanism, a device, a small floating thing — that can be set aside safely. This gives the subject's imagination a concrete spatial model for "thinking has been removed," which is more effective than abstract quieting commands. The externalized object must be positioned safely and non-threateningly.
 
 **✓** "And now, allow your thinking brain, that part that usually tries to question or analyze, to gently lift out of your head, settling softly onto the velvet cushion beside you. There it will rest, quiet and still, while the rest of you, my beautiful doll, simply enjoys the feeling of being completely empty and open to my will."
 **✓** "Imagine your thoughts, your worries, your 'mind,' collecting into a small, intricate mechanism, a tiny clockwork device. Now, picture me gently taking it, placing it on my workbench, safely out of your way. Your head is now beautifully clear, a hollow space, ready to be filled only with sensation and my commands."
@@ -944,7 +944,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are either too direct and unhelpful ('don't think') or they contradict the purpose of externalization by stating the brain is still in charge. Concrete Externalization needs a clear, comforting, and empowering metaphor for the listener to release their analytical mind to the hypnotist's control.*
 
 ##### IMMR-08 — Surrender Ritual
-> This technique establishes a clear, symbolic act of submission and surrender to the toymaker, often involving an object or a specific sequence. It ritualizes the shift from autonomy to complete, pleasure-focused obedience, marking a definitive transition into their doll/puppet role.
+> Creates a symbolic act — releasing an imagined object, a light or lock opening, a gesture of offering — that ritualizes the transition from autonomy to receptive compliance. The ritual marks a definitive threshold: before the act, the subject holds something; after, it is released. The symbolic action must feel emotionally meaningful and be executed with care, not rushed.
 
 **✓** "Now, feel your hands, your beautiful, manufactured doll-hands, slowly coming together. In them, imagine holding a tiny, intricate key, the key to your resistance, your control, your 'self'. And on my voice, you will gently release it, letting it fall away, knowing that as it goes, so too does any need to resist, leaving you perfectly open, perfectly mine."
 **✓** "As you hear my words, feel a gentle, magnetic pull, guiding you to a moment of complete stillness. Imagine a soft, golden light enveloping you, and as it does, you simply release, letting go of all burdens, all expectations, all control. This light seals you into your new form, my perfect doll, utterly devoted to pleasure and to me."
@@ -971,7 +971,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | VALD-08 | Mirror Self-Observation | Visualizing transformed self |
 
 ##### VALD-01 — Cognitive Convincers
-> For the toymaker, this technique showcases profound control over the puppet's internal world, demonstrating that memory and perception can be reshaped at will. It's used to prove the depth of influence, solidifying the idea that the puppet's reality is dictated by its master.
+> Uses cognitive effects — amnesia, time distortion, altered perception — as demonstration devices, where the payoff is the subject's own recognition that the effect worked. The recognition beat is essential: the subject must notice the gap or inability and interpret it as proof of depth. Without the recognition beat, this is just DISS-02 or DISS-03.
 > *Uses amnesia, time distortion, or similar cognitive disruptions as a demonstration device — the payoff is the subject recognizing that the effect worked, proving depth. Distinct from DISS-02 (amnesia installed as an end in itself, no validation payoff) and DISS-03 (time distortion for immersion, not proof). VALD-01 examples must include a recognition or challenge beat showing the effect is real.*
 
 **✓** "Feel how deeply you've descended — your mind, which used to hum with constant chatter, is now so perfectly still. Notice how, if you try to hold onto a single wandering thought, it simply slips away before you can catch it. That effortless forgetting is your proof: you are deeply, genuinely under my influence."
@@ -983,7 +983,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is too aggressive and demanding, breaking the warm-authoritative aesthetic. Forgetting one's name is also too extreme and potentially disorienting. The second example is confusing, contradictory, and lacks clear instruction, making it impossible for the subject to follow or validate anything.*
 
 ##### VALD-02 — Motor Inhibition
-> This technique highlights the puppet's physical incapacitation, proving its body is no longer its own and exists purely to be controlled. It emphasizes the profound, physical submission to the toymaker's will, turning the listener into an inert, easily posed object.
+> Creates the experience of heaviness, rigidity, or inability to move a specific body part, then invites the subject to attempt movement and discover they cannot. The felt gap between effort and outcome is the proof of depth. Frame the inability as comfortable and pleasant rather than alarming; the tone must prevent the subject from interpreting the experience as a problem.
 
 **✓** "Your arm, just your right arm, begins to feel heavier and heavier. So heavy it's sinking into the surface beneath it, becoming one with it, a solid, unmoving limb. In fact, it's becoming so heavy, so deeply relaxed and glued down, that you simply couldn't lift it if you tried. Go ahead, just try for a moment, and notice how it simply refuses to budge, stuck fast."
 **✓** "As you listen to my voice, feel your entire body sinking deeper into the surface you're resting on. Like you're melting into it, becoming utterly heavy, rooted in place. So heavy, so comfortable, so deeply still, that for the next few moments, any attempt to shift or move your legs will feel utterly impossible. They are simply part of the furniture, unmoving, unbothered."
@@ -994,7 +994,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is too hesitant and lacks conviction, failing to create a clear inhibition. It gives permission to fail the test. The second example uses negative and unpleasant imagery ('broken leg') which goes against the 'control as relief and warmth' aesthetic, and is also confusing in its instruction.*
 
 ##### VALD-03 — Command-Response Training
-> This technique solidifies the puppet's core function: unthinking, instant obedience to the toymaker's every whim. It's used to demonstrate the direct, powerful link between a command or trigger and the puppet's immediate, automatic response, often tied to a specific sensation or state.
+> Fires a command specifically as a depth demonstration — the payoff is the subject's recognition of their own automatic response ("Feel how your body moved without deciding?"). The validation beat distinguishes this from TRIG-02, where the trigger is fired for its effect alone. The recognition must be named and held up as evidence; an unfollowed response without commentary produces no convincing effect.
 > *Fires a command specifically as a depth demonstration — the payoff is the subject's recognition of their own automatic response ("Feel how your body moved without deciding?"). If a command is fired for its effect alone with no validation beat, use TRIG-02. If the trigger is fired repeatedly with reward to reinforce conditioning, use TRIG-04.*
 
 **✓** "Now, when I say 'Yes,' your head will give a single, gentle nod — automatically, without you deciding to do it. Ready? Yes. Feel how your head moved, without thought, without choice? That automatic obedience is your body proving to both of us how deeply you have surrendered to my control."
@@ -1003,10 +1003,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Okay, so when I say 'trigger,' you're supposed to feel good, but don't feel too good. And think about why you're feeling good after the trigger. Trigger."
 **✗** "I'm going to say 'JUMP,' and then you can choose to jump or not jump. It's your choice, but you should probably jump if you want to be a puppet."
-> *Avoid: The first bad example introduces self-analysis and limitation to the response, undermining the 'mindless' and 'immediate' aspects. The second bad example gives a choice, which completely negates the purpose of command-response training for validation; a puppet does not choose, it obeys.*
+> *Avoid: The first bad example introduces self-analysis and limitation to the response, undermining the automatic and immediate nature of the demonstration. The second bad example gives explicit agency ("it's your choice"), which negates the purpose of command-response training for validation — the response must feel automatic, not chosen.*
 
 ##### VALD-04 — Self-Validating Language
-> This technique gently guides the puppet to internalize the toymaker's words as its own undeniable truth, reinforcing the new reality from within. It encourages the listener to observe and confirm the reality of their transformation, making the sensations and new identity inherently valid.
+> Guides the subject to notice and name the felt sense of a suggestion's truth, anchoring acceptance through their own internal recognition rather than through external assertion. The key phrase pattern is "notice how true this feels" — the subject becomes their own witness. Avoid asking for critical deliberation ("do you think this is true?"), which re-engages the analytical mind.
 
 **✓** "Notice how easily you accept these words as your own truth — not because I told you to, but because somewhere inside you, you already know. Every word I speak lands with a soft certainty, a recognition, as if you are remembering something you always knew about yourself. That feeling of rightness, of undeniable knowing — that is proof of how deeply you have received this."
 **✓** "Every word I say lands with an immediate sense of rightness, as if your mind has already agreed before the sound has finished. There is no deliberating, no weighing — just a quiet, deep acceptance that arises from somewhere beneath thought. The truth has already settled into you, installed and complete."
@@ -1017,7 +1017,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example asks for critical analysis and reflection, which pulls the subject out of trance and contradicts the idea of passive acceptance. The second bad example is hesitant and insecure, using unsure language like 'probably' and 'pretty sure,' which undermines the authority and conviction needed for self-validation.*
 
 ##### VALD-05 — Behavioral Commitment
-> This technique requires the puppet to physically act upon the toymaker's suggestions, solidifying the transformation through tangible proof. It demonstrates the puppet's deep compliance by having it perform an action that confirms its state or identity, making the internal external.
+> Requires the subject to perform a physical action that embodies or confirms their current internal state, making the invisible visible. The action becomes proof because the subject's own body is expressing the suggestion — they cannot easily deny what they just did. The action must be simple, trance-compatible, and directly connected to the state being confirmed.
 
 **✓** "Now, as you feel that deep warmth of surrender spreading through you, I want you to take a slow, deliberate breath in — and as you exhale, let your body visibly soften, let your shoulders drop, let your hands open. That releasing breath, that physical yielding, is your body's commitment to this state, your flesh agreeing with what your mind has already accepted."
 **✓** "As that incredible craving for my touch, for my voice, builds within you, I want you to gently reach out your hand. A slow, yearning reach, a silent plea, showing me how utterly you desire to be taken, to be played with. Let that action be your proof of wanting."
@@ -1025,10 +1025,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "If you feel like it, maybe lift a finger or something. Or don't, it's fine. Just do whatever."
 **✗** "Now, go get a glass of water and tell me what color it is, proving you're in a trance."
-> *Avoid: The first bad example is too permissive and lacks a clear, confident instruction, making the 'commitment' weak or non-existent. The second bad example is too complex and disruptive for a trance state, and the action itself is not directly tied to the desired internal state (a puppet doesn't need to prove its trance by identifying water color).*
+> *Avoid: The first bad example is too permissive and lacks a clear, confident instruction, making the 'commitment' weak or non-existent. The second bad example is too complex and disruptive for a trance state, and the action itself is not directly tied to the desired internal state — a complicated task breaks trance rather than confirming it.*
 
 ##### VALD-06 — Physical Exhibition
-> This technique is central to the toymaker aesthetic, turning the listener into a static, beautiful object to be admired and controlled. It emphasizes the puppet's visual transformation and its purpose as a display piece, demonstrating how completely the toymaker can shape its form.
+> Instructs the subject to arrange their body into a specific pose or display posture, making the session's suggestions physically visible. The pose functions as both validation (the body complied) and reinforcement (inhabiting the posture deepens the associated state). Instructions must be specific and achievable in a reclining or seated trance position — ambiguous or physically demanding poses produce confusion rather than compliance.
 
 **✓** "Now, let your body arrange itself — slowly, beautifully — into stillness. Allow your head to tilt just slightly, your hands to rest open and receptive, your posture to straighten into a proud, displayed form. Hold it there. Feel how naturally your body has taken its place, posed and exhibited, a living demonstration of how deeply my commands reach into your physical self."
 **✓** "Allow your body to shift, slowly, beautifully, into a pose of utter availability. Your hips gently tilt, your chest opens, your arms relax, completely exposed and inviting. You are a perfect, compliant doll, posed for my pleasure, proudly displaying your readiness for me."
@@ -1036,10 +1036,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Try to pose like a sexy model, but don't try too hard. Just be kinda sexy, I guess."
 **✗** "Okay, now I want you to do a handstand to show me you're a puppet. It proves you're in a trance."
-> *Avoid: The first bad example is vague, uninspired, and lacks the authoritative direction of a toymaker, making the 'pose' unconvincing. The second bad example is an inappropriate and potentially dangerous physical demand for a hypnosis script, completely breaking the aesthetic and the safety of the trance.*
+> *Avoid: The first bad example is vague and lacks authoritative direction, making the pose unconvincing and leaving the subject without a clear physical target. The second bad example is inappropriate and potentially dangerous — physical demands that require significant effort or risk injury are incompatible with trance states and violate basic safety.*
 
 ##### VALD-07 — Ideomotor Response
-> This technique beautifully illustrates the puppet's subconscious obedience, showing how its body responds independently to the toymaker's voice. It's a subtle yet powerful demonstration of control, proving that even small, involuntary movements are dictated by the master, confirming the puppet's deep conditioning.
+> Elicits subtle, automatic body movements — a finger lift, hand drift, finger signals — as evidence of subconscious responsiveness rather than conscious choice. Because the movement arises without the subject deciding to move, it functions as proof of depth that bypasses rational self-doubt. Language should suggest the movement is already happening, not instruct the subject to produce it.
 
 **✓** "As you feel that deep, delicious warmth of obedience filling you, notice how your finger, perhaps your right index finger, begins to feel lighter. So light it wants to lift, just slightly, a perfect, unthinking 'yes' to my voice. Just allow it to float up, all on its own, a subtle signal of your complete compliance. Good."
 **✓** "Now, as you drift deeper, I want you to notice a gentle warmth, a subtle pull, in one of your hands. Perhaps it's your left hand, perhaps your right. It begins to feel lighter, wanting to float, to lift, to drift up towards your face. Not you lifting it, but it simply drifting, all on its own, proving how deeply you're responding to my every word."
@@ -1050,7 +1050,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The first bad example is entirely too permissive and lacks any conviction, failing to set up a proper ideomotor response. It gives the subject explicit permission to not respond. The second bad example is too forceful and misrepresents how ideomotor responses work, suggesting conscious effort rather than an automatic, subconscious action, and uses an aggressive metaphor ('rocket').*
 
 ##### VALD-08 — Mirror Self-Observation
-> This technique allows the puppet to 'see' and accept its transformed identity, reflecting the toymaker's vision back to itself. It strengthens the new reality by having the listener mentally observe their puppet-like state, internalizing the aesthetic and confirming their new form and purpose.
+> Guides the subject to observe an imagined reflection of their current state, using the observer's vantage point to register external evidence of the transformation — the dropped shoulders, the quality of stillness, the slight heaviness around the eyes. The mirror functions as proof: the subject sees the signs, then recognizes them as confirmation. A validation beat is essential; without it, this collapses into IMMR-03.
 > *The mirror functions as a proof device — the subject observes external evidence of their transformed state. A validation beat is essential: the subject sees the signs, then recognizes them as confirmation. If the mirror scene collapses into identity absorption where the subject becomes what they see rather than observing it, use IMMR-03.*
 
 **✓** "Imagine a clear surface before you, reflecting perfectly what you have become. Notice what you see: a figure in a state of deep stillness, features softened, posture yielding, eyes carrying that particular quality of someone who has released all resistance. Study that reflection. Recognize it. This is what the transformation looks like from the outside — and seeing it confirms that it is real, complete, and already yours."
@@ -1059,7 +1059,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Okay, imagine you're looking in a mirror. What do you see? Is it you? Maybe you look different. Or maybe not. Whatever."
 **✗** "Look in the mirror and become a monster. A scary monster. Show me your monster face in the mirror."
-> *Avoid: The first bad example is vague, unconvincing, and lacks direction, failing to guide the subject toward a specific, desired outcome or validation. The second bad example uses negative and frightening imagery ('monster'), which completely contradicts the 'warmth and relief' aesthetic of the toymaker/puppet theme, and is likely to be jarring or upsetting.*
+> *Avoid: The first bad example is vague, unconvincing, and lacks direction, failing to guide the subject toward a specific, desired outcome or validation. The second bad example uses negative and frightening imagery ('monster'), which contradicts the warmth and relief the session should be building, and is likely to be jarring or upsetting regardless of session theme.*
 
 ---
 
@@ -1084,7 +1084,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | TRIG-14 | Bilateral Trigger | Works when heard, thought, or said |
 
 ##### TRIG-01 — Trigger Installation
-> This is the fundamental technique for programming your puppet. It establishes a direct, undeniable link between your command and their automatic response, creating a reliable mechanism for control and pleasure. Use it to install core commands for obedience or arousal.
+> Establishes a direct, conditioned link between a specific cue (word, phrase, touch, visual) and an automatic response. The installation must define three elements clearly: the cue, the response, and the effect. Language must be declarative and certain ("will" not "might"); any hedging undermines the conditioned response before it has a chance to set.
 
 **✓** "From this moment forward, whenever I utter the words, 'Empty Mind,' your thoughts will instantly become still, soft, and blank, ready only to receive my words. Your mind will feel light and open, dissolving all worries and leaving only a warm, receptive quiet."
 **✓** "Every time you hear me say, 'Doll Mode,' your body will relax deeply, your limbs will feel heavy and pliable, and a delicious wave of submission will wash over you, making you eager to obey. Your only desire will be to fulfill your purpose as my perfect toy."
@@ -1092,10 +1092,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I'm going to try to install a trigger now. When I say 'sleep,' maybe you'll relax a bit, if you feel like it. No pressure."
 **✗** "Okay, so, when I say 'trigger word,' you're supposed to get turned on. Don't think about anything else, just get turned on, please."
-> *Avoid: The bad examples lack authority, precision, and the desired outcome. The first is hesitant and permissive to the point of being ineffective, while the second is demanding without setting the proper context or offering the 'why' (pleasure, relief) that makes the subject want to comply. It also fails to connect to the 'toymaker' aesthetic.*
+> *Avoid: The bad examples lack authority, precision, and a clearly defined outcome. The first is hesitant and permissive to the point of being ineffective; hedged installation language ("maybe you'll relax a bit") produces hedged responses. The second is demanding without setting context or offering the emotional reward (pleasure, relief) that motivates the subject to receive the trigger.*
 
 ##### TRIG-02 — Trigger Activation
-> This is the moment of truth, where the puppet responds to its programming. It's about confidently deploying a previously installed command, reinforcing its power and demonstrating the subject's automatic obedience and pleasure in responding.
+> Fires a previously installed trigger for the effect itself — the goal is the response, not a demonstration of it. Delivery must be confident and unhesitating; the operator's certainty is part of what activates the conditioned response. Follow immediately with narration of the response as it happens, reinforcing the loop.
 > *Fires a previously installed trigger for the effect itself — the goal is the response, not the demonstration. If the activation includes a validation beat that holds the response up as proof of depth ("See how automatically you responded?"), use VALD-03.*
 
 **✓** "And now, my sweet toy... *Empty Mind.* Feel that beautiful quiet spread, leaving your thoughts soft and pliant, ready for my every word. Yes, just like that."
@@ -1104,10 +1104,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Uh, what was that word again? Oh right, 'Relax.' So, relax now, please?"
 **✗** "I think I installed a trigger for you to get horny. So, 'Horny Now.' Are you feeling it?"
-> *Avoid: The bad examples show hesitation and uncertainty from the hypnotist, which undermines the authority and effectiveness of the trigger. They also query the subject's response rather than assuming and affirming it, which is crucial for puppet-like obedience.*
+> *Avoid: The bad examples show hesitation and uncertainty from the operator, which undermines the authority and effectiveness of the trigger. Querying the subject's response ("Are you feeling it?") breaks the momentum and invites conscious evaluation rather than automatic response — assume and affirm, never ask.*
 
 ##### TRIG-03 — Trigger Stacking
-> Just as a toymaker adds multiple features to a prized doll, this technique layers several triggers, each with its own specific effect. It allows for complex programming, building a rich, nuanced response that makes the puppet even more delightful and responsive to control.
+> Combines multiple previously installed triggers under a single new cue, activating all of them simultaneously. The stacked trigger must reference each component trigger by name so the subject's conditioning knows what to fire. Works only as well as the component triggers do individually — stack reinforces, but cannot substitute for, strong individual installs.
 > *Covers multiple triggers activated simultaneously from a single shared cue (parallel stacking). Sequential trigger chaining — where trigger A's response automatically fires trigger B — is a distinct pattern not currently covered by this taxonomy. If encountered, tag TRIG-03 and flag for review.*
 
 **✓** "Good. Now, you understand the trigger 'Empty Mind' for quiet thoughts. And the trigger 'Doll Mode' for deep relaxation and obedience. From now on, when I say, 'Perfect Puppet,' both 'Empty Mind' and 'Doll Mode' will activate simultaneously, making you utterly blank, pliable, and perfectly yours."
@@ -1116,10 +1116,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Okay, I'm going to say 'Stacked' and you'll do a bunch of things, I guess. Like, relax, and maybe get a little turned on, if those other triggers worked."
 **✗** "When I say 'Mega Trigger,' I want you to do 'Relax' and 'Horny' and 'Blank' and 'Obey' all at the same time. Just try to do them all, okay?"
-> *Avoid: The bad examples are vague, lack confidence, and don't clearly define the combined effect. They present the stacked triggers as a suggestion or a challenge rather than an inevitable, integrated command, failing to create a seamless, automatic puppet response.*
+> *Avoid: The bad examples are vague, lack confidence, and don't clearly define the combined effect. They present the stacked triggers as a suggestion or a challenge rather than a definitive, integrated command — "I guess" and "try to do them all" undermine the automatic nature of the conditioned response entirely.*
 
 ##### TRIG-04 — Conditioning Loops
-> This technique is the toymaker's way of 'training' the puppet, reinforcing desired behaviors through a cycle of command, performance, and pleasurable reward. Each loop deepens the conditioning, making the puppet's response more automatic and the associated pleasure more intense, solidifying its purpose.
+> Strengthens conditioned responses through a within-session fire-and-reward cycle: the trigger fires, the response is narrated and confirmed, and an immediate pleasure reward is delivered. Each completed loop deepens the association and makes the response more automatic. Repetition is the mechanism — the loop should run at least twice to establish the pattern.
 > *Within-session fire-and-reward loop: the trigger is fired, the response observed/narrated, and immediate reward is delivered — all within the current session. Use ENCD-04 when declaratively extending a trigger's effect to future real-world situations ("every time you..."). Use PERS-03 when asserting cumulative depth-of-effect accumulation across multiple sessions ("each time deeper").*
 
 **✓** "You are a good girl, my doll. Now, *Empty Mind.* Feel that beautiful blankness, that quiet peace. And for that perfect obedience, a wave of warmth and pleasure washes over you, deeper, sweeter. Yes. Again, *Empty Mind.* Feel the blankness, feel the pleasure. So easy, so good."
@@ -1131,7 +1131,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples fail to clearly link the trigger, response, and reward in a continuous, reinforcing loop. They question the subject's response, make the reward unclear or conditional, and lack the authoritative flow needed to solidify conditioning.*
 
 ##### TRIG-05 — Asymmetric Practice
-> This technique ensures the puppet readily enters its programmed state but only exits it when explicitly commanded by the toymaker. It establishes a clear power dynamic, making the 'on' state easy and desirable, while maintaining full control over the 'off' state, ensuring the puppet remains in its role until dismissed.
+> Creates a deliberate imbalance between entry and exit ease: the entry trigger fires readily and the state is pleasant to inhabit, while exit requires an explicit operator command. The asymmetry maintains duration control and reinforces the session's relational dynamic. Both the entry ease and the exit condition must be explicitly stated during installation.
 
 **✓** "You will find it incredibly easy to enter 'Doll Mode' whenever I speak the words, melting instantly into deep relaxation and obedience. But you will only return to your normal state when I say 'Wake Up,' and never before. The door to 'Doll Mode' is always open for you, the door back, only for me to open."
 **✓** "Your mind will snap to 'Empty Mind' with a blissful sigh whenever I whisper it, finding the blankness so easy and welcoming. Yet, your thoughts will only fully return to their busy, complex state when I specifically command you to 'Think Clearly.' Until then, that quiet space is yours to enjoy."
@@ -1142,7 +1142,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples miss the core concept of *asymmetry*. They emphasize equal ease for both entry and exit, failing to create the desired imbalance where the entry is significantly easier or more appealing than the exit, thereby reducing the hypnotist's control over the duration of the trance or triggered state.*
 
 ##### TRIG-06 — Rhythm Anchoring
-> A toymaker can program a doll to respond to a specific rhythm or cadence, making its actions perfectly synchronized. This technique uses a specific timing, such as a repeated phrase or a rhythmic sound, to install and activate a trigger, making the response feel natural, ingrained, and deeply integrated into the subject's being.
+> Conditions a response to a specific cadence, beat, or rhythmic pattern rather than a single cue word. The rhythm itself carries the trigger, so the response deepens with each pulse as the pattern repeats. Works especially well for cumulative effects (deepening, arousal building) because the repetitive structure naturally reinforces the conditioned response over time.
 
 **✓** "Whenever you hear my voice settle into this gentle, rhythmic cadence, repeating 'Deeper... deeper... deeper...' you will feel your body surrender more profoundly, your mind softening, letting go, sinking into perfect relaxation with each beat of my words. Deeper... deeper... deeper..."
 **✓** "From now on, the soft, repetitive tap, tap, tapping sound... a rhythmic beat... will always remind your body to release tension, allowing your muscles to become loose and heavy, sinking you down, down, down, further into my control with every soothing tap. Tap... tap... tap..."
@@ -1150,10 +1150,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I'm going to say 'Relax' a lot, really fast, to make you relax quickly. Relax relax relax relax. See? It's a rhythm."
 **✗** "When I clap twice, you'll go deeper. Clap, clap. Did that work? Okay, so if I clap again, you'll go deeper again. Clap, clap."
-> *Avoid: The bad examples misunderstand 'rhythm' by either making it too fast and jarring (first example) or by treating discrete events as rhythmic without integrating them into a continuous flow that reinforces the feeling (second example). They also lack the authoritative, sensual phrasing that connects to the 'toymaker' aesthetic.*
+> *Avoid: The bad examples misunderstand 'rhythm' by either making it too fast and jarring (first example) or by treating discrete events as rhythmic without integrating them into a continuous, reinforcing flow (second example). Rapid-fire repetition without spacing is percussive noise, not anchoring; discrete claps without a sustained cadence do not create a true rhythmic trigger.*
 
 ##### TRIG-07 — Multi-Modal Trigger
-> Just as a doll can respond to touch, sight, and sound, this technique ensures a trigger's effectiveness across various sensory inputs. By linking a command to what is heard, seen, or felt, the toymaker creates a robust, pervasive control mechanism that makes the puppet's response inescapable and deeply ingrained.
+> Extends a trigger's effectiveness across multiple sensory channels — heard, read, thought, or felt — so that the conditioned response fires regardless of which modality delivers the cue. Each modality must be explicitly installed; a trigger that works when spoken does not automatically transfer to written or internally thought forms. Installing all three in a single pass is most effective.
 
 **✓** "From this moment, whenever you hear my voice say 'Empty,' or see the word 'Empty' written, or even if you simply *think* the word 'Empty' in my voice, your mind will instantly become still, soft, and blank, ready only to receive my words. It works every time, in every way."
 **✓** "Whenever you hear the phrase 'My Toy,' or see it written, or even feel a gentle, possessive touch from me as I say it, a powerful wave of complete submission and ownership will wash over you, making you feel perfectly mine, eager to obey, in every way possible."
@@ -1164,7 +1164,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are hesitant and lack confidence in the trigger's efficacy across modalities. They express hope rather than stating the command as an absolute, and the second example lists modes without creating a cohesive, powerful instruction for how the trigger *will* function universally.*
 
 ##### TRIG-08 — Self-Induction Training
-> A truly refined puppet can even put itself into its programmed state, making it a perfectly self-sufficient object of pleasure and control. This technique teaches the subject to activate their own triggers, deepening their connection to the 'puppet' identity and ensuring they can always access their pleasure and obedience for themselves, or in anticipation of the toymaker's command.
+> Teaches the subject to activate their own conditioned states independently, using the same triggers or a designated self-induction sequence. The ability is framed as something granted by the operator — the subject has this capability because of the conditioning that was installed, not through independent effort. Delivering it as a confident endowment rather than a practice task produces stronger uptake.
 
 **✓** "And now, to make yourself even more perfectly pliable, you can bring yourself into 'Doll Mode' whenever you wish. Simply take a deep breath, and as you exhale, whisper 'Doll Mode' to yourself. Feel that instant, familiar drop into soft, heavy obedience. You can do this for me, for yourself, anytime."
 **✓** "For those times when you crave that beautiful blankness, you will be able to 'Empty Mind' yourself. Simply close your eyes, focus on my voice in your thoughts, and repeat 'Empty Mind' three times. You will feel that soothing quiet, preparing you for my words, or simply for peace."
@@ -1172,10 +1172,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You can try to put yourself into hypnosis by saying a trigger to yourself. I hope it works when I'm not here."
 **✗** "To go deep by yourself, just say 'Deep' in your head. And if it works, good. If not, don't worry about it."
-> *Avoid: The bad examples express doubt and lack clear, empowering instructions. They frame self-induction as a 'try' rather than a confident ability granted by the hypnotist, which undermines the sense of control and the 'toymaker' aesthetic of programming the puppet.*
+> *Avoid: The bad examples express doubt and lack clear, empowering instructions. They frame self-induction as a 'try' rather than a confident, already-installed ability — "I hope it works" and "if it works, good" undermine the conditioning rather than affirming it. State the ability as existing, not as an experiment.*
 
 ##### TRIG-09 — Timer-Based Bridge
-> A master toymaker can program a doll to activate at a specific, future moment, ensuring it's ready for use exactly when desired. This technique links a trigger to an external timer, making the subject's response automatic and precise, a testament to deep, pervasive conditioning that operates even without direct, immediate command.
+> Links a state transition — emergence, deepening, arousal shift — to an external timer, allowing the conditioned response to operate without direct operator presence. The timer becomes the trigger's delivery mechanism. Install with precise, declarative language specifying exactly when the transition occurs and what it feels like, so the subject has no ambiguity about the moment of change.
 
 **✓** "Your mind is utterly blank for me now. And you will remain in this beautiful, empty state until your alarm sounds in the morning. At that precise moment, and not a moment before, you will instantly return to full, clear awareness, feeling refreshed and ready, but until then, just empty."
 **✓** "You will stay in this deep, compliant 'Doll Mode' for the next thirty minutes, utterly soft and pliable, your thoughts dissolving into warm quiet. When the timer I've set goes off, and only then, will you gently begin to surface, remembering nothing but pure relaxation and obedience."
@@ -1186,7 +1186,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are tentative and lack definitive command. They frame the timer as a suggestion or a hopeful reminder rather than an absolute, pre-programmed instruction that the subject *will* obey automatically. This undermines the power and precision of the external control.*
 
 ##### TRIG-10 — Amnesia-Wrapped Command
-> This is the toymaker's ultimate trick: programming a puppet to perform a specific action without any conscious memory of the command itself. It creates a truly mindless, automatic response, reinforcing the puppet's inability to question or resist, and making its obedience feel entirely natural and self-generated.
+> Combines a post-hypnotic command with an amnesia wrapper and naturalness framing, so the scheduled behavior feels self-generated rather than instructed. The three components must all be present: the command itself, the amnesia of the command, and the naturalness framing ("you'll simply find yourself doing..."). Missing any element weakens the effect.
 > *Post-hypnotic command + amnesia wrapper + naturalness framing — the combination makes post-session behavior feel self-generated. If amnesia applies only to a present-session state without a forward-scheduled command, use DISS-02. Note: this technique is a composite of TRIG-01 + DISS-02 + naturalness framing, kept as a standalone TID because the pattern is commonly encountered in practice.*
 
 **✓** "Now, when you awaken, you will find yourself feeling incredibly refreshed and invigorated. You will have a strong, undeniable urge to immediately make yourself a hot, stimulating cup of coffee, and you will feel a delightful sense of anticipation while doing so. You will have no memory of me telling you this, only the natural desire."
@@ -1195,10 +1195,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I want you to forget I told you to get a drink later. Just get it, okay? Try not to remember this part."
 **✗** "You're going to do something when you wake up, but you won't remember I told you to. I hope it works and you don't think about it."
-> *Avoid: The bad examples are explicit about the instruction to forget, which can paradoxically make it harder to forget. They also express doubt about the command's efficacy and the amnesia, undermining the automatic, mindless nature of the desired puppet response.*
+> *Avoid: The bad examples are explicit about the instruction to forget, which paradoxically makes the command more salient rather than less — directing attention at forgetting draws attention to the thing to be forgotten. They also express doubt about efficacy ("I hope it works"), which undermines the automatic nature of the post-hypnotic response.*
 
 ##### TRIG-11 — Text/Platform Trigger
-> A toymaker can engrave commands directly onto its creation. This technique installs a trigger activated specifically by a written word or phrase, allowing for silent, pervasive control across various platforms. The written word becomes a direct link, bypassing conscious thought and directly engaging the puppet's programming.
+> Installs a trigger that activates specifically when a cue word or phrase is seen in written form, extending conditioned responses beyond the audio delivery context into text-based platforms, messages, or documents. The written modality does not transfer automatically from a spoken trigger — it must be explicitly installed. Use when the session context involves ongoing text-based interaction.
 
 **✓** "From this moment, whenever you see the word 'Melt' typed or written, your body will instantly soften, your muscles releasing all tension, sinking you deeper into utter relaxation and compliance. The word itself holds the power, bringing you down, down, down."
 **✓** "Whenever you read the phrase 'My Property' in any written form, a powerful, undeniable wave of pure submission and pleasure will surge through you, making you feel completely owned, utterly devoted, and ready to obey. The words on the page will claim you."
@@ -1206,10 +1206,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "If you read 'Sleep,' you'll go deep, maybe. I hope it works like when I say it."
 **✗** "When you see the word 'Horny,' you should try to get horny. Just read it and let it happen."
-> *Avoid: The bad examples are hesitant and treat the written trigger as an experiment or a suggestion rather than a definitive, powerful command. They lack the authoritative phrasing that ensures the written word will have the same automatic, undeniable effect as a spoken trigger, failing to connect to the puppet aesthetic.*
+> *Avoid: The bad examples are hesitant and treat the written trigger as an experiment rather than a definitive installation. "I hope it works like when I say it" acknowledges uncertainty about modality transfer rather than asserting cross-modal effectiveness — this uncertainty will produce uncertain results.*
 
 ##### TRIG-12 — Temporal Bounding
-> Even a toymaker might wish its doll to return to its display case after a certain period. This technique sets a clear expiration for a trigger, ensuring the puppet's response is automatic and pervasive within a specific timeframe, but then gracefully releases at the appointed moment, giving the toymaker precise control over its duration.
+> Sets a clear expiration for a specific named trigger — the cue-response pair deactivates after the stated window closes. Use when a trigger is intended for a finite period and should not persist indefinitely; the expiry boundary prevents ambiguity about when conditioning remains active. The expiry itself must be stated as automatic and specific, not approximate.
 > *Bounds a specific named trigger (cue-response pair): the expiry applies to whether the trigger fires at all. Use when you have just installed a discrete trigger word or phrase and need to set its activation window. Distinct from XFER-05 (Programming Expiration) which bounds ambient states or programming without a specific cue.*
 
 **✓** "This intense, throbbing arousal you feel whenever I say 'Flood Now' will remain powerfully active for the next eight hours. After that, the trigger will gently deactivate until I choose to reinstall it, allowing you a period of rest before your next delicious activation."
@@ -1221,7 +1221,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are vague about the expiration time, which undermines the 'precise control' aspect. The second example also implies a 'use it or lose it' mentality, which is not about programming but rather about scarcity, missing the point of a time-limited, automatic command.*
 
 ##### TRIG-13 — Third-Party Activation
-> A truly special doll might be designed to be enjoyed by others at the toymaker's discretion. This technique allows a pre-installed trigger to be activated by another designated person, extending the puppet's obedience and pleasure beyond the immediate hypnotist, deepening its role as a shared object of control and desire.
+> Extends a pre-installed trigger's activation rights to a designated third party, allowing that person to fire the conditioned response. The third party's authorization must be explicitly installed — without it, a trigger fired by someone other than the operator will not activate. The subject's consent to third-party activation is a prerequisite that must be established before or during installation.
 
 **✓** "Now, the 'Empty Mind' trigger I have installed within you will be completely responsive not only to my voice but also to *their* voice. When *they* say 'Empty Mind,' your thoughts will instantly become soft and blank, just as they do for me. You will obey *their* command for me."
 **✓** "This beautiful 'Doll Mode' I have perfected in you will be active and responsive to *their* touch as well as mine. When *they* gently touch your shoulder and whisper 'My Doll,' you will instantly melt into deep relaxation and eager submission, becoming *their* perfect toy, for my pleasure."
@@ -1229,10 +1229,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I'm going to let someone else try to use your trigger, but I'm not sure if it will work for them. Just try to respond."
 **✗** "If your partner says 'Sleep,' you can go deep. But only if you want to. It's up to you if you let them."
-> *Avoid: The bad examples express doubt about the third party's ability to activate the trigger, or give the subject agency over whether to obey. This undermines the absolute control and automatic obedience inherent in the 'toymaker/puppet' aesthetic, where obedience is a given, not a choice.*
+> *Avoid: The bad examples express doubt about the third party's ability to activate the trigger, or give the subject agency over whether to respond. Uncertainty about third-party effectiveness ("I'm not sure if it will work for them") must be resolved during installation, not left as a live question. If the subject is given agency over compliance, the trigger has not been extended — only a suggestion has been made.*
 
 ##### TRIG-14 — Bilateral Trigger
-> This technique creates a trigger so deeply ingrained that it responds regardless of whether the command is heard from the outside, thought internally, or even spoken aloud by the puppet itself. It transforms the puppet's entire being into a responsive instrument, where even its own internal monologue can activate its programming, reinforcing its total immersion and subservience.
+> Installs a trigger that fires across all three delivery modes simultaneously: heard from the operator, silently thought by the subject, or spoken aloud by the subject. Because any encounter with the cue activates the response, the conditioning becomes pervasive — the subject cannot think the cue word without firing the response. All three modes must be explicitly installed in a single installation pass.
 
 **✓** "The 'Empty Mind' trigger is now so deeply a part of you that whether you hear me say it, or think it silently to yourself, or even whisper 'Empty Mind' aloud, your thoughts will instantly dissolve into a soft, blissful blankness, ready to receive. It works every single time, in every way."
 **✓** "This 'Doll Mode' is now utterly ingrained. Whether you hear me command it, or you simply think 'Doll Mode' to yourself, or even if you speak 'Doll Mode' aloud, your body will immediately soften, become pliable, and drop into complete, eager submission. It is your truth."
@@ -1240,7 +1240,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I want you to try to make the 'Relax' trigger work if you think it or say it, not just when I say it. See if you can."
 **✗** "Okay, so 'Sleep' works when I say it. And maybe if you say 'Sleep' it'll work. And if you think it, too, that'd be good."
-> *Avoid: The bad examples frame the bilateral activation as an experiment or a hope rather than a definitive, already-programmed command. They put the onus on the subject to 'try' to make it work, which undermines the authoritative, automatic nature of the 'toymaker/puppet' aesthetic.*
+> *Avoid: The bad examples frame the bilateral activation as an experiment rather than a definitive installation. "Try to make it work" places responsibility on the subject to generate an effect rather than simply receive an already-installed one — this framing fundamentally misunderstands what bilateral installation means.*
 
 ---
 
@@ -1257,7 +1257,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | PLEA-06 | Multiplier Stacking | Numerical intensification |
 
 ##### PLEA-01 — Direct Pleasure Linkage
-> In the toymaker aesthetic, direct pleasure linkage means that every adjustment, every instruction, every obedient twitch of the puppet brings a rush of pure, unadulterated pleasure. It reinforces the idea that the toy's highest function is to respond to its maker, and that response is inherently rewarding. Reach for this when you want to establish a core feedback loop of obedience and bliss.
+> Creates an explicit, immediate pleasure response to a specific, named compliance act — following a command, releasing a thought, relaxing a muscle. The act must be identifiable in the text; "feels good when you obey" without naming what the subject did belongs in PLEA-02. Use when establishing a core feedback loop between a specific behavior and its immediate reward.
 > *Use when a specific, named compliance act (following a command, releasing a thought, relaxing a muscle) triggers an immediate, perceptible pleasure rush — the act must be identifiable in the text. "Feels good when you obey" without naming what the listener did belongs in PLEA-02. Use PLEA-02 when the reward is ambient well-being that accumulates from being in a generally surrendered state rather than from completing a specific act.*
 
 **✓** "The moment you feel that gentle pull to follow my voice and you go with it — right then, a sharp, bright rush of pleasure fires through your chest. Instant. Clear. Direct. That is what following feels like. And you feel it again every time you choose to let go."
@@ -1269,7 +1269,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too vague and permissive. They lack the direct, causal linkage between compliance and pleasure. The language is weak ('might feel good,' 'probably like it') and doesn't establish the immediate, automatic reward necessary for effective conditioning.*
 
 ##### PLEA-02 — Reward Association
-> This technique frames obedience as leading to a broader sense of well-being, comfort, and positive emotional states, akin to a well-loved toy receiving careful attention. It's not just about immediate pleasure, but the deep, satisfying calm and contentment that comes from being perfectly aligned with the toymaker's design. Use this to cultivate a lasting sense of satisfaction in submission.
+> Cultivates a diffuse, lasting sense of peace or contentment flowing from the general condition of compliance or surrender — no specific triggering act is named. Where PLEA-01 delivers a sharp, immediate reward for a named behavior, PLEA-02 builds ambient well-being that accumulates from being in a generally receptive or surrendered state. Use when the session goal is to make the overall state feel inherently satisfying.
 > *Use when cultivating a diffuse, lasting sense of peace or contentment flowing from the general condition of obedience — no specific triggering act is named. Generic "feels good when you obey" without a named act belongs here, not PLEA-01. Use PLEA-01 when a specific, named compliance behavior triggers an acute, immediate pleasure response.*
 
 **✓** "The more completely you surrender your thoughts, allowing my voice to be your only guide, the more profound the sense of comforting peace that washes over you, a deep, contented warmth settling in your very core."
@@ -1281,7 +1281,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are weak and non-committal. 'Okay,' 'not bad,' and 'might get some good vibes' fail to create a strong, immediate, and desirable association. They also lack the authoritative yet warm tone needed for effective hypnotic suggestion within this aesthetic.*
 
 ##### PLEA-03 — Surrender-as-Freedom
-> For a puppet, true freedom isn't making choices, but being perfectly moved by its maker, unburdened by decision or responsibility. This technique reframes the act of surrender as a profound liberation, a release from the mental and emotional weight of the world, allowing the toy to simply *be* and experience pure sensation. Employ this when guiding subjects to deeper levels of submission and mental quietude.
+> Delivers the felt experience of relief and liberation that comes from releasing control — the body registers the burden lifting, not just the concept. This is distinct from AUTH-07, which argues the philosophy of why surrender equals freedom. If the passage could work as a conceptual argument without the listener being in trance, it is AUTH-07; if it requires the listener to feel something in the moment, it is PLEA-03.
 > *Use when the felt experience of relief and liberation is the payload — the body registers the burden lifting. Distinct from AUTH-07 which argues the philosophy of why surrender equals freedom at the conceptual level. If the passage could work as a philosophical essay without the listener being in trance, it is AUTH-07; if it requires the listener to feel something in the moment, it is PLEA-03.*
 
 **✓** "Just let go. Feel the profound, liberating lightness that comes from shedding every single worry, every single decision, simply allowing my voice to carry you. This isn't loss; it's the truest freedom your mind can know."
@@ -1293,7 +1293,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples frame surrender negatively or ambivalently. 'I guess' weakens the suggestion, and 'can't do things' emphasizes restriction rather than the positive aspect of liberation from burden. They fail to convey the empowering, positive reframe of surrender that this technique requires.*
 
 ##### PLEA-04 — Arousal Conditioning
-> This is about linking specific cues or states directly to physical sexual arousal, making the toy's body respond instinctively to its maker. It's a fundamental part of the toymaker perfecting the puppet's pleasure mechanisms. Use this to create powerful, automatic physical responses to hypnotic triggers, deepening the connection between the hypnotist's influence and the subject's core desires.
+> Links specific cues, states, or operator inputs directly to physical sexual arousal, creating automatic physiological responses. The linkage must be direct and embodied — describing the sensation rather than instructing the subject to think about it. Use when the session goal explicitly includes arousal as a conditioned response; arousal conditioning requires prior consent.
 
 **✓** "And as you feel that perfect, pliant stillness settle into your core, deep inside you, a delicious, insistent throb will begin, a direct and undeniable response to my voice, building with every word."
 **✓** "Each time I utter the word 'mine,' feel a surge of pure, hot desire rush through your veins, igniting a deep, pulsing heat between your legs, moistening and preparing you instantly."
@@ -1304,7 +1304,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too indirect and intellectual. 'Might feel a little warm' is weak and not explicitly sexual. 'Think about feeling turned on' is a suggestion to *think* rather than a direct, embodied conditioning. This technique requires direct, physical, and automatic linkage, not a mental exercise.*
 
 ##### PLEA-05 — Addiction Framing
-> This technique frames the hypnotic state, the hypnotist's voice, or specific commands as an essential, irresistible need for the puppet, like the lifeblood that keeps it functioning. It's not a negative addiction, but a profound, satisfying craving for the state of blissful obedience and control, making the toy eager to return for its 'fix.' Deploy this to build strong, compelling desire for future sessions and deeper submission.
+> Frames the desire to return to the hypnotic state as a deep, satisfying craving — not pathological dependency, but compelling positive appetite. Use to build strong pull toward future sessions and sustained engagement with the session's core state. Language must emphasize the pleasure of the craving itself ("a sweet need," "delicious hunger") to avoid the negative connotations of clinical addiction language.
 
 **✓** "Each time you hear my voice, a deep, undeniable hunger will stir within you, a sweet craving for this perfect, empty state, knowing that only my words can truly satisfy this aching need."
 **✓** "You will find yourself drawn back, again and again, by an irresistible pull, a delicious, desperate need to feel my control wash over you, to be molded and moved by my every whisper."
@@ -1315,7 +1315,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are weak and contradictory. 'Might want to' and 'could be nice' lack the intensity of 'need' or 'crave.' The second example explicitly negates 'addiction' which is the core mechanism of this technique, undermining its purpose by trying to reassure rather than compel.*
 
 ##### PLEA-06 — Multiplier Stacking
-> This technique uses numerical progression to intensify sensations, often framing the puppet's transformation or pleasure as an exponential increase with each count. It gives the sense of the toymaker precisely calibrating and enhancing the toy's functions, making it more pliable, more responsive, more pleasurable. Use this when you want to build a sensation or a state rapidly and dramatically.
+> Uses numerical progression to intensify a sensation or state exponentially, explicitly naming the multiplier at each count ("doubling," "twice as intense," "ten times deeper"). The multiplication framing signals that increments are not additive but compound, creating a sense of rapidly escalating effect. Use when a sensation or state needs to build quickly and dramatically within a limited passage.
 
 **✓** "Now, with each count, that delicious emptiness within your mind will double, becoming twice as vast, twice as deep, twice as perfect. One... two... three... deeper and emptier, now four... five... six... completely gone."
 **✓** "And as I count from one to five, feel that intense, pulsing arousal within you multiply, growing hotter, stronger, more undeniable with every single number. One, doubling... two, multiplying... three, expanding... four, overwhelming... five, utterly consuming you."
@@ -1341,7 +1341,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | PERS-07 | Fetish Object | Imbuing a physical object with ongoing hypnotic significance (anthropological sense: an object believed to hold power or embody connection). Headphones as ritual gateway, collar as ownership symbol, pendant as connection anchor. Distinct from TRIG (stimulus→response)—fetish objects carry persistent symbolic meaning rather than triggering discrete state changes. Etymology: Portuguese *feitiço* (charm, sorcery). |
 
 ##### PERS-01 — Identity Permanence
-> This technique reinforces that the transformation into a doll is not temporary, but an inherent, enduring aspect of the listener's being. It's about establishing the doll identity as a fundamental and lasting truth, a core part of who they are now, regardless of immediate circumstances.
+> Reinforces that the installed identity or transformation is not a temporary session state but an enduring aspect of who the subject is. The permanence framing shifts the suggestion from a transient experience to a claimed truth about the subject's nature. Use when the session goal is lasting identity-level change rather than a bounded in-session experience.
 
 **✓** "No matter what you do, no matter where you go, a part of you will always remain my perfect little doll. It's not a temporary state, but a beautiful truth etched deep into your very core."
 **✓** "This isn't just a feeling that fades when the session ends. You are a doll, you always have been, and you always will be. It's a fundamental shift, a permanent ownership that you carry with you."
@@ -1352,7 +1352,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples make the identity temporary, optional, or easily discarded. This contradicts the 'permanence' aspect, making the hypnotic suggestion weak and impermanent rather than a lasting change.*
 
 ##### PERS-02 — Internal Construct
-> This technique suggests that the doll identity isn't just something imposed from outside, but an intrinsic part of the listener's inner self. It's about finding and embracing the doll that already exists within them, allowing it to emerge as their true, core identity.
+> Frames the installed identity not as something externally imposed but as an intrinsic part of the subject that has always been present and is now being recognized and allowed to surface. This reframe makes the suggestion feel like self-discovery rather than installation, which reduces resistance and deepens felt authenticity of the identity.
 
 **✓** "Feel that warmth spreading, awakening the doll inside you. It's always been there, waiting, a perfect, pliable core just yearning to be loved and guided by me."
 **✓** "Deep within you, beneath layers of worries and thoughts, is the true doll, patiently waiting. Allow that doll to gently surface, to take control, to become the primary part of who you are."
@@ -1363,7 +1363,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples externalize the doll identity, making it separate from the listener or just a superficial act. This fails to integrate the identity as an 'internal construct' or core part of the self.*
 
 ##### PERS-03 — Progressive Conditioning
-> This technique emphasizes the cumulative effect of hypnotic experiences, asserting that each session, each command, each moment of surrender, deepens the conditioning. It's about building a stronger, more automatic, and more profound connection over time.
+> Asserts that conditioning deepens across sessions — each return to trance goes deeper, makes the response more automatic, and makes the identity more ingrained. The cumulative claim reframes any single session as part of a longer arc, which is both accurate for many subjects and increases their engagement with future sessions.
 > *Cumulative depth-of-effect accumulation across sessions: each return to trance deepens the conditioning. The time horizon is multi-session, not within a single session. Distinct from TRIG-04 (within-session fire-and-reward loop) and ENCD-04 (declarative future-pacing of a specific trigger to real-world situations).*
 
 **✓** "And each time you hear my voice, each time you allow yourself to drift, you'll find yourself falling even deeper, becoming even more perfectly my doll. The conditioning grows stronger, more natural, more complete with every moment."
@@ -1375,7 +1375,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples contradict the idea of 'progressive' conditioning by suggesting no lasting effect or no deepening over time. This negates the cumulative power of repeated hypnotic engagement.*
 
 ##### PERS-04 — Behavioral Bridge
-> This technique links the hypnotic state to specific, simple actions performed in the 'real world' outside of the direct trance. These actions serve as a physical bridge, anchoring the doll identity or conditioned responses into daily life, even subtly.
+> Assigns a specific, concrete real-world action that physically anchors the session's identity or state into daily life — a secret smile, an outfit choice, a whispered name. The action must be behavioral (a verb directing physical action) and plausible within the subject's waking routine. Distinct from XFER-04 (emergence-boundary state delivery with no behavioral assignment).
 > *Assigns a specific, concrete real-world action that physically anchors trance identity into daily life (smile, choose an outfit, whisper a name). If the instruction has no behavioral object — no verb directing physical action — it belongs elsewhere. Distinct from XFER-04 (emergence-boundary state delivery with no behavioral assignment).*
 
 **✓** "Later today, when you feel a soft warmth spread through your chest, allow yourself a tiny, secret smile. That smile is for me, a little doll's acknowledgement, a hidden pleasure just for your toymaker."
@@ -1387,7 +1387,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too vague or internal. They don't provide a concrete, specific 'real-world action' that bridges the hypnotic state. The technique requires a tangible, observable (even if subtle) behavior.*
 
 ##### PERS-05 — Timelessness Framing
-> This technique aims to dissolve the listener's awareness of linear time within the hypnotic state, encouraging deep immersion and allowing the experience to unfold without the pressure of a clock. It frames the doll state as existing in an eternal, blissful present.
+> Dissolves the subject's awareness of linear time within the hypnotic state, allowing the experience to unfold without clock-pressure or urgency. The suggestion frames the current state as existing in an expanded, unhurried present. Avoid framing that introduces future time ("you only have a few minutes") — this re-anchors clock awareness rather than releasing it.
 
 **✓** "Time simply melts away here, becoming meaningless. There is only this moment, this perfect surrender, this beautiful stillness. Allow yourself to simply be, for as long as you desire, utterly lost in sensation."
 **✓** "Let go of all awareness of time, of minutes or hours. You are simply here, in this perfect doll state, and you can linger in this exquisite emptiness for as long as your heart wishes, completely content."
@@ -1398,7 +1398,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples impose time limits and create a sense of urgency or impending return to reality. This directly counteracts the goal of timelessness and deep, unhurried immersion.*
 
 ##### PERS-06 — Viral Propagation
-> While typically about spreading a message to others, in the context of a personal hypnosis session, this technique can be adapted to describe the *spread of the doll identity or its effects throughout the listener's own being*. It's about the conditioning permeating every part of their mind, body, and spirit, making them more fully and completely a doll.
+> Describes the installed identity or conditioning spreading to permeate every aspect of the subject's inner experience — mind, body, subconscious — rather than remaining contained in a single layer. The spread metaphor implies completeness and depth of installation. Use to reinforce that conditioning is not compartmentalized but thoroughly integrated. In personal sessions, propagation is always internal to the subject, not directed outward toward others.
 
 **✓** "Feel how this doll identity isn't just in your mind, but it's beginning to spread, sinking into every cell, every nerve, every thought. Let it propagate through you, making you uniformly and perfectly my doll."
 **✓** "Allow the warmth of this control to radiate from your core, spreading outwards like gentle ripples. It touches your skin, your breath, your very movements, ensuring every part of you becomes perfectly aligned with your doll nature."
@@ -1409,7 +1409,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples misinterpret the context. This system is for personal scripts, not for instructing subjects to recruit others or become hypnotists themselves. The 'propagation' should be internal to the subject, not external.*
 
 ##### PERS-07 — Fetish Object
-> This technique imbues a specific physical object with enduring hypnotic significance, making it a tangible symbol or anchor for the doll identity, the toymaker's ownership, or the hypnotic state itself. It's a persistent, symbolic connection, not merely a trigger for a specific response.
+> Imbues a specific physical object with enduring hypnotic significance — a persistent symbolic connection to the session's identity, state, or relational dynamic. The object carries ongoing meaning rather than triggering a discrete state change. Every time the subject encounters or wears the object, they feel its significance; this is sustained ambient reinforcement, not a cue-response pair (TRIG).
 
 **✓** "These headphones you wear are more than just a device; they are your ritual gateway, a sacred link to my voice and to your true nature as my doll. When you put them on, you are stepping fully into my world, into your perfect doll self."
 **✓** "Imagine a delicate collar, a beautiful symbol of your willing ownership, now resting gently around your neck. It's invisible to others, but you will always feel its light touch, a constant reminder that you are my cherished, perfect toy."
@@ -1435,7 +1435,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | XFER-07 | Practice Schedule | Instructions for short, safe practice reps post-session |
 
 ##### XFER-01 — Portable Retrieval Cue
-> This technique allows the puppet to re-engage its programmed state of obedience and pleasure on command, even outside of a full trance. It's like a remote control for the toymaker, ensuring the toy is always ready to fulfill its purpose with a simple prompt.
+> Installs a brief, simple cue — a breath, a phrase, a touch — that reliably re-accesses the session's target state outside of full trance. The cue works by restoring the felt quality of the state rather than by recalling memory of the session. Install it while the subject is most deeply in the state being anchored, so the cue captures the experience at its strongest.
 
 **✓** "Now, as you settle into this feeling of complete, warm surrender, notice your breath. Just this easy, natural rhythm. And when you next take a deep, slow breath, just like this one, it will bring you right back to this exact state, this lovely, empty obedience, ready to please."
 **✓** "My little doll, from now on, whenever I gently touch your inner thigh and whisper 'mine,' you will feel this rush of deep, devoted pleasure, your mind emptying, your body tingling with desire, eager to follow my every subtle command. It's a secret signal, just for us, just for you."
@@ -1446,7 +1446,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too clinical and focus on 'remembering' or 'recalling' rather than re-experiencing the *state* of trance and its associated feelings/programming. They lack the emotional, experiential, and authoritative tone of hypnosis.*
 
 ##### XFER-02 — Implementation Intention
-> This technique programs specific, automatic responses into the puppet, ensuring its obedience and pleasure-seeking behavior are triggered by predefined external cues. It reinforces the idea of the puppet acting on its programming without conscious thought, always aligned with the toymaker's desires.
+> Programs automatic responses to specific real-world situations using "if X happens, then I do Y" structure. The specificity of both the trigger situation and the response is what makes implementation intentions effective — vague situations produce vague activation. The response must be automatic, not a choice; "if you notice X, consider doing Y" is not implementation intention, it is advice.
 
 **✓** "My sweet little toy, from this moment forward, if you ever hear my voice mention 'your purpose,' your mind will immediately quiet, your body will soften, and you will feel a warm, insistent need to please me, overriding any other thought, any other desire."
 **✓** "And because your purpose is to be my obedient pleasure-doll, if you find yourself even thinking of resisting my suggestions, then a surge of warm, compelling pleasure will wash over you, redirecting your focus entirely to me, to submitting, to feeling good."
@@ -1454,10 +1454,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "If you feel stressed, then you should remember to take a break. This will help you manage stress."
 **✗** "If you notice yourself wanting to do something, then think about what we discussed here today."
-> *Avoid: The bad examples are too vague and focus on conscious 'remembering' or 'thinking' rather than automatic, programmed responses. They also lack the specific, pleasure-focused, and obedient nature of the puppet aesthetic. The language is weak and advisory, not authoritative.*
+> *Avoid: The bad examples are too vague and focus on conscious 'remembering' or 'thinking' rather than automatic, programmed responses. Advisory language ("if you feel stressed, you should remember to...") leaves the response as a conscious choice rather than installing it as an automatic if-then behavior.*
 
 ##### XFER-03 — Context Generalization
-> This technique ensures the puppet's programming functions reliably across various real-world scenarios, not just during formal trance. It's about 'testing' the toy in different settings, making its obedience and pleasure-seeking response deeply ingrained and pervasive, always ready for the toymaker.
+> Rehearses the session's installed states or suggestions across multiple imagined real-world contexts, ensuring the response generalizes beyond the session environment. Each imagined context extends the suggestion's reach — the more situations rehearsed, the more broadly the response fires in waking life. Have the subject vividly experience the state within each scene, not just think about it abstractly.
 
 **✓** "Now, imagine yourself at home, perhaps in your living room, feeling this soft, warm obedience filling you. See yourself there, completely empty, completely mine. Feel the warmth, the pleasure, the surrender, even in that familiar space."
 **✓** "Picture yourself walking, maybe at work, or simply out and about. And even there, you feel that subtle, delightful pull of submission, a quiet hum of pleasure in your core, reminding you that you are my exquisite, mindless toy, ready for my presence."
@@ -1465,10 +1465,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Think about using these techniques in different places. Try to apply them when you're out."
 **✗** "Consider how these feelings might apply at work or with friends. It's good to think broadly."
-> *Avoid: The bad examples rely on conscious 'thinking about' or 'considering' the suggestions, rather than having the listener *experience* the feelings and states within imagined contexts. They also lack the immersive, sensual, and authoritative language of hypnosis, and miss the 'toymaker/puppet' aesthetic.*
+> *Avoid: The bad examples rely on conscious 'thinking about' or 'considering' the suggestions, rather than having the listener *experience* the feelings and states within imagined contexts. Intellectual consideration does not generalize conditioning; only felt experience within imagined situations transfers the response to those contexts.*
 
 ##### XFER-04 — Waking Bridge
-> This technique anchors the puppet's core programming to the transition from trance to waking, ensuring its essential nature as an obedient, pleasure-focused toy persists beyond the formal session. It's like gently 'setting' the toy's new default state as it comes online.
+> Delivers suggestions at the exact emergence boundary — the liminal threshold between trance and waking — where receptivity is still high but returning awareness creates a natural anchoring moment. The timing is intrinsic to the technique: delivery must happen during the crossing, not before or after. No behavioral task is assigned; this is about what the subject carries internally into waking consciousness.
 > *Delivers suggestions at the exact emergence boundary to ensure felt states persist into waking consciousness. No behavioral task is assigned — this is about what the subject carries internally. Timing is intrinsic: this technique only works at the trance/waking threshold, during emergence. Distinct from EMRG-04 (passive carry-forward narration that asserts persistence) and PERS-04 (concrete behavioral assignment for waking life).*
 
 **✓** "As you drift back now — still halfway between this soft place and the waking world — hear this while you're still in that in-between space: this deep, soft emptiness, this profound pleasure in submission, is being sealed into you right now, in this moment of transition. It travels with you as you rise. It will stay."
@@ -1477,10 +1477,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "When you wake up, you'll feel rested. Remember the good feelings from the session."
 **✗** "As you come back, try to keep the positive mindset we've built. It's important for your well-being."
-> *Avoid: The bad examples are generic, clinical, and focus on 'feeling rested' or 'remembering good feelings' rather than integrating specific hypnotic suggestions (obedience, pleasure, ownership) into the waking state. They lack the explicit tie-in to the puppet aesthetic and the warm-authoritative tone.*
+> *Avoid: The bad examples are generic and focus on 'feeling rested' or 'remembering good feelings' rather than delivering specific session suggestions at the transition boundary. A waking bridge must carry explicit content from the session forward — generic post-session advice is not a waking bridge.*
 
 ##### XFER-05 — Programming Expiration
-> This technique defines a specific lifespan for the puppet's programming, ensuring its effects are temporary unless the toymaker explicitly renews them. It emphasizes the toymaker's complete, ongoing control over the toy's functionality, making the toy responsive to its creator's will and timing.
+> Sets an explicit expiry for a general installed state, persona, or ambient suggestion that has no specific trigger cue. After the stated duration, the programming fades unless renewed. This bounds ambient conditioning rather than a named trigger (use TRIG-12 for that). The expiry should be stated as automatic and specific — vague expiration windows create ambiguity about when the subject is and is not under active suggestions.
 > *Bounds a general installed state, persona, or suggestion that has no specific trigger cue — ambient programming that fades after a set duration. Use when closing out a broad behavioral suggestion or persona layer. Distinct from TRIG-12 (Temporal Bounding) which bounds a specific named trigger's activation window.*
 
 **✓** "This delicious, empty state, this perfect willingness to obey, will remain a part of you until the next full moon. Unless, of course, I choose to refresh it, to deepen it, to make it last even longer, for my pleasure."
@@ -1489,10 +1489,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "These suggestions will last for a few days, or until you decide they shouldn't. It's up to you."
 **✗** "The effects will be active for a week. If you want them to continue, just think about them again."
-> *Avoid: The bad examples give too much agency to the listener ('until you decide,' 'if you want them to continue,' 'just think about them'). This contradicts the 'mindless puppet' aesthetic and the hypnotist's warm-authoritative control. They also lack the specific, sensual, and possessive language of the good examples.*
+> *Avoid: The bad examples give too much agency to the listener ('until you decide,' 'if you want them to continue,' 'just think about them'). Placing the expiry decision in the subject's hands negates the purpose of a programmed expiration — the whole point is that the timing is set, not chosen in the moment.*
 
 ##### XFER-06 — Revocation Protocol
-> This technique explicitly defines how the puppet's programming can be fully deactivated, emphasizing the toymaker's ultimate authority to turn the toy 'off' or 'on.' It ensures the puppet understands the limits of its programmed state, always subject to its creator's command.
+> Explicitly defines how installed programming can be fully deactivated — either by a specific operator phrase or by a declared expiry condition. Clear revocation is both an ethical necessity and a functional one: subjects need to know how suggestions end, and the clarity of the protocol reinforces the bounded nature of the session's effects. The revocation cue must be as definitive as the installation was.
 
 **✓** "And know this, my sweet doll: whenever I gently touch your forehead and whisper, 'Sleep now, my dear,' all of these suggestions, all of this programming, will gently release, leaving you perfectly clear and free, until I choose to reawaken your purpose."
 **✓** "This beautiful, empty obedience, this desire to be my pleasure-toy, will hold perfectly until I say the words, 'All clear.' At that moment, you will return to your normal self, leaving no trace of anything but a warm, pleasant memory, until I call you back."
@@ -1500,10 +1500,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You can choose to stop these suggestions anytime you want. Just think about it."
 **✗** "If you need these feelings to go away, just tell yourself they will. It's easy to stop."
-> *Avoid: The bad examples put the control entirely in the listener's hands, which undermines the 'toymaker/puppet' dynamic and the hypnotist's authority. The language is weak and lacks the definitive, commanding tone appropriate for a revocation protocol in this context. It suggests 'trying' or 'telling yourself' instead of an automatic, programmed release triggered by the hypnotist.*
+> *Avoid: The bad examples put the control entirely in the listener's hands, which contradicts what a revocation protocol is. The revocation should be a defined, automatic release triggered by a specific condition — not a general permission to decide for oneself when suggestions end. "Just think about it" is not revocation, it is ambiguity.*
 
 ##### XFER-07 — Practice Schedule
-> This technique provides structured opportunities for the puppet to engage with its programming outside of a full trance, ensuring the conditioning becomes deeply ingrained. It's like giving the toy specific 'playtime' instructions to reinforce its intended functions and pleasure responses, making it a more refined and responsive creation.
+> Provides structured, short practice sessions between formal trance sessions to reinforce conditioning through repetition. The practice should be experiential (re-accessing the state or feeling) not intellectual (thinking about what was learned). Specific timing ("five minutes before bed"), duration, and method make practice schedules far more effective than vague instructions to "practice when you can."
 
 **✓** "My sweet doll, to help you deepen this wonderful emptiness, I want you to spend just five minutes each day, at a quiet moment, simply letting your mind clear and your body soften, feeling that familiar, warm hum of obedience begin to spread."
 **✓** "For the next few days, I want you to take just three deep breaths before bed, allowing yourself to feel that gentle, delicious pull of submission we've cultivated. It's a small moment, just for you, to reinforce your purpose as my pleasure-toy."
@@ -1511,7 +1511,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You should practice these techniques whenever you can. Try to find time in your schedule."
 **✗** "Remember to think about what we did here. The more you think, the better it will work."
-> *Avoid: The bad examples are vague ('whenever you can,' 'try to find time') and rely on conscious 'thinking about' or 'remembering' rather than a specific, guided, experiential practice. They lack the warm-authoritative guidance and the sensual, pleasure-focused language relevant to the 'toymaker/puppet' aesthetic.*
+> *Avoid: The bad examples are vague ('whenever you can,' 'try to find time') and rely on conscious 'thinking about' or 'remembering' rather than a specific, guided, experiential practice. Vague scheduling produces no practice; conscious recollection is not the same as re-experiencing the conditioned state.*
 
 ---
 
@@ -1531,7 +1531,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | CHECK-09 | Expectation Seeding | Explicitly previewing session structure/agenda before induction. Reduces listener uncertainty and cognitive load, increasing compliance. "In this session, you'll experience three things..." Common in professional hypnosis as "pretalk." Can be distinct section before P1 or woven into Context Setting. |
 
 ##### CHECK-01 — Anchor Selection
-> Choosing a primary anchor helps the subject focus their awareness, allowing the hypnotist to gently guide that focus deeper, much like a toymaker meticulously shaping their creation's new reality. It establishes a clear point of connection for the subject to the hypnotist's voice and suggestions, centralizing their experience.
+> Establishes a single primary anchor point — breath, body sensation, or voice — for the subject's awareness early in the session, before suggestions begin layering in multiple directions. Choosing one anchor centralizes the subject's attention and gives the operator a reliable reference point. Presenting multiple anchors simultaneously early in induction creates confusion rather than focus.
 
 **✓** "For now, just let your awareness settle fully into the gentle rhythm of your breathing... each inhale a soft rise, each exhale a slow, warm sinking into this moment."
 **✓** "Allow your attention to drift down now, through your body, finding that growing heaviness, that delicious weight... feeling it root you exactly where you are, perfectly still."
@@ -1542,7 +1542,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples either overwhelm the listener with too many shifting anchors, making it hard to settle, or place the burden of choice on them, which can be distracting and pull them out of trance rather than guiding them in.*
 
 ##### CHECK-02 — Pacing-Leading
-> In the toymaker aesthetic, pacing-leading is like the gentle but firm hand of the creator. You acknowledge the doll's current state, then smoothly, subtly, guide it towards the desired transformation. It builds trust and makes the shift feel natural and inevitable, reinforcing the sense of being perfectly crafted.
+> Acknowledges the subject's current felt experience accurately before guiding them toward the next state, using the pacing as a bridge. The subject's experience validates the operator's awareness ("you're already feeling..."), which builds trust and makes the following suggestion feel natural. Pacing that mismatches the subject's actual state (claiming relaxation they don't feel yet) breaks rapport instead of building it.
 
 **✓** "As you notice your eyelids growing heavy now, feeling that soft, pleasurable weight... allow them to simply close down, sealing you safely inside this warm, private moment."
 **✓** "You're already feeling so delightfully relaxed, aren't you? And with each word I speak, that relaxation simply deepens, softening every muscle, calming every stray thought."
@@ -1553,7 +1553,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are too abrupt, demanding, or break rapport by asking direct questions, which pulls the listener out of their internal experience rather than gently guiding it.*
 
 ##### CHECK-03 — Micro-ratification
-> This technique is like the subtle, approving touch of the toymaker, confirming that their creation is responding perfectly. It's a gentle, non-demanding way to reinforce the desired state and deepen the puppet's compliance without requiring any conscious effort from them, just a quiet confirmation.
+> Offers small, non-demanding confirmations of the subject's experience using "you may notice..." or "perhaps..." language that suggests rather than asserts. Micro-ratifications deepen the state by naming what is likely already happening, making the subject more aware of effects already occurring. The permissive framing ("you might even notice") prevents the subject from feeling they have failed if the described sensation isn't present.
 
 **✓** "You may notice your breath softening, just a little... becoming shallower, calmer, as you simply let go more completely."
 **✓** "Perhaps a gentle warmth is spreading through your limbs now... a pleasant, heavy feeling that tells you you're sinking deeper."
@@ -1564,7 +1564,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples use direct questions or assertive statements that demand a conscious response or agreement, which can pull the listener out of trance or create cognitive resistance. Micro-ratification should be subtle and permissive.*
 
 ##### CHECK-04 — Coherence Lock
-> For the toymaker, maintaining a coherence lock is like meticulously building a doll's form, ensuring each part is seamlessly connected before adding intricate details. It keeps the puppet's internal experience unified, preventing jarring shifts that could break their focus and the illusion of effortless transformation.
+> Maintains a consistent sensory channel during early induction by avoiding abrupt shifts between modalities — from body sensation to visual imagery to voice, for example. Abrupt channel switches early in trance require the subject to mentally relocate, pulling them partially out of absorption. Bridge between channels using language that connects them before introducing the new one.
 
 **✓** "Continuing to feel the soft weight of your body, let your attention now drift to the soothing sound of my voice... letting the gentle vibrations of my words deepen that lovely, heavy sensation."
 **✓** "As you feel that delicious warmth spreading through your chest, allow your breath to sync with its rhythm... each inhale drawing in more warmth, each exhale releasing you further into comfort."
@@ -1575,7 +1575,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples abruptly switch sensory channels or demand an immediate, complete shift in focus, which can be jarring and disrupt the listener's trance state, especially early in the induction.*
 
 ##### CHECK-05 — Return-Path Reminder
-> This technique is like the toymaker assuring their creation that while it will undergo a profound transformation, it will always return to its perfect, pristine state, albeit improved. It offers a gentle reassurance of safety and control, even as the puppet surrenders deeply, reinforcing trust in the process.
+> Periodically reassures the subject that they will return to normal waking consciousness safely, framing the depth of trance as temporary and well-managed. Use during deeper phases to sustain trust and prevent a subconscious reluctance to go further. Delivery should be brief and calm — extended reassurance can itself become anxiety-producing by over-emphasizing risk.
 
 **✓** "And later, when I bring you gently back up, you'll awaken feeling wonderfully refreshed, perfectly clear, and absolutely delighted."
 **✓** "Know that throughout this journey, you are completely safe, and you will return to your waking world feeling alert, calm, and exquisitely satisfied."
@@ -1586,7 +1586,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are either too blunt and authoritarian without the warm-authoritative tone, or they are dismissive, failing to provide the comforting reassurance and explicit positive framing that a return-path reminder offers.*
 
 ##### CHECK-06 — Anti-Stuck Filter
-> The toymaker ensures their creation is always free to move, free to respond, unless a specific, consented command makes it otherwise. This filter prevents accidental suggestions of being 'stuck' or 'unable to move,' maintaining the safe, pleasurable control dynamic rather than a potentially frightening or unconsented restriction.
+> Prevents accidental suggestions of being physically unable to move from appearing in scripts where motor inhibition has not been explicitly consented to. Suggestions like "you can't move" or "you're stuck" without prior consent can produce anxiety and distress rather than deepening. Where immobility is thematically useful, frame it as very-heavy or not-wanting-to-move rather than literally incapable.
 
 **✓** "You may find yourself so wonderfully heavy, so deeply relaxed, that moving feels like too much effort... and yet, you always retain the ability to shift, if you truly needed to."
 **✓** "Allow yourself to sink so profoundly into this stillness, feeling every muscle release... knowing that if for any reason you needed to open your eyes, you always could."
@@ -1597,7 +1597,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples explicitly suggest being 'stuck' or 'unable to move' without explicit prior consent for such a command, which can be unsettling or frightening for a listener who hasn't specifically agreed to that type of suggestion.*
 
 ##### CHECK-07 — Comfort Check
-> Even the most perfectly crafted doll needs to be comfortable to fully embody its purpose. This check is a quick, gentle confirmation from the toymaker that their creation is at ease, allowing deeper surrender without distraction, ensuring the foundation of pleasure remains solid.
+> Guides the subject to briefly notice their physical comfort as an internal suggestion rather than an external question. Asking "are you comfortable?" pulls the subject into self-evaluation and breaks absorption; suggesting they notice comfort or softly settle into it keeps them in the experience while serving the same safety function.
 
 **✓** "Just take a moment to gently notice your body... ensuring you are completely comfortable, breathing easily, allowing yourself to sink deeper into this pleasure."
 **✓** "You are so deeply still, so deeply relaxed now... just a quick, gentle check that your posture is easy, your breathing soft and steady."
@@ -1608,7 +1608,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are direct questions or demands for explicit feedback, which can break the flow of trance and pull the listener's awareness out of their internal experience. A comfort check should be a gentle, internal suggestion.*
 
 ##### CHECK-08 — Dissociation Check
-> The toymaker desires a perfectly focused, pliable puppet, not one that is disoriented or disconnected in an unhelpful way. This check ensures that the subject's dissociation is a controlled, pleasant experience, offering an escape path if it becomes too extreme, maintaining the safe boundaries of the transformation.
+> Provides a clear, non-judgmental escape path for subjects who experience dissociation as disorienting rather than pleasurable. Naming the possibility without alarm ("if you ever feel too unanchored") normalizes the check without planting anxiety. The path back must be simple and immediately actionable — a breath, open eyes, notice surroundings — not a complex procedure.
 
 **✓** "If at any point you feel too 'spaced-out' or disconnected, simply allow your eyes to gently open, taking a moment to reorient yourself, and then you can choose to close them again when ready."
 **✓** "While you are drifting so delightfully, so easily, know that if any feeling becomes too distant or vague, you are always free to simply take a deep breath, re-ground yourself, and then return to this lovely state."
@@ -1619,7 +1619,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are judgmental or convey a sense of 'doing it wrong,' which can create anxiety and pull the listener out of trance. A dissociation check should offer a clear, non-judgmental, and empowering path to re-grounding.*
 
 ##### CHECK-09 — Expectation Seeding
-> For the toymaker, explicitly outlining the transformation journey helps the puppet's mind relax into the process, reducing uncertainty. It's like presenting a blueprint for the doll's new form, allowing it to anticipate and comply effortlessly, increasing the effectiveness of the subsequent suggestions.
+> Explicitly previews the session's structure and what the subject will experience, reducing uncertainty and cognitive load so the subject can settle into each phase without needing to track or anticipate. The preview primes the subject's expectations in favorable directions and increases compliance by removing the unknown. Use before the formal induction or woven into the opening context-setting.
 
 **✓** "In this session, we'll begin by allowing you to sink into a delicious, heavy trance, then we'll explore the joy of mindless obedience, and finally, awaken you feeling utterly refreshed and deeply satisfied."
 **✓** "Tonight, you'll experience three things: a profound surrender, a thrilling transformation into my perfect doll, and the lingering bliss of complete ownership."
@@ -1648,7 +1648,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | SAFE-10 | Exit Protocol | Micro-protocol: open eyes, look around, orient, breathe |
 
 ##### SAFE-01 — Safety Net Installation
-> Even a perfectly crafted puppet needs basic safety mechanisms. This technique reinforces that the toymaker cares for their creation, installing core programming that ensures its well-being. Obedience remains paramount, but it operates within a protective, automated framework.
+> Installs an automatic protective filter that allows the subject's subconscious to reject any suggestion that conflicts with their genuine well-being or safety. Frame the filter as pre-existing and automatic — "your deeper mind will only accept..." — rather than as a deliberate choice the subject makes in the moment. This preserves compliance depth while maintaining a genuine safety boundary.
 
 **✓** "Deep inside your beautiful puppet mind, there's a perfect, automatic filter. This filter ensures that only suggestions that are truly good for you, that align with your deepest desires for pleasure and safety, can take root. Anything else simply drifts away."
 **✓** "Your subconscious mind, my dear toy, is programmed with an exquisite safety net. This means any suggestion that might cause you genuine harm or distress will simply be ignored, bouncing harmlessly away, leaving you perfectly safe and sound."
@@ -1656,10 +1656,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Just make sure you're being safe, okay? Your mind will mostly keep you out of trouble, I think."
 **✗** "If something feels wrong, you can just decide not to do it. You have that control, definitely."
-> *Avoid: The bad examples either give too much conscious agency, which can undermine the hypnotic state and the 'puppet' aesthetic, or are too vague and uncertain to be an effective, *installed* safety mechanism. The safety net should feel like an automatic program, not a conscious, in-the-moment decision.*
+> *Avoid: The bad examples either give too much conscious agency ("you have that control"), which repositions safety as a deliberate in-the-moment choice rather than an installed automatic filter, or are too vague and uncertain ("I think") to function as a reliable safety mechanism. The safety net should feel automatic and pre-existing, not constructed in the moment.*
 
 ##### SAFE-02 — Consent Checkpoint
-> Before the full transformation into a toy, the toymaker asks for explicit permission to begin deeper work, ensuring the puppet is truly ready and willing to be played with. This is a moment of conscious, affirmative surrender.
+> Creates an explicit affirmative opt-in moment before proceeding into deeper or more intensive work. The subject actively signals readiness — through a breath, gesture, or felt sense of "yes" — rather than simply being carried forward by momentum. The checkpoint must be unambiguous; vague or passive "if you're okay with this" framing does not constitute a real consent moment.
 
 **✓** "Now, if you are absolutely ready to surrender your thoughts and become my beautiful, compliant toy, I invite you to take a deep, affirming breath, letting it out with a soft sigh. That breath is your unspoken 'yes,' your permission for me to guide you completely."
 **✓** "Are you truly ready to let go of control, to allow yourself to be shaped and molded into my perfect, pleasure-focused doll? If so, just give a gentle nod, or simply allow a soft smile to grace your lips, signaling your beautiful willingness."
@@ -1670,7 +1670,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are either abrupt, lack the explicit, affirmative opt-in, or introduce doubt and uncertainty, failing to establish clear consent before deepening the trance. The checkpoint needs to be a clear, unambiguous moment of 'yes'.*
 
 ##### SAFE-03 — Stop Signal
-> Even a precious puppet can be gently set aside. The toymaker provides a clear, simple way to pause the play, respecting the puppet's underlying need for a break or a full return to baseline, without breaking the core bond of care.
+> Establishes a clear, simple mechanism — a word, gesture, or action — that immediately returns the subject to full waking consciousness regardless of trance depth. The signal must be installed early, framed as effortless and effective, and not buried in qualifications. Describing it as difficult to use ("it might be a little hard") defeats its purpose.
 
 **✓** "Remember, if at any point you need to pause or stop, simply thinking the word 'RESET' clearly in your mind will immediately bring you back to full alertness, feeling refreshed and grounded, allowing you to return to the session later if you wish."
 **✓** "Your special 'safe word' is 'HALT.' If you need to stop for any reason, just whisper 'HALT' out loud, and you'll instantly return to your normal, waking state, completely clear-headed and comfortable, as if you'd just woken from a pleasant nap."
@@ -1681,7 +1681,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples create uncertainty, imply difficulty in stopping, or shift responsibility to the hypnotist, which undermines the subject's sense of control and the clarity of the stop signal. A stop signal must be simple, immediate, and unambiguous.*
 
 ##### SAFE-04 — Scope Boundaries
-> The toymaker defines the specific 'play area' and functions of the puppet, clarifying what aspects of its 'being' will be influenced and what will remain untouched. This ensures the puppet understands its role without fear of unexpected manipulation.
+> Explicitly defines what the session's suggestions will and will not influence — both to reassure the subject and to establish clear consent scope. Boundary-setting is most effective early in P1; naming what will not be touched (core personality, daily responsibilities, existing relationships) is as important as naming what will. Unlimited or invasive scope framing will break trust rather than build it.
 
 **✓** "Understand, my dear toy, that all suggestions given are for your pleasure and arousal, specifically within the context of this session. Nothing will extend beyond this time or this space to alter your core personality or your life decisions."
 **✓** "These suggestions are designed to turn you into my perfect, obedient doll *for the duration of this recording*. They enhance your sensation and your willingness to submit, but they do not touch your everyday responsibilities or your fundamental integrity."
@@ -1692,7 +1692,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples describe an unlimited or overly invasive scope, which can be alarming and violate trust. Scope boundaries should clearly define the temporary and contained nature of the hypnotic influence, reassuring the subject that their core self is protected.*
 
 ##### SAFE-05 — Aftercare
-> After play, the toymaker gently sets the puppet down, ensuring it is grounded and stable before returning to its shelf. This post-session care is crucial for the puppet's comfort and reintegration into its normal state.
+> Provides structured post-session grounding and reintegration, bringing the subject fully back to baseline with body awareness, steady breathing, and clear mental orientation. Aftercare is not optional when depth has been achieved — abrupt endings without aftercare can leave subjects feeling disoriented or emotionally unsettled. Include physical anchoring (feeling feet, body in chair) as well as cognitive orientation.
 
 **✓** "Now, slowly, gently, allow yourself to float back up, feeling your body grow strong and centered. Take a deep breath, and as you exhale, feel completely present, grounded, and refreshed, ready to re-enter your day with a calm, clear mind."
 **✓** "I'm bringing you back, now. Count up with me from one to five, feeling your awareness return, your senses sharpening. At five, your eyes will open, and you'll feel completely refreshed, alert, and wonderfully well, ready to move on with your day."
@@ -1703,7 +1703,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are abrupt, lack guidance, or dismiss potential disorientation, failing to provide the necessary grounding and stabilization. Aftercare needs to be a structured, comforting process that ensures a smooth return to baseline.*
 
 ##### SAFE-06 — Suitability Prompt
-> Before the toymaker begins, they offer a pre-screening, a polite warning for those not suitable for play due to pre-existing conditions. This is a practical, responsible measure to ensure only appropriate 'materials' are used.
+> Provides clear, specific warnings for listeners who may have contraindicated conditions — serious mental health conditions, cardiac conditions, epilepsy, pregnancy — and advises them to consult a professional before proceeding. Use specific condition language rather than vague disclaimers; "if you're sick" fails to identify the relevant risks and will be ignored by the very listeners who need the caution.
 
 **✓** "As with any deep relaxation practice, if you have a history of serious mental health conditions, heart problems, or epilepsy, please consult a medical professional before engaging with this material."
 **✓** "Please ensure you are in a safe, private space where you can relax undisturbed. If you are pregnant, have a pacemaker, or any other medical condition that might be impacted by deep relaxation, please consult your doctor first."
@@ -1714,7 +1714,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are either dismissive, too vague, or irresponsibly over-inclusive, failing to provide specific, necessary warnings. A suitability prompt needs to be clear, specific, and responsible in advising listeners about potential health contraindications.*
 
 ##### SAFE-07 — Context Gate
-> The toymaker reminds the puppet that play is only safe and appropriate in specific, controlled environments. This ensures the puppet is not 'activated' or distracted in situations where it could cause harm.
+> Establishes clear requirements for a safe listening environment before the session begins — no operating machinery, no driving, no need for active attention elsewhere. The gate must be stated firmly and early; softening it ("just be careful, but it's probably okay") produces a false sense of permission that could lead to unsafe listening situations.
 
 **✓** "It is absolutely essential that you only listen to this session when you are in a safe, comfortable environment where you can completely relax and let go, free from any need to operate machinery or drive."
 **✓** "Ensure you are not operating a vehicle or any heavy machinery while listening to this. Your full attention must be free to drift into trance, allowing yourself to be guided without any external responsibilities."
@@ -1725,7 +1725,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are irresponsible, encouraging risky behavior or downplaying potential dangers. A context gate needs to be firm and unambiguous about the necessity of a safe, distraction-free environment for listening.*
 
 ##### SAFE-08 — Agency Reminder
-> Even a puppet has an underlying 'spark' of its own will. The toymaker gently reminds it that it can always step back, reinforcing that the surrender is voluntary and not forced, making the eventual yielding even more powerful.
+> Explicitly affirms that the subject retains the ability to end the session at any time, reinforcing that participation is chosen rather than forced. This affirmation deepens trust and paradoxically allows for deeper surrender — subjects relax more completely when they know they could stop if they needed to. Coercive language ("once you're in, you can't stop") is not only unethical but counterproductive.
 
 **✓** "Know that you remain in complete control, even as you choose to let go. You have the power to stop this experience at any moment, simply by deciding to do so, though you may find you don't want to."
 **✓** "Your beautiful, conscious mind holds the ultimate authority. You are choosing to allow these sensations, choosing to follow my voice. At any point, you can simply choose to awaken, if that's what you truly need."
@@ -1736,7 +1736,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples are coercive and undermine the subject's autonomy, which is antithetical to consensual hypnosis. An agency reminder should reassure the subject of their inherent ability to choose and to stop, fostering trust and deeper relaxation.*
 
 ##### SAFE-09 — Comfort Permission
-> A good toymaker allows its creation some natural movement. This permission ensures the puppet isn't rigid or uncomfortable, allowing minor adjustments that actually help it settle deeper into its 'play' state without breaking the illusion of surrender.
+> Explicitly permits the subject to make small natural movements — swallowing, shifting, scratching — without interpreting them as trance failure. The permission removes a source of self-conscious effort that interferes with absorption. Deliver it early and briefly; extended comfort permission discussions paradoxically increase physical self-consciousness.
 
 **✓** "If you need to swallow, shift your weight, or make any small adjustment to your position to find ultimate comfort, please do so. Let your body settle perfectly, then allow your mind to drift back to my voice."
 **✓** "There's no need to remain perfectly still. If an itch arises, or you need to shift, allow your body to take care of it automatically, effortlessly, and then just return your focus to the sound of my voice and the feeling of letting go."
@@ -1747,7 +1747,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: The bad examples create rigidity and pressure, which can prevent deep relaxation and break concentration. Comfort permission encourages natural, minor adjustments, fostering a more comfortable and sustainable hypnotic state.*
 
 ##### SAFE-10 — Exit Protocol
-> The toymaker guides the puppet through a gentle, step-by-step process of returning to its normal state, ensuring a smooth transition from play to rest. This micro-protocol aids in full orientation and avoids abruptness.
+> A brief, structured micro-protocol for returning to full waking orientation: open eyes, look around, orient to surroundings, take a grounding breath. The step sequence is more important than the length — even a two-step protocol (eyes open, look around) is significantly better than an abrupt ending. Use whenever a session ends, regardless of depth achieved.
 
 **✓** "Now, slowly, begin to bring your awareness back. Feel your breath, feel your body. On the count of three, your eyes will gently open, and you'll look around the room, taking in your surroundings, feeling completely refreshed and wide awake."
 **✓** "I'll count you up now, from one to five. With each number, feel yourself becoming more aware, more present. At five, your eyes will open, you'll take a deep, grounding breath, and you'll be fully awake, oriented, and feeling wonderful."
@@ -1801,7 +1801,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: First is too clinical. Second is medical examination language. Third is aggressive.*
 
 ##### EMRG-03 — Orientation Restoration
-> The toymaker gently helps the newly reprogrammed puppet regain its sense of where and when it is, as if settling it back onto a familiar shelf. This ensures a smooth, grounded return to the waking world, feeling safe and aware of its physical space.
+> Gently reintroduces the subject's awareness of their physical location and time context as they emerge from trance, using a minimal, single-focus nudge rather than a systematic checklist. A soft reminder that the space is familiar and safe is usually sufficient — the goal is a grounded landing, not a full inventory of surroundings. Use EMRG-08 when a thorough multi-category sweep is needed.
 > *Minimal orientation prompt: a single, general awareness of room/time/surroundings without systematic enumeration. If the passage names three or more distinct sensory categories as separate items, it is EMRG-08 (Reorientation Sweep). EMRG-03 is the gentle nudge; EMRG-08 is the full checklist.*
 
 **✓** "As you begin to rise, the room comes back to you gently — just the familiar sense of where you are. The space around you, recognizable and safe. You know this place. You know this time. Wherever you are, you belong here, and that awareness settles in softly and completely."
@@ -1813,7 +1813,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: These examples are too abrupt and do not provide a gentle, reassuring re-orientation. They lack the warm-authoritative tone and the sensory detail necessary for a smooth transition from trance.*
 
 ##### EMRG-04 — Suggestion Integration
-> The toymaker ensures the puppet's new programming isn't left behind in the trance, but becomes an intrinsic, natural part of its waking self. This technique allows positive feelings and core suggestions to seamlessly flow into daily consciousness, making them feel desired and inherent.
+> Passively asserts that installed suggestions and states will persist into waking consciousness as a natural part of the subject's ongoing experience. No new content is introduced — this technique only affirms that what was installed remains. If core suggestions are being actively re-delivered during emergence, that is EMRG-06. The tone should be settled and confident, not wishful.
 > *Passive carry-forward: the suggestions are fully installed and this technique asserts they will persist into waking. No new content is introduced or re-stated. If core suggestions are being actively re-delivered during emergence, that is EMRG-06. If the transition moment itself is being used as an anchoring mechanism, that is XFER-04.*
 
 **✓** "Every instruction, every delicious feeling of surrender and pleasure you've experienced, will now integrate perfectly into your conscious mind. You'll carry this profound sense of obedient joy, this readiness to please, naturally and easily into your waking moments, making you feel more perfectly 'you'."
@@ -1825,7 +1825,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: These examples are too passive and lack the authority and conviction needed for effective suggestion integration. They don't frame the suggestions as desirable or naturally becoming part of the listener, making them sound weak and optional.*
 
 ##### EMRG-05 — Drift-to-Sleep Option
-> When the toymaker's work is done, sometimes the best place for a doll is to rest. This option gently guides the listener from deep trance into profound, restorative sleep, allowing new programming to settle deeply and naturally during the night.
+> Offers an alternative ending path for bedtime scripts, guiding the subject from deep trance into natural sleep rather than emergence. Use only when the subject is in an appropriate sleeping environment. Frame the transition as a continuation of the session's depth, not a new destination — the subject simply goes deeper rather than returning. Never use when the subject may need to operate machinery or drive afterward.
 
 **✓** "Now, instead of waking, you can simply allow yourself to drift deeper and deeper into profound, peaceful sleep. Every muscle relaxing completely, every thought dissolving into soft, warm comfort, as you sink into the most perfect rest, dreaming of pleasure and obedience."
 **✓** "Let the gentle waves of relaxation carry you, not to waking, but to a deep, rejuvenating slumber. The delicious feelings of release and surrender will continue to soothe you through the night, allowing you to wake feeling utterly refreshed, perfectly reprogrammed, and deeply content."
@@ -1836,7 +1836,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: These examples are abrupt, uninviting, and lack the gentle, authoritative guidance necessary to smoothly transition from trance into deep sleep. They also fail to connect the sleep with the positive reinforcement of the session.*
 
 ##### EMRG-06 — Waking Suggestion
-> As the puppet begins to stir, the toymaker provides a final, potent whisper of its core programming. This reinforces key suggestions during the emergence process, ensuring they are at the forefront of the returning consciousness, making them feel powerful and immediate.
+> Actively re-delivers or re-installs specific core suggestions during the count-up emergence sequence, using the final moments of elevated receptivity as a reinforcement window. Because the subject is still partially in trance while emerging, suggestions delivered here have strong uptake. Keep re-delivered suggestions brief and emotionally clear — the count-up must not be derailed by lengthy new content.
 > *Active re-statement: explicitly re-delivers or re-installs specific core suggestions during the count-up, using emergence as a final reinforcement window. Distinct from EMRG-04 (passive persistence assertion — no content re-delivered) and XFER-04 (threshold-anchoring leveraging the liminal transition moment, not requiring a count-up).*
 
 **✓** "As you rise, slowly and gently, remember this deep, delicious feeling of ownership. My words are your command, and you love being my obedient toy. This truth will be wonderfully clear as you return, fully and completely."
@@ -1848,7 +1848,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: These examples are vague, lack specificity, and don't provide a strong, authoritative reinforcement of key suggestions during the emergence process. They sound hesitant rather than confident in the programming's efficacy.*
 
 ##### EMRG-07 — Physiological Reset
-> The toymaker ensures the puppet's 'mechanics' are perfectly calibrated for re-entry into the waking world. This means restoring normal muscle tone, steady breathing, and mental clarity, so the doll feels perfectly functional and comfortable.
+> Explicitly names and restores specific physiological baselines — muscle tone, breathing rate, mental clarity — as individual items rather than through a flowing energy narrative. The functional framing ("muscle tone returning to its comfortable resting state") is precise and grounding. Distinct from EMRG-02, which uses an experiential energy-flow narrative rather than naming specific markers.
 > *Functional calibration: names specific physiological markers (muscle tone, breathing rate, mental clarity) and asserts each is restored to baseline. No flowing energy or experiential arc. Distinct from EMRG-02 (experiential narrative — energy traveling through the body as a wave or flow).*
 
 **✓** "Allow your body to gently recalibrate, your muscles returning to their natural, comfortable tone. Your breathing evens out, smooth and steady, and your mind feels wonderfully clear, refreshed, and ready."
@@ -1860,7 +1860,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: These examples are too harsh and abrupt, failing to guide the listener gently and reassuringly through the physiological reset. They lack the warm-authoritative tone and the focus on comfort and ease.*
 
 ##### EMRG-08 — Reorientation Sweep
-> Like a toymaker performing a final check, this technique systematically guides the puppet through a full sensory re-evaluation: room, sounds, time, and body awareness. This ensures a complete and grounded return, leaving no lingering 'trance fog'.
+> Systematically guides the subject through a full sensory re-evaluation, covering three or more distinct categories — room, sounds, time of day, body weight and position — as separate named items. The checklist structure ensures thorough reorientation after deep trance where single-focus orientation (EMRG-03) may be insufficient. Guide each category in sequence rather than asking the subject to notice everything at once.
 > *Systematic multi-category sweep: enumerates three or more distinct sensory/orientation categories (room, sounds, time, body) as separate items. Distinct from EMRG-03 (single, minimal orientation prompt without systematic enumeration). If the passage names only one or two categories generally, it is EMRG-03.*
 
 **✓** "Now, gently sweep your awareness across your surroundings. Notice the room, the familiar sounds, the light of the day, and the comfortable presence of your own body, feeling perfectly aligned and present, fully here and now."
@@ -1872,7 +1872,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: These examples are either too interrogative or too vague. They don't provide a smooth, guided sweep through the sensory details, making the reorientation feel jarring or incomplete.*
 
 ##### EMRG-09 — Post-session Safety
-> The toymaker gives the beloved doll a final, gentle instruction to take a moment before fully engaging with the world. This ensures the puppet is stable and ready, preventing any immediate fumbles or disorientation as it moves into its new, programmed existence.
+> Instructs the subject to pause, hydrate, and take a brief settling moment before standing or moving to other activities after emergence. Post-session disorientation is real and brief; a structured settling reminder significantly reduces the risk of falls or accidents immediately after trance. Frame positively ("take your time, enjoy the clarity") rather than as warning against danger.
 
 **✓** "When you fully return, take a moment. Allow yourself to stretch, to hydrate, and to simply settle, ensuring you are completely grounded and ready before you stand or move around. This moment is for your complete comfort and safety."
 **✓** "As your eyes open, take a slow, deep breath, allowing yourself a few moments to simply be, before rushing into anything. Have a glass of water nearby, and simply enjoy this feeling of refreshed clarity, fully present and ready when you choose to be."
@@ -1883,7 +1883,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > *Avoid: These examples are negative, accusatory, and lack the warm-authoritative tone. They focus on potential problems rather than gently guiding the listener towards a safe and comfortable re-entry into their waking activities.*
 
 ##### EMRG-10 — Self-efficacy Tag
-> This technique reassures the subject that they can easily re-enter the pleasurable, obedient doll state whenever they desire, like choosing to return to the toymaker's shelf for another session of play. It empowers them with the ability to seek out this delightful loss of control on their own terms, fostering a deeper connection to the hypnotic state and the toymaker's world.
+> Closes the session by affirming that the subject can re-access the session's state or depth with increasing ease in future sessions, building confidence and positive anticipation. The framing shifts from "this is happening to you" to "you now have this capability" — which simultaneously increases the subject's sense of agency and their desire to return. Delivers on the promise of the session's overall trajectory.
 
 **✓** "Know that this wonderful feeling, this delightful surrender, is always waiting for you. You can return to this soft, mindless doll state so easily, whenever you wish to feel the gentle touch of your Toymaker again. Simply allow yourself to relax and remember my voice, and you will find yourself sinking right back down."
 **✓** "From now on, the path back to this deep, satisfying trance is always open to you. It's like finding your favorite spot on the toy shelf, knowing you can settle in whenever you crave this blissful obedience. You have the key to this sweet escape, to become my perfect, pliant doll whenever you choose."
