@@ -2,34 +2,28 @@
 """
 Binaural Beat & Isochronic Pulse Analyzer
 
-Analyzes stereo audio files for binaural beat patterns and isochronic
-pulse rates over time. Detects all carrier pairs automatically (open-ended,
-no fixed "high/low" assumption), tracks binaural beats per carrier, and
-measures amplitude modulation (isochronic pulse) per carrier.
+Point at any stereo audio file and get a spectrogram PNG with annotated
+frequency tracks plus an ASCII summary of what's in there.
+
+Pipeline:
+    1. STFT per channel → per-frame spectral whitening
+    2. Sub-bin parabolic peak detection
+    3. Greedy track linking + co-linear fragment merging
+    4. Binaural pairing (Hungarian assignment on L×R beat cost)
+    5. Isochronic measurement per track (bandpass → Hilbert → envelope FFT)
+    6. Screen-blend L/R spectrogram + annotated track overlay
 
 Usage:
-    python binaural_analyzer.py <audio_file> [options]
-
-Modes:
-    (default)     Sliding-window analysis with ASCII graph
-    --spectrum    Detailed spectrum debug (peaks, candidates per window)
-    --verify      Verify generated audio against a JSON config file
-    --spectrogram Generate spectrogram PNG with carrier trajectory overlay
+    python binaural_analyzer.py <audio_file> [-o output.png]
 
 Options:
-    --window SEC              Analysis window size in seconds (default: 10)
-    --step SEC                Step between windows in seconds (default: 5)
-    --expected-carriers HZ    Comma-separated center frequencies to look for
-    --freq-min HZ             Min frequency for detection (default: 30)
-    --freq-max HZ             Max frequency for detection (default: auto-detect)
-    --no-graph                Suppress ASCII graph output
-    --no-isochronic           Skip isochronic pulse detection (faster)
-    --csv                     Output CSV format
-    --verify FILE             Verify against generator JSON config
-    --spectrum                Show detailed spectrum debug
-    --spectrogram             Generate spectrogram PNG with carrier overlay
-    --spectrogram-lr          L/R split spectrogram (implies --spectrogram)
-    --output / -o PATH        Output path for spectrogram PNG
+    --freq-min HZ           Min frequency to display (default: 30)
+    --freq-max HZ           Max frequency to display (default: auto-detect)
+    --output / -o PATH      Output PNG path (default: <input>_tracks.png)
+    --binaural-range MIN,MAX  Valid beat Hz range for pairing (default: 0.3,20)
+    --iso-bandwidth HZ      Bandpass width for isochronic detection (default: 15)
+    --iso-min-conf FLOAT    Min confidence to report isochronic rate (default: 1.0)
+    --pair-min-overlap INT  Min overlapping frames to form a pair (default: 4)
 """
 
 import argparse
@@ -51,1295 +45,92 @@ try:
     from matplotlib.ticker import FuncFormatter
     from matplotlib.colors import LinearSegmentedColormap, Normalize
     HAS_MATPLOTLIB = True
-    # Per-channel colormaps: dark (low dB) → bright (high dB)
     _CMAP_LEFT = LinearSegmentedColormap.from_list(
         'teal_heat', ['#000011', '#002233', '#005577', '#009999', '#44eedd'], N=256)
     _CMAP_RIGHT = LinearSegmentedColormap.from_list(
         'red_heat', ['#110000', '#330000', '#880000', '#cc3300', '#ff8855'], N=256)
-    _CMAP_MONO = 'viridis'
-    # Marker colors for L/R carrier trajectories
-    _COLOR_L = '#00ccbb'   # teal
-    _COLOR_R = '#ff4422'   # red
-    _COLOR_PAIR = '#ffdd44'  # gold for binaural-paired merged tracks
+    _COLOR_L = '#00ccbb'     # teal  — solo L tracks
+    _COLOR_R = '#ff4422'     # red   — solo R tracks
+    _COLOR_PAIR = '#ffdd44'  # gold  — binaural-paired merged tracks
 except ImportError:
     HAS_MATPLOTLIB = False
 
-# Reduced sample rate for analysis — sufficient for carriers up to ~3500 Hz,
-# cuts memory ~5.5x vs loading at 44100 Hz
+# Reduced sample rate for isochronic analysis — sufficient for carriers up to
+# ~3500 Hz, cuts memory ~5.5x vs 44100 Hz
 ANALYSIS_SR = 8000
 
 
-# === Spectrum Utilities ===
+# === Utilities ===
 
-def get_carrier_freq(y, sr, freq_min, freq_max, min_snr_db=10.0, guard_hz=1.0):
-    """Get the dominant frequency in a range, with SNR gating.
-
-    Returns dict {'freq_hz', 'peak_db', 'noise_db', 'snr_db'} or None
-    if no tone is significantly above the noise floor.
-    """
-    n = len(y)
-    if n < 8:
-        return None
-
-    win = np.hanning(n)
-    yf = np.abs(fft(y * win))[:n // 2]
+def _auto_detect_freq_range(y_left, y_right, sr, sample_duration=30, floor_db=40):
+    """Find the useful frequency ceiling from a short sample."""
+    n_samples = min(int(sample_duration * sr), len(y_left))
+    mono = (y_left[:n_samples] + y_right[:n_samples]) / 2
+    n = len(mono)
+    yf = np.abs(fft(mono))[:n // 2]
     xf = fftfreq(n, 1 / sr)[:n // 2]
-
-    mask = (xf >= freq_min) & (xf <= freq_max)
-    yf_masked = yf[mask]
-    xf_masked = xf[mask]
-
-    if len(yf_masked) < 8:
-        return None
-
-    yf_db = 20 * np.log10(yf_masked + 1e-12)
-    peak_idx = np.argmax(yf_db)
-    peak_db = float(yf_db[peak_idx])
-
-    # Parabolic interpolation for sub-bin accuracy
-    freq_est = float(xf_masked[peak_idx])
-    if 0 < peak_idx < len(yf_db) - 1:
-        a, b, c = yf_db[peak_idx - 1], yf_db[peak_idx], yf_db[peak_idx + 1]
-        denom = a - 2 * b + c
-        if denom != 0:
-            p = 0.5 * (a - c) / denom
-            bin_hz = xf_masked[1] - xf_masked[0] if len(xf_masked) > 1 else 1.0
-            freq_est += p * bin_hz
-
-    # Noise floor: median of band excluding guard bins around peak
-    bin_hz = xf_masked[1] - xf_masked[0] if len(xf_masked) > 1 else 1.0
-    guard_bins = max(1, int(guard_hz / bin_hz))
-    lo = max(0, peak_idx - guard_bins)
-    hi = min(len(yf_db), peak_idx + guard_bins + 1)
-    noise_vals = np.concatenate([yf_db[:lo], yf_db[hi:]])
-
-    if len(noise_vals) < 4:
-        return None
-
-    noise_db = float(np.median(noise_vals))
-    snr_db = peak_db - noise_db
-
-    if snr_db < min_snr_db:
-        return None
-
-    return {
-        'freq_hz': freq_est,
-        'peak_db': peak_db,
-        'noise_db': noise_db,
-        'snr_db': snr_db,
-    }
+    mask = (xf >= 30) & (xf <= 2000)
+    yf_masked, xf_masked = yf[mask], xf[mask]
+    if len(yf_masked) == 0:
+        return 1200
+    yf_db = 20 * np.log10(yf_masked + 1e-10)
+    above = xf_masked[yf_db > np.max(yf_db) - floor_db]
+    if len(above) == 0:
+        return 1200
+    highest = float(np.max(above))
+    return min(max(600, int(np.ceil((highest * 1.2) / 50) * 50)), 2000)
 
 
-def get_spectrum(y, sr, freq_min=30, freq_max=600):
-    """Get power spectrum as (frequency, power_db) arrays."""
-    n = len(y)
-    yf = np.abs(fft(y))[:n // 2]
-    xf = fftfreq(n, 1 / sr)[:n // 2]
-    yf_db = 20 * np.log10(yf + 1e-10)
-    mask = (xf >= freq_min) & (xf <= freq_max)
-    return xf[mask], yf_db[mask]
-
-
-def find_peaks_in_spectrum(y, sr, freq_min=30, freq_max=600, threshold_db=20, max_peaks=20):
-    """Find prominent peaks in a channel's spectrum.
-
-    Args:
-        y: Audio samples (single channel)
-        sr: Sample rate
-        freq_min: Minimum frequency to search
-        freq_max: Maximum frequency to search
-        threshold_db: Only return peaks within this many dB of the maximum
-        max_peaks: Maximum number of peaks to return
-
-    Returns:
-        List of (frequency, power_db) tuples sorted by power (descending)
-    """
-    freqs, powers = get_spectrum(y, sr, freq_min, freq_max)
-    if len(powers) == 0:
-        return []
-
-    threshold = np.max(powers) - threshold_db
-    peaks_idx, props = scipy_signal.find_peaks(powers, height=threshold, distance=5)
-
-    if len(peaks_idx) == 0:
-        return []
-
-    sorted_idx = np.argsort(props['peak_heights'])[::-1][:max_peaks]
-    return [(freqs[peaks_idx[i]], props['peak_heights'][i]) for i in sorted_idx]
-
-
-# === Isochronic Pulse Detection ===
+# === Isochronic Detection ===
 
 def detect_isochronic_rate(y, sr, carrier_freq, bandwidth=15,
-                           pulse_range=(0.5, 15), min_confidence=0.3):
+                            pulse_range=(0.5, 15), min_confidence=0.3):
+    """Detect isochronic pulse rate at a carrier via bandpass → Hilbert → envelope FFT.
+
+    Returns (pulse_hz, confidence) or (None, 0.0) if nothing found.
+    Confidence = peak / median noise floor of the envelope spectrum.
     """
-    Detect isochronic pulse rate for a carrier in a single channel.
-
-    Bandpasses around the carrier, extracts the amplitude envelope via
-    Hilbert transform, then FFTs the envelope to find the dominant
-    modulation frequency.
-
-    Args:
-        y: Audio samples (single channel)
-        sr: Sample rate
-        carrier_freq: Center frequency of the carrier to analyze
-        bandwidth: Hz on each side of carrier for bandpass (default: 15)
-        pulse_range: (min_hz, max_hz) valid pulse rate range
-        min_confidence: Minimum peak-to-noise ratio to report a detection
-
-    Returns:
-        (pulse_hz, confidence) where confidence is peak prominence
-        relative to noise floor, or (None, 0.0) if no pulse detected.
-    """
-    # 1. Bandpass filter around carrier (SOS format for numerical stability)
     nyq = sr / 2
     low = max(carrier_freq - bandwidth, 1) / nyq
     high = min(carrier_freq + bandwidth, nyq - 1) / nyq
     if low >= high or low <= 0 or high >= 1:
         return (None, 0.0)
-
     try:
         sos = scipy_signal.butter(4, [low, high], btype='band', output='sos')
         filtered = scipy_signal.sosfiltfilt(sos, y)
     except ValueError:
         return (None, 0.0)
 
-    # 2. Hilbert transform → amplitude envelope
-    analytic = scipy_signal.hilbert(filtered)
-    envelope = np.abs(analytic)
+    envelope = np.abs(scipy_signal.hilbert(filtered))
+    envelope = (envelope - np.mean(envelope)) * np.hanning(len(envelope))
 
-    # 3. Remove DC and apply window
-    envelope = envelope - np.mean(envelope)
-    envelope = envelope * np.hanning(len(envelope))
-
-    # 4. FFT the envelope
     n = len(envelope)
     env_fft = np.abs(fft(envelope))[:n // 2]
     env_freqs = fftfreq(n, 1 / sr)[:n // 2]
 
-    # 5. Find peak in pulse_range
     mask = (env_freqs >= pulse_range[0]) & (env_freqs <= pulse_range[1])
     if not np.any(mask):
         return (None, 0.0)
 
-    env_fft_masked = env_fft[mask]
-    env_freqs_masked = env_freqs[mask]
-
-    peak_idx = np.argmax(env_fft_masked)
-    peak_power = env_fft_masked[peak_idx]
-
-    # Noise floor: median of the masked range
-    noise_floor = np.median(env_fft_masked)
+    env_fft_m = env_fft[mask]
+    env_freqs_m = env_freqs[mask]
+    peak_idx = np.argmax(env_fft_m)
+    noise_floor = np.median(env_fft_m)
     if noise_floor <= 0:
         noise_floor = 1e-10
-    confidence = peak_power / noise_floor
-
+    confidence = env_fft_m[peak_idx] / noise_floor
     if confidence < min_confidence:
         return (None, 0.0)
 
-    # 6. Parabolic interpolation for sub-bin accuracy
-    freq = env_freqs_masked[peak_idx]
-    if 0 < peak_idx < len(env_fft_masked) - 1:
-        alpha = env_fft_masked[peak_idx - 1]
-        beta = env_fft_masked[peak_idx]
-        gamma = env_fft_masked[peak_idx + 1]
-        denom = alpha - 2 * beta + gamma
-        if denom != 0 and beta > 0:
-            p = 0.5 * (alpha - gamma) / denom
-            freq_resolution = env_freqs_masked[1] - env_freqs_masked[0]
-            freq = freq + p * freq_resolution
+    # Parabolic sub-bin interpolation
+    freq = env_freqs_m[peak_idx]
+    if 0 < peak_idx < len(env_fft_m) - 1:
+        a, b, c = env_fft_m[peak_idx - 1], env_fft_m[peak_idx], env_fft_m[peak_idx + 1]
+        denom = a - 2 * b + c
+        if denom != 0 and b > 0:
+            freq += 0.5 * (a - c) / denom * (env_freqs_m[1] - env_freqs_m[0])
 
     return (freq, confidence)
-
-
-# === Carrier Pair Detection ===
-
-def detect_carrier_pairs(y_left, y_right, sr, freq_min=30, freq_max=600,
-                         sample_duration=30, beat_range=(0.5, 20)):
-    """
-    Auto-detect all carrier pairs by finding L/R peak pairs with binaural-range
-    frequency differences. Open-ended - no assumptions about how many pairs exist
-    or where they are.
-
-    Args:
-        y_left: Left channel audio
-        y_right: Right channel audio
-        sr: Sample rate
-        freq_min: Minimum frequency to scan
-        freq_max: Maximum frequency to scan
-        sample_duration: Seconds of audio to use for detection
-        beat_range: (min_hz, max_hz) for valid binaural beat differences
-
-    Returns:
-        List of carrier pair dicts sorted by amplitude:
-        [{'center_hz': float, 'left_hz': float, 'right_hz': float,
-          'binaural_hz': float, 'avg_db': float, 'search_range': (min, max)}]
-    """
-    n_samples = min(int(sample_duration * sr), len(y_left))
-    left_sample = y_left[:n_samples]
-    right_sample = y_right[:n_samples]
-
-    left_peaks = find_peaks_in_spectrum(left_sample, sr, freq_min, freq_max)
-    right_peaks = find_peaks_in_spectrum(right_sample, sr, freq_min, freq_max)
-
-    if not left_peaks or not right_peaks:
-        return []
-
-    # Find all L/R pairs with binaural-range differences
-    raw_pairs = []
-    for lf, lp in left_peaks:
-        for rf, rp in right_peaks:
-            diff = abs(rf - lf)
-            if beat_range[0] <= diff <= beat_range[1]:
-                center = (lf + rf) / 2
-                raw_pairs.append({
-                    'center_hz': center,
-                    'left_hz': lf,
-                    'right_hz': rf,
-                    'binaural_hz': diff,
-                    'left_db': lp,
-                    'right_db': rp,
-                    'avg_db': (lp + rp) / 2,
-                })
-
-    if not raw_pairs:
-        return []
-
-    # Cluster nearby pairs (within 25 Hz of each other's center) - keep strongest
-    raw_pairs.sort(key=lambda p: -p['avg_db'])
-    clusters = []
-    used = set()
-
-    for i, pair in enumerate(raw_pairs):
-        if i in used:
-            continue
-        cluster = [pair]
-        for j, other in enumerate(raw_pairs[i + 1:], i + 1):
-            if j in used:
-                continue
-            if abs(other['center_hz'] - pair['center_hz']) < 25:
-                used.add(j)
-        used.add(i)
-
-        # Use the strongest pair in the cluster
-        best = cluster[0]
-        # Define search range around this carrier pair
-        margin = max(15, best['binaural_hz'] * 2)
-        search_min = max(freq_min, min(best['left_hz'], best['right_hz']) - margin)
-        search_max = min(freq_max, max(best['left_hz'], best['right_hz']) + margin)
-        best['search_range'] = (search_min, search_max)
-        clusters.append(best)
-
-    # Sort by center frequency
-    clusters.sort(key=lambda p: p['center_hz'])
-    return clusters
-
-
-def build_carrier_ranges_from_centers(centers, margin=15, freq_min=30, freq_max=600):
-    """Build search ranges from known center frequencies.
-
-    Args:
-        centers: List of center frequencies in Hz
-        margin: Hz margin around each center
-        freq_min: Global min frequency
-        freq_max: Global max frequency
-
-    Returns:
-        List of dicts with 'center_hz' and 'search_range'
-    """
-    ranges = []
-    for center in sorted(centers):
-        ranges.append({
-            'center_hz': center,
-            'search_range': (max(freq_min, center - margin), min(freq_max, center + margin)),
-            'left_hz': None, 'right_hz': None,
-            'binaural_hz': None, 'avg_db': None,
-        })
-    return ranges
-
-
-# === Auto-Detection ===
-
-def auto_detect_freq_range(y_left, y_right, sr, sample_duration=30, floor_db=40):
-    """Find the useful frequency ceiling from a short sample."""
-    n_samples = min(int(sample_duration * sr), len(y_left))
-    mono = (y_left[:n_samples] + y_right[:n_samples]) / 2
-
-    n = len(mono)
-    yf = np.abs(fft(mono))[:n // 2]
-    xf = fftfreq(n, 1 / sr)[:n // 2]
-
-    mask = (xf >= 30) & (xf <= 2000)
-    yf_masked = yf[mask]
-    xf_masked = xf[mask]
-
-    if len(yf_masked) == 0:
-        return 1200
-
-    yf_db = 20 * np.log10(yf_masked + 1e-10)
-    peak_db = np.max(yf_db)
-    above = xf_masked[yf_db > peak_db - floor_db]
-
-    if len(above) == 0:
-        return 1200
-
-    highest = float(np.max(above))
-    freq_max = max(600, int(np.ceil((highest * 1.2) / 50) * 50))
-    return min(freq_max, 2000)
-
-
-def detect_carriers_median(y_left, y_right, sr, freq_min=30, freq_max=600,
-                            n_segments=20, segment_sec=10,
-                            beat_range=(0.5, 20), threshold_db=25):
-    """
-    Detect carrier pairs using median spectrum analysis.
-
-    Samples N segments across the file, computes the FFT of each, and takes
-    the median power at each frequency bin. Pure tone carriers survive the
-    median; transient content (voice, music) gets suppressed.
-    """
-    total_samples = len(y_left)
-    seg_samples = min(int(segment_sec * sr), total_samples)
-
-    if total_samples <= int(seg_samples * 1.5):
-        starts = [0]
-    else:
-        usable = total_samples - seg_samples
-        actual_n = min(n_segments, max(3, total_samples // seg_samples))
-        starts = [int(i * usable / max(1, actual_n - 1)) for i in range(actual_n)]
-
-    half = seg_samples // 2
-    freq_bins = fftfreq(seg_samples, 1 / sr)[:half]
-    left_spectra = []
-    right_spectra = []
-
-    for start in starts:
-        l_seg = y_left[start:start + seg_samples]
-        r_seg = y_right[start:start + seg_samples]
-        win = np.hanning(len(l_seg))
-        left_spectra.append(np.abs(fft(l_seg * win))[:half])
-        right_spectra.append(np.abs(fft(r_seg * win))[:half])
-
-    left_median = np.median(np.array(left_spectra), axis=0)
-    right_median = np.median(np.array(right_spectra), axis=0)
-
-    mask = (freq_bins >= freq_min) & (freq_bins <= freq_max)
-    freqs = freq_bins[mask]
-    left_db = 20 * np.log10(left_median[mask] + 1e-10)
-    right_db = 20 * np.log10(right_median[mask] + 1e-10)
-
-    def _find_peaks_db(spectrum, freqs_arr):
-        if len(spectrum) == 0:
-            return []
-        threshold = np.max(spectrum) - threshold_db
-        idx, props = scipy_signal.find_peaks(spectrum, height=threshold, distance=5)
-        if len(idx) == 0:
-            return []
-        order = np.argsort(props['peak_heights'])[::-1][:20]
-        peaks = []
-        freq_res = freqs_arr[1] - freqs_arr[0] if len(freqs_arr) > 1 else 1.0
-        for i in order:
-            pi = idx[i]
-            f = freqs_arr[pi]
-            if 0 < pi < len(spectrum) - 1:
-                a, b, c = spectrum[pi - 1], spectrum[pi], spectrum[pi + 1]
-                denom = a - 2 * b + c
-                if denom != 0:
-                    f += 0.5 * (a - c) / denom * freq_res
-            peaks.append((f, props['peak_heights'][i]))
-        return peaks
-
-    l_peaks = _find_peaks_db(left_db, freqs)
-    r_peaks = _find_peaks_db(right_db, freqs)
-    if not l_peaks or not r_peaks:
-        return []
-
-    # Binaural pairs: L/R with beat-range frequency difference
-    raw_pairs = []
-    for lf, lp in l_peaks:
-        for rf, rp in r_peaks:
-            diff = abs(rf - lf)
-            if beat_range[0] <= diff <= beat_range[1]:
-                raw_pairs.append({
-                    'center_hz': (lf + rf) / 2,
-                    'left_hz': lf, 'right_hz': rf,
-                    'binaural_hz': diff,
-                    'avg_db': (lp + rp) / 2,
-                    'detection_type': 'binaural',
-                })
-
-    # Mono carriers: same freq in L and R (isochronic-only)
-    for lf, lp in l_peaks:
-        for rf, rp in r_peaks:
-            if abs(rf - lf) < 1.0:
-                center = (lf + rf) / 2
-                if not any(abs(center - p['center_hz']) < 25 for p in raw_pairs):
-                    raw_pairs.append({
-                        'center_hz': center,
-                        'left_hz': lf, 'right_hz': rf,
-                        'binaural_hz': 0.0,
-                        'avg_db': (lp + rp) / 2,
-                        'detection_type': 'mono',
-                    })
-
-    if not raw_pairs:
-        return []
-
-    # Cluster nearby (within 25 Hz), keep strongest
-    raw_pairs.sort(key=lambda p: -p['avg_db'])
-    result = []
-    used = set()
-    for i, pair in enumerate(raw_pairs):
-        if i in used:
-            continue
-        used.add(i)
-        for j in range(i + 1, len(raw_pairs)):
-            if j not in used and abs(raw_pairs[j]['center_hz'] - pair['center_hz']) < 25:
-                used.add(j)
-        margin = max(15, pair['binaural_hz'] * 2)
-        lo = max(freq_min, min(pair['left_hz'], pair['right_hz']) - margin)
-        hi = min(freq_max, max(pair['left_hz'], pair['right_hz']) + margin)
-        pair['search_range'] = (lo, hi)
-        result.append(pair)
-
-    result.sort(key=lambda p: p['center_hz'])
-    return result[:6]
-
-
-def update_carrier_search_ranges(carrier_pairs, window_results, freq_min, freq_max, max_drift_hz=5):
-    """Adaptively nudge carrier search ranges toward measured frequencies."""
-    for pair, result in zip(carrier_pairs, window_results):
-        if result['left_hz'] is None or result['right_hz'] is None:
-            continue
-        measured_center = result['center_hz']
-        current_center = (pair['search_range'][0] + pair['search_range'][1]) / 2
-        delta = measured_center - current_center
-        if abs(delta) > max_drift_hz:
-            delta = max_drift_hz if delta > 0 else -max_drift_hz
-        new_center = current_center + delta
-        half_width = (pair['search_range'][1] - pair['search_range'][0]) / 2
-        pair['search_range'] = (max(freq_min, new_center - half_width),
-                                min(freq_max, new_center + half_width))
-
-
-# === Analysis Functions ===
-
-def analyze_window(y_left, y_right, sr, carrier_pairs, detect_pulse=True):
-    """
-    Analyze a single window for binaural beats and isochronic pulses
-    at each carrier pair.
-
-    Args:
-        y_left: Left channel window
-        y_right: Right channel window
-        sr: Sample rate
-        carrier_pairs: List of carrier pair dicts with 'search_range'
-        detect_pulse: Whether to run isochronic pulse detection (pass 2)
-
-    Returns:
-        List of result dicts per carrier pair:
-        [{'center_hz': float, 'left_hz': float, 'right_hz': float,
-          'binaural_hz': float, 'dominant': 'L'|'R',
-          'pulse_hz': float|None, 'pulse_confidence': float}]
-    """
-    results = []
-    for pair in carrier_pairs:
-        fmin, fmax = pair['search_range']
-        left_m = get_carrier_freq(y_left, sr, fmin, fmax)
-        right_m = get_carrier_freq(y_right, sr, fmin, fmax)
-
-        if left_m is not None and right_m is not None:
-            left_freq = left_m['freq_hz']
-            right_freq = right_m['freq_hz']
-            binaural = abs(right_freq - left_freq)
-            dominant = 'R' if right_freq > left_freq else 'L'
-            center = (left_freq + right_freq) / 2
-            result = {
-                'center_hz': center,
-                'left_hz': left_freq,
-                'right_hz': right_freq,
-                'binaural_hz': binaural,
-                'dominant': dominant,
-                'pulse_hz': None,
-                'pulse_confidence': 0.0,
-            }
-        else:
-            center = pair['center_hz']
-            result = {
-                'center_hz': center,
-                'left_hz': None,
-                'right_hz': None,
-                'binaural_hz': None,
-                'dominant': None,
-                'pulse_hz': None,
-                'pulse_confidence': 0.0,
-            }
-
-        # Pass 2: isochronic pulse detection
-        if detect_pulse:
-            l_pulse, l_conf = detect_isochronic_rate(y_left, sr, center)
-            r_pulse, r_conf = detect_isochronic_rate(y_right, sr, center)
-
-            # Average L/R pulse rates (should be identical for isochronic)
-            if l_pulse is not None and r_pulse is not None:
-                result['pulse_hz'] = (l_pulse + r_pulse) / 2
-                result['pulse_confidence'] = (l_conf + r_conf) / 2
-            elif l_pulse is not None:
-                result['pulse_hz'] = l_pulse
-                result['pulse_confidence'] = l_conf
-            elif r_pulse is not None:
-                result['pulse_hz'] = r_pulse
-                result['pulse_confidence'] = r_conf
-
-        results.append(result)
-
-    return results
-
-
-def analyze_binaural(filepath, window_sec=10, step_sec=5,
-                     carrier_pairs=None, expected_carriers=None,
-                     freq_min=30, freq_max=None,
-                     show_graph=True, csv_output=False,
-                     detect_pulse=True,
-                     spectrogram=False, spectrogram_lr=False,
-                     output_path=None):
-    """
-    Analyze binaural beats and isochronic pulses in an audio file.
-
-    Loads at reduced sample rate (ANALYSIS_SR) to prevent OOM on large files.
-    Uses median-spectrum carrier detection to reject voice/music content.
-    SNR-gated per-window tracking returns N/A when no tone is present.
-
-    Returns:
-        (all_results, carrier_pairs) tuple
-    """
-    y, sr = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
-
-    if y.ndim == 1:
-        print("ERROR: Mono file - cannot analyze binaural beats", file=sys.stderr)
-        return None, None
-
-    y_left, y_right = y[0], y[1]
-    del y
-    duration = len(y_left) / sr
-    filename = os.path.basename(filepath)
-
-    # Auto-detect frequency range if not specified
-    if freq_max is None:
-        freq_max = auto_detect_freq_range(y_left, y_right, sr)
-        if not csv_output:
-            print(f"Auto-detected freq range: {freq_min}-{freq_max} Hz")
-
-    # Determine carrier pairs
-    if carrier_pairs is None:
-        if expected_carriers:
-            carrier_pairs = build_carrier_ranges_from_centers(
-                expected_carriers, freq_min=freq_min, freq_max=freq_max
-            )
-        else:
-            carrier_pairs = detect_carriers_median(
-                y_left, y_right, sr, freq_min=freq_min, freq_max=freq_max
-            )
-
-    if not carrier_pairs:
-        print("No carrier pairs detected. Try --spectrum mode or --expected-carriers.")
-        if spectrogram or spectrogram_lr:
-            generate_spectrogram(filepath, freq_min=freq_min, freq_max=freq_max,
-                                 output_path=output_path, lr_split=spectrogram_lr)
-        return None, None
-
-    n_carriers = len(carrier_pairs)
-
-    if not csv_output:
-        print(f"\n{'=' * 75}")
-        print(f"  {filename}")
-        print(f"{'=' * 75}")
-        print(f"Duration: {duration:.1f}s ({duration / 60:.2f} min) | "
-              f"Window: {window_sec}s | Step: {step_sec}s")
-        print(f"Sample rate: {sr} Hz | FFT resolution: ~{1 / window_sec:.4f} Hz")
-        mode_str = "binaural + isochronic" if detect_pulse else "binaural only"
-        print(f"Mode: {mode_str}")
-        print(f"Detected {n_carriers} carrier(s):")
-        for i, pair in enumerate(carrier_pairs):
-            center = pair['center_hz']
-            fmin_r, fmax_r = pair['search_range']
-            det_type = pair.get('detection_type', 'binaural')
-            if pair.get('binaural_hz') is not None and pair['binaural_hz'] > 0:
-                print(f"  [{i}] ~{center:.1f} Hz (range {fmin_r:.0f}-{fmax_r:.0f}) "
-                      f"| L={pair['left_hz']:.1f} R={pair['right_hz']:.1f} "
-                      f"| beat={pair['binaural_hz']:.2f} Hz ({det_type})")
-            else:
-                print(f"  [{i}] ~{center:.1f} Hz (range {fmin_r:.0f}-{fmax_r:.0f}) ({det_type})")
-        print()
-
-    # Collect all data with adaptive search range tracking
-    all_results = []
-    t = 0
-    while t + window_sec <= duration:
-        start_sample = int(t * sr)
-        end_sample = int((t + window_sec) * sr)
-        left_seg = y_left[start_sample:end_sample]
-        right_seg = y_right[start_sample:end_sample]
-
-        window_results = analyze_window(left_seg, right_seg, sr, carrier_pairs,
-                                        detect_pulse=detect_pulse)
-        all_results.append({'time': t, 'carriers': window_results})
-
-        # Adaptive search range update
-        update_carrier_search_ranges(carrier_pairs, window_results, freq_min, freq_max)
-
-        t += step_sec
-
-    if csv_output:
-        # CSV header
-        headers = ['time_sec']
-        for i in range(n_carriers):
-            headers.extend([f'carrier_{i}_center', f'carrier_{i}_binaural',
-                            f'carrier_{i}_dominant'])
-            if detect_pulse:
-                headers.append(f'carrier_{i}_pulse_hz')
-        print(','.join(headers))
-
-        for result in all_results:
-            row = [f"{result['time']:.1f}"]
-            for cr in result['carriers']:
-                row.append(f"{cr['center_hz']:.2f}")
-                row.append(f"{cr['binaural_hz']:.3f}" if cr['binaural_hz'] is not None else "")
-                row.append(cr['dominant'] if cr['dominant'] else "")
-                if detect_pulse:
-                    row.append(f"{cr['pulse_hz']:.3f}" if cr.get('pulse_hz') is not None else "")
-            print(','.join(row))
-
-    elif show_graph:
-        # Auto-scale graph from data
-        all_binaurals = []
-        for result in all_results:
-            for cr in result['carriers']:
-                if cr['binaural_hz'] is not None:
-                    all_binaurals.append(cr['binaural_hz'])
-
-        if not all_binaurals:
-            print("No binaural beats detected in any window.")
-            return all_results, carrier_pairs
-
-        graph_min = max(0, min(all_binaurals) - 0.5)
-        graph_max = max(all_binaurals) + 0.5
-        graph_range = graph_max - graph_min
-        graph_width = 30
-
-        # Print header per carrier
-        if n_carriers == 1:
-            header = f"{'Time':>8} | {'Binaural':>9} | {'Dom':>3}"
-            if detect_pulse:
-                header += f" | {'Pulse':>6}"
-            header += f" | Graph ({graph_min:.1f}-{graph_max:.1f} Hz)"
-            print(header)
-            print("-" * 75)
-        else:
-            carrier_labels = ' | '.join(
-                f"C{i}({carrier_pairs[i]['center_hz']:.0f}Hz)"
-                for i in range(n_carriers)
-            )
-            print(f"{'Time':>8} | {carrier_labels}")
-            col_width = 28 if detect_pulse else 22
-            print("-" * (12 + n_carriers * col_width))
-
-        for result in all_results:
-            time_str = f"{int(result['time'] // 60)}:{result['time'] % 60:05.2f}"
-
-            if n_carriers == 1:
-                cr = result['carriers'][0]
-                if cr['binaural_hz'] is not None:
-                    bar_pos = (cr['binaural_hz'] - graph_min) / graph_range * graph_width
-                    bar = "." * max(0, int(bar_pos)) + "|"
-                    dom = cr['dominant'] or '?'
-                    line = f"{time_str:>8} | {cr['binaural_hz']:>9.3f} |  {dom} "
-                    if detect_pulse:
-                        pulse_str = f"{cr['pulse_hz']:.2f}" if cr.get('pulse_hz') is not None else "  -  "
-                        line += f" | {pulse_str:>6}"
-                    line += f" | {bar}"
-                    print(line)
-                else:
-                    line = f"{time_str:>8} | {'N/A':>9} |  ? "
-                    if detect_pulse:
-                        line += f" | {'  -  ':>6}"
-                    line += " |"
-                    print(line)
-            else:
-                parts = [f"{time_str:>8}"]
-                for cr in result['carriers']:
-                    if cr['binaural_hz'] is not None:
-                        dom = cr['dominant'] or '?'
-                        part = f"{cr['binaural_hz']:>6.2f} {dom}"
-                        if detect_pulse:
-                            if cr.get('pulse_hz') is not None:
-                                part += f" p={cr['pulse_hz']:<5.2f}"
-                            else:
-                                part += f" {'':8}"
-                        bar_pos = (cr['binaural_hz'] - graph_min) / graph_range * 10
-                        bar = "." * max(0, int(bar_pos)) + "|"
-                        part += f" {bar:<6}"
-                        parts.append(part)
-                    else:
-                        pad = 20 if not detect_pulse else 28
-                        parts.append(f"{'N/A':>6}{'':>{pad - 6}}")
-                print(' | '.join(parts))
-
-    # Summary per carrier
-    if not csv_output:
-        print("-" * 75)
-        print("Summary:")
-        for i, pair in enumerate(carrier_pairs):
-            binaurals = [r['carriers'][i]['binaural_hz']
-                         for r in all_results
-                         if r['carriers'][i]['binaural_hz'] is not None]
-            dominants = [r['carriers'][i]['dominant']
-                         for r in all_results
-                         if r['carriers'][i]['dominant'] is not None]
-            pulses = [r['carriers'][i].get('pulse_hz')
-                      for r in all_results
-                      if r['carriers'][i].get('pulse_hz') is not None]
-
-            if binaurals:
-                dom_counts = {'L': dominants.count('L'), 'R': dominants.count('R')}
-                dom_primary = 'R' if dom_counts['R'] >= dom_counts['L'] else 'L'
-                dom_pct = dom_counts[dom_primary] / len(dominants) * 100 if dominants else 0
-
-                label = f"~{pair['center_hz']:.0f} Hz"
-                binaural_str = f"binaural {binaurals[0]:.3f} -> {binaurals[-1]:.3f} Hz"
-                if abs(binaurals[-1] - binaurals[0]) < 0.1:
-                    binaural_str = f"binaural {np.mean(binaurals):.3f} Hz (static)"
-
-                pulse_str = ""
-                if detect_pulse and pulses:
-                    if abs(pulses[-1] - pulses[0]) < 0.2:
-                        pulse_str = f" | pulse {np.mean(pulses):.2f} Hz (static)"
-                    else:
-                        pulse_str = f" | pulse {pulses[0]:.2f} -> {pulses[-1]:.2f} Hz"
-
-                print(f"  [{i}] {label}: {binaural_str}{pulse_str}"
-                      f" | Dom: {dom_primary} ({dom_pct:.0f}%)")
-            else:
-                print(f"  [{i}] ~{pair['center_hz']:.0f} Hz: no data")
-
-    # Generate spectrogram if requested
-    if spectrogram or spectrogram_lr:
-        del y_left, y_right
-        gc.collect()
-
-        carrier_trajectories = []
-        for i in range(n_carriers):
-            times_list, left_list, right_list = [], [], []
-            for r in all_results:
-                t_mid = r['time'] + window_sec / 2
-                cr = r['carriers'][i]
-                times_list.append(t_mid)
-                left_list.append(cr['left_hz'] if cr.get('left_hz') is not None else float('nan'))
-                right_list.append(cr['right_hz'] if cr.get('right_hz') is not None else float('nan'))
-            carrier_trajectories.append({
-                'times': times_list, 'left_hz': left_list, 'right_hz': right_list,
-            })
-
-        generate_spectrogram(filepath, carrier_trajectories=carrier_trajectories,
-                             carrier_pairs=carrier_pairs,
-                             freq_min=freq_min, freq_max=freq_max,
-                             output_path=output_path, lr_split=spectrogram_lr)
-
-    return all_results, carrier_pairs
-
-
-def analyze_spectrum(filepath, start_sec=0, duration_sec=30, window_sec=10,
-                     freq_min=30, freq_max=600):
-    """Detailed spectrum analysis for debugging carrier detection."""
-    y, sr = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
-
-    if y.ndim == 1:
-        print("ERROR: Mono file", file=sys.stderr)
-        return
-
-    y_left, y_right = y[0], y[1]
-    total_duration = len(y_left) / sr
-    filename = os.path.basename(filepath)
-
-    print(f"\n{'=' * 80}")
-    print(f"  SPECTRUM DEBUG: {filename}")
-    print(f"{'=' * 80}")
-    print(f"Duration: {total_duration:.1f}s | Sample rate: {sr} Hz")
-    print(f"Analyzing: {start_sec:.1f}s to {start_sec + duration_sec:.1f}s")
-    print(f"Window: {window_sec}s | Freq range: {freq_min}-{freq_max} Hz")
-
-    # Auto-detect carrier pairs from first window
-    n_det = min(int(window_sec * sr), len(y_left))
-    pairs = detect_carrier_pairs(y_left[:n_det], y_right[:n_det], sr, freq_min, freq_max)
-    if pairs:
-        print(f"\nAuto-detected {len(pairs)} carrier pair(s):")
-        for i, p in enumerate(pairs):
-            print(f"  [{i}] ~{p['center_hz']:.1f} Hz: L={p['left_hz']:.1f} R={p['right_hz']:.1f} "
-                  f"beat={p['binaural_hz']:.2f} Hz ({p['avg_db']:.1f} dB)")
-
-    t = start_sec
-    end_time = min(start_sec + duration_sec, total_duration - window_sec)
-
-    while t <= end_time:
-        start_sample = int(t * sr)
-        end_sample = int((t + window_sec) * sr)
-        left_seg = y_left[start_sample:end_sample]
-        right_seg = y_right[start_sample:end_sample]
-
-        left_peaks = find_peaks_in_spectrum(left_seg, sr, freq_min, freq_max)
-        right_peaks = find_peaks_in_spectrum(right_seg, sr, freq_min, freq_max)
-
-        # Find binaural candidates
-        candidates = []
-        for lf, lp in left_peaks[:10]:
-            for rf, rp in right_peaks[:10]:
-                diff = abs(rf - lf)
-                if 0.5 < diff < 20:
-                    candidates.append({
-                        'left_freq': lf, 'right_freq': rf,
-                        'binaural': diff,
-                        'left_db': lp, 'right_db': rp,
-                        'avg_db': (lp + rp) / 2
-                    })
-        candidates.sort(key=lambda x: -x['avg_db'])
-
-        time_str = f"{int(t // 60)}:{t % 60:05.2f}"
-        print(f"\n{'-' * 80}")
-        print(f"  WINDOW @ {time_str}")
-        print(f"{'-' * 80}")
-
-        if candidates:
-            print(f"\n  BINAURAL CANDIDATES:")
-            print(f"  {'L Freq':>8} | {'R Freq':>8} | {'Beat':>6} | {'L dB':>6} | {'R dB':>6}")
-            print(f"  {'-' * 50}")
-            for c in candidates[:8]:
-                print(f"  {c['left_freq']:>8.2f} | {c['right_freq']:>8.2f} | "
-                      f"{c['binaural']:>6.2f} | {c['left_db']:>6.1f} | {c['right_db']:>6.1f}")
-        else:
-            print("\n  No binaural candidates found in this window")
-
-        print(f"\n  TOP PEAKS - Left:  {', '.join(f'{f:.1f}Hz ({p:.0f}dB)' for f, p in left_peaks[:6])}")
-        print(f"  TOP PEAKS - Right: {', '.join(f'{f:.1f}Hz ({p:.0f}dB)' for f, p in right_peaks[:6])}")
-
-        t += window_sec
-
-
-# === Verify Mode ===
-
-def verify_against_config(filepath, config_path, window_sec=10, step_sec=5,
-                          tolerance_hz=0.3, detect_pulse=True):
-    """
-    Verify generated audio against a generator JSON config.
-
-    Compares measured binaural beats and isochronic pulse rates to expected
-    values from the config at each time window. Reports PASS/FAIL per
-    window per carrier for both binaural and pulse.
-
-    Args:
-        filepath: Path to generated audio file
-        config_path: Path to JSON config used to generate the audio
-        window_sec: Analysis window in seconds
-        step_sec: Step between windows
-        tolerance_hz: Maximum acceptable error in Hz
-        detect_pulse: Whether to verify isochronic pulse rates
-
-    Returns:
-        Dict with pass/fail counts and details
-    """
-    # Load config
-    with open(config_path, 'r') as f:
-        config = json.load(f)
-
-    duration = config['duration_sec']
-    layers = config.get('layers', [])
-    global_keyframes = config.get('keyframes')
-    global_binaural = config.get('binaural_hz', 0)
-
-    # Build expected binaural per layer
-    def resolve_expected(layer_cfg, field):
-        """Get expected value for a field from a layer (static or from keyframes)."""
-        # Check direct field on layer
-        if field in layer_cfg:
-            val = layer_cfg[field]
-            if isinstance(val, list):
-                return val  # keyframes [{time_sec, value}]
-            return float(val)
-        # Check unified keyframes
-        if 'keyframes' in layer_cfg:
-            kf_list = layer_cfg['keyframes']
-            # Check if any keyframe has this field
-            has_field = any(field in kf for kf in kf_list)
-            if has_field:
-                return kf_list  # will be handled by expected_at_time
-        # For binaural_hz, fall back to global
-        if field == 'binaural_hz':
-            if global_keyframes:
-                return global_keyframes
-            return float(global_binaural)
-        return None
-
-    def expected_at_time(expected, t, field=None):
-        """Interpolate expected value at time t."""
-        if expected is None:
-            return None
-        if isinstance(expected, (int, float)):
-            return expected
-        # Keyframe list — unified format or per-field
-        kf = sorted(expected, key=lambda k: k.get('time_sec', k.get('t', 0)))
-        times = [k.get('time_sec', k.get('t', 0)) for k in kf]
-
-        # Check if all keyframes have the field directly
-        all_have_field = field and all(field in k for k in kf)
-        if all_have_field:
-            values = [k[field] for k in kf]
-        elif 'value' in kf[0] and all('value' in k for k in kf):
-            values = [k['value'] for k in kf]
-        elif field:
-            # Unified keyframes — extract field, forward-fill missing
-            if not any(field in k for k in kf):
-                return None
-            values = []
-            last_val = None
-            for k in kf:
-                if field in k:
-                    last_val = k[field]
-                if last_val is not None:
-                    values.append(last_val)
-                else:
-                    values.append(0)
-        else:
-            return None
-
-        if len(times) != len(values):
-            return None
-        return float(np.interp(t, times, values))
-
-    # Get center frequencies and expected values per layer
-    layer_data = []
-    has_pulse_config = False
-    for layer_cfg in layers:
-        center = layer_cfg.get('center_hz')
-        if center is None and 'keyframes' in layer_cfg:
-            for kf in layer_cfg['keyframes']:
-                if 'center_hz' in kf:
-                    center = kf['center_hz']
-                    break
-        if isinstance(center, list):
-            center = center[0]['value']
-        center = float(center)
-
-        exp_center = resolve_expected(layer_cfg, 'center_hz')
-        exp_bin = resolve_expected(layer_cfg, 'binaural_hz')
-        exp_pul = resolve_expected(layer_cfg, 'pulse_hz')
-        if exp_pul is not None:
-            has_pulse_config = True
-        layer_data.append((center, exp_center, exp_bin, exp_pul))
-
-    # Sort by initial center frequency
-    layer_data.sort(key=lambda x: x[0])
-    centers = [d[0] for d in layer_data]
-    expected_centers = [d[1] for d in layer_data]
-    expected_binaurals = [d[2] for d in layer_data]
-    expected_pulses = [d[3] for d in layer_data]
-
-    # Only verify pulse if config has pulse data and detection is enabled
-    verify_pulse = detect_pulse and has_pulse_config
-
-    # Load audio and analyze
-    y, sr = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
-    if y.ndim == 1:
-        print("ERROR: Mono file", file=sys.stderr)
-        return None
-
-    y_left, y_right = y[0], y[1]
-    actual_duration = len(y_left) / sr
-    filename = os.path.basename(filepath)
-
-    print(f"\n{'=' * 75}")
-    print(f"  VERIFY: {filename}")
-    print(f"  CONFIG: {os.path.basename(config_path)}")
-    print(f"{'=' * 75}")
-    print(f"Duration: {actual_duration:.1f}s (expected {duration}s)")
-    print(f"Carriers: {', '.join(f'{c:.1f} Hz' for c in centers)}")
-    verify_str = "binaural + pulse" if verify_pulse else "binaural only"
-    print(f"Verifying: {verify_str} | Tolerance: +/- {tolerance_hz:.2f} Hz")
-    print()
-
-    # Column header
-    header_parts = [f"{'Time':>8}", f"{'Status':>6}"]
-    for i, center in enumerate(centers):
-        col = f"C{i}({center:.0f}Hz) bin"
-        if verify_pulse:
-            col += "+pul"
-        header_parts.append(col)
-    print(' | '.join(header_parts))
-    col_width = 40 if verify_pulse else 32
-    print("-" * (20 + len(centers) * col_width))
-
-    pass_count = 0
-    fail_count = 0
-    results = []
-
-    t = 0
-    while t + window_sec <= actual_duration:
-        start_sample = int(t * sr)
-        end_sample = int((t + window_sec) * sr)
-        left_seg = y_left[start_sample:end_sample]
-        right_seg = y_right[start_sample:end_sample]
-
-        t_mid = t + window_sec / 2
-
-        # Build per-window carrier search ranges from interpolated centers
-        window_centers = []
-        for i in range(len(centers)):
-            c = expected_at_time(expected_centers[i], t_mid, 'center_hz')
-            if c is None:
-                c = centers[i]
-            window_centers.append(c)
-        carrier_pairs = build_carrier_ranges_from_centers(window_centers)
-
-        window_results = analyze_window(left_seg, right_seg, sr, carrier_pairs,
-                                        detect_pulse=verify_pulse)
-
-        # Compare to expected
-        window_pass = True
-        time_str = f"{int(t // 60)}:{t % 60:05.2f}"
-        detail_parts = [f"{time_str:>8}"]
-        carrier_details = []
-
-        for i, cr in enumerate(window_results):
-            parts = []
-
-            # Binaural check
-            exp_bin = expected_at_time(expected_binaurals[i], t_mid, 'binaural_hz')
-            measured_bin = cr['binaural_hz']
-            if measured_bin is not None and exp_bin is not None:
-                error = abs(measured_bin - exp_bin)
-                ok = error <= tolerance_hz
-                if not ok:
-                    window_pass = False
-                status = "ok" if ok else "FAIL"
-                parts.append(f"b:{exp_bin:>5.2f}/{measured_bin:>5.2f}({status})")
-            elif exp_bin is not None:
-                window_pass = False
-                parts.append(f"b:{exp_bin:>5.2f}/{'N/A':>5}(FAIL)")
-            else:
-                parts.append(f"b:{'N/A':>5}/{'N/A':>5}")
-
-            # Pulse check
-            if verify_pulse:
-                exp_pul = expected_at_time(expected_pulses[i], t_mid, 'pulse_hz')
-                measured_pul = cr.get('pulse_hz')
-                if measured_pul is not None and exp_pul is not None:
-                    error = abs(measured_pul - exp_pul)
-                    ok = error <= tolerance_hz
-                    if not ok:
-                        window_pass = False
-                    status = "ok" if ok else "FAIL"
-                    parts.append(f"p:{exp_pul:>5.2f}/{measured_pul:>5.2f}({status})")
-                elif exp_pul is not None:
-                    window_pass = False
-                    parts.append(f"p:{exp_pul:>5.2f}/{'N/A':>5}(FAIL)")
-                else:
-                    parts.append(f"p:{'N/A':>5}/{'N/A':>5}")
-
-            carrier_details.append(' '.join(parts))
-
-        if window_pass:
-            pass_count += 1
-            detail_parts.append(f"{'PASS':>6}")
-        else:
-            fail_count += 1
-            detail_parts.append(f"{'FAIL':>6}")
-
-        detail_parts.extend(carrier_details)
-        print(' | '.join(detail_parts))
-
-        results.append({
-            'time': t,
-            'pass': window_pass,
-            'carriers': window_results,
-        })
-        t += step_sec
-
-    # Summary
-    total = pass_count + fail_count
-    col_width = 40 if verify_pulse else 32
-    print("-" * (20 + len(centers) * col_width))
-    pct = pass_count / total * 100 if total > 0 else 0
-    status = "PASS" if fail_count == 0 else "FAIL"
-    print(f"\nResult: {status} ({pass_count}/{total} windows passed, {pct:.0f}%)")
-    print(f"Tolerance: {tolerance_hz:.2f} Hz")
-
-    return {'pass': pass_count, 'fail': fail_count, 'total': total, 'results': results}
-
-
-# === Spectrogram ===
-
-def generate_spectrogram(filepath, carrier_trajectories=None, carrier_pairs=None,
-                         freq_min=30, freq_max=1200, output_path=None,
-                         lr_split=False):
-    """Generate a spectrogram PNG with optional carrier trajectory overlay."""
-    if not HAS_MATPLOTLIB:
-        print("ERROR: matplotlib required for spectrogram: pip install matplotlib",
-              file=sys.stderr)
-        return
-
-    render_max = min(freq_max, 1200)
-    target_sr = max(int(render_max * 2.5), 4000)
-    print(f"Loading audio for spectrogram (target sr={target_sr} Hz, "
-          f"range {freq_min}-{render_max} Hz)...")
-
-    # Always load stereo — needed for both overlay and split modes
-    y, _ = librosa.load(filepath, sr=target_sr, mono=False)
-    if y.ndim == 1:
-        y_left_ds, y_right_ds = y, y.copy()
-    else:
-        y_left_ds, y_right_ds = y[0], y[1]
-    del y
-    gc.collect()
-    duration = len(y_left_ds) / target_sr
-
-    filename = os.path.basename(filepath)
-
-    if duration < 600:
-        n_fft, hop_length = 4096, 512
-    elif duration < 1800:
-        n_fft, hop_length = 4096, 1024
-    else:
-        n_fft, hop_length = 2048, 2048
-
-    vmin_db, vmax_db = -80, 0
-
-    if lr_split:
-        fig, (ax_l, ax_r) = plt.subplots(2, 1, figsize=(16, 10), sharex=True)
-        panels = [('Left', y_left_ds, ax_l), ('Right', y_right_ds, ax_r)]
-    else:
-        fig, ax = plt.subplots(1, 1, figsize=(16, 6))
-        panels = [('Overlay', (y_left_ds, y_right_ds), ax)]
-
-    for label, sig, ax_panel in panels:
-        freqs = librosa.fft_frequencies(sr=target_sr, n_fft=n_fft)
-        freq_mask = (freqs >= freq_min) & (freqs <= render_max)
-
-        if label == 'Overlay':
-            # Compute STFT for each channel separately
-            y_l, y_r = sig
-            S_l = librosa.stft(y_l, n_fft=n_fft, hop_length=hop_length)
-            S_db_l = librosa.amplitude_to_db(np.abs(S_l), ref=np.max)
-            del S_l; gc.collect()
-
-            S_r = librosa.stft(y_r, n_fft=n_fft, hop_length=hop_length)
-            S_db_r = librosa.amplitude_to_db(np.abs(S_r), ref=np.max)
-            del S_r; gc.collect()
-
-            times = librosa.frames_to_time(np.arange(S_db_l.shape[1]),
-                                            sr=target_sr, hop_length=hop_length)
-
-            # Normalize dB to [0, 1] and apply per-channel colormaps → RGBA
-            l_norm = np.clip((S_db_l[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
-            r_norm = np.clip((S_db_r[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
-            del S_db_l, S_db_r; gc.collect()
-
-            rgba_l = _CMAP_LEFT(l_norm)   # [freq_bins, time_bins, 4]
-            rgba_r = _CMAP_RIGHT(r_norm)
-            del l_norm, r_norm; gc.collect()
-
-            # Screen blend: 1 - (1-a)(1-b) — prevents oversaturation where both are loud
-            rgba_blend = np.empty_like(rgba_l)
-            rgba_blend[..., :3] = 1.0 - (1.0 - rgba_l[..., :3]) * (1.0 - rgba_r[..., :3])
-            rgba_blend[..., 3] = 1.0
-            del rgba_l, rgba_r; gc.collect()
-
-            extent = [times[0], times[-1], freqs[freq_mask][0], freqs[freq_mask][-1]]
-            ax_panel.imshow(rgba_blend, aspect='auto', origin='lower', extent=extent,
-                            interpolation='bilinear')
-            del rgba_blend; gc.collect()
-
-            ax_panel.set_ylabel('L (teal) / R (red)\nFrequency (Hz)')
-            ax_panel.set_ylim(freq_min, render_max)
-
-            # Two colorbars via ScalarMappable
-            norm = Normalize(vmin=vmin_db, vmax=vmax_db)
-            sm_l = plt.cm.ScalarMappable(cmap=_CMAP_LEFT, norm=norm)
-            sm_r = plt.cm.ScalarMappable(cmap=_CMAP_RIGHT, norm=norm)
-            cbar_l = fig.colorbar(sm_l, ax=ax_panel, pad=0.01, fraction=0.025)
-            cbar_l.set_label('L dB')
-            cbar_r = fig.colorbar(sm_r, ax=ax_panel, pad=0.055, fraction=0.025)
-            cbar_r.set_label('R dB')
-
-        else:
-            # L/R split panels — per-channel colormap, pcolormesh
-            S = librosa.stft(sig, n_fft=n_fft, hop_length=hop_length)
-            S_db = librosa.amplitude_to_db(np.abs(S), ref=np.max)
-            del S; gc.collect()
-
-            times = librosa.frames_to_time(np.arange(S_db.shape[1]),
-                                            sr=target_sr, hop_length=hop_length)
-
-            panel_cmap = _CMAP_LEFT if label == 'Left' else _CMAP_RIGHT
-            img = ax_panel.pcolormesh(times, freqs[freq_mask], S_db[freq_mask, :],
-                                       shading='gouraud', cmap=panel_cmap,
-                                       vmin=vmin_db, vmax=vmax_db)
-            ax_panel.set_ylabel(f'{label}\nFrequency (Hz)')
-            ax_panel.set_ylim(freq_min, render_max)
-
-            cbar = fig.colorbar(img, ax=ax_panel, pad=0.01)
-            cbar.set_label('dB')
-
-        # Carrier trajectory overlay (shared for both modes)
-        if carrier_trajectories:
-            for idx, traj in enumerate(carrier_trajectories):
-                t_arr = np.array(traj['times'])
-                l_arr = np.array(traj['left_hz'], dtype=float)
-                r_arr = np.array(traj['right_hz'], dtype=float)
-
-                label_base = None
-                if carrier_pairs and idx < len(carrier_pairs):
-                    cp = carrier_pairs[idx]
-                    det_type = cp.get('detection_type', 'binaural')
-                    label_base = f"C{idx}: ~{cp['center_hz']:.0f} Hz ({det_type})"
-
-                is_first_panel = (label == panels[0][0]) or not lr_split
-
-                valid_l = np.isfinite(l_arr)
-                if np.any(valid_l):
-                    ax_panel.scatter(t_arr[valid_l], l_arr[valid_l],
-                                     color=_COLOR_L, marker='<', s=14, alpha=0.9,
-                                     zorder=5, linewidths=0.5, edgecolors='#003322',
-                                     label=(f"{label_base} L" if label_base and is_first_panel else None))
-
-                valid_r = np.isfinite(r_arr)
-                if np.any(valid_r):
-                    ax_panel.scatter(t_arr[valid_r], r_arr[valid_r],
-                                     color=_COLOR_R, marker='>', s=14, alpha=0.9,
-                                     zorder=5, linewidths=0.5, edgecolors='#330000',
-                                     label=(f"{label_base} R" if label_base and is_first_panel else None))
-
-    last_ax = panels[-1][2]
-    last_ax.set_xlabel('Time')
-
-    def format_time(x, _):
-        return f"{int(x // 60)}:{int(x % 60):02d}"
-    last_ax.xaxis.set_major_formatter(FuncFormatter(format_time))
-
-    if carrier_trajectories:
-        first_ax = panels[0][2]
-        handles, labels = first_ax.get_legend_handles_labels()
-        if handles:
-            first_ax.legend(loc='upper right', fontsize=7, framealpha=0.8,
-                            markerscale=1.5)
-
-    fig.suptitle(f'{filename}', fontsize=13, y=0.98)
-    plt.tight_layout()
-
-    if output_path is None:
-        base, _ = os.path.splitext(filepath)
-        output_path = base + '_spectrogram.png'
-
-    plt.savefig(output_path, dpi=200, bbox_inches='tight')
-    plt.close()
-    print(f"Spectrogram saved: {output_path}")
 
 
 # === Phase 1: Ridge Track Extraction ===
@@ -1347,43 +138,18 @@ def generate_spectrogram(filepath, carrier_trajectories=None, carrier_pairs=None
 def _whiten_spectrum(S_mag, kernel_bins=41):
     """Per-frame frequency-domain median whitening.
 
-    For each time frame, subtracts the broadband spectral envelope estimated
-    by a median filter along the frequency axis. This removes voice/music
-    background while preserving persistent narrow-band tones (which are a
-    tiny fraction of the kernel width and thus don't shift the median).
-
-    Args:
-        S_mag: Magnitude spectrogram [freq_bins, time_bins]
-        kernel_bins: Frequency-axis kernel width in bins (~40 Hz at 1 Hz/bin)
-
-    Returns:
-        Whitened spectrogram in dB, non-negative, same shape as S_mag
+    Subtracts the broadband spectral envelope (median filter along freq axis)
+    from each frame. Persistent narrow-band tones survive; broadband
+    voice/music content is suppressed.
     """
     S_db = librosa.amplitude_to_db(S_mag, ref=np.max)
-    # size=(kernel_bins, 1): filter along freq axis only, independent per frame
     baseline = median_filter(S_db, size=(kernel_bins, 1))
     return np.maximum(S_db - baseline, 0.0)
 
 
 def _peaks_from_whitened_frame(w_frame, freqs, freq_min, freq_max,
                                 prom_thresh=8.0, max_width_bins=5):
-    """Detect peaks in one whitened spectrum frame.
-
-    Uses parabolic (quadratic) sub-bin interpolation around each peak for
-    frequency precision finer than the bin width — essential for resolving
-    binaural beats < 1 Hz when bin width is ~1 Hz.
-
-    Args:
-        w_frame: 1-D whitened dB array [freq_bins]
-        freqs: Frequency array matching w_frame [freq_bins]
-        freq_min/freq_max: Hz bounds to search within
-        prom_thresh: Minimum peak prominence in whitened dB
-        max_width_bins: Maximum peak width at half-prominence (rejects broadband)
-
-    Returns:
-        List of (freq_hz, whitened_power_db) sorted by power descending,
-        capped at 8 peaks per frame.
-    """
+    """Detect peaks in one whitened spectrum frame with parabolic sub-bin interpolation."""
     mask = (freqs >= freq_min) & (freqs <= freq_max)
     spec = w_frame[mask]
     f_arr = freqs[mask]
@@ -1399,16 +165,14 @@ def _peaks_from_whitened_frame(w_frame, freqs, freq_min, freq_max,
     bin_hz = float(f_arr[1] - f_arr[0]) if len(f_arr) > 1 else 1.0
     peaks = []
     for k in peak_idx:
-        # Parabolic sub-bin interpolation
         if 0 < k < len(spec) - 1:
             a, b, c = float(spec[k - 1]), float(spec[k]), float(spec[k + 1])
             denom = a - 2 * b + c
-            p = 0.5 * (a - c) / denom if denom != 0.0 else 0.0
-            p = max(-0.5, min(0.5, p))  # clamp to ±0.5 bin
+            p = (0.5 * (a - c) / denom) if denom != 0.0 else 0.0
+            p = max(-0.5, min(0.5, p))
         else:
             p = 0.0
-        f_hat = float(f_arr[k]) + p * bin_hz
-        peaks.append((f_hat, float(spec[k])))
+        peaks.append((float(f_arr[k]) + p * bin_hz, float(spec[k])))
 
     peaks.sort(key=lambda x: -x[1])
     return peaks[:8]
@@ -1417,55 +181,32 @@ def _peaks_from_whitened_frame(w_frame, freqs, freq_min, freq_max,
 def _link_peaks_to_tracks(peaks_by_frame, frame_times,
                            df_max_abs=3.0, df_max_rel=0.005,
                            gap_max=3, min_track_frames=5):
-    """Greedy peak-to-track linker.
-
-    For each time frame, assigns each peak to the nearest active track within
-    Δf_max. Tracks that miss more than gap_max consecutive frames are retired.
-    New tracks are started for unmatched peaks.
+    """Greedy peak-to-track linker with gap tolerance.
 
     Δf_max(f) = max(df_max_abs, df_max_rel * f)
-    e.g. at 100 Hz: max(3 Hz, 0.5%) = 3 Hz
-         at 1000 Hz: max(3 Hz, 5 Hz) = 5 Hz
-
-    Args:
-        peaks_by_frame: list of [(freq_hz, power_db), ...] per frame
-        frame_times: array of time values (seconds) per frame
-        df_max_abs: absolute floor for frequency jump tolerance (Hz)
-        df_max_rel: relative frequency jump tolerance (fraction)
-        gap_max: max consecutive silent frames before a track is retired
-        min_track_frames: tracks shorter than this are discarded
-
-    Returns:
-        List of track dicts: {'id', 'times', 'freqs', 'powers'}
+    Tracks that miss > gap_max consecutive frames are retired.
     """
     def df_max(f):
         return max(df_max_abs, df_max_rel * abs(f))
 
-    active = []   # tracks still being extended
-    finished = []
-    _next_id = [0]
+    active, finished, _next_id = [], [], [0]
 
     for t, peaks in zip(frame_times, peaks_by_frame):
-        # Build (track_id, peak_idx, cost) candidates
         cands = []
         for tr in active:
             for pi, (f, p) in enumerate(peaks):
                 df = abs(f - tr['last_f'])
                 if df <= df_max(tr['last_f']):
-                    # Cost: frequency deviation + small penalty for low power
-                    cost = df + max(0.0, 30.0 - p) * 0.05
-                    cands.append((tr['id'], pi, cost))
+                    cands.append((tr['id'], pi, df + max(0.0, 30.0 - p) * 0.05))
 
         cands.sort(key=lambda x: x[2])
-        used_tr, used_pk = set(), set()
-        assignment = {}
+        used_tr, used_pk, assignment = set(), set(), {}
         for tid, pi, _ in cands:
             if tid not in used_tr and pi not in used_pk:
                 assignment[tid] = pi
                 used_tr.add(tid)
                 used_pk.add(pi)
 
-        # Update matched tracks, increment gaps on unmatched
         to_retire = []
         for tr in active:
             if tr['id'] in assignment:
@@ -1484,17 +225,10 @@ def _link_peaks_to_tracks(peaks_by_frame, frame_times,
             finished.append(tr)
             active.remove(tr)
 
-        # Start new tracks for unmatched peaks
         for pi, (f, p) in enumerate(peaks):
             if pi not in used_pk:
-                tr = {
-                    'id': _next_id[0],
-                    'last_f': f,
-                    'gap': 0,
-                    'times': [float(t)],
-                    'freqs': [f],
-                    'powers': [p],
-                }
+                tr = {'id': _next_id[0], 'last_f': f, 'gap': 0,
+                      'times': [float(t)], 'freqs': [f], 'powers': [p]}
                 _next_id[0] += 1
                 active.append(tr)
 
@@ -1505,21 +239,9 @@ def _link_peaks_to_tracks(peaks_by_frame, frame_times,
 def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
     """Merge track fragments that are likely the same carrier.
 
-    Two fragments A and B are merged when:
-      - B starts after A ends (non-overlapping)
-      - time gap between them <= merge_gap_sec
-      - their median frequencies are within merge_df_hz of each other
-
-    Runs iteratively until no further merges are possible, so chains of
-    fragments (A→B→C all at the same freq) collapse in one pass.
-
-    Args:
-        tracks: list of track dicts from _link_peaks_to_tracks
-        merge_df_hz: max Hz difference between median frequencies to merge
-        merge_gap_sec: max time gap (seconds) to bridge between fragments
-
-    Returns:
-        Reduced list of merged track dicts
+    Merges A→B when B starts after A ends, gap ≤ merge_gap_sec, and the
+    tail of A matches the head of B within merge_df_hz. Runs iteratively
+    until no further merges are possible.
     """
     if not tracks:
         return tracks
@@ -1527,46 +249,29 @@ def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
     changed = True
     while changed:
         changed = False
-        # Sort by start time so we always try to merge earlier → later
         tracks = sorted(tracks, key=lambda t: t['times'][0])
-        used = set()
-        merged = []
+        used, merged = set(), []
 
         for i, ta in enumerate(tracks):
             if i in used:
                 continue
-            cur = {
-                'id': ta['id'],
-                'last_f': ta['last_f'],
-                'gap': 0,
-                'times': list(ta['times']),
-                'freqs': list(ta['freqs']),
-                'powers': list(ta['powers']),
-            }
+            cur = {'id': ta['id'], 'last_f': ta['last_f'], 'gap': 0,
+                   'times': list(ta['times']), 'freqs': list(ta['freqs']),
+                   'powers': list(ta['powers'])}
             used.add(i)
 
             for j, tb in enumerate(tracks):
                 if j in used:
                     continue
-                t_end = cur['times'][-1]
-                t_start = tb['times'][0]
-
-                # Must be temporally after current track end
+                t_end, t_start = cur['times'][-1], tb['times'][0]
                 if t_start < t_end:
                     continue
-
-                gap = t_start - t_end
-                if gap > merge_gap_sec:
+                if t_start - t_end > merge_gap_sec:
                     continue
-
-                # Compare tail of cur to head of tb — median-to-median would
-                # fail for drifting carriers where early/late segments differ.
-                f_tail = float(np.median(cur['freqs'][-max(1, len(cur['freqs'])//5):]))
-                f_head = float(np.median(tb['freqs'][:max(1, len(tb['freqs'])//5)]))
+                f_tail = float(np.median(cur['freqs'][-max(1, len(cur['freqs']) // 5):]))
+                f_head = float(np.median(tb['freqs'][:max(1, len(tb['freqs']) // 5)]))
                 if abs(f_tail - f_head) > merge_df_hz:
                     continue
-
-                # Merge tb into cur
                 cur['times'].extend(tb['times'])
                 cur['freqs'].extend(tb['freqs'])
                 cur['powers'].extend(tb['powers'])
@@ -1581,167 +286,184 @@ def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
     return tracks
 
 
+# === Phase 2: Binaural Pairing + Isochronic ===
+
 def _pair_binaural_tracks(tracks_L, tracks_R, binaural_range=(0.3, 20.0),
                           min_overlap=4):
-    """Match L and R frequency tracks that form binaural beat pairs.
+    """Hungarian-assignment pairing of L and R tracks by beat-frequency consistency.
 
-    Uses Hungarian assignment (linear_sum_assignment) to find the globally
-    optimal L↔R matching based on beat-frequency consistency.
+    Cost(L, R) = variance(|fL-fR|) * 10 + |median_beat - 4.0|
+    Pairs outside binaural_range or with < min_overlap common time points get inf cost.
 
-    Cost for (track_L, track_R):
-        overlap_frames = number of common time points in the L∩R time range
-        if overlap_frames < min_overlap:  cost = inf
-        beat_series = |fL(t) - fR(t)| over overlapping times (interpolated)
-        d = median(beat_series)
-        if d < binaural_range[0] or d > binaural_range[1]:  cost = inf
-        cost = variance(beat_series) * 10 + abs(d - 4.0)   # prefer ~4 Hz
-
-    Args:
-        tracks_L: List of L-channel track dicts
-        tracks_R: List of R-channel track dicts
-        binaural_range: (min_hz, max_hz) valid beat frequency range
-        min_overlap: Minimum overlapping time points to form a pair
-
-    Returns:
-        (pairs, solo_L, solo_R) where:
-        - pairs: list of BinauralPair dicts with keys:
-            track_L, track_R, t_start, t_end,
-            beat_hz_series, beat_hz_median, beat_hz_std
-        - solo_L: L tracks not matched to any R track
-        - solo_R: R tracks not matched to any L track
+    Returns (pairs, solo_L, solo_R).
     """
     if not tracks_L or not tracks_R:
         return [], list(tracks_L), list(tracks_R)
 
     n_L, n_R = len(tracks_L), len(tracks_R)
     cost_matrix = np.full((n_L, n_R), np.inf)
-    # Cache beat series for valid pairs to avoid recomputing after assignment
-    _beat_cache = {}
+    _cache = {}
 
     for i, tL in enumerate(tracks_L):
         t_L = np.array(tL['times'])
-        t_L_start, t_L_end = t_L[0], t_L[-1]
         for j, tR in enumerate(tracks_R):
             t_R = np.array(tR['times'])
-            t_R_start, t_R_end = t_R[0], t_R[-1]
-
-            t_ov_start = max(t_L_start, t_R_start)
-            t_ov_end = min(t_L_end, t_R_end)
-            if t_ov_end <= t_ov_start:
+            t_ov_s = max(t_L[0], t_R[0])
+            t_ov_e = min(t_L[-1], t_R[-1])
+            if t_ov_e <= t_ov_s:
                 continue
-
-            # Union of time points within overlap range
             t_common = np.union1d(t_L, t_R)
-            t_common = t_common[(t_common >= t_ov_start) & (t_common <= t_ov_end)]
+            t_common = t_common[(t_common >= t_ov_s) & (t_common <= t_ov_e)]
             if len(t_common) < min_overlap:
                 continue
-
-            fL_i = np.interp(t_common, t_L, tL['freqs'])
-            fR_i = np.interp(t_common, t_R, tR['freqs'])
-            beat_series = np.abs(fL_i - fR_i)
-            d = float(np.median(beat_series))
-
+            beat = np.abs(np.interp(t_common, t_L, tL['freqs']) -
+                          np.interp(t_common, t_R, tR['freqs']))
+            d = float(np.median(beat))
             if d < binaural_range[0] or d > binaural_range[1]:
                 continue
+            cost_matrix[i, j] = float(np.var(beat)) * 10.0 + abs(d - 4.0)
+            _cache[(i, j)] = (t_ov_s, t_ov_e, beat)
 
-            cost = float(np.var(beat_series)) * 10.0 + abs(d - 4.0)
-            cost_matrix[i, j] = cost
-            _beat_cache[(i, j)] = (t_ov_start, t_ov_end, beat_series)
+    row_ind, col_ind = linear_sum_assignment(
+        np.where(np.isinf(cost_matrix), 1e9, cost_matrix))
 
-    # Hungarian assignment — replace inf with large sentinel since
-    # linear_sum_assignment requires finite values
-    cost_finite = np.where(np.isinf(cost_matrix), 1e9, cost_matrix)
-    row_ind, col_ind = linear_sum_assignment(cost_finite)
-
-    pairs = []
-    paired_L_idx = set()
-    paired_R_idx = set()
-
+    pairs, paired_L, paired_R = [], set(), set()
     for i, j in zip(row_ind, col_ind):
         if np.isinf(cost_matrix[i, j]):
             continue
-        tL, tR = tracks_L[i], tracks_R[j]
-        t_ov_start, t_ov_end, beat_series = _beat_cache[(i, j)]
+        t_ov_s, t_ov_e, beat = _cache[(i, j)]
         pairs.append({
-            'track_L': tL,
-            'track_R': tR,
-            't_start': float(t_ov_start),
-            't_end': float(t_ov_end),
-            'beat_hz_series': beat_series.tolist(),
-            'beat_hz_median': float(np.median(beat_series)),
-            'beat_hz_std': float(np.std(beat_series)),
+            'track_L': tracks_L[i], 'track_R': tracks_R[j],
+            't_start': float(t_ov_s), 't_end': float(t_ov_e),
+            'beat_hz_series': beat.tolist(),
+            'beat_hz_median': float(np.median(beat)),
+            'beat_hz_std': float(np.std(beat)),
         })
-        paired_L_idx.add(i)
-        paired_R_idx.add(j)
+        paired_L.add(i)
+        paired_R.add(j)
 
-    solo_L = [tracks_L[i] for i in range(n_L) if i not in paired_L_idx]
-    solo_R = [tracks_R[j] for j in range(n_R) if j not in paired_R_idx]
-    return pairs, solo_L, solo_R
+    return (pairs,
+            [tracks_L[i] for i in range(n_L) if i not in paired_L],
+            [tracks_R[j] for j in range(n_R) if j not in paired_R])
 
 
 def _measure_isochronic_for_track(track, y, sr, bandwidth=15):
-    """Detect isochronic rate for a single track's time span.
-
-    Slices the raw audio to the track's time range before calling
-    detect_isochronic_rate(), avoiding processing the entire file per track.
-
-    Args:
-        track: Track dict with 'times' and 'freqs' keys
-        y: Full raw audio channel (1-D array)
-        sr: Sample rate of y
-        bandwidth: Hz on each side of carrier for bandpass (default: 15)
-
-    Returns:
-        (pulse_hz, confidence) — same as detect_isochronic_rate()
-    """
-    t_start = track['times'][0]
-    t_end = track['times'][-1]
-    s0 = int(t_start * sr)
-    s1 = min(int(t_end * sr), len(y))
-    if s1 <= s0 or s0 >= len(y) or (s1 - s0) < sr:  # need at least 1 second
+    """Detect isochronic rate for one track by slicing audio to its time range."""
+    s0 = int(track['times'][0] * sr)
+    s1 = min(int(track['times'][-1] * sr), len(y))
+    if s1 - s0 < sr:  # need at least 1 second
         return (None, 0.0)
-    y_slice = y[s0:s1]
-    f_carrier = float(np.median(track['freqs']))
-    return detect_isochronic_rate(y_slice, sr, f_carrier, bandwidth=bandwidth)
+    return detect_isochronic_rate(
+        y[s0:s1], sr, float(np.median(track['freqs'])), bandwidth=bandwidth)
 
 
-def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
-                   prom_thresh=8.0, gap_max=8, min_median_power=10.0,
-                   binaural_range=(0.3, 20.0), iso_bandwidth=15,
-                   iso_min_conf=1.0, pair_min_overlap=4):
-    """Phase 1+2 ridge tracker: extract tracks, pair binaurals, measure isochronic.
+# === JSON Export ===
 
-    Phase 1: STFT per channel → whitening → peak detection → greedy track
-    linking → co-linear merge. Outputs a spectrogram PNG with track polylines.
+def _tracks_to_json(pairs, solo_L, solo_R, duration, max_keyframes=20,
+                    iso_min_conf_export=2.0):
+    """Convert analyzed tracks to binaural generator JSON format.
 
-    Phase 2: Pairs L and R tracks whose frequency difference falls in the
-    binaural beat range (Hungarian assignment). Measures isochronic pulse rate
-    per track (bandpass → Hilbert → envelope FFT). Prints ASCII summary.
-    Paired tracks are rendered as a single gold line at their mean frequency
-    with beat-rate labels; solo tracks render in their channel color.
+    Binaural pairs become layers with center_hz + binaural_hz.
+    Solo tracks become layers with center_hz only (+ pulse_hz if isochronic
+    is detected with sufficient confidence).
+    Sweeping carriers are represented as unified keyframe lists; stable
+    carriers collapse to scalars.
+    """
+    def _simplify(times, values, field, max_kf=max_keyframes):
+        """Return scalar if stable (std < 0.5 Hz), else downsampled keyframes."""
+        arr = np.array(values, dtype=float)
+        if len(arr) == 0:
+            return None
+        if float(np.std(arr)) < 0.5:
+            return round(float(np.median(arr)), 2)
+        idx = np.linspace(0, len(arr) - 1, min(max_kf, len(arr)), dtype=int)
+        return [{'time_sec': round(float(times[i]), 1), field: round(float(arr[i]), 2)}
+                for i in idx]
 
-    Pipeline:
-        1. STFT per channel
-        2. Per-frame frequency-domain median whitening (preserves persistent tones)
-        3. Peak detection with parabolic sub-bin interpolation
-        4. Greedy track linking with gap tolerance
-        5. Co-linear fragment merging
-        6. Binaural pairing (Phase 2)
-        7. Isochronic measurement per track (Phase 2)
-        8. Screen-blend L/R spectrogram background + annotated track overlay
+    layers = []
+
+    for pair in pairs:
+        tL, tR = pair['track_L'], pair['track_R']
+        t_common = np.union1d(np.array(tL['times']), np.array(tR['times']))
+        t_common = t_common[(t_common >= pair['t_start']) & (t_common <= pair['t_end'])]
+
+        centers = (np.interp(t_common, tL['times'], tL['freqs']) +
+                   np.interp(t_common, tR['times'], tR['freqs'])) / 2
+        beats = np.abs(np.interp(t_common, tL['times'], tL['freqs']) -
+                       np.interp(t_common, tR['times'], tR['freqs']))
+
+        c_val = _simplify(t_common, centers, 'center_hz')
+        b_val = _simplify(t_common, beats, 'binaural_hz')
+
+        layer = {'amplitude_db': 0}
+
+        if isinstance(c_val, list) or isinstance(b_val, list):
+            # Unified keyframe format — merge both fields by time
+            kf_map = {}
+            for kf in (c_val if isinstance(c_val, list) else []):
+                t = kf['time_sec']
+                kf_map[t] = {'time_sec': t, 'center_hz': kf['center_hz']}
+            for kf in (b_val if isinstance(b_val, list) else []):
+                t = kf['time_sec']
+                kf_map.setdefault(t, {'time_sec': t})['binaural_hz'] = kf['binaural_hz']
+            # Fill in scalar values where the other field is static
+            if not isinstance(c_val, list):
+                for kf in kf_map.values():
+                    kf.setdefault('center_hz', c_val)
+            if not isinstance(b_val, list):
+                for kf in kf_map.values():
+                    kf.setdefault('binaural_hz', b_val)
+            layer['keyframes'] = sorted(kf_map.values(), key=lambda x: x['time_sec'])
+        else:
+            layer['center_hz'] = c_val
+            layer['binaural_hz'] = b_val
+
+        iso_hz = pair.get('iso_hz')
+        if iso_hz is not None and pair.get('iso_conf', 0) >= iso_min_conf_export:
+            layer['pulse_hz'] = round(iso_hz, 2)
+
+        layers.append(layer)
+
+    for tr in solo_L + solo_R:
+        c_val = _simplify(tr['times'], tr['freqs'], 'center_hz')
+        layer = {'amplitude_db': 0}
+        if isinstance(c_val, list):
+            layer['keyframes'] = c_val
+        else:
+            layer['center_hz'] = c_val
+
+        iso_hz = tr.get('iso_hz')
+        if iso_hz is not None and tr.get('iso_conf', 0) >= iso_min_conf_export:
+            layer['pulse_hz'] = round(iso_hz, 2)
+
+        layers.append(layer)
+
+    return {'duration_sec': round(duration, 1), 'layers': layers}
+
+
+# === Main Analysis ===
+
+def analyze(filepath, freq_min=30, freq_max=None, output_path=None,
+            prom_thresh=8.0, gap_max=8, min_median_power=10.0,
+            binaural_range=(0.3, 20.0), iso_bandwidth=15,
+            iso_min_conf=1.0, pair_min_overlap=4,
+            export_json=False):
+    """Analyze a stereo audio file: extract tracks, pair binaurals, measure isochronic.
+
+    Outputs a spectrogram PNG and prints an ASCII summary to stdout.
+    If export_json=True, also writes a generator-compatible JSON file.
+    Returns (tracks_L, tracks_R, pairs).
     """
     if not HAS_MATPLOTLIB:
-        print("ERROR: matplotlib required for --tracks mode", file=sys.stderr)
-        return None, None
+        print("ERROR: matplotlib required — pip install matplotlib", file=sys.stderr)
+        return None, None, None
 
-    # Auto-detect freq_max from a short clip if not specified
     if freq_max is None:
         y_tmp, _ = librosa.load(filepath, sr=ANALYSIS_SR, mono=False, duration=30)
-        if y_tmp.ndim == 1:
-            freq_max = auto_detect_freq_range(y_tmp, y_tmp, ANALYSIS_SR)
-        else:
-            freq_max = auto_detect_freq_range(y_tmp[0], y_tmp[1], ANALYSIS_SR)
-        del y_tmp
+        y_tmp_l = y_tmp[0] if y_tmp.ndim > 1 else y_tmp
+        y_tmp_r = y_tmp[1] if y_tmp.ndim > 1 else y_tmp
+        freq_max = _auto_detect_freq_range(y_tmp_l, y_tmp_r, ANALYSIS_SR)
+        del y_tmp, y_tmp_l, y_tmp_r
         gc.collect()
         print(f"Auto-detected freq range: {freq_min}-{freq_max} Hz")
 
@@ -1751,10 +473,7 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
 
     print(f"Loading audio (sr={target_sr} Hz, {freq_min}-{render_max} Hz)...")
     y, _ = librosa.load(filepath, sr=target_sr, mono=False)
-    if y.ndim == 1:
-        y_L, y_R = y, y.copy()
-    else:
-        y_L, y_R = y[0], y[1]
+    y_L, y_R = (y[0], y[1]) if y.ndim > 1 else (y, y.copy())
     del y
     gc.collect()
 
@@ -1778,14 +497,12 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
                                     sr=target_sr, hop_length=hop_length)
     n_frames = len(times)
     hop_dur = float(times[1] - times[0]) if n_frames > 1 else float(hop_length / target_sr)
-    min_track_frames = max(4, int(3.0 / hop_dur))  # minimum ~3 seconds
+    min_track_frames = max(4, int(3.0 / hop_dur))
 
-    # --- Whitening ---
-    print("Whitening spectra (per-frame frequency-domain median)...")
+    print("Whitening spectra...")
     W_L = _whiten_spectrum(S_L)
     W_R = _whiten_spectrum(S_R)
 
-    # --- Peak detection ---
     print(f"Detecting peaks ({n_frames} frames × 2 channels)...")
     peaks_L = [_peaks_from_whitened_frame(W_L[:, i], freqs, freq_min, render_max, prom_thresh)
                for i in range(n_frames)]
@@ -1794,7 +511,6 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
     del W_L, W_R
     gc.collect()
 
-    # --- Track linking ---
     print("Linking tracks...")
     tracks_L = _link_peaks_to_tracks(peaks_L, times, gap_max=gap_max,
                                       min_track_frames=min_track_frames)
@@ -1803,33 +519,20 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
     del peaks_L, peaks_R
     gc.collect()
 
-    # Drop tracks whose median whitened power is below threshold — these are
-    # transient music/voice harmonics, not persistent carriers. Real binaural
-    # carriers like 648 Hz hit 15-31 dB median; noise tracks sit at 7-9 dB.
     tracks_L = [tr for tr in tracks_L if float(np.median(tr['powers'])) >= min_median_power]
     tracks_R = [tr for tr in tracks_R if float(np.median(tr['powers'])) >= min_median_power]
     print(f"Tracks (pre-merge, median≥{min_median_power}dB): {len(tracks_L)} L, {len(tracks_R)} R")
 
-    # Merge co-linear fragments: same carrier broken up by speech/music masking.
-    # Allow a larger gap for longer files where masking windows are also longer.
     merge_gap_sec = min(120.0, max(30.0, duration * 0.05))
-    tracks_L = _merge_colinear_tracks(tracks_L, merge_df_hz=15.0,
-                                       merge_gap_sec=merge_gap_sec)
-    tracks_R = _merge_colinear_tracks(tracks_R, merge_df_hz=15.0,
-                                       merge_gap_sec=merge_gap_sec)
-    print(f"Tracks (post-merge, Δf≤15Hz gap≤{merge_gap_sec:.0f}s): "
-          f"{len(tracks_L)} L, {len(tracks_R)} R "
-          f"(min fragment: {min_track_frames} frames / ~{min_track_frames * hop_dur:.1f}s)")
+    tracks_L = _merge_colinear_tracks(tracks_L, merge_df_hz=15.0, merge_gap_sec=merge_gap_sec)
+    tracks_R = _merge_colinear_tracks(tracks_R, merge_df_hz=15.0, merge_gap_sec=merge_gap_sec)
+    print(f"Tracks (post-merge): {len(tracks_L)} L, {len(tracks_R)} R")
 
-    # --- Phase 2: Binaural pairing + isochronic measurement ---
+    # --- Phase 2 ---
     print("Pairing binaural tracks...")
     pairs, solo_L, solo_R = _pair_binaural_tracks(
-        tracks_L, tracks_R,
-        binaural_range=binaural_range,
-        min_overlap=pair_min_overlap,
-    )
-    print(f"Found {len(pairs)} binaural pair(s), "
-          f"{len(solo_L)} solo L, {len(solo_R)} solo R")
+        tracks_L, tracks_R, binaural_range=binaural_range, min_overlap=pair_min_overlap)
+    print(f"Found {len(pairs)} binaural pair(s), {len(solo_L)} solo L, {len(solo_R)} solo R")
 
     print("Measuring isochronic rates...")
     y_raw, _ = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
@@ -1842,64 +545,55 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
         iso_L = _measure_isochronic_for_track(pair['track_L'], y_L_raw, ANALYSIS_SR, iso_bandwidth)
         iso_R = _measure_isochronic_for_track(pair['track_R'], y_R_raw, ANALYSIS_SR, iso_bandwidth)
         best = max([iso_L, iso_R], key=lambda x: x[1])
-        pair['iso_hz'] = best[0]
-        pair['iso_conf'] = best[1]
+        pair['iso_hz'], pair['iso_conf'] = best[0], best[1]
 
     for tr in solo_L:
-        iso_hz, iso_conf = _measure_isochronic_for_track(tr, y_L_raw, ANALYSIS_SR, iso_bandwidth)
-        tr['iso_hz'] = iso_hz
-        tr['iso_conf'] = iso_conf
-
+        tr['iso_hz'], tr['iso_conf'] = _measure_isochronic_for_track(
+            tr, y_L_raw, ANALYSIS_SR, iso_bandwidth)
     for tr in solo_R:
-        iso_hz, iso_conf = _measure_isochronic_for_track(tr, y_R_raw, ANALYSIS_SR, iso_bandwidth)
-        tr['iso_hz'] = iso_hz
-        tr['iso_conf'] = iso_conf
+        tr['iso_hz'], tr['iso_conf'] = _measure_isochronic_for_track(
+            tr, y_R_raw, ANALYSIS_SR, iso_bandwidth)
 
     del y_L_raw, y_R_raw
     gc.collect()
 
     # --- ASCII summary ---
-    def _fmt_time(sec):
+    def _fmt_t(sec):
         return f"{int(sec // 60)}:{int(sec % 60):02d}"
 
     def _fmt_iso(hz, conf):
-        if hz is not None and conf >= iso_min_conf:
-            return f"{hz:.1f} Hz (conf {conf:.1f})"
-        return "none"
+        return f"{hz:.1f} Hz (conf {conf:.1f})" if hz is not None and conf >= iso_min_conf else "none"
 
     print("\n=== Binaural Pairs ===")
     if not pairs:
         print("  (none)")
-    for idx, pair in enumerate(pairs):
-        tL, tR = pair['track_L'], pair['track_R']
-        f_L_med = float(np.median(tL['freqs']))
-        f_R_med = float(np.median(tR['freqs']))
-        center = (f_L_med + f_R_med) / 2
+    for idx, p in enumerate(pairs):
+        tL, tR = p['track_L'], p['track_R']
+        fL = float(np.median(tL['freqs']))
+        fR = float(np.median(tR['freqs']))
         t_s = min(tL['times'][0], tR['times'][0])
         t_e = max(tL['times'][-1], tR['times'][-1])
-        iso_str = _fmt_iso(pair.get('iso_hz'), pair.get('iso_conf', 0))
-        print(f"  [{idx}] ~{center:.0f} Hz  "
-              f"L={f_L_med:.1f}  R={f_R_med:.1f}  "
-              f"beat={pair['beat_hz_median']:.1f} Hz  "
-              f"iso={iso_str}  "
-              f"{_fmt_time(t_s)}-{_fmt_time(t_e)}")
+        print(f"  [{idx}] ~{(fL+fR)/2:.0f} Hz  L={fL:.1f}  R={fR:.1f}  "
+              f"beat={p['beat_hz_median']:.1f} Hz  "
+              f"iso={_fmt_iso(p.get('iso_hz'), p.get('iso_conf', 0))}  "
+              f"{_fmt_t(t_s)}-{_fmt_t(t_e)}")
 
-    print("\n=== Solo Tracks (unpaired) ===")
+    print("\n=== Solo Tracks ===")
     if not solo_L and not solo_R:
         print("  (none)")
     for tr in solo_L:
-        f_med = float(np.median(tr['freqs']))
-        t_s, t_e = tr['times'][0], tr['times'][-1]
-        iso_str = _fmt_iso(tr.get('iso_hz'), tr.get('iso_conf', 0))
-        print(f"  [L] ~{f_med:.0f} Hz  iso={iso_str}  {_fmt_time(t_s)}-{_fmt_time(t_e)}")
+        f = float(np.median(tr['freqs']))
+        print(f"  [L] ~{f:.0f} Hz  "
+              f"iso={_fmt_iso(tr.get('iso_hz'), tr.get('iso_conf', 0))}  "
+              f"{_fmt_t(tr['times'][0])}-{_fmt_t(tr['times'][-1])}")
     for tr in solo_R:
-        f_med = float(np.median(tr['freqs']))
-        t_s, t_e = tr['times'][0], tr['times'][-1]
-        iso_str = _fmt_iso(tr.get('iso_hz'), tr.get('iso_conf', 0))
-        print(f"  [R] ~{f_med:.0f} Hz  iso={iso_str}  {_fmt_time(t_s)}-{_fmt_time(t_e)}")
+        f = float(np.median(tr['freqs']))
+        print(f"  [R] ~{f:.0f} Hz  "
+              f"iso={_fmt_iso(tr.get('iso_hz'), tr.get('iso_conf', 0))}  "
+              f"{_fmt_t(tr['times'][0])}-{_fmt_t(tr['times'][-1])}")
     print()
 
-    # --- Build screen-blend background ---
+    # --- Spectrogram ---
     print("Rendering background...")
     freq_mask = (freqs >= freq_min) & (freqs <= render_max)
     vmin_db, vmax_db = -80, 0
@@ -1914,8 +608,7 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
     del S_db_L, S_db_R
     gc.collect()
 
-    rgba_l = _CMAP_LEFT(l_norm)
-    rgba_r = _CMAP_RIGHT(r_norm)
+    rgba_l, rgba_r = _CMAP_LEFT(l_norm), _CMAP_RIGHT(r_norm)
     del l_norm, r_norm
     gc.collect()
 
@@ -1936,20 +629,15 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
     ax.set_ylim(freq_min, render_max)
 
     norm = Normalize(vmin=vmin_db, vmax=vmax_db)
-    sm_l = plt.cm.ScalarMappable(cmap=_CMAP_LEFT, norm=norm)
-    sm_r = plt.cm.ScalarMappable(cmap=_CMAP_RIGHT, norm=norm)
-    cbar_l = fig.colorbar(sm_l, ax=ax, pad=0.01, fraction=0.025)
+    cbar_l = fig.colorbar(plt.cm.ScalarMappable(cmap=_CMAP_LEFT, norm=norm),
+                          ax=ax, pad=0.01, fraction=0.025)
     cbar_l.set_label('L dB')
-    cbar_r = fig.colorbar(sm_r, ax=ax, pad=0.055, fraction=0.025)
+    cbar_r = fig.colorbar(plt.cm.ScalarMappable(cmap=_CMAP_RIGHT, norm=norm),
+                          ax=ax, pad=0.055, fraction=0.025)
     cbar_r.set_label('R dB')
 
-    # --- Overlay track polylines ---
-    # Tracks spanning < min_render_sec are skipped from the PNG (short bursts,
-    # not informative visually) but were still used for Phase 2 measurements.
-    min_render_sec = max(10.0, duration * 0.01)  # e.g. 30s for a 50-min file
-
-    # Paired tracks are rendered as a single merged gold line; exclude them from
-    # the per-channel solo lists so they don't appear twice.
+    # --- Track overlay ---
+    min_render_sec = max(10.0, duration * 0.01)
     paired_L_ids = {p['track_L']['id'] for p in pairs}
     paired_R_ids = {p['track_R']['id'] for p in pairs}
 
@@ -1959,139 +647,87 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
     render_R_solo = [tr for tr in tracks_R
                      if tr['id'] not in paired_R_ids
                      and tr['times'][-1] - tr['times'][0] >= min_render_sec]
-    render_pairs = [p for p in pairs
-                    if p['t_end'] - p['t_start'] >= min_render_sec]
+    render_pairs = [p for p in pairs if p['t_end'] - p['t_start'] >= min_render_sec]
     print(f"Rendering {len(render_pairs)} pairs (gold), "
-          f"{len(render_L_solo)} solo L, {len(render_R_solo)} solo R "
-          f"(min display duration: {min_render_sec:.1f}s)")
+          f"{len(render_L_solo)} solo L, {len(render_R_solo)} solo R")
 
     def _plot_track(ax, tr, color, label, max_gap=5 * hop_dur):
-        """Plot a track as polyline segments, breaking on large time gaps.
-
-        Merged tracks can have internal time jumps where two fragments were
-        joined across a gap. Drawing through those produces false diagonal
-        lines; instead we split the track at any gap > max_gap and render
-        each continuous segment separately.  The frequency trajectory is
-        lightly smoothed (rolling median) to reduce per-frame jitter.
-        """
         t_arr = np.array(tr['times'], dtype=float)
         f_arr = np.array(tr['freqs'], dtype=float)
-
-        # Light smoothing on frequency to reduce jitter (keep window odd)
         win = min(11, max(3, (len(f_arr) // 10) * 2 + 1))
         if len(f_arr) >= win:
             f_arr = uniform_filter1d(f_arr, size=win)
-
-        # Find internal gap positions
-        if len(t_arr) > 1:
-            dt = np.diff(t_arr)
-            gap_mask = dt > max_gap
-            split_pts = np.where(gap_mask)[0] + 1  # indices that start new segments
-        else:
-            split_pts = np.array([], dtype=int)
-
-        # Build segment slices
-        seg_starts = np.concatenate([[0], split_pts])
-        seg_ends = np.concatenate([split_pts, [len(t_arr)]])
-
-        first_seg = True
-        for s, e in zip(seg_starts, seg_ends):
+        split_pts = (np.where(np.diff(t_arr) > max_gap)[0] + 1
+                     if len(t_arr) > 1 else np.array([], dtype=int))
+        seg_s = np.concatenate([[0], split_pts])
+        seg_e = np.concatenate([split_pts, [len(t_arr)]])
+        first = True
+        for s, e in zip(seg_s, seg_e):
             if e - s < 2:
                 continue
-            ax.plot(t_arr[s:e], f_arr[s:e],
-                    color=color, linewidth=1.5, alpha=0.85, zorder=5,
-                    solid_capstyle='round',
-                    label=label if first_seg else None)
-            first_seg = False
+            ax.plot(t_arr[s:e], f_arr[s:e], color=color, linewidth=1.5,
+                    alpha=0.85, zorder=5, solid_capstyle='round',
+                    label=label if first else None)
+            first = False
 
-    def _plot_paired_track(ax, pair, color, label, max_gap=5 * hop_dur):
-        """Plot a binaural pair as a single merged line at mean(L, R) frequency.
-
-        Collapses the two separate L/R lines into one gold line, resolving the
-        visual "two lines at 650 Hz" artifact from Phase 1.
-        """
+    def _plot_pair(ax, pair, color, label, max_gap=5 * hop_dur):
         tL, tR = pair['track_L'], pair['track_R']
-        t_L = np.array(tL['times'])
-        t_R = np.array(tR['times'])
-        t_ov_start, t_ov_end = pair['t_start'], pair['t_end']
-
+        t_L, t_R = np.array(tL['times']), np.array(tR['times'])
         t_common = np.union1d(t_L, t_R)
-        t_common = t_common[(t_common >= t_ov_start) & (t_common <= t_ov_end)]
+        t_common = t_common[(t_common >= pair['t_start']) & (t_common <= pair['t_end'])]
         if len(t_common) < 2:
             return
-
-        fL_i = np.interp(t_common, t_L, tL['freqs'])
-        fR_i = np.interp(t_common, t_R, tR['freqs'])
-        f_mean = (fL_i + fR_i) / 2
-
-        # Light smoothing
+        f_mean = (np.interp(t_common, t_L, tL['freqs']) +
+                  np.interp(t_common, t_R, tR['freqs'])) / 2
         win = min(11, max(3, (len(f_mean) // 10) * 2 + 1))
         if len(f_mean) >= win:
             f_mean = uniform_filter1d(f_mean, size=win)
-
-        if len(t_common) > 1:
-            split_pts = np.where(np.diff(t_common) > max_gap)[0] + 1
-        else:
-            split_pts = np.array([], dtype=int)
-
-        seg_starts = np.concatenate([[0], split_pts])
-        seg_ends = np.concatenate([split_pts, [len(t_common)]])
-
-        first_seg = True
-        for s, e in zip(seg_starts, seg_ends):
+        split_pts = (np.where(np.diff(t_common) > max_gap)[0] + 1
+                     if len(t_common) > 1 else np.array([], dtype=int))
+        seg_s = np.concatenate([[0], split_pts])
+        seg_e = np.concatenate([split_pts, [len(t_common)]])
+        first = True
+        for s, e in zip(seg_s, seg_e):
             if e - s < 2:
                 continue
-            ax.plot(t_common[s:e], f_mean[s:e],
-                    color=color, linewidth=2.0, alpha=0.9, zorder=6,
-                    solid_capstyle='round',
-                    label=label if first_seg else None)
-            first_seg = False
+            ax.plot(t_common[s:e], f_mean[s:e], color=color, linewidth=2.0,
+                    alpha=0.9, zorder=6, solid_capstyle='round',
+                    label=label if first else None)
+            first = False
 
-    # Render solo L/R tracks in their channel colors
-    added_l = added_r = False
+    added_l = added_r = added_p = False
     for tr in render_L_solo:
         _plot_track(ax, tr, _COLOR_L, 'L solo' if not added_l else None)
         added_l = True
     for tr in render_R_solo:
         _plot_track(ax, tr, _COLOR_R, 'R solo' if not added_r else None)
         added_r = True
+    for p in render_pairs:
+        _plot_pair(ax, p, _COLOR_PAIR, 'Binaural pairs' if not added_p else None)
+        added_p = True
 
-    # Render binaural pairs as merged gold lines
-    added_pair = False
-    for pair in render_pairs:
-        _plot_paired_track(ax, pair, _COLOR_PAIR,
-                           'Binaural pairs' if not added_pair else None)
-        added_pair = True
-
-    # Beat-rate (and optional isochronic) annotations on paired tracks
-    for pair in render_pairs:
-        t_mid = (pair['t_start'] + pair['t_end']) / 2
-        f_mid = (float(np.median(pair['track_L']['freqs'])) +
-                 float(np.median(pair['track_R']['freqs']))) / 2
-        label_str = f"{pair['beat_hz_median']:.1f}Hz"
-        iso_hz = pair.get('iso_hz')
-        iso_conf = pair.get('iso_conf', 0)
+    for p in render_pairs:
+        t_mid = (p['t_start'] + p['t_end']) / 2
+        f_mid = (float(np.median(p['track_L']['freqs'])) +
+                 float(np.median(p['track_R']['freqs']))) / 2
+        lbl = f"{p['beat_hz_median']:.1f}Hz"
+        iso_hz, iso_conf = p.get('iso_hz'), p.get('iso_conf', 0)
         if iso_hz is not None and iso_conf >= iso_min_conf:
-            label_str += f" / {iso_hz:.1f}Hz iso"
-        ax.text(t_mid, f_mid + 8, label_str,
-                color='white', fontsize=6,
+            lbl += f" / {iso_hz:.1f}Hz iso"
+        ax.text(t_mid, f_mid + 8, lbl, color='white', fontsize=6,
                 ha='center', va='bottom', zorder=10,
                 bbox=dict(boxstyle='round,pad=0.1', fc='black', alpha=0.5))
 
     ax.set_xlabel('Time')
-
-    def format_time(x, _):
-        return f"{int(x // 60)}:{int(x % 60):02d}"
-    ax.xaxis.set_major_formatter(FuncFormatter(format_time))
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{int(x//60)}:{int(x%60):02d}"))
 
     handles, _ = ax.get_legend_handles_labels()
     if handles:
         ax.legend(loc='upper right', fontsize=8, framealpha=0.8)
 
-    n_L = len(tracks_L)
-    n_R = len(tracks_R)
-    fig.suptitle(f'{filename}  —  Ridge Tracks  '
-                 f'(L:{n_L}  R:{n_R}  pairs:{len(pairs)})',
+    fig.suptitle(f'{filename}  —  {len(pairs)} pairs  '
+                 f'{len(solo_L)+len(solo_R)} solo  '
+                 f'(L:{len(tracks_L)}  R:{len(tracks_R)})',
                  fontsize=13, y=0.98)
     plt.tight_layout()
 
@@ -2101,7 +737,15 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
 
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     plt.close()
-    print(f"Track spectrogram saved: {output_path}")
+    print(f"Saved: {output_path}")
+
+    if export_json:
+        json_path = os.path.splitext(output_path)[0].replace('_tracks', '') + '_analyzed.json'
+        data = _tracks_to_json(pairs, solo_L, solo_R, duration)
+        with open(json_path, 'w') as f:
+            json.dump(data, f, indent=2)
+        print(f"Saved: {json_path}")
+
     return tracks_L, tracks_R, pairs
 
 
@@ -2109,157 +753,51 @@ def analyze_tracks(filepath, freq_min=30, freq_max=None, output_path=None,
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Analyze binaural beats and isochronic pulses in audio files',
+        description='Binaural beat & isochronic analyzer — ridge tracking pipeline',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Auto-detect carriers and analyze (binaural + isochronic)
-  python binaural_analyzer.py audio.wav
-
-  # Binaural only (skip isochronic detection)
-  python binaural_analyzer.py audio.wav --no-isochronic
-
-  # Specify known carrier centers
-  python binaural_analyzer.py audio.wav --expected-carriers 60,90,135,202.5
-
-  # Generate spectrogram with carrier overlay
-  python binaural_analyzer.py audio.wav --spectrogram
-
-  # L/R split spectrogram with custom output path
-  python binaural_analyzer.py audio.wav --spectrogram-lr -o output.png
-
-  # Verify generated audio against config (binaural + pulse)
-  python binaural_analyzer.py generated.wav --verify config.json
-
-  # Spectrum debug mode
-  python binaural_analyzer.py audio.wav --spectrum --start 0 --duration 60
-
-  # CSV output
-  python binaural_analyzer.py audio.wav --csv --window 10 --step 5
+  python binaural_analyzer.py audio.ogg
+  python binaural_analyzer.py audio.ogg -o analysis.png
+  python binaural_analyzer.py audio.ogg --freq-max 800
 """
     )
-    parser.add_argument('audio_file', help='Path to audio file')
-    parser.add_argument('--window', type=float, default=10,
-                        help='FFT window in seconds (default: 10). Larger=finer Hz resolution, worse time resolution. '
-                             'Use 20+ for static carriers, 5 for sweeping/Shepard tones')
-    parser.add_argument('--step', type=float, default=5,
-                        help='Step between windows in seconds (default: 5). Smaller=smoother tracking, more output')
-    parser.add_argument('--expected-carriers', type=str, default=None,
-                        help='Comma-separated center frequencies (e.g., 60,135,202.5)')
+    parser.add_argument('audio_file', help='Stereo audio file to analyze')
     parser.add_argument('--freq-min', type=float, default=30,
-                        help='Min frequency for detection (default: 30)')
+                        help='Min frequency to display (default: 30)')
     parser.add_argument('--freq-max', type=float, default=None,
-                        help='Max frequency for detection (default: auto-detect)')
-    parser.add_argument('--no-graph', action='store_true', help='Suppress graph')
-    parser.add_argument('--no-isochronic', action='store_true',
-                        help='Skip isochronic pulse detection (binaural only, faster)')
-    parser.add_argument('--csv', action='store_true', help='CSV output')
-
-    # Spectrum mode
-    parser.add_argument('--spectrum', action='store_true',
-                        help='Spectrum debug mode')
-    parser.add_argument('--start', type=float, default=0,
-                        help='Start time for spectrum mode (seconds)')
-    parser.add_argument('--duration', type=float, default=30,
-                        help='Duration for spectrum mode (seconds)')
-
-    # Verify mode
-    parser.add_argument('--verify', type=str, default=None, metavar='CONFIG',
-                        help='Verify against generator JSON config')
-    parser.add_argument('--tolerance', type=float, default=0.3,
-                        help='Verification tolerance in Hz (default: 0.3)')
-
-    # Spectrogram mode
-    parser.add_argument('--spectrogram', action='store_true',
-                        help='Generate spectrogram PNG with carrier overlay')
-    parser.add_argument('--spectrogram-lr', action='store_true',
-                        help='L/R split spectrogram (implies --spectrogram)')
+                        help='Max frequency to display (default: auto-detect)')
     parser.add_argument('--output', '-o', type=str, default=None,
-                        help='Output path for spectrogram PNG')
-
-    # Phase 1 ridge tracking mode
-    parser.add_argument('--tracks', action='store_true',
-                        help='Phase 1+2 ridge tracking: extract tracks, pair binaurals, '
-                             'measure isochronic rates, render annotated spectrogram.')
-
-    # Phase 2 tuning parameters (--tracks mode)
+                        help='Output PNG path (default: <input>_tracks.png)')
     parser.add_argument('--binaural-range', type=str, default='0.3,20',
-                        help='Valid beat Hz range for pairing as "min,max" '
-                             '(default: 0.3,20)')
+                        help='Valid beat Hz range for pairing as "min,max" (default: 0.3,20)')
     parser.add_argument('--iso-bandwidth', type=float, default=15,
-                        help='Bandpass Hz on each side of carrier for isochronic '
-                             'detection (default: 15)')
+                        help='Bandpass Hz on each side of carrier (default: 15)')
     parser.add_argument('--iso-min-conf', type=float, default=1.0,
                         help='Min confidence to report isochronic rate (default: 1.0)')
     parser.add_argument('--pair-min-overlap', type=int, default=4,
-                        help='Min overlapping time points to form a binaural pair '
-                             '(default: 4)')
-
+                        help='Min overlapping time points to form a pair (default: 4)')
+    parser.add_argument('--export-json', '-j', action='store_true',
+                        help='Export generator-compatible JSON alongside the PNG')
     args = parser.parse_args()
 
-    detect_pulse = not args.no_isochronic
+    try:
+        _br = [float(x.strip()) for x in args.binaural_range.split(',')]
+        binaural_range = (min(_br), max(_br))
+    except Exception:
+        binaural_range = (0.3, 20.0)
 
-    if args.spectrogram_lr:
-        args.spectrogram = True
-
-    # Parse expected carriers
-    expected_carriers = None
-    if args.expected_carriers:
-        expected_carriers = [float(x.strip()) for x in args.expected_carriers.split(',')]
-
-    # Default freq_max for spectrum mode (which doesn't auto-detect)
-    freq_max_spectrum = args.freq_max if args.freq_max is not None else 600
-
-    if args.tracks:
-        # Parse binaural range "min,max"
-        try:
-            _br = [float(x.strip()) for x in args.binaural_range.split(',')]
-            binaural_range = (min(_br), max(_br))
-        except Exception:
-            binaural_range = (0.3, 20.0)
-        analyze_tracks(
-            args.audio_file,
-            freq_min=args.freq_min,
-            freq_max=args.freq_max,
-            output_path=args.output,
-            binaural_range=binaural_range,
-            iso_bandwidth=args.iso_bandwidth,
-            iso_min_conf=args.iso_min_conf,
-            pair_min_overlap=args.pair_min_overlap,
-        )
-    elif args.verify:
-        verify_against_config(
-            args.audio_file,
-            args.verify,
-            window_sec=args.window,
-            step_sec=args.step,
-            tolerance_hz=args.tolerance,
-            detect_pulse=detect_pulse,
-        )
-    elif args.spectrum:
-        analyze_spectrum(
-            args.audio_file,
-            start_sec=args.start,
-            duration_sec=args.duration,
-            window_sec=args.window,
-            freq_min=args.freq_min,
-            freq_max=freq_max_spectrum,
-        )
-    else:
-        analyze_binaural(
-            args.audio_file,
-            window_sec=args.window,
-            step_sec=args.step,
-            expected_carriers=expected_carriers,
-            freq_min=args.freq_min,
-            freq_max=args.freq_max,
-            show_graph=not args.no_graph,
-            csv_output=args.csv,
-            detect_pulse=detect_pulse,
-            spectrogram=args.spectrogram,
-            spectrogram_lr=args.spectrogram_lr,
-            output_path=args.output,
-        )
+    analyze(
+        args.audio_file,
+        freq_min=args.freq_min,
+        freq_max=args.freq_max,
+        output_path=args.output,
+        binaural_range=binaural_range,
+        iso_bandwidth=args.iso_bandwidth,
+        iso_min_conf=args.iso_min_conf,
+        pair_min_overlap=args.pair_min_overlap,
+        export_json=args.export_json,
+    )
 
 
 if __name__ == "__main__":

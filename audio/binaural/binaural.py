@@ -901,8 +901,8 @@ Examples:
                         help='Target RMS level in dB (default: -28)')
     parser.add_argument('--interleave-ms', type=float, default=100.0,
                         help='R channel isochronic phase offset in ms (default: 100)')
-    parser.add_argument('-o', '--output', default='output.wav',
-                        help='Output file (default: output.wav)')
+    parser.add_argument('-o', '--output', default='output.ogg',
+                        help='Output file (default: output.ogg)')
     parser.add_argument('--bitrate', default=None,
                         help='Audio bitrate for mp3/ogg (e.g., 192k, 30k). Defaults: mp3=192k, ogg=30k')
 
