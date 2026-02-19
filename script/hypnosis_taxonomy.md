@@ -255,7 +255,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 |----|-----------|-------------|
 | DEEP-01 | Drop Command | Verbal trigger for depth increase |
 | DEEP-02 | Staircase Visualization | Descending imagery for deepening |
-| DEEP-03 | Fractionation | Wake/sleep cycling for depth amplification. **Use ONLY in P8.** |
+| DEEP-03 | Fractionation | Wake/sleep cycling for depth amplification. Use during P3. |
 | DEEP-04 | Numerical Deepening | Depth tied to countdown numbers |
 | DEEP-05 | Voice Absorption | Voice becomes thoughts; guidance replaces internal dialogue |
 | DEEP-06 | Proximity Deepening | Stimulus distance correlates with depth |
@@ -285,7 +285,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category DISS: Dissociation & Memory Techniques
-*Purpose: State partitioning and memory manipulation (P4, P7)*
+*Purpose: State partitioning and memory manipulation (P4, M1)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -296,7 +296,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category AUTH: Authority Techniques
-*Purpose: Establish in-session relational authority (P1, P5)*
+*Purpose: Establish in-session relational authority (P1, P4)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -312,7 +312,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category ENCD: Encoding Techniques
-*Purpose: Strengthen suggestion retention (P5)*
+*Purpose: Strengthen suggestion retention (P4)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -327,7 +327,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category IMMR: Immersion Techniques
-*Purpose: Create experiential reality (P9)*
+*Purpose: Create experiential reality (P4)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -343,7 +343,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category VALD: Validation Techniques
-*Purpose: Provide subjective proof (P11)*
+*Purpose: Provide subjective proof (M3)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -359,7 +359,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category TRIG: Trigger Techniques
-*Purpose: Install and activate conditioned responses (P10, P11)*
+*Purpose: Install and activate conditioned responses (M2, M3)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -381,7 +381,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category PLEA: Pleasure Association Techniques
-*Purpose: Create reward linkage (P5, P11)*
+*Purpose: Create reward linkage (P4, M3)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -395,7 +395,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ---
 
 ### Category PERS: Persistence Techniques
-*Purpose: Extend identity/state across time/context (P5, P12)*
+*Purpose: Extend identity/state across time/context (P4, M2)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -473,7 +473,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | EMRG-07 | Physiological Reset | Normal muscle tone, steady breathing, clear head |
 | EMRG-08 | Reorientation Sweep | Room, sounds, time, body awareness checklist |
 | EMRG-09 | Post-session Safety | Pause before standing/driving, hydrate |
-| EMRG-10 | Self-efficacy Tag | "You can reaccess this state when you want"
+| EMRG-10 | Self-efficacy Tag | "You can reaccess this state when you want" |
 
 ---
 
@@ -533,31 +533,3 @@ Default to "low-failure" validation in audio:
 - **One technique ID = one meaning.** Do not overload.
 - **ABSR techniques replace LOAD/SEMN.** Use ABSR-01 through ABSR-09 for critical softening.
 
----
-
-## Appendix: Taxonomy Statistics
-
-### Coverage (v5.2)
-- **9 phases/modules** (5 required phases + 4 optional modules)
-- **124 techniques** across 15 categories
-- **7 style modifiers**
-- **5 structural variants**
-
-### Technique Distribution by Category
-| Category | Count | Primary Phase/Module |
-|----------|-------|---------------------|
-| INDU: Induction | 9 | P2 |
-| DEEP: Deepening | 9 | P3 |
-| ABSR: Absorption & Critical Softening | 9 | M1, P3 |
-| DISS: Dissociation | 3 | M1 |
-| AUTH: Authority | 8 | P1, P4 |
-| ENCD: Encoding | 7 | P4 |
-| IMMR: Immersion | 8 | P4 |
-| VALD: Validation | 8 | M3 |
-| TRIG: Trigger | 14 | M2 |
-| PLEA: Pleasure | 6 | P4, M3 |
-| PERS: Persistence | 7 | P4, M2 |
-| XFER: Transfer & Generalization | 7 | M2, P4 |
-| CHECK: State Management | 9 | All phases |
-| SAFE: Safety | 10 | P1, P5 |
-| EMRG: Emergence | 10 | P5 |
