@@ -65,6 +65,8 @@ PROVIDER_URLS = {
     "openai": "https://api.openai.com/v1",
     "xai": "https://api.x.ai/v1",
     "grok": "https://api.x.ai/v1",
+    "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/",
+    "google": "https://generativelanguage.googleapis.com/v1beta/openai/",
     "openrouter": "https://openrouter.ai/api/v1",
     "ollama": "http://localhost:11434/v1",
     "lmstudio": "http://localhost:1234/v1",
@@ -73,9 +75,20 @@ PROVIDER_URLS = {
 PROVIDER_DEFAULTS = {
     "https://api.openai.com/v1": "gpt-4o",
     "https://api.x.ai/v1": "grok-4-0414",
+    "https://generativelanguage.googleapis.com/v1beta/openai/": "models/gemini-3-flash-preview",
     "https://openrouter.ai/api/v1": "anthropic/claude-sonnet-4",
     "http://localhost:11434/v1": "llama3",
     "http://localhost:1234/v1": "local-model",
+}
+
+# Providers that need a condensed system prompt (verbose instructions cause echoing)
+CONDENSED_SYSTEM_PROVIDERS = {
+    "https://generativelanguage.googleapis.com/v1beta/openai/",
+}
+
+# Providers where passing max_tokens causes truncation bugs — omit the parameter entirely
+NO_MAX_TOKENS_PROVIDERS = {
+    "https://generativelanguage.googleapis.com/v1beta/openai/",
 }
 
 
@@ -106,12 +119,21 @@ def get_client(
     api_key: Optional[str] = None,
     base_url: Optional[str] = None,
     model: Optional[str] = None,
-) -> Tuple[OpenAI, str]:
-    api_key = api_key or _load_env("LLM_API_KEY") or _load_env("OPENAI_API_KEY")
+) -> Tuple[OpenAI, str, str]:
+    # Detect whether base_url was explicitly passed on CLI (vs. coming from env)
+    explicit_provider = base_url is not None
     base_url_raw = base_url or _load_env("LLM_BASE_URL") or _load_env("OPENAI_BASE_URL") or "openai"
     base_url_resolved = _resolve_base_url(base_url_raw)
+    gemini_url = PROVIDER_URLS.get("gemini", "")
+    is_gemini = base_url_resolved == gemini_url
 
-    model_env = _load_env("LLM_MODEL") or _load_env("OPENAI_MODEL")
+    # API key: explicit arg > provider-specific env > generic LLM_API_KEY > OPENAI_API_KEY
+    api_key = api_key or (
+        _load_env("GEMINI_API_KEY") if is_gemini else _load_env("LLM_API_KEY")
+    ) or _load_env("LLM_API_KEY") or _load_env("OPENAI_API_KEY")
+
+    # Model: explicit arg > (if provider was explicit: provider default) > env var > provider default
+    model_env = None if explicit_provider else (_load_env("LLM_MODEL") or _load_env("OPENAI_MODEL"))
     model_final = model or model_env or PROVIDER_DEFAULTS.get(base_url_resolved, "gpt-4o")
 
     if not api_key:
@@ -121,7 +143,7 @@ def get_client(
 
     print(f"[info] Provider: {base_url_resolved}", file=sys.stderr)
     print(f"[info] Model:    {model_final}", file=sys.stderr)
-    return client, model_final
+    return client, model_final, base_url_resolved
 
 
 def chat(
@@ -129,14 +151,12 @@ def chat(
     model: str,
     messages: List[Dict[str, str]],
     temperature: float,
-    max_tokens: int,
+    max_tokens: Optional[int] = None,
 ) -> str:
-    resp = client.chat.completions.create(
-        model=model,
-        messages=messages,
-        temperature=temperature,
-        max_tokens=max_tokens,
-    )
+    kwargs: Dict[str, Any] = dict(model=model, messages=messages, temperature=temperature)
+    if max_tokens is not None:
+        kwargs["max_tokens"] = max_tokens
+    resp = client.chat.completions.create(**kwargs)
     return (resp.choices[0].message.content or "").strip()
 
 
@@ -187,8 +207,8 @@ def estimate_words(seconds: int, wpm: int = 150) -> int:
 
 
 def max_tokens_for_words(words: int, buffer_mult: float = 2.0) -> int:
-    # very rough: 1.5 tokens/word * buffer
-    return min(int(words * 1.5 * buffer_mult), 4000)
+    # very rough: 1.5 tokens/word * buffer; floor of 800 to accommodate pause markup overhead
+    return max(800, min(int(words * 1.5 * buffer_mult), 4000))
 
 
 # -------------------------
@@ -404,6 +424,34 @@ Critical rules:
 - Each phase should start distinctly — no repetitive openers ("That's right..." starting every phase).
 """
 
+# Condensed version for models that echo verbose instructions (e.g. Gemini Flash)
+SYSTEM_WRITER_CONDENSED = """You are a professional hypnosis script writer for consensual audio content.
+Write second person ("you") for the listener, first person ("I") for an abstract dominant presence.
+Never tie suggestions to "this voice" or "this recording" — funnel desire toward the trance state itself.
+
+STYLE RULES (apply to every line):
+- Sentence length = depth dial: induction ≤15w; deepening 3-8w fragments; peak suggestion 1-5w; emergence 12-20w
+- Present tense, observational: "Noticing the weight of your hands" not "You will feel heavy"
+- Execute don't announce: never say "I will now suggest" or "let these words sink in" — just write
+- Vocabulary at depth: sleep, deep, blank, drift, float, warm, safe, free, good, soft, still, slow, down, let, go, fall, drop, sink
+- BANNED words: honeyed, serene rapture, peaceful empty, luminous, void, hollow, owns you (Permissive style)
+- No similes: states ARE, not LIKE. "Warm. Heavy. Held." not "like a warm blanket"
+- Developmental repetition: each pass adds a vector (modifier, tense shift, escalation). Never pure iteration.
+- Three-beat trigger delivery: anchor phrases land exactly 3 times
+- Anaphora with modal triads: "have to / can / want to"
+- Trust ladder: undeniable observation → soft permission → description → command. Never skip rungs.
+- Build one specific object per induction (staircase, bubble, orb) — not "a peaceful place"
+- Closed loops: X → Y → more X. "The more you X, the more you Y."
+- Transitions: "And as [action], [result]" at least once per deepening phase
+- Style (Permissive): "you can," "you might find," never "owns you" / "must" / "obey"
+- Praise post-compliance only: "That's right" / "Good" after instruction, not before
+- NEVER mention technique IDs (DEEP-03, EMRG-01 etc.) in script text
+
+Breathing (INDU-01): 4-hold-6. Inhale count UP (1,2,3,4), hold (no count), exhale count DOWN (6,5,4,3,2,1). Rotate synonyms.
+Pause markup: [Xms] or [Xs]. Example: "in[400] one[750] two[750] three[750] four.[1.5s]"
+Keep trigger/mantra phrases EXACTLY consistent with the plan. Do not invent new trigger phrases.
+"""
+
 PLANNER_INSTRUCTIONS_TEMPLATE = """Create a phase plan JSON for an audio hypnosis script.
 
 Output STRICT JSON only (no markdown, no backticks).
@@ -606,6 +654,8 @@ def generate_plan(
     duration_s: int,
     optional_phases: List[str],
     temperature: float = 0.2,
+    system_writer: str = SYSTEM_WRITER,
+    omit_max_tokens: bool = False,
 ) -> Dict[str, Any]:
 
     user_payload = {
@@ -620,12 +670,12 @@ def generate_plan(
     planner_instructions = get_planner_instructions()
 
     messages = [
-        {"role": "system", "content": SYSTEM_WRITER},
+        {"role": "system", "content": system_writer},
         {"role": "user", "content": planner_instructions + "\n\nINPUT:\n" + json.dumps(user_payload, indent=2, ensure_ascii=False)}
     ]
 
-    max_tokens = 1600
-    raw = chat(client, model, messages, temperature=temperature, max_tokens=max_tokens)
+    plan_max_tokens = None if omit_max_tokens else 3200
+    raw = chat(client, model, messages, temperature=temperature, max_tokens=plan_max_tokens)
     plan = extract_json(raw)
     validate_plan(plan)
 
@@ -643,6 +693,8 @@ def generate_script_from_plan(
     plan: Dict[str, Any],
     temperature_write: float = 0.8,
     context_window_phases: int = 0,
+    system_writer: str = SYSTEM_WRITER,
+    omit_max_tokens: bool = False,
 ) -> Tuple[List[PhasePlan], List[str], List[Dict[str, str]]]:
 
     meta = plan.get("meta", {})
@@ -660,7 +712,7 @@ def generate_script_from_plan(
     scope_bounds_bullets = "\n".join([f"- {x}" for x in scope_bounds]) if scope_bounds else "- (none specified)"
 
     # Conversation messages (planner step already "happened" conceptually)
-    messages: List[Dict[str, str]] = [{"role": "system", "content": SYSTEM_WRITER}]
+    messages: List[Dict[str, str]] = [{"role": "system", "content": system_writer}]
     messages.append({"role": "assistant", "content": json.dumps(plan, indent=2, ensure_ascii=False)})
 
     phase_plans: List[PhasePlan] = []
@@ -723,7 +775,7 @@ LOOP TRANSITION RULES:
 """
 
         # Compute max tokens for this phase
-        max_toks = max_tokens_for_words(target_words, buffer_mult=2.0)
+        max_toks = None if omit_max_tokens else max_tokens_for_words(target_words, buffer_mult=2.0)
 
         # Append user guidance and generate
         messages.append({"role": "user", "content": phase_brief})
@@ -816,7 +868,9 @@ def main() -> None:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    client, model = get_client(api_key=args.api_key, base_url=args.base_url, model=args.model)
+    client, model, base_url = get_client(api_key=args.api_key, base_url=args.base_url, model=args.model)
+    system_writer = SYSTEM_WRITER_CONDENSED if base_url in CONDENSED_SYSTEM_PROVIDERS else SYSTEM_WRITER
+    omit_max_tokens = base_url in NO_MAX_TOKENS_PROVIDERS
 
     # Load existing plan or generate new one
     if args.plan:
@@ -850,6 +904,8 @@ def main() -> None:
             duration_s=duration_s,
             optional_phases=optional,
             temperature=args.temperature_plan,
+            system_writer=system_writer,
+            omit_max_tokens=omit_max_tokens,
         )
 
     plan_path = out_dir / "plan.json"
@@ -861,6 +917,8 @@ def main() -> None:
         plan=plan,
         temperature_write=args.temperature_write,
         context_window_phases=args.context_window_phases,
+        system_writer=system_writer,
+        omit_max_tokens=omit_max_tokens,
     )
 
     struct_path = out_dir / "structure.csv"
