@@ -196,17 +196,9 @@ def max_tokens_for_words(words: int, buffer_mult: float = 2.0) -> int:
 # -------------------------
 
 def load_taxonomy(taxonomy_path: Optional[str] = None) -> Dict[str, Any]:
-    """Load taxonomy JSON. Defaults to hypnosis_taxonomy.json in same directory."""
-    if taxonomy_path is None:
-        taxonomy_path = Path(__file__).resolve().parent / "hypnosis_taxonomy.json"
-    else:
-        taxonomy_path = Path(taxonomy_path)
-
-    if not taxonomy_path.exists():
-        raise FileNotFoundError(f"Taxonomy file not found: {taxonomy_path}")
-
-    with open(taxonomy_path, encoding="utf-8") as f:
-        return json.load(f)
+    """Load taxonomy from hypnosis_taxonomy.md via TaxonomyReader."""
+    from taxonomy import load_taxonomy as _md_load
+    return _md_load(taxonomy_path)
 
 
 # Load taxonomy at module level
