@@ -55,10 +55,6 @@ try:
 except ImportError:
     HAS_MATPLOTLIB = False
 
-# Reduced sample rate for isochronic analysis — sufficient for carriers up to
-# ~3500 Hz, cuts memory ~5.5x vs 44100 Hz
-ANALYSIS_SR = 8000
-
 
 # === Utilities ===
 
@@ -141,18 +137,20 @@ def _whiten_spectrum(S_mag, kernel_bins=41):
     Subtracts the broadband spectral envelope (median filter along freq axis)
     from each frame. Persistent narrow-band tones survive; broadband
     voice/music content is suppressed.
+
+    Returns (whitened, S_db) — S_db is cached for reuse in rendering.
     """
     S_db = librosa.amplitude_to_db(S_mag, ref=np.max)
     baseline = median_filter(S_db, size=(kernel_bins, 1))
-    return np.maximum(S_db - baseline, 0.0)
+    return np.maximum(S_db - baseline, 0.0), S_db
 
 
-def _peaks_from_whitened_frame(w_frame, freqs, freq_min, freq_max,
-                                prom_thresh=8.0, max_width_bins=5):
-    """Detect peaks in one whitened spectrum frame with parabolic sub-bin interpolation."""
-    mask = (freqs >= freq_min) & (freqs <= freq_max)
-    spec = w_frame[mask]
-    f_arr = freqs[mask]
+def _peaks_from_whitened_frame(spec, f_arr, prom_thresh=8.0, max_width_bins=5):
+    """Detect peaks in one pre-sliced whitened spectrum frame.
+
+    Expects spec/f_arr already masked to the analysis freq range.
+    Uses vectorized NumPy parabolic sub-bin interpolation.
+    """
     if len(spec) < 5:
         return []
 
@@ -163,19 +161,20 @@ def _peaks_from_whitened_frame(w_frame, freqs, freq_min, freq_max,
         return []
 
     bin_hz = float(f_arr[1] - f_arr[0]) if len(f_arr) > 1 else 1.0
-    peaks = []
-    for k in peak_idx:
-        if 0 < k < len(spec) - 1:
-            a, b, c = float(spec[k - 1]), float(spec[k]), float(spec[k + 1])
-            denom = a - 2 * b + c
-            p = (0.5 * (a - c) / denom) if denom != 0.0 else 0.0
-            p = max(-0.5, min(0.5, p))
-        else:
-            p = 0.0
-        peaks.append((float(f_arr[k]) + p * bin_hz, float(spec[k])))
 
-    peaks.sort(key=lambda x: -x[1])
-    return peaks[:8]
+    k = peak_idx
+    valid = (k > 0) & (k < len(spec) - 1)
+    a = np.where(valid, spec[np.clip(k - 1, 0, len(spec) - 1)], spec[k])
+    b = spec[k]
+    c = np.where(valid, spec[np.clip(k + 1, 0, len(spec) - 1)], spec[k])
+    denom = a - 2 * b + c
+    p = np.where((denom != 0) & valid, 0.5 * (a - c) / denom, 0.0)
+    p = np.clip(p, -0.5, 0.5)
+    f_interp = f_arr[k] + p * bin_hz
+    powers = spec[k]
+
+    order = np.argsort(-powers)[:8]
+    return list(zip(f_interp[order].tolist(), powers[order].tolist()))
 
 
 def _link_peaks_to_tracks(peaks_by_frame, frame_times,
@@ -267,7 +266,7 @@ def _merge_colinear_tracks(tracks, merge_df_hz=5.0, merge_gap_sec=30.0):
                 if t_start < t_end:
                     continue
                 if t_start - t_end > merge_gap_sec:
-                    continue
+                    break  # tracks are time-sorted; all further candidates also fail
                 f_tail = float(np.median(cur['freqs'][-max(1, len(cur['freqs']) // 5):]))
                 f_head = float(np.median(tb['freqs'][:max(1, len(tb['freqs']) // 5)]))
                 if abs(f_tail - f_head) > merge_df_hz:
@@ -348,9 +347,13 @@ def _pair_binaural_tracks(tracks_L, tracks_R, binaural_range=(0.3, 20.0),
 
 
 def _measure_isochronic_for_track(track, y, sr, bandwidth=15):
-    """Detect isochronic rate for one track by slicing audio to its time range."""
+    """Detect isochronic rate for one track by slicing audio to its time range.
+
+    Caps the slice at 60 seconds — sufficient for envelope FFT resolution
+    in the 0.5–15 Hz range (60s @ sr gives ~0.017 Hz resolution).
+    """
     s0 = int(track['times'][0] * sr)
-    s1 = min(int(track['times'][-1] * sr), len(y))
+    s1 = min(int(track['times'][-1] * sr), s0 + 60 * sr, len(y))
     if s1 - s0 < sr:  # need at least 1 second
         return (None, 0.0)
     return detect_isochronic_rate(
@@ -459,10 +462,10 @@ def analyze(filepath, freq_min=30, freq_max=None, output_path=None,
         return None, None, None
 
     if freq_max is None:
-        y_tmp, _ = librosa.load(filepath, sr=ANALYSIS_SR, mono=False, duration=30)
+        y_tmp, _ = librosa.load(filepath, sr=8000, mono=False, duration=30)
         y_tmp_l = y_tmp[0] if y_tmp.ndim > 1 else y_tmp
         y_tmp_r = y_tmp[1] if y_tmp.ndim > 1 else y_tmp
-        freq_max = _auto_detect_freq_range(y_tmp_l, y_tmp_r, ANALYSIS_SR)
+        freq_max = _auto_detect_freq_range(y_tmp_l, y_tmp_r, 8000)
         del y_tmp, y_tmp_l, y_tmp_r
         gc.collect()
         print(f"Auto-detected freq range: {freq_min}-{freq_max} Hz")
@@ -489,8 +492,7 @@ def analyze(filepath, freq_min=30, freq_max=None, output_path=None,
           f"bin={target_sr/n_fft:.2f} Hz/bin)...")
     S_L = np.abs(librosa.stft(y_L, n_fft=n_fft, hop_length=hop_length))
     S_R = np.abs(librosa.stft(y_R, n_fft=n_fft, hop_length=hop_length))
-    del y_L, y_R
-    gc.collect()
+    # y_L, y_R kept — reused for isochronic (no second load needed)
 
     freqs = librosa.fft_frequencies(sr=target_sr, n_fft=n_fft)
     times = librosa.frames_to_time(np.arange(S_L.shape[1]),
@@ -500,15 +502,25 @@ def analyze(filepath, freq_min=30, freq_max=None, output_path=None,
     min_track_frames = max(4, int(3.0 / hop_dur))
 
     print("Whitening spectra...")
-    W_L = _whiten_spectrum(S_L)
-    W_R = _whiten_spectrum(S_R)
+    W_L, S_db_L = _whiten_spectrum(S_L)
+    W_R, S_db_R = _whiten_spectrum(S_R)
+    del S_L, S_R  # originals freed; S_db cached for render
+    gc.collect()
 
     print(f"Detecting peaks ({n_frames} frames × 2 channels)...")
-    peaks_L = [_peaks_from_whitened_frame(W_L[:, i], freqs, freq_min, render_max, prom_thresh)
-               for i in range(n_frames)]
-    peaks_R = [_peaks_from_whitened_frame(W_R[:, i], freqs, freq_min, render_max, prom_thresh)
-               for i in range(n_frames)]
+    # Pre-slice freq mask once — avoids recomputing per-frame mask 2×n_frames times
+    freq_mask_peaks = (freqs >= freq_min) & (freqs <= render_max)
+    W_L_sliced = W_L[freq_mask_peaks, :]
+    W_R_sliced = W_R[freq_mask_peaks, :]
+    f_arr_sliced = freqs[freq_mask_peaks]
     del W_L, W_R
+    gc.collect()
+
+    peaks_L = [_peaks_from_whitened_frame(W_L_sliced[:, i], f_arr_sliced, prom_thresh)
+               for i in range(n_frames)]
+    peaks_R = [_peaks_from_whitened_frame(W_R_sliced[:, i], f_arr_sliced, prom_thresh)
+               for i in range(n_frames)]
+    del W_L_sliced, W_R_sliced
     gc.collect()
 
     print("Linking tracks...")
@@ -535,26 +547,22 @@ def analyze(filepath, freq_min=30, freq_max=None, output_path=None,
     print(f"Found {len(pairs)} binaural pair(s), {len(solo_L)} solo L, {len(solo_R)} solo R")
 
     print("Measuring isochronic rates...")
-    y_raw, _ = librosa.load(filepath, sr=ANALYSIS_SR, mono=False)
-    y_L_raw = y_raw[0] if y_raw.ndim > 1 else y_raw
-    y_R_raw = y_raw[1] if y_raw.ndim > 1 else y_raw
-    del y_raw
-    gc.collect()
-
+    # Reuse y_L, y_R from initial load — no second librosa.load needed.
+    # Slice is capped to 60s in _measure_isochronic_for_track.
     for pair in pairs:
-        iso_L = _measure_isochronic_for_track(pair['track_L'], y_L_raw, ANALYSIS_SR, iso_bandwidth)
-        iso_R = _measure_isochronic_for_track(pair['track_R'], y_R_raw, ANALYSIS_SR, iso_bandwidth)
+        iso_L = _measure_isochronic_for_track(pair['track_L'], y_L, target_sr, iso_bandwidth)
+        iso_R = _measure_isochronic_for_track(pair['track_R'], y_R, target_sr, iso_bandwidth)
         best = max([iso_L, iso_R], key=lambda x: x[1])
         pair['iso_hz'], pair['iso_conf'] = best[0], best[1]
 
     for tr in solo_L:
         tr['iso_hz'], tr['iso_conf'] = _measure_isochronic_for_track(
-            tr, y_L_raw, ANALYSIS_SR, iso_bandwidth)
+            tr, y_L, target_sr, iso_bandwidth)
     for tr in solo_R:
         tr['iso_hz'], tr['iso_conf'] = _measure_isochronic_for_track(
-            tr, y_R_raw, ANALYSIS_SR, iso_bandwidth)
+            tr, y_R, target_sr, iso_bandwidth)
 
-    del y_L_raw, y_R_raw
+    del y_L, y_R
     gc.collect()
 
     # --- ASCII summary ---
@@ -598,11 +606,7 @@ def analyze(filepath, freq_min=30, freq_max=None, output_path=None,
     freq_mask = (freqs >= freq_min) & (freqs <= render_max)
     vmin_db, vmax_db = -80, 0
 
-    S_db_L = librosa.amplitude_to_db(S_L, ref=np.max)
-    S_db_R = librosa.amplitude_to_db(S_R, ref=np.max)
-    del S_L, S_R
-    gc.collect()
-
+    # S_db_L / S_db_R cached from whitening — no recompute needed
     l_norm = np.clip((S_db_L[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
     r_norm = np.clip((S_db_R[freq_mask, :] - vmin_db) / (vmax_db - vmin_db), 0, 1)
     del S_db_L, S_db_R
