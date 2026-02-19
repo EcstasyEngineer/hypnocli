@@ -81,11 +81,6 @@ PROVIDER_DEFAULTS = {
     "http://localhost:1234/v1": "local-model",
 }
 
-# Providers that need a condensed system prompt (verbose instructions cause echoing)
-CONDENSED_SYSTEM_PROVIDERS = {
-    "https://generativelanguage.googleapis.com/v1beta/openai/",
-}
-
 # Providers where passing max_tokens causes truncation bugs — omit the parameter entirely
 NO_MAX_TOKENS_PROVIDERS = {
     "https://generativelanguage.googleapis.com/v1beta/openai/",
@@ -425,32 +420,6 @@ Critical rules:
 """
 
 # Condensed version for models that echo verbose instructions (e.g. Gemini Flash)
-SYSTEM_WRITER_CONDENSED = """You are a professional hypnosis script writer for consensual audio content.
-Write second person ("you") for the listener, first person ("I") for an abstract dominant presence.
-Never tie suggestions to "this voice" or "this recording" — funnel desire toward the trance state itself.
-
-STYLE RULES (apply to every line):
-- Sentence length = depth dial: induction ≤15w; deepening 3-8w fragments; peak suggestion 1-5w; emergence 12-20w
-- Present tense, observational: "Noticing the weight of your hands" not "You will feel heavy"
-- Execute don't announce: never say "I will now suggest" or "let these words sink in" — just write
-- Vocabulary at depth: sleep, deep, blank, drift, float, warm, safe, free, good, soft, still, slow, down, let, go, fall, drop, sink
-- BANNED words: honeyed, serene rapture, peaceful empty, luminous, void, hollow, owns you (Permissive style)
-- No similes: states ARE, not LIKE. "Warm. Heavy. Held." not "like a warm blanket"
-- Developmental repetition: each pass adds a vector (modifier, tense shift, escalation). Never pure iteration.
-- Three-beat trigger delivery: anchor phrases land exactly 3 times
-- Anaphora with modal triads: "have to / can / want to"
-- Trust ladder: undeniable observation → soft permission → description → command. Never skip rungs.
-- Build one specific object per induction (staircase, bubble, orb) — not "a peaceful place"
-- Closed loops: X → Y → more X. "The more you X, the more you Y."
-- Transitions: "And as [action], [result]" at least once per deepening phase
-- Style (Permissive): "you can," "you might find," never "owns you" / "must" / "obey"
-- Praise post-compliance only: "That's right" / "Good" after instruction, not before
-- NEVER mention technique IDs (DEEP-03, EMRG-01 etc.) in script text
-
-Breathing (INDU-01): 4-hold-6. Inhale count UP (1,2,3,4), hold (no count), exhale count DOWN (6,5,4,3,2,1). Rotate synonyms.
-Pause markup: [Xms] or [Xs]. Example: "in[400] one[750] two[750] three[750] four.[1.5s]"
-Keep trigger/mantra phrases EXACTLY consistent with the plan. Do not invent new trigger phrases.
-"""
 
 PLANNER_INSTRUCTIONS_TEMPLATE = """Create a phase plan JSON for an audio hypnosis script.
 
@@ -869,7 +838,7 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     client, model, base_url = get_client(api_key=args.api_key, base_url=args.base_url, model=args.model)
-    system_writer = SYSTEM_WRITER_CONDENSED if base_url in CONDENSED_SYSTEM_PROVIDERS else SYSTEM_WRITER
+    system_writer = SYSTEM_WRITER
     omit_max_tokens = base_url in NO_MAX_TOKENS_PROVIDERS
 
     # Load existing plan or generate new one
