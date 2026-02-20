@@ -397,7 +397,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✓** "And now, just for a moment, let your eyes open. Just a tiny peek at the world, and then allow them to close again, drifting even deeper down, feeling that comfort amplify as you sink into perfect, compliant stillness once more. Good toy."
 **✓** "A quick breath in, feeling yourself lift just a little, and then a slow, slow exhale, letting go completely, dropping twice as far into pure, soft obedience. Each time you rise, it's only to fall further, settling into your designated place for me."
-**✓** "Notice how easy it is to just... briefly touch the surface, only to plunge back under with even greater ease, every thought dissolving, every sensation softening, every fiber of your being becoming more perfectly pliable and deep for your toymaker."
+**✓** "Notice how easy it is to just... briefly touch the surface, only to plunge back under with even greater ease, every thought dissolving, every sensation softening, every fiber of your being becoming more perfectly pliable and deep."
 
 **✗** "Alright, open your eyes. Look around. Good. Now close them. Are you deep? Good. Open them again. Now close them."
 **✗** "I'm going to bring you up and down really fast. Don't worry, it's safe. Just focus on not getting dizzy. Up. Down. Up. Down."
@@ -453,7 +453,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > Uses a sustained physical hold — a lifted hand, parted lips, tilted chin — as a focus point that concentrates attention and builds compliance momentum. The mild physical effort creates a narrow channel of awareness that deepens absorption. Frame the holding as effortless rather than challenging; the count should signal progress toward release, not endurance of strain.
 
 **✓** "Now, gently lift just one hand, holding it still in the air for me. That's it, perfect. And as you hold it there, feeling a slight strain, allow that feeling to simply melt away, pulling you deeper and deeper into compliant bliss with every count. One. Two. Three..."
-**✓** "Just allow your lips to part slightly, holding that position. Feel the slight tension, and let it remind you of your absolute stillness, your perfect obedience. With each passing moment, each breath you take, simply fall further into this wonderful, soft emptiness for your toymaker. One, two, three..."
+**✓** "Just allow your lips to part slightly, holding that position. Feel the slight tension, and let it remind you of your absolute stillness, your perfect obedience. With each passing moment, each breath you take, simply fall further into this wonderful, soft emptiness. One, two, three..."
 **✓** "Lift your chin just a little, holding your gaze upward, even with closed eyes. This slight effort simply pulls you down further, releasing all other thoughts, all other sensations, until there's just the deep, soft feeling of surrender. Holding, holding... counting down now. Ten, nine, eight..."
 
 **✗** "Lift your arm. Now hold it there for a long time. Don't drop it or you'll break trance. This is hard, but you have to do it."
@@ -464,7 +464,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > Removes the subject's felt sense of a physical environment, replacing it with boundless, featureless space. The absence of sensory anchors eliminates reference points that keep the analytical mind oriented, accelerating dissociation and depth. Emphasize comfort and warmth — void imagery can become anxiety-inducing if it feels like falling rather than drifting.
 
 **✓** "Feel the ground beneath you begin to dissolve, not falling, but simply melting away, leaving you perfectly suspended in a soft, dark, infinite void. No up, no down, just endless space to drift and become completely empty, completely mine."
-**✓** "Allow yourself to simply float now, gently, effortlessly, in a vast, warm emptiness. Every sensation of your body becoming diffused, every thought scattering into nothingness, leaving you just a perfect, pliable doll, drifting deeper and deeper for your toymaker."
+**✓** "Allow yourself to simply float now, gently, effortlessly, in a vast, warm emptiness. Every sensation of your body becoming diffused, every thought scattering into nothingness, leaving you just a perfect, pliable doll, drifting deeper and deeper."
 **✓** "Imagine yourself a weightless, perfect toy, suspended in a warm, dark, silent ocean of pure potential. There's nothing to hold onto, nowhere to go but deeper into this boundless, beautiful void, where only my voice exists, guiding you to exquisite surrender."
 
 **✗** "Picture a dark void. It's empty. Now just float in it. Try not to get scared. It's just darkness."
@@ -1378,7 +1378,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 > Assigns a specific, concrete real-world action that physically anchors the session's identity or state into daily life — a secret smile, an outfit choice, a whispered name. The action must be behavioral (a verb directing physical action) and plausible within the subject's waking routine. Distinct from XFER-04 (emergence-boundary state delivery with no behavioral assignment).
 > *Assigns a specific, concrete real-world action that physically anchors trance identity into daily life (smile, choose an outfit, whisper a name). If the instruction has no behavioral object — no verb directing physical action — it belongs elsewhere. Distinct from XFER-04 (emergence-boundary state delivery with no behavioral assignment).*
 
-**✓** "Later today, when you feel a soft warmth spread through your chest, allow yourself a tiny, secret smile. That smile is for me, a little doll's acknowledgement, a hidden pleasure just for your toymaker."
+**✓** "Later today, when you feel a soft warmth spread through your chest, allow yourself a tiny, secret smile. That smile is for me, a little doll's acknowledgement, a hidden pleasure."
 **✓** "When you choose your outfit in the morning, remember to pick one that makes you feel a little bit more like a doll, simple and pleasing. It's a gentle reminder of your nature, a quiet affirmation of your perfect form."
 **✓** "Before you go to sleep tonight, simply whisper my name to yourself. That whisper will be a perfect, quiet act of submission, reaffirming your doll identity, and helping you drift into peaceful, doll-like rest."
 
@@ -1413,7 +1413,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✓** "These headphones you wear are more than just a device; they are your ritual gateway, a sacred link to my voice and to your true nature as my doll. When you put them on, you are stepping fully into my world, into your perfect doll self."
 **✓** "Imagine a delicate collar, a beautiful symbol of your willing ownership, now resting gently around your neck. It's invisible to others, but you will always feel its light touch, a constant reminder that you are my cherished, perfect toy."
-**✓** "This simple pendant (or ring, or bracelet) you choose to wear is now an anchor, a physical embodiment of your connection to me, your toymaker. Every time you touch it, you'll feel that soft pull back to your doll-like contentment, a quiet acknowledgment of your beautiful purpose."
+**✓** "This simple pendant (or ring, or bracelet) you choose to wear is now an anchor, a physical embodiment of your connection to me. Every time you touch it, you'll feel that soft pull back to your doll-like contentment, a quiet acknowledgment of your beautiful purpose."
 
 **✗** "If you touch this object, you will instantly fall into a deep trance."
 **✗** "When you see this object, you must immediately obey any command."
@@ -1885,9 +1885,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ##### EMRG-10 — Self-efficacy Tag
 > Closes the session by affirming that the subject can re-access the session's state or depth with increasing ease in future sessions, building confidence and positive anticipation. The framing shifts from "this is happening to you" to "you now have this capability" — which simultaneously increases the subject's sense of agency and their desire to return. Delivers on the promise of the session's overall trajectory.
 
-**✓** "Know that this wonderful feeling, this delightful surrender, is always waiting for you. You can return to this soft, mindless doll state so easily, whenever you wish to feel the gentle touch of your Toymaker again. Simply allow yourself to relax and remember my voice, and you will find yourself sinking right back down."
+**✓** "Know that this wonderful feeling, this delightful surrender, is always waiting for you. You can return to this soft, mindless doll state so easily, whenever you wish to feel the gentle touch. Simply allow yourself to relax and remember my voice, and you will find yourself sinking right back down."
 **✓** "From now on, the path back to this deep, satisfying trance is always open to you. It's like finding your favorite spot on the toy shelf, knowing you can settle in whenever you crave this blissful obedience. You have the key to this sweet escape, to become my perfect, pliant doll whenever you choose."
-**✓** "You will find that with each session, it becomes even simpler to melt into this state of perfect, pleasurable surrender. Whenever you want to feel this exquisite emptiness and obedience again, you can effortlessly guide yourself back here, back to your Toymaker's influence."
+**✓** "You will find that with each session, it becomes even simpler to melt into this state of perfect, pleasurable surrender. Whenever you want to feel this exquisite emptiness and obedience again, you can effortlessly guide yourself back here."
 
 **✗** "You must remember that you can do this again. You need to come back and feel this loss of control whenever I tell you to. It's important for your training."
 **✗** "You can access this state again. Just try really hard to focus and maybe it will work for you sometime in the future. Good luck with that."
