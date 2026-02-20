@@ -1,14 +1,10 @@
 # Hypnosis Script Generator
 
-Generate complete hypnosis sessions using any OpenAI-compatible LLM. Consistent tone, contextual awareness across segments.
+Phase-based generator (`phase_chat_generator.py`) — generates a validated plan then writes each phase with structured context. Any OpenAI-compatible provider.
 
 ---
 
-## New: Phase-Based Generator (v5.1 Taxonomy)
-
-The new `phase_chat_generator.py` uses a structured taxonomy with validated phases and techniques. It generates a plan first, then writes each phase with full context.
-
-### Quick Start
+## Quick Start
 
 ```bash
 python3 phase_chat_generator.py \
@@ -17,84 +13,187 @@ python3 phase_chat_generator.py \
   --tone "warm, soothing, confident" \
   --variant standard \
   --duration "10 minutes" \
-  --optional "P7,P9" \
   --out_dir my_session
 ```
 
-### Variants
-
-| Variant | Description |
-|---------|-------------|
-| `standard` | Full arc: P1→P2→P3→P4→P5→P6 (context, induction, deepening, cognitive reduction, suggestions, emergence) |
-| `loop` | No emergence, loops via P13 for ambient/background content |
-| `twostage` | Fractionation between suggestion layers for complex programming |
-| `series` | Assumes prior conditioning, uses instant induction |
-
-### Optional Phases
-
-Add with `--optional "P7,P9,P10"`:
-- **P7** Safety/Consent - protective boundaries after context
-- **P8** Fractionation - wake/sleep cycling for depth
-- **P9** Scenario Immersion - detailed visualization
-- **P10** Trigger Installation - conditioned responses
-- **P11** Demonstration - trigger activation, bliss, proof
-- **P12** Behavioral Bridge - real-world action commands
-
-### Using an Existing Plan
-
-Skip the planning step by providing a plan.json:
-
-```bash
-# Edit plan.json to customize phases, techniques, durations...
-python3 phase_chat_generator.py --plan my_plan.json --out_dir out
-```
-
-### Outputs
-
-- `plan.json` - Phase structure with technique IDs
-- `structure.csv` - Timeline view
-- `script.txt` - Full script with phase markers
-
-### Reference
-
-See `hypnosis_taxonomy.md` for complete phase and technique documentation.
+Outputs: `plan.json`, `structure.csv`, `script.txt`
 
 ---
 
-## Legacy: Segment-Based Generator
+## Model Recommendations
 
-The original `compose_session.py` offers more freeform control with rich instruction fields. See examples in `examples/`.
+Evaluated Feb 2026, same theme/style across all runs. Reviewed by Claude Opus 4.6 and Codex. Because Claude served as reviewer, Gemini results are **less** susceptible to model self-preference bias.
+
+**TL;DR: Use Gemini 3 Flash in phased mode.**
+
+| Rank | Model | Mode | Lint | Verdict |
+|------|-------|------|------|---------|
+| 1 | **Gemini 3 Flash** | phased | 1 warning | Best fragment discipline, strongest object specificity, clean mantra delivery |
+| 2 | **Gemini 3 Flash** | oneshot | 0 | Held structure in single call; P3 anaphora was best of all runs |
+| 3 | **Claude Sonnet 4.6** | phased | 0 | Best trust ladder, most spec-compliant, zero violations |
+| 4 | **Claude Haiku 4.5** | phased | 2 warnings | Surprisingly competitive with Sonnet; natural voice, good fragments. ~5x cheaper. |
+| 5 | **Claude Sonnet 4.6** | oneshot | 0 | "Thinks out loud" in P4 — describes the trance instead of doing it |
+| 6 | **Claude Haiku 4.5** | oneshot | 0 | Clean but compressed P5; planner occasionally hallucinates technique IDs |
+| 7 | **xAI Grok** | phased | 3 warnings | Good countdown deepening; P1 announces the session structure (breaks immersion) |
+| 8 | **xAI Grok** | oneshot | 0 | Compresses all phases into dense paragraphs; loses fragment discipline entirely |
+
+**Cost vs quality:** Haiku at rank 4 costs roughly 5x less than Sonnet. For bulk generation or iteration, Haiku phased is the best value. Gemini is cheapest overall (Flash pricing) with the best output.
+
+**Mode:** `--mode phased` (default) is strongly preferred over `--mode oneshot` for all models. Oneshot saves one API call but degrades fragment discipline and causes "thinking out loud" — the model comments on what it's doing rather than just doing it.
+
+See `GENERATOR_EVALS.md` for full analysis, failure mode taxonomy, and lint gate docs.
 
 ---
 
-## Setup
+## Providers
 
 ```bash
-pip install openai
+# Gemini (recommended)
+--base_url gemini
+# needs GEMINI_API_KEY in .env
 
-# Create .env file in repo root
-cat > .env << 'EOF'
-# Provider shortcuts: openai, xai, openrouter, ollama, lmstudio
-# Or use a full URL for other providers
-LLM_API_KEY=your-api-key
-LLM_BASE_URL=xai
-LLM_MODEL=grok-4-0414
-EOF
+# Anthropic (Sonnet or Haiku)
+--base_url anthropic --model claude-sonnet-4-6
+--base_url anthropic --model claude-haiku-4-5-20251001
+# needs ANTHROPIC_API_KEY in .env
+
+# xAI/Grok (adult content, no filtering)
+--base_url xai
+# needs LLM_API_KEY in .env
+
+# OpenRouter (multi-provider)
+--base_url openrouter --model anthropic/claude-sonnet-4-6
+# needs LLM_API_KEY in .env
+
+# Local
+--base_url ollama --model llama3
+--base_url lmstudio
 ```
 
-**Provider shortcuts:**
-- `openai` → https://api.openai.com/v1
-- `xai` → https://api.x.ai/v1 (Grok)
-- `openrouter` → https://openrouter.ai/api/v1
-- `ollama` → http://localhost:11434/v1
-- `lmstudio` → http://localhost:1234/v1
+`.env` file (repo root):
+```
+GEMINI_API_KEY=...
+ANTHROPIC_API_KEY=...
+LLM_API_KEY=...        # xAI or OpenRouter
+LLM_BASE_URL=gemini    # optional default provider
+LLM_MODEL=...          # optional default model
+```
 
-## Quick Start
+---
 
-Generate a complete session:
+## Flags
+
+```
+--theme       Theme/goal (required unless --plan provided)
+--tone        Tone descriptor e.g. "calm, warm, hypnotic"
+--style       Permissive | Authoritarian | Challenge | Mixed | Institutional | Character | Compulsion
+--variant     standard | loop | twostage | series
+--duration    "10 minutes" | "600" | "1200 words"
+--optional    Comma-separated optional phases: "P7,P8,P9,P10,P11,P12"
+--out_dir     Output directory (default: out)
+
+--mode        phased (default) | oneshot
+--tail_sentences  Lines of prior phase prose carried as context (default: 6, 0=none)
+--lint_retry  Retry phase once on lint failure
+
+--plan        Load existing plan.json, skip planning step
+--base_url    Provider shortcut or full URL
+--model       Model override
+--api_key     API key override
+--temperature_plan   Planning temperature (default: 0.2)
+--temperature_write  Writing temperature (default: 0.8)
+```
+
+---
+
+## Variants
+
+| Variant | Arc | Use when |
+|---------|-----|----------|
+| `standard` | P1→P2→P3→P4→P5→P6 | Full session with emergence |
+| `loop` | P1→P2→P3→P4→P13 (no wake) | Ambient/background, playlist looping |
+| `twostage` | Induction → fractionation → suggestions | Complex programming, deep conditioning |
+| `series` | Assumes prior conditioning | Sequel files, assumes existing anchors |
+
+---
+
+## Optional Phases
+
+| Phase | Name | Use for |
+|-------|------|---------|
+| P7 | Safety/Consent | Explicit protective boundaries mid-session |
+| P8 | Fractionation | Wake/sleep cycling for depth |
+| P9 | Scenario Immersion | Detailed visualization layer |
+| P10 | Trigger Installation | Conditioned response programming |
+| P11 | Demonstration | Trigger activation, bliss, proof-of-depth |
+| P12 | Behavioral Bridge | Real-world action commands |
 
 ```bash
-python3 script/compose_session.py --json '{
+--optional "P7,P9,P10"
+```
+
+---
+
+## Lint Gate
+
+Runs automatically after each phase. Warnings print to stderr but don't block output.
+
+| Code | What it catches |
+|------|----------------|
+| LINT-01 | Sentences >20w in P3/P4/P8; >15w in P2 |
+| LINT-02 | Future tense (`you'll/you will`) in non-P1 phases |
+| LINT-03 | Banned phrases: honeyed, subconscious mind, serene rapture, peaceful empty, luminous |
+| LINT-04 | Similes for states (`like a/an`, `as X as`) in P3/P4/P5/P8 |
+| LINT-05 | Technique ID leaked into script text (e.g. `DEEP-03`) |
+| LINT-06 | POV violations: "my voice", "this recording", "addicted to me" |
+| LINT-07 | Announcing technique: "I'm going to suggest", "let these words sink in" |
+| LINT-08 | Thinking out loud: meta-commentary in sub-cognitive phases |
+
+`--lint_retry` triggers one blind re-roll on failure. For guided correction (feeding lint errors back into the prompt), see issue #45.
+
+---
+
+## Known Model Failure Modes
+
+**xAI Grok — P1 roadmap announcement**
+`"We'll ease into blank mind, deepen it, then plant suggestions, then bring you back"` — announces the technical structure in pre-talk, which breaks the fourth wall before trance begins.
+
+**Claude Sonnet oneshot — thinking out loud**
+In P4: `"The stillness isn't something you made — it was here already."` — philosophical commentary during a sub-cognitive phase. The model explains the trance instead of executing it.
+
+**Claude Haiku — planning hallucinations**
+Occasionally invents technique IDs (`CHECK-10`, etc.) that don't exist in the taxonomy, causing validation failure. Retry usually succeeds. Slightly higher planning temperature (`--temperature_plan 0.3`) may help.
+
+**All models / oneshot — fragment collapse**
+Single-call generation compresses phases into dense paragraphs. Deepening phases lose short-fragment discipline. Use phased mode.
+
+---
+
+## Reusing a Plan
+
+Generate once, write multiple times (different temperatures, providers, etc.):
+
+```bash
+# Generate plan only — then edit it before writing
+python3 phase_chat_generator.py --theme "..." --style Permissive \
+  --tone "..." --duration "10 minutes" --out_dir run1
+
+# Edit run1/plan.json, then reuse
+python3 phase_chat_generator.py --plan run1/plan.json \
+  --base_url gemini --out_dir run1_gemini
+
+python3 phase_chat_generator.py --plan run1/plan.json \
+  --base_url anthropic --model claude-haiku-4-5-20251001 --out_dir run1_haiku
+```
+
+---
+
+## Legacy Generator
+
+`compose_session.py` — freeform segment-based generator with explicit instruction fields. More manual control, no taxonomy validation.
+
+```bash
+python3 compose_session.py --json '{
   "tone": "commanding sadistic",
   "instructions": "GENDER NEUTRAL language. SHOW DONT TELL.",
   "segments": [
@@ -107,262 +206,6 @@ python3 script/compose_session.py --json '{
 }' --output session.txt
 ```
 
-**Note:** Every segment will see "GENDER NEUTRAL language. SHOW DONT TELL." plus their own specific instructions.
+Segment types: `pretalk`, `induction`, `deepener`, `conditioning`, `fractionation`, `posthypnotic`, `wakener`, `mantra`
 
-## JSON Schema
-
-**Required fields:**
-- `tone` - Overall tone (e.g., "gentle caring", "commanding sadistic")
-- `segments` - Array of segment objects
-
-**Each segment requires:**
-- `type` - Segment type (see below)
-- `additional_instructions` - Segment-specific task (added to global instructions)
-
-**Optional per segment:**
-- `tone_override` - Replace global tone for this segment only
-- `duration` - Target length (e.g., "2min", "30 seconds", "500 words")
-
-**Optional global:**
-- `instructions` - Global instructions **prepended to ALL segments** (style guides, content rules, etc.)
-- `context_mode` - How segments reference each other (default: "full")
-- `temperature` - AI creativity (default: 0.8)
-
-### Important: How Instructions Work
-
-**Global `instructions` are ALWAYS prepended to every segment's `additional_instructions`:**
-
-```json
-{
-  "instructions": "GENDER NEUTRAL (throb/ache, NO cock/pussy). SHOW DON'T TELL.",
-  "segments": [
-    {"type": "induction", "additional_instructions": "progressive relaxation"}
-  ]
-}
-```
-
-The induction prompt sees:
-```
-GENDER NEUTRAL (throb/ache, NO cock/pussy). SHOW DON'T TELL.
-
-Segment-specific additions: progressive relaxation
-```
-
-**Global `instructions` (prepended to all):**
-- Style guides (gender-neutral, show don't tell)
-- Content rules (avoid certain words, metaphor preferences)
-- F4A (for all audiences) guidance
-- Session-wide themes
-
-**Segment `additional_instructions` (added per segment):**
-- Specific tasks ("countdown 10 to 1", "JOI call/response #1")
-- Segment-unique content that builds on global rules
-
-**Segment `tone_override` (replaces global tone):**
-- Use when you want a different tone for just one segment
-- Fully replaces the global tone (not additive)
-
-## Segment Types
-
-| Type | Purpose | Default Duration |
-|------|---------|------------------|
-| `pretalk` | Pre-session framing, consent, expectations | 60-90s |
-| `induction` | Initial trance induction | 60-90s |
-| `deepener` | Trance deepening | 15-45s |
-| `conditioning` | Belief/behavior programming | 30-120s |
-| `fractionation` | Up/down trance cycles | 30-90s |
-| `posthypnotic` | Post-trance triggers | 20-60s |
-| `wakener` | Safe emergence from trance | 15-30s |
-| `mantra` | Repetitive affirmations | 30-60s |
-
-## Examples
-
-### Dynamic Tone Shifting
-
-Mix tones within a session for emotional variety:
-
-```bash
-python3 script/compose_session.py --json '{
-  "tone": "commanding",
-  "segments": [
-    {"type": "pretalk", "additional_instructions": "consent and safety", "tone_override": "gentle caring"},
-    {"type": "induction", "additional_instructions": "progressive relaxation"},
-    {"type": "conditioning", "additional_instructions": "obedience triggers", "tone_override": "seductive teasing"},
-    {"type": "wakener", "additional_instructions": "refreshed and alert", "tone_override": "warm encouraging"}
-  ]
-}' --output dynamic_session.txt
-```
-
-### Long Session with Anchors
-
-For sessions with triggers/anchors referenced across segments, use full context mode (default):
-
-```bash
-python3 script/compose_session.py --json '{
-  "tone": "commanding sadistic",
-  "context_mode": "full",
-  "segments": [
-    {"type": "induction", "additional_instructions": "establish DROP anchor", "duration": "5min"},
-    {"type": "deepener", "additional_instructions": "reinforce DROP anchor", "duration": "2min"},
-    {"type": "conditioning", "additional_instructions": "pleasure on DROP command", "duration": "10min"},
-    {"type": "deepener", "additional_instructions": "test DROP anchor effectiveness", "duration": "2min"},
-    {"type": "wakener", "additional_instructions": "DROP anchor stays active"}
-  ]
-}' --output anchor_session.txt
-```
-
-With `context_mode: "full"`, later segments remember the "DROP" anchor from earlier segments.
-
-### Complex Multi-Phase Session
-
-```bash
-python3 script/compose_session.py --json '{
-  "tone": "commanding sadistic",
-  "segments": [
-    {"type": "pretalk", "additional_instructions": "JOI mindwipe session preview", "duration": "2min"},
-    {"type": "induction", "additional_instructions": "focus on my voice, JOI trance beginning", "duration": "4min"},
-    {"type": "deepener", "additional_instructions": "sinking deeper, obedience growing", "duration": "2min"},
-    {"type": "conditioning", "additional_instructions": "pleasure=obedience linking, tease/denial intro", "duration": "8min"},
-    {"type": "deepener", "additional_instructions": "total surrender, blank mindlessness", "duration": "2min"},
-    {"type": "conditioning", "additional_instructions": "JOI call/response #1, severity ramp", "duration": "10min"},
-    {"type": "deepener", "additional_instructions": "void of obedience, no thoughts remain", "duration": "2min"},
-    {"type": "conditioning", "additional_instructions": "EXTREME tease/denial, beg to be rewritten", "duration": "12min"},
-    {"type": "wakener", "additional_instructions": "PARTIAL wakener - new entity awakens", "duration": "3min"}
-  ]
-}' --output complex_session.txt
-```
-
-## Context Modes
-
-Controls how segments reference each other:
-
-- **`full`** (default) - Each segment sees all previous segments
-  - Use for: Sessions with anchors/triggers, long sessions, narrative arcs
-  - Why: Segment 15 can reference an anchor from segment 2
-
-- **`last`** - Each segment sees only the previous segment
-  - Use for: Short sessions, when you want looser connections
-  - Why: More efficient, lighter context
-
-- **`none`** - Segments are completely independent
-  - Use for: Testing, generating unrelated segments
-  - Why: No continuity, baseline mode
-
-**Recommendation:** Use `full` unless you have a specific reason not to. The cost difference is negligible and continuity is worth it.
-
-## Single Segments
-
-Generate individual segments for testing or manual composition:
-
-```bash
-python3 script/generate_segment.py \
-  --type conditioning \
-  --tone "commanding" \
-  --instructions "pleasure-obedience linking, tease/denial" \
-  --duration "5min" \
-  --output conditioning.txt
-```
-
-## Model Recommendations (phase_chat_generator)
-
-Evaluated Feb 2026 on blank-mind theme, 5 min, Permissive style. Reviewed by Claude Opus 4.6 and Codex independently.
-
-| Rank | Model | Mode | Notes |
-|------|-------|------|-------|
-| 1 | **Gemini 3 Flash** (`--base_url gemini`) | phased | Best fragment discipline, strongest object specificity, clean mantra delivery. Surprising given Flash tier. |
-| 2 | **Gemini 3 Flash** | oneshot | Held structure well in single call. P3 anaphora was best of all six runs. |
-| 3 | **Claude Sonnet 4.6** (`--base_url anthropic`) | phased | Best trust ladder, zero lint violations, most "performable as-is." Tends conservative. |
-| 4 | **Claude Sonnet 4.6** | oneshot | "Thinks out loud" in P4 — philosophical asides during sub-cognitive phases. Good architecture, over-explains. |
-| 5 | **xAI Grok** (`--base_url xai`) | phased | Solid countdown deepening, good tail continuity. P1 announces the session structure (breaks fourth wall). |
-| 6 | **xAI Grok** | oneshot | Compresses all phases into dense paragraphs. Loses fragment discipline entirely. Not recommended. |
-
-**Key finding:** Gemini 3 Flash outperformed both Claude and Grok on script quality despite being a Flash-tier model. Notably, this evaluation was run using Claude as reviewer — making the Gemini result less susceptible to model self-preference bias.
-
-**`--mode phased` is strongly preferred over `--mode oneshot`** for all models. Oneshot saves API calls but degrades fragment discipline and causes "thinking out loud" failure mode (model describes technique instead of executing it).
-
-See `GENERATOR_EVALS.md` for full analysis, failure mode taxonomy, and lint gate documentation.
-
-## Provider Notes
-
-**Gemini** (`--base_url gemini`) - Recommended for script quality
-- Best overall output quality in evaluations
-- Set `GEMINI_API_KEY` in `.env`
-- Model: `models/gemini-3-flash-preview` (default)
-
-**Anthropic/Claude** (`--base_url anthropic`) - Best trust ladder and rule compliance
-- Zero lint violations, most spec-compliant output
-- Set `ANTHROPIC_API_KEY` in `.env`
-- Model: `claude-sonnet-4-6` (default)
-
-**xAI/Grok** (`--base_url xai`) - Recommended for adult content, cost
-- Zero content filtering
-- Cheap (~$0.001-0.01 per script)
-- Fast reasoning models available
-
-**OpenRouter** - Multi-provider access
-- Route to various models with one API key
-- Some models have content policies
-
-**Local (Ollama/LM Studio)** - Private, no filtering
-- Requires local model setup
-- No API costs, runs on your hardware
-
-## Advanced
-
-### JSON Config File
-
-For complex sessions, use a config file:
-
-```bash
-# Create config
-cat > session.json << 'EOF'
-{
-  "tone": "gentle encouraging",
-  "instructions": "deep relaxation and self-care",
-  "duration": "60 seconds",
-  "segments": [
-    {"type": "induction", "duration": "5min"},
-    {"type": "deepener"},
-    {"type": "conditioning", "instructions": "confidence and self-worth"},
-    {"type": "wakener", "tone": "warm uplifting"}
-  ]
-}
-EOF
-
-# Generate
-python3 script/compose_session.py --config session.json --output session.txt
-```
-
-### Validation
-
-Invalid JSON gets helpful error messages:
-
-```bash
-$ python3 script/compose_session.py --json '{"segments": [{"type": "induction"}]}'
-
-[error] Missing required field 'tone'
-[info] Expected JSON schema: {...}
-[info] Example with tone overrides: {...}
-```
-
-## Troubleshooting
-
-**Duration too short/long?**
-- Grok targets 150 words/minute spoken
-- For precise timing, specify duration in words: `"duration": "500 words"`
-
-**Need different personalities?**
-- Use tone overrides per segment
-- Mix tones: "gentle caring" → "commanding" → "warm encouraging"
-
-**Segments feel disconnected?**
-- Use `context_mode: "full"` (default)
-- Add specific instructions referencing previous content
-
-**Content too repetitive?**
-- Vary your instructions per segment
-- Be specific: "JOI call/response #1" vs "JOI call/response #2, more intense"
-
-## License
-
-MIT
+Context modes: `full` (default, all prior segments visible), `last` (previous only), `none` (isolated)
