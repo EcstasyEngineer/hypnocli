@@ -46,7 +46,7 @@ import json
 import os
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -68,6 +68,8 @@ PROVIDER_URLS = {
     "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/",
     "google": "https://generativelanguage.googleapis.com/v1beta/openai/",
     "openrouter": "https://openrouter.ai/api/v1",
+    "anthropic": "https://api.anthropic.com/v1",
+    "claude": "https://api.anthropic.com/v1",
     "ollama": "http://localhost:11434/v1",
     "lmstudio": "http://localhost:1234/v1",
 }
@@ -76,7 +78,8 @@ PROVIDER_DEFAULTS = {
     "https://api.openai.com/v1": "gpt-4o",
     "https://api.x.ai/v1": "grok-4-0414",
     "https://generativelanguage.googleapis.com/v1beta/openai/": "models/gemini-3-flash-preview",
-    "https://openrouter.ai/api/v1": "anthropic/claude-sonnet-4",
+    "https://openrouter.ai/api/v1": "anthropic/claude-sonnet-4-6",
+    "https://api.anthropic.com/v1": "claude-sonnet-4-6",
     "http://localhost:11434/v1": "llama3",
     "http://localhost:1234/v1": "local-model",
 }
@@ -123,8 +126,12 @@ def get_client(
     is_gemini = base_url_resolved == gemini_url
 
     # API key: explicit arg > provider-specific env > generic LLM_API_KEY > OPENAI_API_KEY
+    anthropic_url = PROVIDER_URLS.get("anthropic", "")
+    is_anthropic = base_url_resolved == anthropic_url
     api_key = api_key or (
-        _load_env("GEMINI_API_KEY") if is_gemini else _load_env("LLM_API_KEY")
+        _load_env("GEMINI_API_KEY") if is_gemini
+        else _load_env("ANTHROPIC_API_KEY") if is_anthropic
+        else _load_env("LLM_API_KEY")
     ) or _load_env("LLM_API_KEY") or _load_env("OPENAI_API_KEY")
 
     # Model: explicit arg > (if provider was explicit: provider default) > env var > provider default
@@ -551,6 +558,411 @@ PHASE_WRITER_TEMPLATE = """Write PHASE {phase} — {phase_name}.
 """
 
 
+PHASE_WRITER_TEMPLATE_V2 = """Write PHASE {phase} — {phase_name}.
+
+TARGET: {duration_s}s (~{target_words} words)
+TECHNIQUES: {techniques_csv}
+PARAMS: {params_json}
+
+STYLE MODE: {phase_style_hint}
+
+SEED (authoritative):
+{notes_block}
+
+{forward_refs}
+Continue from the prose above. Connect smoothly. End with a natural transition.
+"""
+
+ONE_SHOT_WRITER_TEMPLATE = """Write the complete script — all phases in order.
+
+Before each phase, output this exact delimiter line (fill in the values):
+<!-- PHASE: {{phase_id}} {{phase_name}} | TARGET: {{target_words}}w -->
+
+## Phase Table (write all phases in this order)
+{phase_table}
+
+## Session Parameters
+Anchors: {anchors_csv}
+Stop signal: word="{stop_word}" procedure="{stop_proc}"
+Scope: {scope_bounds_bullets}
+
+Write all phases end-to-end. No explanations, no meta-commentary. Only the script text and the delimiter lines.
+"""
+
+
+# -------------------------
+# v2 helper functions
+# -------------------------
+
+def _build_plan_summary(plan: Dict[str, Any]) -> str:
+    """Build a compact ~15-line plan summary for use as assistant context."""
+    meta = plan.get("meta", {})
+    anchors = plan.get("anchors", [])
+    stop = plan.get("stop_signal", {}) or {}
+    scope = plan.get("scope_bounds", []) or []
+    params = plan.get("parameters", {}) or {}
+    trigger_phrases = params.get("trigger_phrases", []) or []
+    mantras = params.get("mantras", []) or []
+    structure = plan.get("structure", [])
+
+    lines = [
+        "## Session Plan Summary",
+        f"Theme: {meta.get('theme', '')}",
+        f"Tone: {meta.get('tone', '')} | Style: {meta.get('style', '')}",
+        f"Variant: {meta.get('variant', 'standard')} | Duration: {meta.get('duration_s', 0)}s",
+        f"Anchors: {', '.join(anchors) if anchors else '(none)'}",
+        f"Stop signal: \"{stop.get('word', 'STOP')}\" — {stop.get('procedure', '')}",
+    ]
+
+    if scope:
+        lines.append("Scope: " + "; ".join(scope[:4]))
+
+    if trigger_phrases:
+        lines.append("Trigger phrases (EXACT wording):")
+        for tp in trigger_phrases:
+            phrase = tp.get("phrase", "")
+            response = tp.get("response", "")
+            lines.append(f'  "{phrase}" → {response}')
+
+    if mantras:
+        lines.append("Mantras (EXACT wording):")
+        for m in mantras:
+            lines.append(f'  "{m.get("line", "")}" [{m.get("difficulty", "")}]')
+
+    # Phase sequence
+    seq_parts = []
+    for b in structure:
+        seq_parts.append(f"{b['phase']}({b.get('duration_s', 0)}s)")
+    lines.append("Phase sequence: " + " → ".join(seq_parts))
+
+    return "\n".join(lines)
+
+
+def _extract_prose_tail(text: str, n_lines: int = 6) -> str:
+    """Return the last n_lines non-blank lines of text."""
+    all_lines = text.split("\n")
+    non_blank = [l for l in all_lines if l.strip()]
+    tail = non_blank[-n_lines:] if len(non_blank) >= n_lines else non_blank
+    return "\n".join(tail)
+
+
+def _forward_refs(plan: Dict[str, Any], current_idx: int) -> str:
+    """
+    Scan upcoming phases to surface what the current phase should prime for.
+    Returns a short string (or empty string if nothing to surface).
+    """
+    structure = plan.get("structure", [])
+    params = plan.get("parameters", {}) or {}
+    trigger_phrases = params.get("trigger_phrases", []) or []
+    mantras = params.get("mantras", []) or []
+
+    upcoming = structure[current_idx + 1:]
+    if not upcoming:
+        return ""
+
+    hints = []
+
+    # Check trigger phrases — look for them mentioned in upcoming notes
+    for tp in trigger_phrases:
+        phrase = tp.get("phrase", "")
+        if not phrase:
+            continue
+        for future_block in upcoming:
+            future_notes = future_block.get("notes", "") or ""
+            future_phase = future_block.get("phase", "")
+            if phrase.lower() in future_notes.lower():
+                hints.append(f'UPCOMING: trigger phrase "{phrase}" installs in {future_phase} — prime the listener for this word cluster.')
+                break
+
+    # Check mantras — look for them mentioned in upcoming notes
+    for m in mantras:
+        line = m.get("line", "")
+        if not line:
+            continue
+        for future_block in upcoming:
+            future_notes = future_block.get("notes", "") or ""
+            future_phase = future_block.get("phase", "")
+            if any(word in future_notes.lower() for word in line.lower().split() if len(word) > 4):
+                hints.append(f'UPCOMING: mantra "{line}" installs in {future_phase} — begin seeding this vocabulary.')
+                break
+
+    if not hints:
+        return ""
+
+    return "FORWARD PRIMING:\n" + "\n".join(hints)
+
+
+# -------------------------
+# Lint gate
+# -------------------------
+
+@dataclass
+class LintError:
+    phase: str
+    code: str
+    message: str
+    detail: str
+
+
+_BANNED_PHRASES = [
+    "honeyed",
+    "subconscious mind",
+    "serene rapture",
+    "peaceful empty",
+    "luminous",
+]
+
+_ANNOUNCING_PHRASES = [
+    "i'm going to suggest",
+    "let these words sink in",
+    "repeating now",
+    "i will now suggest",
+]
+
+_POV_VIOLATIONS = [
+    r"\bmy voice\b",
+    r"\bthis recording\b",
+    r"\baddicted to me\b",
+]
+
+# LINT-08: "Thinking out loud" — meta-commentary in sub-cognitive phases
+# Phrases that describe/explain the trance state instead of performing it
+_THINKING_OUT_LOUD = [
+    r"\bnotice how\b",
+    r"\byou(?:'re| are) (?:now )?(?:going |becoming )?(?:deeper|deeper into|dropping)",
+    r"\bthis (?:is what|feeling is)\b",
+    r"\bisn'?t (?:absence|emptiness|silence|nothingness)\b",
+    r"\bwhat (?:blank|empty|trance|surrender) (?:feels? like|means)\b",
+    r"\byou(?:'ve| have) (?:already )?arrived\b",
+    r"\byou only had to\b",
+]
+
+
+_DEEPENING_PHASES = {"P3", "P4", "P8"}
+_SIMILE_PHASES = {"P3", "P4", "P5", "P8"}
+_DEEP_SUGGESTION_PHASES = {"P3", "P4", "P5", "P8"}
+
+
+def lint_phase(phase_id: str, text: str, plan: Dict[str, Any]) -> List[LintError]:
+    """
+    Zero-API lint gate. Returns list of LintErrors (empty = pass).
+    """
+    errors: List[LintError] = []
+    lower = text.lower()
+
+    # 1. Sentence length by phase
+    sentences = re.split(r'[.!?]+', text)
+    for sent in sentences:
+        sent_stripped = sent.strip()
+        if not sent_stripped:
+            continue
+        word_count = len(sent_stripped.split())
+        if phase_id in _DEEPENING_PHASES and word_count > 20:
+            errors.append(LintError(
+                phase=phase_id,
+                code="LINT-01",
+                message="Long sentence in deepening phase",
+                detail=f"({word_count}w) {sent_stripped[:60]}..."
+            ))
+        elif phase_id == "P2" and word_count > 15:
+            errors.append(LintError(
+                phase=phase_id,
+                code="LINT-01",
+                message="Long sentence in induction phase",
+                detail=f"({word_count}w) {sent_stripped[:60]}..."
+            ))
+
+    # 2. Future tense in non-P1 phases
+    if phase_id != "P1":
+        for m in re.finditer(r"\byou(?:'ll| will)\b", lower):
+            errors.append(LintError(
+                phase=phase_id,
+                code="LINT-02",
+                message="Future tense in non-P1 phase",
+                detail=text[max(0, m.start() - 20):m.end() + 30].strip()
+            ))
+
+    # 3. Banned phrases
+    for phrase in _BANNED_PHRASES:
+        if phrase in lower:
+            errors.append(LintError(
+                phase=phase_id,
+                code="LINT-03",
+                message=f"Banned phrase: {phrase!r}",
+                detail=""
+            ))
+
+    # 4. Similes in key phases
+    if phase_id in _SIMILE_PHASES:
+        for pattern in [r"\blike an?\b", r"\bas .{1,20} as\b"]:
+            for m in re.finditer(pattern, lower):
+                errors.append(LintError(
+                    phase=phase_id,
+                    code="LINT-04",
+                    message="Simile for state",
+                    detail=text[max(0, m.start() - 10):m.end() + 30].strip()
+                ))
+
+    # 5. Technique ID leak
+    for m in re.finditer(r"\b[A-Z]{2,5}-\d{2,3}\b", text):
+        errors.append(LintError(
+            phase=phase_id,
+            code="LINT-05",
+            message=f"Technique ID in script text: {m.group()}",
+            detail=text[max(0, m.start() - 20):m.end() + 20].strip()
+        ))
+
+    # 6. POV violation
+    for pattern in _POV_VIOLATIONS:
+        for m in re.finditer(pattern, lower):
+            errors.append(LintError(
+                phase=phase_id,
+                code="LINT-06",
+                message="POV violation",
+                detail=text[max(0, m.start() - 20):m.end() + 30].strip()
+            ))
+
+    # 7. Announcing technique execution
+    for phrase in _ANNOUNCING_PHRASES:
+        if phrase in lower:
+            errors.append(LintError(
+                phase=phase_id,
+                code="LINT-07",
+                message=f"Announcing: {phrase!r}",
+                detail=""
+            ))
+
+    # 8. "Thinking out loud" in deep/suggestion phases
+    if phase_id in _DEEP_SUGGESTION_PHASES:
+        for pattern in _THINKING_OUT_LOUD:
+            for m in re.finditer(pattern, lower):
+                errors.append(LintError(
+                    phase=phase_id,
+                    code="LINT-08",
+                    message="Thinking out loud (meta-commentary in sub-cognitive phase)",
+                    detail=text[max(0, m.start() - 10):m.end() + 40].strip()
+                ))
+
+    return errors
+
+
+def print_lint_errors(errors: List[LintError]) -> None:
+    for e in errors:
+        print(f"[lint:{e.code}] {e.phase}: {e.message} — {e.detail}", file=sys.stderr)
+
+
+# -------------------------
+# One-shot generation
+# -------------------------
+
+def split_oneshot_output(text: str, plan: Dict[str, Any]) -> List[str]:
+    """
+    Split one-shot output on <!-- PHASE: ... --> markers.
+    Returns list of phase texts in plan order. Missing phases get empty string.
+    """
+    structure = plan.get("structure", [])
+    phase_ids = [b["phase"] for b in structure]
+
+    # Split on phase delimiter markers
+    parts = re.split(r"<!--\s*PHASE:\s*", text)
+    # parts[0] is text before first marker (discard); parts[1+] start with "P1 ..."
+
+    phase_map: Dict[str, str] = {}
+    for part in parts[1:]:
+        # Extract phase id from start of part
+        m = re.match(r"([A-Z]\d+)\b", part)
+        if not m:
+            continue
+        pid = m.group(1)
+        # Strip the rest of the marker line
+        body = re.sub(r"^[^\n]*\n", "", part, count=1)
+        phase_map[pid] = body.strip()
+
+    result: List[str] = []
+    for pid in phase_ids:
+        if pid in phase_map:
+            result.append(phase_map[pid])
+        else:
+            print(f"[warn] One-shot output missing phase {pid} — inserting empty", file=sys.stderr)
+            result.append("")
+
+    return result
+
+
+def generate_script_oneshot(
+    client: OpenAI,
+    model: str,
+    plan: Dict[str, Any],
+    temperature_write: float = 0.8,
+    system_writer: str = SYSTEM_WRITER,
+    omit_max_tokens: bool = False,
+    tail_sentences: int = 6,
+) -> Tuple[List[PhasePlan], List[str], List[Dict[str, str]]]:
+    """Generate full script in a single API call."""
+    meta = plan.get("meta", {})
+    anchors = plan.get("anchors", [])
+    anchors_csv = "|".join(anchors) if anchors else ""
+    stop = plan.get("stop_signal", {}) or {}
+    stop_word = stop.get("word", "STOP")
+    stop_proc = stop.get("procedure", "Stop, take a breath, open your eyes, and return to baseline safely.")
+    scope_bounds = plan.get("scope_bounds", []) or []
+    scope_bounds_bullets = "\n".join([f"- {x}" for x in scope_bounds]) if scope_bounds else "- (none specified)"
+
+    structure = plan["structure"]
+
+    # Build phase table (one line per phase)
+    table_lines = []
+    for b in structure:
+        pid = b["phase"]
+        pname = PHASE_NAMES.get(pid, pid)
+        dur = int(b.get("duration_s", 60))
+        words = estimate_words(dur)
+        techs = ",".join(b.get("techniques", []))
+        notes_excerpt = (b.get("notes", "") or "")[:80].replace("\n", " ")
+        table_lines.append(f"{pid} {pname} | {words}w | {techs} | {notes_excerpt}")
+    phase_table = "\n".join(table_lines)
+
+    prompt = ONE_SHOT_WRITER_TEMPLATE.format(
+        phase_table=phase_table,
+        anchors_csv=anchors_csv,
+        stop_word=stop_word,
+        stop_proc=stop_proc,
+        scope_bounds_bullets=scope_bounds_bullets,
+    )
+
+    plan_summary = _build_plan_summary(plan)
+
+    messages: List[Dict[str, str]] = [
+        {"role": "system", "content": system_writer},
+        {"role": "assistant", "content": plan_summary},
+        {"role": "user", "content": prompt},
+    ]
+
+    # Estimate total words for token budget
+    total_words = sum(estimate_words(int(b.get("duration_s", 60))) for b in structure)
+    max_toks = None if omit_max_tokens else max_tokens_for_words(total_words, buffer_mult=2.0)
+    # Cap at model-friendly max for single-call
+    if max_toks is not None:
+        max_toks = min(max_toks, 8000)
+
+    print(f"[info] One-shot: generating {len(structure)} phases (~{total_words}w total)", file=sys.stderr)
+    raw = chat(client, model, messages, temperature=temperature_write, max_tokens=max_toks)
+
+    phase_texts = split_oneshot_output(raw, plan)
+
+    phase_plans: List[PhasePlan] = []
+    for b in structure:
+        phase_plans.append(PhasePlan(
+            phase=b["phase"],
+            duration_s=int(b.get("duration_s", 60)),
+            techniques=list(b.get("techniques", [])),
+            params=b.get("params", {}) or {},
+            notes=b.get("notes", "") or "",
+        ))
+
+    return phase_plans, phase_texts, messages
+
+
 # -------------------------
 # Robust JSON extraction
 # -------------------------
@@ -661,35 +1073,30 @@ def generate_script_from_plan(
     model: str,
     plan: Dict[str, Any],
     temperature_write: float = 0.8,
-    context_window_phases: int = 0,
+    context_window_phases: int = 0,  # deprecated no-op, kept for backwards compat
     system_writer: str = SYSTEM_WRITER,
     omit_max_tokens: bool = False,
+    tail_sentences: int = 6,
+    lint_retry: bool = False,
 ) -> Tuple[List[PhasePlan], List[str], List[Dict[str, str]]]:
-
+    """
+    v2: fixed 4-message context per phase.
+    [0] system:    SYSTEM_WRITER
+    [1] assistant: condensed plan summary
+    [2] assistant: last tail_sentences lines of prior phase  (omitted for phase 1)
+    [3] user:      phase brief (PHASE_WRITER_TEMPLATE_V2)
+    """
     meta = plan.get("meta", {})
-    theme = meta.get("theme", "")
-    tone = meta.get("tone", "")
-    style = meta.get("style", "")
-    anchors = plan.get("anchors", [])
-    anchors_csv = "|".join(anchors) if anchors else ""
 
-    stop = plan.get("stop_signal", {}) or {}
-    stop_word = stop.get("word", "STOP")
-    stop_proc = stop.get("procedure", "Stop, take a breath, open your eyes, and return to baseline safely.")
-
-    scope_bounds = plan.get("scope_bounds", []) or []
-    scope_bounds_bullets = "\n".join([f"- {x}" for x in scope_bounds]) if scope_bounds else "- (none specified)"
-
-    # Conversation messages (planner step already "happened" conceptually)
-    messages: List[Dict[str, str]] = [{"role": "system", "content": system_writer}]
-    messages.append({"role": "assistant", "content": json.dumps(plan, indent=2, ensure_ascii=False)})
+    plan_summary = _build_plan_summary(plan)
 
     phase_plans: List[PhasePlan] = []
     phase_texts: List[str] = []
+    all_messages: List[Dict[str, str]] = []
 
     structure = plan["structure"]
 
-    for idx, block in enumerate(structure, start=1):
+    for idx, block in enumerate(structure):
         phase = block["phase"]
         phase_name = PHASE_NAMES.get(phase, phase)
         duration_s = int(block.get("duration_s", 60))
@@ -700,7 +1107,6 @@ def generate_script_from_plan(
 
         phase_plans.append(PhasePlan(phase=phase, duration_s=duration_s, techniques=techniques, params=params, notes=notes))
 
-        # Build phase style hint and notes block
         phase_style_hint = _get_phase_style_hint(phase)
         if notes:
             notes_block = (
@@ -712,23 +1118,18 @@ def generate_script_from_plan(
         else:
             notes_block = "(No seed notes provided. Infer appropriate creative direction from theme, tone, and phase type.)"
 
-        # Build the next USER message: this is the per-phase orchestration you asked for.
-        phase_brief = PHASE_WRITER_TEMPLATE.format(
+        forward = _forward_refs(plan, idx)
+
+        phase_brief = PHASE_WRITER_TEMPLATE_V2.format(
             phase=phase,
             phase_name=phase_name,
             duration_s=duration_s,
             target_words=target_words,
             techniques_csv=",".join(techniques),
             params_json=json.dumps(params, ensure_ascii=False),
-            anchors_csv=anchors_csv,
-            tone=tone,
-            style=style,
-            theme=theme,
-            scope_bounds_bullets=scope_bounds_bullets,
-            stop_word=stop_word,
-            stop_proc=stop_proc,
             phase_style_hint=phase_style_hint,
             notes_block=notes_block,
+            forward_refs=forward,
         )
 
         # Add loop-specific guidance for P13
@@ -743,31 +1144,44 @@ LOOP TRANSITION RULES:
 - The ending should flow seamlessly into ANY P2 induction, not just this theme's P2
 """
 
-        # Compute max tokens for this phase
+        # Build fixed 4-message context
+        messages: List[Dict[str, str]] = [
+            {"role": "system", "content": system_writer},
+            {"role": "assistant", "content": plan_summary},
+        ]
+
+        # Tail context from prior phase (omit for first phase)
+        if idx > 0 and phase_texts and tail_sentences > 0:
+            tail = _extract_prose_tail(phase_texts[-1], n_lines=tail_sentences)
+            if tail:
+                messages.append({"role": "assistant", "content": tail})
+
+        messages.append({"role": "user", "content": phase_brief})
+
         max_toks = None if omit_max_tokens else max_tokens_for_words(target_words, buffer_mult=2.0)
 
-        # Append user guidance and generate
-        messages.append({"role": "user", "content": phase_brief})
         print(f"[info] Writing {phase} {phase_name} (~{duration_s}s, ~{target_words}w) with {len(techniques)} techniques", file=sys.stderr)
 
         text = chat(client, model, messages, temperature=temperature_write, max_tokens=max_toks)
+
+        # Lint gate
+        lint_errors = lint_phase(phase, text, plan)
+        if lint_errors:
+            print_lint_errors(lint_errors)
+            if lint_retry:
+                print(f"[lint] Retrying {phase} due to {len(lint_errors)} lint error(s)...", file=sys.stderr)
+                text = chat(client, model, messages, temperature=temperature_write, max_tokens=max_toks)
+                retry_errors = lint_phase(phase, text, plan)
+                if retry_errors:
+                    print(f"[lint] Retry still has {len(retry_errors)} error(s) — keeping retry output", file=sys.stderr)
+                    print_lint_errors(retry_errors)
+
         phase_texts.append(text)
 
-        # Record assistant message so the next phase has conversation continuity
-        messages.append({"role": "assistant", "content": text})
+        # Save last messages for return (caller may inspect)
+        all_messages = messages + [{"role": "assistant", "content": text}]
 
-        # Context trimming to prevent runaway context size:
-        # Keep system + plan + last N phase (user+assistant) pairs.
-        if context_window_phases > 0:
-            # system + plan assistant + last 2*N messages
-            keep = 2 + 2 * context_window_phases
-            if len(messages) > keep:
-                # always keep first system message and plan assistant message
-                head = messages[:2]
-                tail = messages[-(keep - 2):]
-                messages = head + tail
-
-    return phase_plans, phase_texts, messages
+    return phase_plans, phase_texts, all_messages
 
 
 # -------------------------
@@ -824,7 +1238,10 @@ def main() -> None:
     ap.add_argument("--out_dir", default="out", help="Output directory")
     ap.add_argument("--temperature_plan", type=float, default=0.2)
     ap.add_argument("--temperature_write", type=float, default=0.8)
-    ap.add_argument("--context_window_phases", type=int, default=0, help="Keep last N phases in chat history. 0 = keep all (default).")
+    ap.add_argument("--context_window_phases", type=int, default=0, help=argparse.SUPPRESS)  # deprecated no-op
+    ap.add_argument("--tail_sentences", type=int, default=6, help="Lines of prior phase prose to carry as tail context (0 = none). Default: 6.")
+    ap.add_argument("--mode", default="phased", choices=["phased", "oneshot"], help="Generation mode: phased (default) or oneshot (single API call).")
+    ap.add_argument("--lint_retry", action="store_true", default=False, help="Retry phase once if lint errors are found.")
     ap.add_argument("--plan", default=None, help="Load existing plan.json instead of generating (skips planning step)")
     ap.add_argument("--api_key", default=None)
     ap.add_argument("--base_url", default=None)
@@ -880,15 +1297,28 @@ def main() -> None:
     plan_path = out_dir / "plan.json"
     write_plan(plan, plan_path)
 
-    plans, texts, _msgs = generate_script_from_plan(
-        client=client,
-        model=model,
-        plan=plan,
-        temperature_write=args.temperature_write,
-        context_window_phases=args.context_window_phases,
-        system_writer=system_writer,
-        omit_max_tokens=omit_max_tokens,
-    )
+    if args.mode == "oneshot":
+        plans, texts, _msgs = generate_script_oneshot(
+            client=client,
+            model=model,
+            plan=plan,
+            temperature_write=args.temperature_write,
+            system_writer=system_writer,
+            omit_max_tokens=omit_max_tokens,
+            tail_sentences=args.tail_sentences,
+        )
+    else:
+        plans, texts, _msgs = generate_script_from_plan(
+            client=client,
+            model=model,
+            plan=plan,
+            temperature_write=args.temperature_write,
+            context_window_phases=args.context_window_phases,
+            system_writer=system_writer,
+            omit_max_tokens=omit_max_tokens,
+            tail_sentences=args.tail_sentences,
+            lint_retry=args.lint_retry,
+        )
 
     struct_path = out_dir / "structure.csv"
     script_path = out_dir / "script.txt"
