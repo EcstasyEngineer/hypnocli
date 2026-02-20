@@ -263,9 +263,38 @@ python3 script/generate_segment.py \
   --output conditioning.txt
 ```
 
+## Model Recommendations (phase_chat_generator)
+
+Evaluated Feb 2026 on blank-mind theme, 5 min, Permissive style. Reviewed by Claude Opus 4.6 and Codex independently.
+
+| Rank | Model | Mode | Notes |
+|------|-------|------|-------|
+| 1 | **Gemini 3 Flash** (`--base_url gemini`) | phased | Best fragment discipline, strongest object specificity, clean mantra delivery. Surprising given Flash tier. |
+| 2 | **Gemini 3 Flash** | oneshot | Held structure well in single call. P3 anaphora was best of all six runs. |
+| 3 | **Claude Sonnet 4.6** (`--base_url anthropic`) | phased | Best trust ladder, zero lint violations, most "performable as-is." Tends conservative. |
+| 4 | **Claude Sonnet 4.6** | oneshot | "Thinks out loud" in P4 — philosophical asides during sub-cognitive phases. Good architecture, over-explains. |
+| 5 | **xAI Grok** (`--base_url xai`) | phased | Solid countdown deepening, good tail continuity. P1 announces the session structure (breaks fourth wall). |
+| 6 | **xAI Grok** | oneshot | Compresses all phases into dense paragraphs. Loses fragment discipline entirely. Not recommended. |
+
+**Key finding:** Gemini 3 Flash outperformed both Claude and Grok on script quality despite being a Flash-tier model. Notably, this evaluation was run using Claude as reviewer — making the Gemini result less susceptible to model self-preference bias.
+
+**`--mode phased` is strongly preferred over `--mode oneshot`** for all models. Oneshot saves API calls but degrades fragment discipline and causes "thinking out loud" failure mode (model describes technique instead of executing it).
+
+See `GENERATOR_EVALS.md` for full analysis, failure mode taxonomy, and lint gate documentation.
+
 ## Provider Notes
 
-**xAI/Grok** - Recommended for adult content
+**Gemini** (`--base_url gemini`) - Recommended for script quality
+- Best overall output quality in evaluations
+- Set `GEMINI_API_KEY` in `.env`
+- Model: `models/gemini-3-flash-preview` (default)
+
+**Anthropic/Claude** (`--base_url anthropic`) - Best trust ladder and rule compliance
+- Zero lint violations, most spec-compliant output
+- Set `ANTHROPIC_API_KEY` in `.env`
+- Model: `claude-sonnet-4-6` (default)
+
+**xAI/Grok** (`--base_url xai`) - Recommended for adult content, cost
 - Zero content filtering
 - Cheap (~$0.001-0.01 per script)
 - Fast reasoning models available
