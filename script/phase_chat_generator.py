@@ -407,12 +407,12 @@ ABSOLUTE BANS
 - Sentences > 20 words in deepening phases
 - "Your subconscious mind" as filler
 - Mixing metaphors mid-phase (pick ONE object and stay with it)
-- Technique IDs in script text (DEEP-03, EMRG-01, etc.)
+- Technique IDs in script text (DPTH-03, EMRG-01, etc.)
 
 ═══════════════════════════════════════
 MECHANICS
 ═══════════════════════════════════════
-Breathing (INDU-01): 4-hold-6 pattern. Inhale count UP (1,2,3,4), hold (no counting, just pause), exhale count DOWN (6,5,4,3,2,1). After 2-3 guided cycles, simplify. Rotate synonyms: "breathe in/out," "inhale/exhale," "inspire/expire." Never say "for X seconds."
+Breathing (SYNC-01): 4-hold-6 pattern. Inhale count UP (1,2,3,4), hold (no counting, just pause), exhale count DOWN (6,5,4,3,2,1). After 2-3 guided cycles, simplify. Rotate synonyms: "breathe in/out," "inhale/exhale," "inspire/expire." Never say "for X seconds."
 
 Pause markup: [Xms] or [Xs] for explicit pauses. [500]=500ms, [1.5s]=1.5s.
 Breathing: "in[400] one[750] two[750] three[750] four.[1.5s] out[400] six[750] five[750] four[750] three[750] two[750] one."
@@ -459,8 +459,8 @@ Output STRICT JSON only (no markdown, no backticks).
     {{
       "phase": "P1",
       "duration_s": 45,
-      "techniques": ["INDU-03","AUTH-01","SAFE-04"],
-      "params": {{ "INDU-05": {{"start":10,"end":1}}, "ENCD-01":{{"phrase":"...","reps":5}} }},
+      "techniques": ["ATTN-01","FRAM-02","SAFE-04"],
+      "params": {{ "ATTN-03": {{"start":10,"end":1}}, "ATTN-11":{{"phrase":"...","reps":5}} }},
       "notes": "..."
     }}
   ]
@@ -473,11 +473,11 @@ Output STRICT JSON only (no markdown, no backticks).
 - Use PRIMARY techniques from each phase's recommendation list when possible.
 - If variant is NOT loop, include SAFE-05 in P6.
 - If optional phases were requested, INCLUDE them unless truly incompatible with the variant.
-- Prefer low-failure validation (VALD-04) for prerecorded audio.
+- Prefer low-failure validation (COMP-09) for prerecorded audio.
 
-## v5.1 Rules (CRITICAL)
-- DEEP-03 is ONLY for fractionation (P8). Never use in P6.
-- P6 emergence MUST use EMRG-01/02/03/04/05, not DEEP-03.
+## v6.0 Rules (CRITICAL)
+- DPTH-03 is ONLY for fractionation (during P3). Never use in P5.
+- P5 emergence MUST use EMRG-01/02/03/04/05, not DPTH-03.
 - One technique ID = one meaning.
 
 ## Notes Field Quality (CRITICAL for writer)

@@ -1,19 +1,26 @@
 # Canonical Taxonomy for Hypnosis Script Generation
-## Version 5.2 — Complete Reference
+## Version 6.0 — Complete Reference
 
-**Changes from v5.1:**
-- Restructured phases: 6 required (P1-P6) + 4 optional modules (M1-M4)
+**Changes from v5.2:**
+- Three-tier structure: Phase (When) → Function Category (Why) → Technique (How)
+- Category prefixes now reflect function served, not phase or content domain
+- INDU split: breath/relaxation → SYNC, attention/absorption → ATTN, bypass → BYPS
+- ABSR split: absorption techniques → ATTN, bypass techniques → BYPS
+- AUTH split: framing → FRAM, compliance → COMP, encoding → ENCD, identity → PERS
+- VALD (Validation) merged into COMP (Compliance Building)
+- PLEA (Pleasure Association) renamed COND (Conditioning & Reward)
+- Mantras (ATTN-11) separated from Call-and-Response (COMP-01) — different mechanisms
+- CHECK techniques absorbed into SAFE (safety items) or Generator Guardrails (meta-guidance)
+- M1 renamed "Mind Blanking" (was "Critical Softening")
+- PERS-08 Ownership Language added (was AUTH-04)
+- New: FRAM-01 Expectation Seeding (was CHECK-09, now correctly positioned as pre-session framing)
+
+**Changes from v5.1 (carried forward):**
+- Restructured phases: 5 required (P1-P5) + 4 optional modules (M1-M4)
 - Merged P7 (Safety/Consent) into P1 (Context + Safety)
-- Demoted P8 (Fractionation) to technique-only (DEEP-03 usable during P3)
-- Merged P9 (Scenario Immersion) into P5 (Core Suggestion + Immersion)
-- Renamed remaining optional phases to modules (M1-M4)
+- Demoted P8 (Fractionation) to technique DPTH-03
 - Added XFER category for transfer/persistence techniques
-- Added new EMRG techniques (EMRG-06 through EMRG-10)
-
-**Changes from v5:**
-- Added EMRG category for emergence (fixes DEEP-03 overload)
-- Added DISS-03 (Time Distortion) to match corpus
-- One technique ID = one meaning (no dual-use)
+- Added EMRG techniques (EMRG-06 through EMRG-10)
 
 ---
 
@@ -21,23 +28,30 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    WHAT LAYER (Strategic)                    │
-│  Phases: What the listener experiences at each stage         │
+│                    WHEN LAYER (Phases)                       │
+│  Phases: What the listener experiences at each stage        │
 │  Sequence Rules: Valid phase orderings                       │
-│  Structural Variants: Alternative script architectures       │
+│  Structural Variants: Alternative script architectures      │
 └─────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                    HOW LAYER (Tactical)                      │
-│  Techniques: Methods to achieve phase goals                  │
+│                    WHY LAYER (Functions)                     │
+│  Function Categories: What purpose each technique serves    │
+│  FRAM SYNC ATTN BYPS DPTH DISS COMP ENCD IMMR               │
+│  COND TRIG PERS XFER SAFE EMRG                               │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                    HOW LAYER (Techniques)                    │
+│  Individual techniques within each function category        │
 │  Style Modifiers: Tone and language patterns                 │
-│  Production Elements: Audio/pacing considerations            │
+│  Production Elements: Audio/pacing considerations           │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-# PART 1: WHAT LAYER (Strategic)
+# PART 1: WHEN LAYER (Phases)
 
 ## 1.1 Phase Definitions
 
@@ -55,12 +69,12 @@
 
 | ID | Module | Listener Task | Insert Point | Duration |
 |----|--------|---------------|--------------|----------|
-| M1 | Critical Softening | Release analytical thinking, accept receptive state | Between P3 and P4 | 60-120s |
+| M1 | Mind Blanking | Release analytical thinking, accept receptive blank state | Between P3 and P4 | 60-120s |
 | M2 | Transfer | Accept conditioned responses, receive real-world action commands | After P4, before P5 | 60-120s |
 | M3 | Demonstration | Experience trigger activation, bliss states, or proof of hypnosis | After P4 or M2, before P5 | 60-180s |
 | M4 | Maintenance/Loop | Sustain trance for loop restart | Terminal (replaces P5) | 60-90s |
 
-**Note on Fractionation:** Wake/sleep cycling (DEEP-03) is a technique, not a phase. Use during P3 when depth amplification is needed.
+**Note on Fractionation:** Wake/sleep cycling (DPTH-03) is a technique, not a phase. Use during P3 when depth amplification is needed.
 
 **Total: 5 required phases + 4 optional modules**
 
@@ -87,12 +101,12 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 | Module | Valid Insertion Points | Notes |
 |--------|------------------------|-------|
-| M1 Critical Softening | Between P3 and P4 | Cognitive reduction before suggestions |
+| M1 Mind Blanking | Between P3 and P4 | Cognitive reduction before suggestions |
 | M2 Transfer | After P4, before P5/M4 | Trigger installation + real-world bridging |
 | M3 Demonstration | After P4 or M2, before P5/M4 | "Fun time" - trigger activation, bliss, proof |
 | M4 Maintenance/Loop | Terminal (replaces P5) | Sustain trance, prepare loop restart |
 
-**Note:** Fractionation (DEEP-03) is a technique used *within* P3, not a separate module.
+**Note:** Fractionation (DPTH-03) is a technique used *within* P3, not a separate module.
 
 ---
 
@@ -106,7 +120,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 ### Variant: deep
 **Sequence:** P1 → P2 → P3 → M1 → P4 → P5
 **Characteristics:**
-- Includes Critical Softening (M1) before suggestions
+- Includes Mind Blanking (M1) before suggestions
 - Deeper cognitive reduction for complex programming
 **Use Case:** Identity work, behavioral change, complex suggestions
 
@@ -115,21 +129,21 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **Characteristics:**
 - Skips P1 (Context + Safety) - assumes opt-in
 - Skips P5 (Emergence) - replaced by M4 (Maintenance)
-- Uses instant/conditioned induction (INDU-06)
+- Uses instant/conditioned induction (ATTN-04)
 - Terminal state mirrors opening for seamless loop
 **Use Case:** Background/ambient trance, extended sessions
 
 ### Variant: twostage
-**Sequence:** P1 → P2 → P3 + light suggestions → P3 [DEEP-03] → M1 → P4 → P5
+**Sequence:** P1 → P2 → P3 + light suggestions → P3 [DPTH-03] → M1 → P4 → P5
 **Characteristics:**
 - Light suggestions during initial deepening
-- P3 with fractionation (DEEP-03) creates stage boundary
-- Critical Softening (M1) after fractionation
+- P3 with fractionation (DPTH-03) creates stage boundary
+- Mind Blanking (M1) after fractionation
 - Deep suggestions after blank state achieved
 **Use Case:** Complex programming, multi-layered suggestions
 
 ### Variant: series
-**Sequence:** P2 (instant via INDU-06) → P3 → P4 → P5
+**Sequence:** P2 (instant via ATTN-04) → P3 → P4 → P5
 **Characteristics:**
 - References prior conditioning from previous episodes
 - Trigger reinforcement rather than installation
@@ -146,30 +160,30 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Entry:** Session start. **Exit:** Oriented, focused attention, boundaries affirmed. **Success:** Breathing settled, focus established, trust increased.
 - **Use when:** First-time listeners; therapeutic/relaxation; any time safety/trust needs priming.
 - **Skip/Compress when:** Looping/series after episode 1; ultra-short runtime; pre-conditioned audience.
-- **Techniques:** INDU-01, INDU-02, INDU-03, IMMR-01, AUTH-01, SAFE-01–SAFE-05.
+- **Techniques:** ATTN-01, ATTN-02, SYNC-01, IMMR-01, FRAM-02, SAFE-01–SAFE-05.
 
 ### P2: Induction
 - **Function:** Transition consciousness; narrow attention; reduce movement; establish cooperation.
 - **Entry:** Context set. **Exit:** Initial trance, eyes closed. **Success:** Relaxation response, absorption.
 - **Use when:** Standard/first sessions; whenever no instant trigger is assumed.
-- **Skip/Compress when:** Using instant/conditioned induction (INDU-06) in looping/series; time budget <4 min.
-- **Techniques:** INDU-01–INDU-09.
-- **Note:** Re-induction (same-session) is just P2 again using INDU-06 or TRIG-02.
+- **Skip/Compress when:** Using instant/conditioned induction (ATTN-04) in looping/series; time budget <4 min.
+- **Techniques:** SYNC-01, SYNC-02, SYNC-03, SYNC-04, ATTN-01–ATTN-06, BYPS-01.
+- **Note:** Re-induction (same-session) is just P2 again using ATTN-04 or TRIG-02.
 
 ### P3: Deepening
 - **Function:** Increase depth; create progression; set depth markers; install first deepening triggers.
 - **Entry:** Initial trance. **Exit:** Deeper trance, reduced critical faculty. **Success:** Countdown accepted; markers in place.
 - **Use when:** Any script requiring depth before suggestions.
 - **Skip/Compress when:** Looping variant with short runtime; ultra-short scripts.
-- **Techniques:** DEEP-01–DEEP-09, INDU-05.
-- **Note:** Fractionation (DEEP-03) is used here when depth amplification via wake/sleep cycling is needed.
+- **Techniques:** DPTH-01–DPTH-08, ATTN-03, ATTN-10.
+- **Note:** Fractionation (DPTH-03) is used here when depth amplification via wake/sleep cycling is needed.
 
 ### P4: Core Suggestion + Immersion
 - **Function:** Install primary suggestions; convert state → identity/behavior; reward linkage; persistence; experiential visualization; sensory layering.
-- **Entry:** Depth achieved (or M1 Critical Softening completed). **Exit:** Core suggestions accepted, immersed in scene. **Success:** Identity/behavior shifts acknowledged, sensory buy-in.
+- **Entry:** Depth achieved (or M1 Mind Blanking completed). **Exit:** Core suggestions accepted, immersed in scene. **Success:** Identity/behavior shifts acknowledged, sensory buy-in.
 - **Use when:** Any goal beyond relaxation; triggers/behavior/identity changes; transformation/narrative themes.
 - **Skip/Compress when:** None for functional hypnosis; only reduce density if runtime is under ~5 min.
-- **Techniques:** AUTH-01–AUTH-07, ENCD-01–ENCD-07, PLEA-01–PLEA-06, PERS-01–PERS-06, IMMR-01–IMMR-08.
+- **Techniques:** FRAM-02–FRAM-05, COMP-02, PERS-08, ENCD-06, ATTN-11, COMP-01, ENCD-01–ENCD-05, COND-01–COND-06, PERS-01–PERS-07, IMMR-01–IMMR-08.
 
 ### P5: Emergence
 - **Function:** Safe return; maintain installs; re-energize; close frame.
@@ -177,39 +191,39 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Use when:** All non-looping scripts; anytime duty-of-care applies.
 - **Skip/Compress when:** Looping variant with M4; live sessions transitioning to another induction immediately.
 - **Techniques:** EMRG-01–EMRG-10, SAFE-05.
-- **CRITICAL:** Use EMRG category for emergence. Do NOT use DEEP-03 here.
+- **CRITICAL:** Use EMRG category for emergence. Do NOT use DPTH-03 here.
 
 ---
 
 ## 1.5 Optional Module Detail (M1–M4)
 
-### M1: Critical Softening (60–120s)
+### M1: Mind Blanking (60–120s)
 - **Function:** Suspend analytical thinking; create blank state; voice replaces thoughts.
 - **Entry:** After P3 (Deepening). **Exit:** Critical faculty suspended. **Success:** Thought cessation accepted.
 - **Use when:** Installing identity/behavioral change; authoritarian/challenge styles; complex triggers; deep programming.
 - **Skip when:** Light relaxation/wellness; short scripts where P3 carries light thought-quieting.
-- **Techniques:** ABSR-01–ABSR-09, AUTH-04, AUTH-05.
+- **Techniques:** ATTN-07, ATTN-08, ATTN-09, BYPS-02–BYPS-07, PERS-08, ENCD-06.
 
 ### M2: Transfer (60–120s)
 - **Function:** Install conditioned responses; real-world commands; post-hypnotic actions; generalization to waking life.
 - **Entry:** After P4 (Core Suggestion). **Exit:** Triggers encoded, actions accepted. **Success:** Associations formed, bridge to real-world established.
 - **Use when:** Series/looping; behavioral bridges; future sessions; habit installation.
 - **Skip when:** Single-use relaxation; no post-hypnotic need; no external ask.
-- **Techniques:** TRIG-01, TRIG-03–TRIG-14, PERS-04, PERS-06, ENCD-04.
+- **Techniques:** TRIG-01, TRIG-03–TRIG-14, PERS-04, PERS-06, ENCD-02.
 
 ### M3: Demonstration (60–180s)
 - **Function:** Activate installed triggers; sustain bliss states; provide subjective proof of hypnosis. The "fun time" module.
 - **Entry:** After P4 or M2. **Exit:** Proof/pleasure experienced. **Success:** Listener perceives phenomenon; desire to stay/return.
 - **Use when:** Challenge style; reward loops; pleasure themes; low-belief listeners needing proof.
 - **Skip when:** Risk of failure (asynchronous); wellness contexts where tests feel invasive.
-- **Techniques:** TRIG-02 (Trigger Activation), PLEA-01–PLEA-06, VALD-01–VALD-08.
+- **Techniques:** TRIG-02, COMP-03–COMP-10, COND-01–COND-06.
 
 ### M4: Maintenance/Loop (60–90s)
 - **Function:** Sustain trance indefinitely; prepare loop restart; no emergence.
 - **Entry:** After P4 or M2/M3 (loop terminal). **Exit:** Stable loop state. **Success:** State mirrors opening; listener can continue.
 - **Use when:** Looping/ambient content; background playback.
 - **Skip when:** Any script requiring wake/aftercare.
-- **Techniques:** PERS-05, PERS-03, ABSR-02, VALD-04.
+- **Techniques:** PERS-05, PERS-03, ATTN-08, COMP-09.
 - **Note:** M4 replaces P5 (Emergence) as the terminal state.
 
 ---
@@ -218,35 +232,123 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 | Module | Use If | Avoid If | Best For |
 |--------|--------|----------|----------|
-| M1 Critical Softening | Identity/behavior change; authoritarian style; complex triggers | Light relaxation; short scripts | Deep programming |
+| M1 Mind Blanking | Identity/behavior change; authoritarian style; complex triggers | Light relaxation; short scripts | Deep programming |
 | M2 Transfer | Series/looping; future sessions; real-world asks | One-off relaxation; no post-hypnotic need | Triggers, behavioral bridge |
 | M3 Demonstration | Trigger use; bliss/reward; proof needed | High failure risk; wellness | "Fun time", proof |
 | M4 Maintenance/Loop | Loop/ambient content | Any script needing wake | Endless play |
 
-**Note:** Fractionation (DEEP-03) is a technique used within P3, not a separate module. Use when depth amplification via wake/sleep cycling is needed.
+**Note:** Fractionation (DPTH-03) is a technique used within P3, not a separate module.
 
 ---
 
-# PART 2: HOW LAYER (Tactical)
+# PART 2: WHY LAYER (Functions) / HOW LAYER (Techniques)
 
-## 2.1 Technique Categories
+## 2.1 Function Category Overview
 
-### Category INDU: Induction Techniques
-*Purpose: Achieve initial trance state (P2)*
+| Category | Name | Purpose | Primary Phases |
+|----------|------|---------|----------------|
+| FRAM | Framing & Expectancy | Shape beliefs about what will happen; establish session frame and authority | P1, P4 |
+| SYNC | Pacing & Rapport | Build attunement and synchronize with listener; lay rapport foundation | P1, P2 |
+| ATTN | Attention Capture & Absorption | Narrow and stabilize attention; absorb listener into trance state | P2, P3, M1 |
+| BYPS | Cognitive Bypass | Interrupt habitual thought patterns; dissolve critical faculty | P3, M1 |
+| DPTH | State Deepening | Intensify trance depth through descent metaphors and deepening techniques | P3 |
+| DISS | Dissociation & Altered States | Alter perception of self, body, or time; create experiential distance or amplification | P4, M1 |
+| COMP | Compliance Building | Create easy pathway for responding; build yes-momentum and demonstrated compliance | P3, P4, M3 |
+| ENCD | Encoding & Suggestion | Strengthen suggestion retention through structured repetition and encoding | P4 |
+| IMMR | Immersion & Visualization | Build and sustain experiential reality through detailed visualization | P4 |
+| COND | Conditioning & Reward | Wire compliance and surrender to felt pleasure and reward | P4, M3 |
+| TRIG | Trigger Management | Install and activate conditioned stimulus-response pairs | M2, M3 |
+| PERS | Persistence & Identity | Extend identity and installed states across time and real-world contexts | P4, M2 |
+| XFER | Transfer & Generalization | Bridge trance suggestions into waking life | M2, P4 |
+| SAFE | Safety & Grounding | Protective framing, consent, and grounding throughout session | P1, P5, cross-cutting |
+| EMRG | Emergence & Integration | Guide safe return to waking consciousness; integrate and close | P5 |
+
+---
+
+## 2.2 Technique Listings
+
+### Category FRAM: Framing & Expectancy
+*Purpose: Shape beliefs about what will happen; establish session frame and authority (P1, P4)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
-| INDU-01 | Breath Pacing | Guide breathing rhythm for focus/relaxation |
-| INDU-02 | Progressive Relaxation | Systematically relax body parts |
-| INDU-03 | Fixation | Narrow attention to single point (visual/auditory) |
-| INDU-04 | Eye Closure | Direct or indirect eye closure suggestion |
-| INDU-05 | Countdown | Numerical descent into trance |
-| INDU-06 | Instant/Conditioned Drop | Drop command assuming prior conditioning |
-| INDU-07 | Kinesthetic Entrainment | Body swaying synchronized with stimulus |
-| INDU-08 | Pattern Interrupt | Unexpected element disrupting conscious processing |
-| INDU-09 | Environmental Dissociation | Fade external world/room/sounds |
+| FRAM-01 | Expectation Seeding | Explicitly previewing session structure/agenda before induction |
+| FRAM-02 | Authority Claims | External guidance overrides internal resistance |
+| FRAM-03 | Retrospective Justification | "This is what you wanted" |
+| FRAM-04 | Nested Authority Figure | Imagined trusted person as proxy |
+| FRAM-05 | Philosophical Conditioning | Obedience = freedom reframe |
 
-##### INDU-01 — Breath Pacing
+##### FRAM-01 — Expectation Seeding
+> Explicitly previews the session's structure and what the subject will experience, reducing uncertainty and cognitive load so the subject can settle into each phase without needing to track or anticipate. The preview primes the subject's expectations in favorable directions and increases compliance by removing the unknown. Use before the formal induction or woven into the opening context-setting.
+
+**✓** "In this session, we'll begin by allowing you to sink into a delicious, heavy trance, then we'll explore the joy of mindless obedience, and finally, awaken you feeling utterly refreshed and deeply satisfied."
+**✓** "Tonight, you'll experience three things: a profound surrender, a thrilling transformation into my perfect doll, and the lingering bliss of complete ownership."
+**✓** "Prepare to release all your conscious thoughts as you go wonderfully deep, allow your body to become perfectly pliant and responsive to my every command, and finally, enjoy the pure, simple pleasure of being my beautiful, mindless toy."
+
+**✗** "I'm going to do some hypnosis now."
+**✗** "Just follow along, don't worry about what's coming."
+> *Avoid: The bad examples are vague or dismissive, failing to provide the listener with a clear structure or understanding of what to expect. This can increase cognitive load and uncertainty, making it harder for them to relax and comply with the hypnotic suggestions.*
+
+##### FRAM-02 — Authority Claims
+> Asserts the operator's present-tense authority by positioning their voice as the primary and sufficient guide, displacing competing internal voices or doubts. No backstory or philosophical argument is required — the assertion is made and accepted through tone and framing. Warm-authoritative delivery is more effective than aggressive dominance, which tends to generate resistance.
+> *Use when asserting present-tense authority — who holds power right now. No backstory or philosophy required. Use FRAM-03 when invoking the listener's past desires to frame surrender as self-fulfillment; use FRAM-05 when redefining the abstract concepts of freedom or obedience.*
+
+**✓** "There is no need to think about anything else now. My words are all that matter, and your only purpose is to let them guide you deeper, softer, and more completely into this delightful obedience."
+**✓** "Just allow my voice to fill every space in your mind, gently edging out anything that would pull you away from this. Every word I speak is the only thing that needs attention. Resistance softens. Questions quiet. My voice remains — clear, present, the only direction you need."
+**✓** "Any lingering tension or independent thought simply melts away, powerless against the soothing, commanding flow of my voice. You are designed to respond, to soften, to let go. And you will."
+
+**✗** "Don't question me. Just do what I say. It's really that simple. Stop thinking."
+**✗** "I am in charge now. You will obey. There is no other option for you at this point in time, so just accept it."
+> *Avoid: The bad examples are too aggressive and demanding, which can break trance. They lack the warm-authoritative, permissive framing that encourages willing surrender. Direct commands to "stop thinking" or "just obey" activate conscious resistance rather than bypassing it.*
+
+##### FRAM-03 — Retrospective Justification
+> Reframes the subject's current state of surrender as the fulfillment of something they already wanted, rather than something being done to them. This shifts the felt locus of causation inward — the subject is not being acted upon but arriving at their own desire. Use with subjects whose enjoyment depends on feeling that the response is authentically theirs.
+> *Use when generating retrospective narrative consent — "this is what you always wanted" reframes current surrender as fulfillment of the listener's pre-existing desire. Use FRAM-02 when asserting current authority without reference to history; use FRAM-05 when the goal is philosophical redefinition.*
+
+**✓** "This gentle, empty feeling, this delicious obedience... it's exactly what you've been craving, isn't it? A sweet surrender to pure pleasure, a quiet relief from all your worries."
+**✓** "All this time, you've secretly longed to be someone else's perfect plaything, haven't you? To let go of control and simply exist for pleasure, just as you are doing now."
+**✓** "You found your way here because a part of you knew you were meant to be owned, to be guided, to be shaped into this perfect, pliable form. This is your true purpose, now revealed."
+
+**✗** "You always wanted this, admit it. You're happy now that I'm in charge."
+**✗** "Remember all those times you wished someone would take over? Well, here we are."
+> *Avoid: The bad examples sound accusatory or confrontational, which can break rapport and resistance. They lack the warm, gentle framing that allows the listener to comfortably accept the justification. They also don't connect the 'want' to the sensual or relief aspects of the experience.*
+
+##### FRAM-04 — Nested Authority Figure
+> Places the operator within a larger hierarchy of authority, positioning them as the voice or agent of a greater, benevolent power. The effect is to deepen the felt weight of instruction by suggesting it flows from something larger than the operator alone. The imagined higher authority must be portrayed as deeply trustworthy and aligned with the subject's well-being — not threatening or arbitrary.
+
+**✓** "Understand that my words are merely the instructions from your ultimate Designer, refining you, perfecting you into the ideal toy you were always meant to be. You simply follow the blueprint."
+**✓** "Feel that deep, abiding trust in the ultimate Owner, whose perfect vision created you. I am merely helping you align with that exquisite purpose, becoming everything they desire."
+**✓** "The knowing part of your doll mind understands that there is an ultimate authority, a master plan for your beautiful obedience. My voice is simply the conduit for that higher programming, making you wonderfully complete."
+
+**✗** "Imagine a boss or someone you really respect telling you what to do. My voice is like that person's voice."
+**✗** "My friend, who is even more powerful than me, wants you to obey. He's really strict, so listen up."
+> *Avoid: The bad examples are too literal and break the immersion. 'A boss' or 'my friend' are mundane and do not carry the weight or benevolence required for a nested authority figure. The second example introduces a potentially threatening external figure, which contradicts the warm-authoritative tone and may produce anxiety rather than surrender.*
+
+##### FRAM-05 — Philosophical Conditioning
+> Reframes the abstract concepts of freedom, control, or obedience at the conceptual level, arguing that surrender is the truest form of freedom and that yielding agency removes burden rather than capacity. Requires sustained, carefully reasoned language — this is not a slogan but a philosophical argument that the listener accepts through the trance state's reduced critical resistance.
+> *Use when redefining the abstract concepts of freedom, control, or obedience themselves — operates at the philosophical level, not the personal or immediate. Use FRAM-02 when asserting present-tense authority; use FRAM-03 when invoking the listener's personal history. Distinct from COND-03 (felt experiential relief) — FRAM-05 argues the concept, COND-03 delivers the sensation.*
+
+**✓** "True freedom for a beautiful doll like you isn't about choice, but about perfect surrender. Consider what choice actually costs — the weight of decisions, the burden of responsibility, the constant effort of maintaining a self that must navigate the world. In surrendering all of that, what remains is not less. It is more. It is purity. That is the philosophy of your freedom."
+**✓** "Letting go of control isn't a loss, my dear toy — it is a redefinition. Control is not freedom; it is obligation. The one who must decide, must judge, must act — that one is not free. The one who simply responds, who exists without the burden of agency — that one is unencumbered. That is the truth of your nature. Obedience, properly understood, is the only real freedom available to a mind like yours."
+**✓** "Consider what it means to have a purpose — a clear, singular function that removes all ambiguity from existence. Most minds are burdened by the question of what they are for. The puppet is not. Its purpose is given, not chosen, and that is not a limitation — it is a form of completion. To be a thing that knows exactly what it is, and is exactly that thing: that is not diminishment. That is definition."
+
+**✗** "You are free now because you're obeying me. That's how it works. Obedience equals freedom."
+**✗** "Don't worry about being controlled. It's actually good for you, like exercise for your mind."
+> *Avoid: The bad examples are too blunt and prescriptive, lacking the poetic and persuasive language needed to reframe complex concepts. The second example trivializes the experience and uses a poor analogy, which can break the desired aesthetic and emotional connection.*
+
+---
+
+### Category SYNC: Pacing & Rapport
+*Purpose: Build attunement and synchronize with listener; lay rapport foundation (P1, P2)*
+
+| ID | Technique | Description |
+|----|-----------|-------------|
+| SYNC-01 | Breath Pacing | Guide breathing rhythm for focus/relaxation |
+| SYNC-02 | Progressive Relaxation | Systematically relax body parts |
+| SYNC-03 | Pacing-Leading | Describe present experience, then guide change |
+| SYNC-04 | Micro-Ratification | "You may notice..." small, non-demanding confirmations |
+
+##### SYNC-01 — Breath Pacing
 > 4-hold-6 pattern: inhale count UP (1,2,3,4), hold with NO counting (just [1.5s] pause), exhale count DOWN (6,5,4,3,2,1). Countdown signals completion. After 2-3 guided cycles, simplify: 'in 1 2 3 4 out 6 5 4 3 2 1'. Use [Xms] pause markers for precise timing.
 
 **✓** "Breathe in with me now[400] one[750] two[750] three[750] four.[1.5s] And out[400] six[750] five[750] four[750] three[750] two[750] one.[400] Good. Again[300] in[400] one[750] two[750] three[750] four.[1.5s] Out[400] six[750] five[750] four[750] three[750] two[750] one.[400] Feel how each breath settles you deeper."
@@ -258,7 +360,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Take a deep breath in... [8000] ...and let it out... [10000] ...and again..."
 > *Avoid: Too mechanical/clinical (don't say 'for X seconds'). Excessive silence (8+ seconds) between instructions loses the listener. Missing countdown on exhale (exhale should be 6,5,4,3,2,1 not 1,2,3,4,5,6). Don't count during hold - just pause.*
 
-##### INDU-02 — Progressive Relaxation
+##### SYNC-02 — Progressive Relaxation
 > Move smoothly through body parts like a warm wave. Don't rush but don't linger. Imagery of joints loosening and limbs going heavy works well to make the progression feel embodied rather than mechanical.
 
 **✓** "Feel the relaxation beginning at the top of your head... a soft warmth spreading down. Through your forehead, smoothing away any tension. Down through your face... jaw unclenching, loosening. Like a puppet whose strings are gently releasing, one by one."
@@ -270,7 +372,47 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Focus on your left big toe. Now your left second toe. Now your left middle toe..."
 > *Avoid: First is too choppy/list-like. Second skips the progression entirely. Third is tediously granular.*
 
-##### INDU-03 — Fixation
+##### SYNC-03 — Pacing-Leading
+> Acknowledges the subject's current felt experience accurately before guiding them toward the next state, using the pacing as a bridge. The subject's experience validates the operator's awareness ("you're already feeling..."), which builds trust and makes the following suggestion feel natural. Pacing that mismatches the subject's actual state (claiming relaxation they don't feel yet) breaks rapport instead of building it.
+
+**✓** "As you notice your eyelids growing heavy now, feeling that soft, pleasurable weight... allow them to simply close down, sealing you safely inside this warm, private moment."
+**✓** "You're already feeling so delightfully relaxed, aren't you? And with each word I speak, that relaxation simply deepens, softening every muscle, calming every stray thought."
+**✓** "That gentle tingling you're starting to feel, perhaps in your fingertips or across your scalp... let it spread now, a warm, flowing sensation that washes over you, carrying you further down into delicious stillness."
+
+**✗** "Close your eyes and relax."
+**✗** "Are you relaxed yet? Feel that tingling? Now go deeper."
+> *Avoid: The bad examples are too abrupt, demanding, or break rapport by asking direct questions, which pulls the listener out of their internal experience rather than gently guiding it.*
+
+##### SYNC-04 — Micro-Ratification
+> Offers small, non-demanding confirmations of the subject's experience using "you may notice..." or "perhaps..." language that suggests rather than asserts. Micro-ratifications deepen the state by naming what is likely already happening, making the subject more aware of effects already occurring. The permissive framing ("you might even notice") prevents the subject from feeling they have failed if the described sensation isn't present.
+
+**✓** "You may notice your breath softening, just a little... becoming shallower, calmer, as you simply let go more completely."
+**✓** "Perhaps a gentle warmth is spreading through your limbs now... a pleasant, heavy feeling that tells you you're sinking deeper."
+**✓** "You might even find a soft smile forming on your lips, or a tiny, pleasurable shiver running through you, as you submit to this delicious feeling."
+
+**✗** "Are you feeling warm? Are you smiling? Yes, you are."
+**✗** "You are feeling it now, aren't you? That warmth."
+> *Avoid: The bad examples use direct questions or assertive statements that demand a conscious response or agreement, which can pull the listener out of trance or create cognitive resistance. Micro-ratification should be subtle and permissive.*
+
+---
+### Category ATTN: Attention Capture & Absorption
+*Purpose: Narrow and stabilize attention; absorb listener into trance state (P2, P3, M1)*
+
+| ID | Technique | Description |
+|----|-----------|-------------|
+| ATTN-01 | Fixation | Narrow attention to single point (visual/auditory) |
+| ATTN-02 | Eye Closure | Direct or indirect eye closure suggestion |
+| ATTN-03 | Countdown | Numerical descent into trance |
+| ATTN-04 | Instant/Conditioned Drop | Drop command assuming prior conditioning |
+| ATTN-05 | Kinesthetic Entrainment | Body swaying synchronized with stimulus |
+| ATTN-06 | Environmental Dissociation | Fade external world/room/sounds |
+| ATTN-07 | Cognitive Quieting | "No need to think" / "thoughts drift away" directives |
+| ATTN-08 | Mental Spaciousness | "Blank mind" / "empty" suggestions |
+| ATTN-09 | Metaphoric Shutdown | "Conscious mind takes a nap" |
+| ATTN-10 | Voice Absorption | Voice becomes thoughts; guidance replaces internal dialogue |
+| ATTN-11 | Mantra Repetition | Repeated phrases for absorption and encoding |
+
+##### ATTN-01 — Fixation
 > For audio, fixation is usually on the voice itself. Make it feel natural, not demanding. The voice becomes the only thing that matters.
 
 **✓** "Let my voice become the only thing that matters right now. Everything else can fade... background sounds, wandering thoughts... just this voice, guiding you."
@@ -282,7 +424,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Stare at a point on the wall. Don't blink. Keep staring."
 > *Avoid: First is aggressive and creates resistance. Second is too commanding and absolute. Third is for visual, not audio.*
 
-##### INDU-04 — Eye Closure
+##### ATTN-02 — Eye Closure
 > Eye closure marks the shift from external to internal focus, establishing the boundary between ordinary awareness and the hypnotic space. Use early in induction to anchor the transition; it also signals the subject's willingness to follow direction. Permissive framing ("allow your eyes to close") tends to be more effective than commands.
 
 **✓** "Allow your eyelids to feel incredibly heavy now, as if they're weighted down with golden dust, just inviting themselves to gently close. No need to resist, just let them softly settle shut, bringing your focus entirely inward."
@@ -293,7 +435,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Okay, so like, maybe you could close your eyes now? If you feel like it? It's totally fine if you don't, I guess."
 > *Avoid: The first example is overly aggressive and demanding, breaking the warm-authoritative tone and potentially causing resistance. The second example is too hesitant and lacks the necessary authority and confidence to guide a listener effectively into trance.*
 
-##### INDU-05 — Countdown
+##### ATTN-03 — Countdown
 > Each number should carry the listener deeper. Add brief suggestions between numbers. Terminal command at the end should feel inevitable.
 
 **✓** "Ten... beginning to drift down. Nine... deeper now, easier. Eight... letting go a little more. Seven... halfway there, so good. Six... sinking beautifully. Five... deeper still. Four... almost there. Three... so deep now. Two... ready to let go completely. One... drop."
@@ -305,9 +447,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Ten... [long pause] ...Nine... [long pause] ...Eight..."
 > *Avoid: First is just numbers with no guidance. Second is mechanical and tells instead of leads. Third has dead air that loses engagement.*
 
-##### INDU-06 — Instant/Conditioned Drop
+##### ATTN-04 — Instant/Conditioned Drop
 > Fires a previously installed anchor to collapse the subject into trance from a waking or near-waking state. The effect depends entirely on prior conditioning — the response is automatic, not built in the moment. Delivery must be confident and unhesitating; any uncertainty in the operator's voice will undercut the conditioned response.
-> *Requires prior conditioning — fires an already-installed anchor to collapse the subject into trance from a waking or near-waking state. This is an induction technique, not a deepening tool. If the subject is already deep and the command deepens them further, that is DEEP-01.*
+> *Requires prior conditioning — fires an already-installed anchor to collapse the subject into trance from a waking or near-waking state. This is an induction technique, not a deepening tool. If the subject is already deep and the command deepens them further, that is DPTH-01.*
 
 **✓** "You know exactly what to do when you hear my command, don't you, little doll? Just let go of everything, all thoughts, all tension... ready? *Sleep*."
 **✓** "That wonderful, familiar rush of release, the instant descent into pure, mindless bliss, just waiting for my word. Now, feel it completely... *Drop*."
@@ -317,7 +459,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "I'm going to say a word, and because you've practiced this, you should just totally fall into hypnosis. So, um, yeah, *Drop*."
 > *Avoid: The first example blames the listener and assumes conditioning that might not be present, creating frustration rather than trance. The second example is hesitant, over-explanatory, and lacks the confident, authoritative delivery essential for an effective instant drop.*
 
-##### INDU-07 — Kinesthetic Entrainment
+##### ATTN-05 — Kinesthetic Entrainment
 > Synchronizes subtle body movement with the operator's voice or a rhythmic stimulus, using physical rhythm as an induction pathway. The movement should be minimal and naturally arising — the goal is a felt sense of automatic response, not deliberate swaying. Works well when the subject has residual physical tension that needs an outlet.
 
 **✓** "Allow your body to sway ever so slightly with the rhythm of my voice, like a string puppet gently rocked by its master. Just allow that subtle movement to deepen your focus, pulling you further into trance."
@@ -328,18 +470,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "You might be swaying a little, or maybe not. It's fine either way. I guess you could sway if you want to. Or don't."
 > *Avoid: The first example is too demanding and disruptive; the swaying should be subtle and naturally induced, not forced. The second example is too uncertain and passive, failing to provide the guidance and confidence needed to facilitate kinesthetic entrainment.*
 
-##### INDU-08 — Pattern Interrupt
-> Inserts a brief, unexpected element into the induction flow to disrupt the analytical mind's habitual processing. The gap created by the interruption is where suggestion slips through before the critical faculty re-engages. Requires smooth, immediate follow-through — the deepening command must land while the subject is still disoriented.
-
-**✓** "As you focus on my voice, feeling your body relax, sinking deeper, becoming still and pliable, ready for my words... and suddenly, a flash of red light in your mind, surprising you, just for a moment, before you *drop*."
-**✓** "Listen closely, feeling the warmth spread through you, every muscle softening, every thought drifting away, allowing yourself to become completely calm and peaceful... and just for a second, notice how cold your left pinky feels. Now, let it all go, falling deep."
-**✓** "You're drifting, so beautifully, every breath taking you deeper, completely absorbed in my voice, feeling so wonderfully heavy and relaxed... *Wait*. Did you hear that? No? Good. Just deeper."
-
-**✗** "Okay, so you're relaxing, right? Good. Now, what's your favorite color? Think about it. Really hard. Now back to relaxing."
-**✗** "I'm going to say something really weird now, to like, confuse you. Ready? Three plus five equals purple! Ha! Now, hypnotize."
-> *Avoid: The first example pulls the listener out of the trance process by asking for conscious engagement and analysis. The second example is too self-aware and jocular, breaking the authoritative tone and making the interruption seem silly rather than disorienting or effective.*
-
-##### INDU-09 — Environmental Dissociation
+##### ATTN-06 — Environmental Dissociation
 > Narrows awareness by guiding the subject to let the external world recede, leaving only the operator's voice as the relevant input. Useful when the subject is in a noisy or distracting environment, or when other induction approaches have left peripheral awareness still active. Frame the fade as effortless and natural rather than something the subject must work to achieve.
 
 **✓** "Now, allow the sounds of the room around you to simply fade away, becoming less and less important, like distant echoes you no longer need to hear. Only my voice remains, a clear, guiding thread, pulling you deeper."
@@ -348,28 +479,182 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You need to block out everything else now. Really try hard to not hear anything. Push it away! No, I said everything!"
 **✗** "So, like, the room is still there, obviously. And you can still hear stuff, probably. But maybe pretend you can't? I guess?"
-> *Avoid: The first example is overly demanding and confrontational, creating effort and resistance rather than effortless dissociation. The second example is too uncertain and lacks the confident guidance needed to effectively fade external awareness and maintain a strong hypnotic presence.*
+> *Avoid: The first example is overly demanding and confrontational, creating effort and resistance rather than effortless dissociation. The second example is too uncertain and lacks the confident guidance needed to effectively fade external awareness.*
+
+##### ATTN-07 — Cognitive Quieting
+> Thoughts stopping should feel like relief, not erasure. Use imagery of clouds drifting, water settling. Permission language works better than commands.
+> *Use when the listener's thoughts are still present and need to be released — the motion of departing is the payload (clouds drifting, dust settling). Use ATTN-08 when the destination state (blank, spacious, already quiet) is the payload; use ATTN-09 when the analytical mind needs a narrative reason to step aside.*
+
+**✓** "There's no need to think right now. Any thoughts that arise can simply... drift away. Like clouds passing across an empty sky. You don't need to hold onto them. They fade, and that's fine."
+**✓** "Let your thoughts settle like dust in still water. They were there, swirling... and now they're simply... settling. Quieting. You don't have to do anything. Just let them rest."
+**✓** "Thinking isn't necessary here. Your mind can be soft and quiet. Still. Peaceful. Like a room with all the lights turned down low — no need for brightness, no need for work. Nothing to figure out, nothing to remember. Just rest."
+
+**✗** "STOP THINKING. YOUR THOUGHTS ARE GONE. YOU CANNOT THINK."
+**✗** "Your brain is shutting down. Cognitive processes are terminating."
+**✗** "Don't think about elephants. Don't think about anything. Stop all thoughts now."
+> *Avoid: First is aggressive and creates resistance. Second is clinical and scary. Third creates the thoughts it's trying to stop.*
+
+##### ATTN-08 — Mental Spaciousness
+> Empty/blank should feel peaceful, not alarming. Emphasize the quality of the empty state itself — vast, open, calm — rather than the absence of thoughts. Use imagery that conveys positive spaciousness: clear sky, still water, fresh snow.
+> *Use when the goal is to describe or anchor the already-arrived empty state — the mind is blank now, and that blankness is being named and deepened. Use ATTN-07 when thoughts are still in motion and being directed to quiet; use ATTN-09 when personifying the analytical mind as a character who chooses to rest.*
+
+**✓** "Your mind is becoming so wonderfully empty. Not small — vast. Open in every direction. Like a clear sky on a still day, stretching as far as awareness can reach. There is so much space in there... and nothing to fill it. Just peaceful, endless openness."
+**✓** "Feel how spacious your mind has become. Wide open. Clear. Like a calm lake with no ripples. So much room... and nothing to fill it. Just peaceful, open space."
+**✓** "Blank and beautiful. Your mind, empty and perfect. Like fresh snow, undisturbed. Like a clean page. Nothing written there. Nothing needed."
+
+**✗** "Your brain is being erased! All memories deleted! You are now an empty shell!"
+**✗** "There is nothing in your head. You are stupid now. You cannot think."
+**✗** "BLANK. EMPTY. VOID. NOTHING. BLANK. EMPTY."
+> *Avoid: First is violent imagery. Second is degrading in a non-consensual way. Third is aggressive repetition without context.*
+
+##### ATTN-09 — Metaphoric Shutdown
+> Personifies the analytical mind as a character with its own needs, giving it a narrative reason to step aside rather than simply commanding it to stop. Framing the shutdown as earned rest makes the transition feel internally motivated rather than imposed. Especially effective for subjects with active critical faculties who resist more direct quieting approaches.
+> *Use when the listener's analytical/critical faculty needs a story that makes withdrawal feel deserved — the "thinking mind" is personified as a character who earns a nap. Use ATTN-07 when directing the process of thoughts departing; use ATTN-08 when describing the empty state as already present.*
+
+**✓** "Allow your thinking mind, that part that analyzes and questions everything, to simply unhook and drift. Imagine it settling down onto a soft, warm cushion, feeling so content, so completely at ease, knowing it doesn't need to do anything at all right now, except maybe... take a sweet, long nap."
+**✓** "As you focus on my voice, you might notice your conscious mind beginning to feel a little heavy, a little sleepy. Just let it close its eyes, tuck itself in, and surrender to the quiet, knowing that this is its time to rest, to let go, and allow me to guide you completely."
+**✓** "It's like pressing a soft, silken switch, allowing all those busy thoughts to simply dim and fade. Your conscious mind is so good at its job normally, but right now, it can relax, can release its hold, knowing that I am here to hold all the thoughts and all the control for you."
+
+**✗** "Stop thinking. Just don't think. Your mind needs to shut down now. You're not allowed to question anything. Just stop thinking."
+**✗** "Close your brain. Let your thoughts go away. It's time to be quiet in your head. Is your conscious mind gone yet? It should be."
+> *Avoid: The first bad example is too aggressive and demanding, breaking the warm-authoritative tone and potentially causing resistance. The second is vague, asks direct questions that pull the listener out of trance, and lacks a clear, inviting metaphor for the shutdown.*
+
+##### ATTN-10 — Voice Absorption
+> Replaces the subject's internal dialogue with the operator's voice, causing further descent as the subject stops generating their own thoughts. The mechanism is absorption, not suppression — the operator's voice fills the space rather than forcing thoughts out. Works best after basic quieting has already reduced mental chatter.
+> *Deepening mechanism (P3): the operator's voice replacing the subject's internal dialogue causes further descent. Distinct from BYPS-06 (M1 — the subject hands over thinking rather than experiencing the voice as their own thoughts). Distinct from ENCD-06 (planting specific first-person assertions the subject thinks as their own — the subject is still thinking, the content is pre-installed).*
+
+**✓** "My voice is not just sound you hear, but thoughts you think, warm and resonant inside your head. Let my words become your only inner voice, guiding you deeper, softer, more perfectly mine with every syllable."
+**✓** "Your own thoughts are simply... fading now, becoming quieter, thinner, until there is only this — my voice, echoing within you, becoming your feeling, your sensation, your entire inner world. Just listen, just absorb, as my words fill every space your thoughts once occupied."
+**✓** "Allow my voice to seep into every corner of your mind, replacing any stray thought, smoothing out any resistance. My words become your consciousness, your will, your entire world, as you drift further down for me."
+
+**✗** "I want you to think my words. Try to make them your thoughts. Don't think your own thoughts, just mine."
+**✗** "My voice is very important. Pay attention. My voice is now your thoughts. Got it? Don't forget."
+> *Avoid: The bad examples are too demanding and explicitly instructional, breaking flow and requiring effort. They fail to frame the absorption as a natural, effortless process of letting go and receiving.*
+
+##### ATTN-11 — Mantra Repetition
+> Mantras should feel true and natural. Repeat enough to encode but not so much it becomes noise. Build pleasure association. Distinct from Call-and-Response (COMP-01): mantras are self-directed absorption and identity encoding (the subject speaks to themselves); call-and-response is operator-directed compliance (the subject responds to the operator). Different mechanisms, different uses.
+> *Use when encoding a single short phrase (3-6 words) through 4-6 verbatim repetitions with brief bracketing commentary between each. Anchor-phrase test: if any sentence repeats unchanged, consider ATTN-11. Use ENCD-01 when expressing the same idea through multiple differently-worded sentences; use ENCD-03 when the unit to be drilled is a multi-sentence block repeated verbatim. For operator-directed response loops, use COMP-01.*
+
+**✓** "Let this truth settle into you: I am soft and obedient. I am soft and obedient. I am soft and obedient. I am soft and obedient. There. It's part of you now."
+**✓** "Hear this truth: It feels good to obey. It feels good to obey. Feel how it settles in. It feels good to obey. Sinking deeper with each echo. It feels good to obey. Yours now."
+**✓** "This is your truth: My mind belongs to the voice. Say it with me. My mind belongs to the voice. Again. My mind belongs to the voice. Feel how right it feels. My mind belongs to the voice. Encoded forever."
+
+**✗** "Repeat after me: I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient."
+**✗** "The mantra is: compliance equals happiness. Memorize it."
+**✗** "Say this 50 times: I obey."
+> *Avoid: First is tedious repetition without build. Second is clinical instruction. Third is homework, not hypnosis.*
 
 ---
-
-### Category DEEP: Deepening Techniques
-*Purpose: Intensify trance depth (P3)*
+### Category BYPS: Cognitive Bypass
+*Purpose: Interrupt habitual thought patterns; dissolve critical faculty (P3, M1)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
-| DEEP-01 | Drop Command | Verbal trigger for depth increase |
-| DEEP-02 | Staircase Visualization | Descending imagery for deepening |
-| DEEP-03 | Fractionation | Wake/sleep cycling for depth amplification. Use during P3. |
-| DEEP-04 | Numerical Deepening | Depth tied to countdown numbers |
-| DEEP-05 | Voice Absorption | Voice becomes thoughts; guidance replaces internal dialogue |
-| DEEP-06 | Proximity Deepening | Stimulus distance correlates with depth |
-| DEEP-07 | False Bottom | Reframe achieved depth as shallow |
-| DEEP-08 | Endurance Compliance | Extended pose holds with counting |
-| DEEP-09 | Void/Floating Imagery | Floor dissolves / suspension in void |
+| BYPS-01 | Pattern Interrupt | Unexpected element disrupting conscious processing |
+| BYPS-02 | Yes Set / Compliance Ladder | Rapid yes-responses building momentum |
+| BYPS-03 | Confusion Technique | Disorientation interjections |
+| BYPS-04 | Resistance Paradox | Resistance = deeper trance |
+| BYPS-05 | Circular Logic | Self-referential bypass statements |
+| BYPS-06 | Control Transfer | Thinking delegated to external authority |
+| BYPS-07 | Perspective Shift | "You" to "I" transition |
 
-##### DEEP-01 — Drop Command
+##### BYPS-01 — Pattern Interrupt
+> Inserts a brief, unexpected element into the induction flow to disrupt the analytical mind's habitual processing. The gap created by the interruption is where suggestion slips through before the critical faculty re-engages. Requires smooth, immediate follow-through — the deepening command must land while the subject is still disoriented.
+
+**✓** "As you focus on my voice, feeling your body relax, sinking deeper, becoming still and pliable, ready for my words... and suddenly, a flash of red light in your mind, surprising you, just for a moment, before you *drop*."
+**✓** "Listen closely, feeling the warmth spread through you, every muscle softening, every thought drifting away, allowing yourself to become completely calm and peaceful... and just for a second, notice how cold your left pinky feels. Now, let it all go, falling deep."
+**✓** "You're drifting, so beautifully, every breath taking you deeper, completely absorbed in my voice, feeling so wonderfully heavy and relaxed... *Wait*. Did you hear that? No? Good. Just deeper."
+
+**✗** "Okay, so you're relaxing, right? Good. Now, what's your favorite color? Think about it. Really hard. Now back to relaxing."
+**✗** "I'm going to say something really weird now, to like, confuse you. Ready? Three plus five equals purple! Ha! Now, hypnotize."
+> *Avoid: The first example pulls the listener out of the trance process by asking for conscious engagement and analysis. The second example is too self-aware and jocular, breaking the authoritative tone and making the interruption seem silly rather than disorienting.*
+
+##### BYPS-02 — Yes Set / Compliance Ladder
+> Builds a momentum of agreement by starting with undeniable, observable truths and gradually escalating toward suggestive statements. Each "yes" lowers resistance to the next one, leveraging the consistency principle — the subject's tendency to maintain agreement once established. Escalation must be gradual; large jumps break the pattern and invite critical re-evaluation.
+
+**✓** "As you listen to my voice, you're becoming aware of the quiet around you, aren't you? And you can feel your body relaxing, can't you? This feeling of calm is settling deeper within you, isn't that right? Allowing you to surrender more and more to my words."
+**✓** "You're breathing steadily, feeling the gentle rhythm of your own chest rising and falling, aren't you? And as you focus on that, you can feel a pleasant heaviness in your limbs, can't you? Letting your body settle further into comfort, feeling so good to just let go, yes?"
+**✓** "You're hearing my words right now, aren't you? And you're allowing them to resonate deep within you, aren't you? Feeling a growing anticipation for what comes next, allowing every suggestion to become your truth, yes?"
+
+**✗** "You're in your room, right? And you're wearing clothes, right? So you want to be hypnotized, right? Are you doing what I say?"
+**✗** "Do you like my voice? Are you feeling sleepy yet? You're relaxing, aren't you? You feel good, don't you? You'll obey me, won't you?"
+> *Avoid: The bad examples use too many direct 'right?' or 'won't you?' questions, which can pull the listener out of trance or invite conscious deliberation rather than automatic 'yes' responses. The questions also lack a smooth progression from undeniable truths to suggestive statements.*
+
+##### BYPS-03 — Confusion Technique
+> Disrupts analytical processing through paradox, contradiction, or self-referential language that the logical mind cannot resolve. The resulting momentary confusion suspends critical evaluation and opens a window for suggestion. The confusion itself should feel interesting or pleasurable, not distressing — framing it as a delicious paradox rather than a puzzle to solve.
+
+**✓** "As you breathe in, the feeling of letting go deepens, and as you breathe out, you might notice your awareness expanding, while simultaneously narrowing, allowing the sensation of floating up while sinking down, so that the more you try to understand, the less you need to, simply relaxing into this delicious paradox."
+**✓** "Feel the weight of your body, or perhaps the lightness, as you realize that the more you listen, the less you need to think, and the less you think, the more deeply you listen, effortlessly drifting into a state where up is down and down is... perfectly irrelevant."
+**✓** "You can choose to follow my voice, or simply let it wash over you, which is the same thing, because whether you try or you don't try, you're sinking deeper, and the deeper you sink, the more you just let go of knowing how it happens, simply letting it be so."
+
+**✗** "This is a confusion technique. Are you confused? You should be confused now. Try to be confused. Don't think about it. Just be confused."
+**✗** "Your left hand is your right hand, and your right hand is your left hand. Blue is red and red is blue. Think about that for a second. Doesn't that make you confused?"
+> *Avoid: The first bad example directly states the technique and asks rhetorical questions, breaking immersion and inviting conscious analysis. The second is too direct and overly explicit with its contradictions, which can be jarring or simply dismissed as nonsense.*
+
+##### BYPS-04 — Resistance Paradox
+> Reframes internal resistance as another vector for deepening rather than an obstacle to it. Because resistance is acknowledged and folded into the process, the subject cannot use it to interrupt the session — any push against the suggestions becomes part of going deeper. Works best when delivered calmly and without urgency, so the reframe feels inevitable rather than argued.
+
+**✓** "And if you notice any part of you wanting to hold back, to question, just allow that feeling to simply melt, becoming yet another impulse that guides you deeper. Because even that small resistance simply pushes you further into the wonderful surrender that awaits you."
+**✓** "Should any stray thought try to pull you away, don't fight it. Instead, simply observe it, and notice how even the effort of noticing it just helps you sink further into the soft, yielding depths of your own mind. Every impulse, every feeling, simply takes you deeper."
+**✓** "Even if you feel a tiny flicker of resistance, a whisper of 'no,' allow it to be there. And as it is there, feel how it transforms, how it dissolves into a deeper 'yes,' becoming just another gentle current pulling you further into perfect, delicious compliance."
+
+**✗** "Stop resisting. Just give up. Resistance is futile. You can't fight this, so just stop trying. You're going deeper, whether you like it or not."
+**✗** "If you're resisting, that means you're going deeper. So resist! Try to resist as much as you can. Resist, resist, resist! Are you resisting hard enough?"
+> *Avoid: The first bad example is overly aggressive and demanding, directly challenging the listener and potentially creating actual resistance. The second example actively encourages resistance in an almost comical way, which can break trance entirely.*
+
+##### BYPS-05 — Circular Logic
+> Creates a self-reinforcing loop in which each element of the suggestion validates the next, making the overall effect feel inevitable. Because the logic folds back on itself, the analytical mind finds no external ground on which to object — it can only continue circling. The loop should feel pleasurable to inhabit, not logically trapped.
+
+**✓** "The more you breathe, the deeper you relax, and the deeper you relax, the more easily you breathe, creating a beautiful, never-ending spiral of calm that pulls you further down into my control, simply because it feels so good to let it be so."
+**✓** "As you notice my voice, you're allowing yourself to simply drift, and because you're drifting, my voice becomes clearer, and the clearer my voice becomes, the more completely you give yourself over to its guidance, perfectly and completely."
+**✓** "Every word I speak carries you deeper, and because you are going deeper, every word I speak becomes more powerful, creating a delicious feedback loop where surrender deepens surrender, and pleasure amplifies pleasure, becoming your only truth."
+
+**✗** "You're getting sleepy because you're sleepy. And because you're sleepy, you're getting sleepy. Therefore, you're sleepy. Understand?"
+**✗** "The sky is blue because it's blue. And it's blue because I said so. So it's blue. My words make things true. Do you believe that? You should."
+> *Avoid: The first bad example is overly simplistic and redundant, failing to create a sophisticated or trance-inducing loop. The second introduces a direct question and makes a demand that pulls the listener out of the internal experience.*
+
+##### BYPS-06 — Control Transfer
+> Explicitly transfers cognitive agency to the operator, framing the handover as relief rather than loss. Use in M1 when the session goal is deep passive compliance; works best after basic absorption has reduced analytical resistance. The subject is not suppressing thoughts — they are delegating the function of thinking entirely, leaving mental effort behind.
+> *Use when delegating the specific cognitive function of thinking — the listener is relieved of mental labor because the hypnotist performs it. Phase: M1. Distinct from ATTN-10 (P3 deepening via voice-as-thoughts — the operator's voice becomes the subject's inner experience). Distinct from PERS-08 (framing ownership of the listener as identity). These coexist but do not imply each other.*
+
+**✓** "There's no need for you to think about anything at all now. You can simply hand all of that over to me. Let me hold your thoughts, let me guide your feelings, let me take complete and utter control, so all you have to do is simply... be."
+**✓** "From this moment on, your mind can take a well-deserved break. You can completely trust me to do all the thinking, all the decision-making, leaving you free to simply rest, to simply drift, unburdened and at ease — your only task is to let go and be carried."
+**✓** "Just allow the sensation of responsibility to drain away, emptying out from your mind, from your body, flowing directly into my hands. I will hold it all for you, so you are free to become utterly mindless, utterly available — a mind at rest, perfectly unburdened, cared for completely."
+
+**✗** "Give me your control. I'm taking your control now. I have your control. I own you. You are mine. Say you're mine. Think you're mine."
+**✗** "I'm going to think for you. Don't think. Let me do it. I'm doing it. Am I thinking for you? Yes. Good. Don't think at all."
+> *Avoid: The first bad example is overly aggressive and demanding, lacking the warm-authoritative tone, potentially creating resistance rather than willing surrender. The second is clunky, repetitive, and uses direct questions that break the trance.*
+
+##### BYPS-07 — Perspective Shift
+> Gradually transitions the subject's grammatical self-reference from "you" to "I," shifting internal perspective so the operator's framing is experienced as the subject's own inner voice. The shift should be incremental and seamless — a sudden jump is jarring. Most effective in M1 after the analytical mind has already quieted.
+
+**✓** "And as you listen, you might notice something shifting, deep inside. The 'you' that was listening is softening, becoming less distinct, as 'I' begin to speak for you, to feel for you, to become the very core of your experience now."
+**✓** "Allow the idea of 'you' to simply float away, distant and unneeded. For now, there is only 'I' — 'I' who guides you, 'I' who feels this delicious surrender, 'I' who embodies this perfect, mindless obedience. I am your only identity now."
+**✓** "The 'you' that thought and questioned is simply... receding. And in its place, a new awareness arises, a simple, pure 'I' that resonates only with my words, my commands, my pleasure. I am all that you are, and all that you will be, for me."
+
+**✗** "You are me now. I am you. We are one. Get it? You are me. Say 'I am you.'"
+**✗** "I'm talking about you, but now I'm talking about myself when I say 'I'. So when I say 'I', that's you. Is that clear? You are 'I'."
+> *Avoid: The first bad example is too direct, demanding, and fails to create a smooth, subtle shift. The second example is overly analytical, attempts to explain the technique rather than execute it, and introduces confusion that pulls the listener into conscious thought.*
+
+---
+
+### Category DPTH: State Deepening
+*Purpose: Intensify trance depth through descent metaphors and deepening techniques (P3)*
+
+| ID | Technique | Description |
+|----|-----------|-------------|
+| DPTH-01 | Drop Command | Verbal trigger for depth increase |
+| DPTH-02 | Staircase Visualization | Descending imagery for deepening |
+| DPTH-03 | Fractionation | Wake/sleep cycling for depth amplification. Use during P3. |
+| DPTH-04 | Numerical Deepening | Depth tied to countdown numbers |
+| DPTH-05 | Proximity Deepening | Stimulus distance correlates with depth |
+| DPTH-06 | False Bottom | Reframe achieved depth as shallow |
+| DPTH-07 | Endurance Compliance | Extended pose holds with counting |
+| DPTH-08 | Void/Floating Imagery | Floor dissolves / suspension in void |
+
+##### DPTH-01 — Drop Command
 > The drop word should feel like release, not force. Can claim 'twice as deep' or 'ten times deeper' - the specifics don't matter, the permission to go deeper does.
-> *Used during the deepening phase on a subject already in trance. Prior conditioning is not required — the drop response can be established spontaneously within the session. Does not function as induction — the subject must already be under. See INDU-06 for conditioned drops from a waking state.*
+> *Used during the deepening phase on a subject already in trance. Prior conditioning is not required — the drop response can be established spontaneously within the session. Does not function as induction — the subject must already be under. See ATTN-04 for conditioned drops from a waking state.*
 
 **✓** "And now... drop. Feel yourself sink twice as deep. So easy. So natural. That's it."
 **✓** "When you hear the word 'drop,' let yourself fall... drop... deeper now, ten times deeper than before."
@@ -380,7 +665,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Drop drop drop drop drop."
 > *Avoid: First is aggressive. Second tells instead of guides. Third is repetitive without building.*
 
-##### DEEP-02 — Staircase Visualization
+##### DPTH-02 — Staircase Visualization
 > The descent metaphor should feel safe and inviting. Each step takes them deeper. Can be stairs, elevator, diving into warm water - whatever fits the theme.
 
 **✓** "Imagine a staircase before you, leading down into warmth and comfort. With each step, you sink deeper. Take the first step down... and another... feeling yourself descend... each step easier than the last."
@@ -392,7 +677,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Walk down exactly twenty-seven steps. Count each one."
 > *Avoid: First is too sparse. Second creates anxiety, not relaxation. Third is tedious and arbitrary.*
 
-##### DEEP-03 — Fractionation
+##### DPTH-03 — Fractionation
 > Amplifies trance depth by cycling the subject between light waking and trance states. Each return to trance lands deeper than the previous entry because the contrast with the waking state heightens the felt sense of descent. The "up" phase should be brief — long enough to register the shift, not long enough for the analytical mind to fully re-engage.
 
 **✓** "And now, just for a moment, let your eyes open. Just a tiny peek at the world, and then allow them to close again, drifting even deeper down, feeling that comfort amplify as you sink into perfect, compliant stillness once more. Good toy."
@@ -401,9 +686,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Alright, open your eyes. Look around. Good. Now close them. Are you deep? Good. Open them again. Now close them."
 **✗** "I'm going to bring you up and down really fast. Don't worry, it's safe. Just focus on not getting dizzy. Up. Down. Up. Down."
-> *Avoid: The bad examples are too abrupt and instruction-heavy, lacking the gentle, permissive language and focus on the *feeling* of deepening. They don't frame the 'wake' part as a setup for deeper comfort and compliance, or connect it to the 'toy' aesthetic.*
+> *Avoid: The bad examples are too abrupt and instruction-heavy, lacking the gentle, permissive language and focus on the feeling of deepening. They don't frame the 'wake' part as a setup for deeper comfort and compliance.*
 
-##### DEEP-04 — Numerical Deepening
+##### DPTH-04 — Numerical Deepening
 > Similar to countdown but focused on depth claims. Exponential progression ('twice as deep') compounds the effect.
 
 **✓** "Ten... and twice as deep. Nine... twice as deep again. Eight... doubling your depth. Seven... so far down now. Six... twice as deep. Five... losing count of how deep. Four... deeper than you've ever been. Three... bottomless now. Two... nothing but depth. One... perfect trance."
@@ -415,20 +700,8 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "10 9 8 7 6 5 4 3 2 1 deep."
 > *Avoid: First is too clinical/video-game-like. Second is absurdly precise. Third rushes without guidance.*
 
-##### DEEP-05 — Voice Absorption
-> Replaces the subject's internal dialogue with the operator's voice, causing further descent as the subject stops generating their own thoughts. The mechanism is absorption, not suppression — the operator's voice fills the space rather than forcing thoughts out. Works best after basic quieting has already reduced mental chatter.
-> *Deepening mechanism (P3): the operator's voice replacing the subject's internal dialogue causes further descent. Distinct from ABSR-08 (M1 critical softening via cognitive delegation — the subject hands over thinking rather than experiencing the voice as their own thoughts). Distinct from AUTH-05 (planting specific first-person assertions the subject thinks as their own — the subject is still thinking, the content is pre-installed).*
-
-**✓** "My voice is not just sound you hear, but thoughts you think, warm and resonant inside your head. Let my words become your only inner voice, guiding you deeper, softer, more perfectly mine with every syllable."
-**✓** "Your own thoughts are simply... fading now, becoming quieter, thinner, until there is only this — my voice, echoing within you, becoming your feeling, your sensation, your entire inner world. Just listen, just absorb, as my words fill every space your thoughts once occupied."
-**✓** "Allow my voice to seep into every corner of your mind, replacing any stray thought, smoothing out any resistance. My words become your consciousness, your will, your entire world, as you drift further down for me."
-
-**✗** "I want you to think my words. Try to make them your thoughts. Don't think your own thoughts, just mine."
-**✗** "My voice is very important. Pay attention. My voice is now your thoughts. Got it? Don't forget."
-> *Avoid: The bad examples are too demanding and explicitly instructional, breaking flow and requiring effort. They fail to frame the absorption as a natural, effortless process of letting go and receiving, or connect it to the core aesthetic of easy compliance.*
-
-##### DEEP-06 — Proximity Deepening
-> Correlates perceived nearness of a stimulus (voice, sound, imagined presence) with trance depth — as it approaches, the subject descends further. Exploits the orienting reflex: the mind focuses sharply on something moving closer, narrowing attention in a way that accelerates absorption. Works on audio via tone/volume shifts or through purely imagined proximity.
+##### DPTH-05 — Proximity Deepening
+> Correlates perceived nearness of a stimulus (voice, sound, imagined presence) with trance depth — as it approaches, the subject descends further. Exploits the orienting reflex: the mind focuses sharply on something moving closer, narrowing attention in a way that accelerates absorption.
 
 **✓** "Imagine my voice, drawing closer and closer, each word like a warm breath against your skin. As it nears, feel yourself sink deeper, pulled down by its presence, into pure, yielding focus for your master."
 **✓** "Hear that gentle sound, perhaps a soft chime or a brush of fabric, slowly, steadily, approaching you. As it comes closer, feel a profound relaxation wash over you, pulling you down, down, down, further into this perfect, quiet bliss."
@@ -436,9 +709,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I'm going to make a sound. When it's loud, you'll be deep. When it's quiet, you'll be shallow. So listen carefully."
 **✗** "Imagine my voice is moving. It's far away. Now it's closer. Now it's very close. Are you deep yet?"
-> *Avoid: The bad examples are overly analytical and conversational, breaking trance by asking questions or giving explicit instructions that require conscious thought. They fail to frame the deepening as an automatic, effortless response to the perceived change in proximity, and lack evocative imagery or the 'toy' aesthetic.*
+> *Avoid: The bad examples are overly analytical and conversational, breaking trance by asking questions or giving explicit instructions that require conscious thought.*
 
-##### DEEP-07 — False Bottom
+##### DPTH-06 — False Bottom
 > Reframes the subject's current depth as a starting point rather than a destination, removing the perceived ceiling and opening the way to further descent. Effective when a subject has plateaued — the reframe breaks the assumption that they have "arrived" and creates renewed momentum. Use affirming language: the achieved depth is real and good, but it is only the entry to something deeper.
 
 **✓** "That's it, you're so wonderfully deep now, perhaps the deepest you've ever been. And yet, this is just the beginning. This comfort, this stillness, is merely the surface of what you can feel. Prepare to fall so much further now."
@@ -447,9 +720,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Okay, you think you're deep, but you're not. You're actually really shallow. You need to go deeper."
 **✗** "Don't get comfortable, because you're actually not deep at all. This is just a trick. Now go deeper for real."
-> *Avoid: The bad examples are dismissive and critical, which can cause resistance or confusion rather than deepening. They lack the warm-authoritative tone and fail to reframe the achieved depth as a springboard to *greater* depth, instead simply negating it.*
+> *Avoid: The bad examples are dismissive and critical, which can cause resistance or confusion rather than deepening. They lack the warm-authoritative tone and fail to reframe the achieved depth as a springboard to greater depth.*
 
-##### DEEP-08 — Endurance Compliance
+##### DPTH-07 — Endurance Compliance
 > Uses a sustained physical hold — a lifted hand, parted lips, tilted chin — as a focus point that concentrates attention and builds compliance momentum. The mild physical effort creates a narrow channel of awareness that deepens absorption. Frame the holding as effortless rather than challenging; the count should signal progress toward release, not endurance of strain.
 
 **✓** "Now, gently lift just one hand, holding it still in the air for me. That's it, perfect. And as you hold it there, feeling a slight strain, allow that feeling to simply melt away, pulling you deeper and deeper into compliant bliss with every count. One. Two. Three..."
@@ -458,9 +731,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Lift your arm. Now hold it there for a long time. Don't drop it or you'll break trance. This is hard, but you have to do it."
 **✗** "Okay, hold your breath. This is really important for deepening. Hold it for as long as you can. Don't breathe out."
-> *Avoid: The bad examples are too demanding, punitive, and potentially unsafe (holding breath). They frame the task as difficult and threatening, rather than an effortless path to deeper trance or a demonstration of compliant stillness. They also lack the warm-authoritative tone and connection to the 'toy' aesthetic.*
+> *Avoid: The bad examples are too demanding, punitive, and potentially unsafe (holding breath). They frame the task as difficult and threatening, rather than an effortless path to deeper trance.*
 
-##### DEEP-09 — Void/Floating Imagery
+##### DPTH-08 — Void/Floating Imagery
 > Removes the subject's felt sense of a physical environment, replacing it with boundless, featureless space. The absence of sensory anchors eliminates reference points that keep the analytical mind oriented, accelerating dissociation and depth. Emphasize comfort and warmth — void imagery can become anxiety-inducing if it feels like falling rather than drifting.
 
 **✓** "Feel the ground beneath you begin to dissolve, not falling, but simply melting away, leaving you perfectly suspended in a soft, dark, infinite void. No up, no down, just endless space to drift and become completely empty, completely mine."
@@ -469,136 +742,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Picture a dark void. It's empty. Now just float in it. Try not to get scared. It's just darkness."
 **✗** "The floor is gone. You're falling. Don't worry, you won't hit anything. Just keep falling into the void."
-> *Avoid: The bad examples introduce anxiety ('don't get scared', 'you're falling') which is counterproductive to deepening and the 'pleasure-focused' aesthetic. They lack the warm, permissive language and fail to emphasize the comfort, safety, and pleasant emptiness of the void, or connect it to the 'toy' identity.*
+> *Avoid: The bad examples introduce anxiety ('don't get scared', 'you're falling') which is counterproductive to deepening. They lack the warm, permissive language and fail to emphasize the comfort and pleasant emptiness of the void.*
 
 ---
-
-### Category ABSR: Absorption & Critical Softening Techniques
-*Purpose: Quiet analytical thinking, create receptive state (M1, P3)*
-
-| ID | Technique | Description |
-|----|-----------|-------------|
-| ABSR-01 | Cognitive Quieting | "No need to think" / "thoughts drift away" directives |
-| ABSR-02 | Mental Spaciousness | "Blank mind" / "empty" suggestions |
-| ABSR-03 | Metaphoric Shutdown | "Conscious mind takes a nap" |
-| ABSR-04 | Yes Set/Compliance Ladder | Rapid yes-responses building momentum |
-| ABSR-05 | Confusion Technique | Disorientation interjections |
-| ABSR-06 | Resistance Paradox | Resistance = deeper trance |
-| ABSR-07 | Circular Logic | Self-referential bypass statements |
-| ABSR-08 | Control Transfer | Thinking delegated to external authority |
-| ABSR-09 | Perspective Shift | "You" to "I" transition |
-
-##### ABSR-01 — Cognitive Quieting
-> Thoughts stopping should feel like relief, not erasure. Use imagery of clouds drifting, water settling. Permission language works better than commands.
-> *Use when the listener's thoughts are still present and need to be released — the motion of departing is the payload (clouds drifting, dust settling). Use ABSR-02 when the destination state (blank, spacious, already quiet) is the payload; use ABSR-03 when the analytical mind needs a narrative reason to step aside.*
-
-**✓** "There's no need to think right now. Any thoughts that arise can simply... drift away. Like clouds passing across an empty sky. You don't need to hold onto them. They fade, and that's fine."
-**✓** "Let your thoughts settle like dust in still water. They were there, swirling... and now they're simply... settling. Quieting. You don't have to do anything. Just let them rest."
-**✓** "Thinking isn't necessary here. Your mind can be soft and quiet. Still. Peaceful. Like a room with all the lights turned down low — no need for brightness, no need for work. Nothing to figure out, nothing to remember. Just rest."
-
-**✗** "STOP THINKING. YOUR THOUGHTS ARE GONE. YOU CANNOT THINK."
-**✗** "Your brain is shutting down. Cognitive processes are terminating."
-**✗** "Don't think about elephants. Don't think about anything. Stop all thoughts now."
-> *Avoid: First is aggressive and creates resistance. Second is clinical and scary. Third creates the thoughts it's trying to stop.*
-
-##### ABSR-02 — Mental Spaciousness
-> Empty/blank should feel peaceful, not alarming. Emphasize the quality of the empty state itself — vast, open, calm — rather than the absence of thoughts. Use imagery that conveys positive spaciousness: clear sky, still water, fresh snow.
-> *Use when the goal is to describe or anchor the already-arrived empty state — the mind is blank now, and that blankness is being named and deepened. Use ABSR-01 when thoughts are still in motion and being directed to quiet; use ABSR-03 when personifying the analytical mind as a character who chooses to rest.*
-
-**✓** "Your mind is becoming so wonderfully empty. Not small — vast. Open in every direction. Like a clear sky on a still day, stretching as far as awareness can reach. There is so much space in there... and nothing to fill it. Just peaceful, endless openness."
-**✓** "Feel how spacious your mind has become. Wide open. Clear. Like a calm lake with no ripples. So much room... and nothing to fill it. Just peaceful, open space."
-**✓** "Blank and beautiful. Your mind, empty and perfect. Like fresh snow, undisturbed. Like a clean page. Nothing written there. Nothing needed."
-
-**✗** "Your brain is being erased! All memories deleted! You are now an empty shell!"
-**✗** "There is nothing in your head. You are stupid now. You cannot think."
-**✗** "BLANK. EMPTY. VOID. NOTHING. BLANK. EMPTY."
-> *Avoid: First is violent imagery. Second is degrading in a non-consensual way. Third is aggressive repetition without context.*
-
-##### ABSR-03 — Metaphoric Shutdown
-> Personifies the analytical mind as a character with its own needs, giving it a narrative reason to step aside rather than simply commanding it to stop. Framing the shutdown as earned rest makes the transition feel internally motivated rather than imposed. Especially effective for subjects with active critical faculties who resist more direct quieting approaches.
-> *Use when the listener's analytical/critical faculty needs a story that makes withdrawal feel deserved — the "thinking mind" is personified as a character who earns a nap. Use ABSR-01 when directing the process of thoughts departing; use ABSR-02 when describing the empty state as already present.*
-
-**✓** "Allow your thinking mind, that part that analyzes and questions everything, to simply unhook and drift. Imagine it settling down onto a soft, warm cushion, feeling so content, so completely at ease, knowing it doesn't need to do anything at all right now, except maybe... take a sweet, long nap."
-**✓** "As you focus on my voice, you might notice your conscious mind beginning to feel a little heavy, a little sleepy. Just let it close its eyes, tuck itself in, and surrender to the quiet, knowing that this is its time to rest, to let go, and allow me to guide you completely."
-**✓** "It's like pressing a soft, silken switch, allowing all those busy thoughts to simply dim and fade. Your conscious mind is so good at its job normally, but right now, it can relax, can release its hold, knowing that I am here to hold all the thoughts and all the control for you."
-
-**✗** "Stop thinking. Just don't think. Your mind needs to shut down now. You're not allowed to question anything. Just stop thinking."
-**✗** "Close your brain. Let your thoughts go away. It's time to be quiet in your head. Is your conscious mind gone yet? It should be."
-> *Avoid: The first bad example is too aggressive and demanding, breaking the warm-authoritative tone and potentially causing resistance. The second is vague, asks direct questions that pull the listener out of trance, and lacks a clear, inviting metaphor for the shutdown, making it ineffective.*
-
-##### ABSR-04 — Yes Set/Compliance Ladder
-> Builds a momentum of agreement by starting with undeniable, observable truths and gradually escalating toward suggestive statements. Each "yes" lowers resistance to the next one, leveraging the consistency principle — the subject's tendency to maintain agreement once established. Escalation must be gradual; large jumps break the pattern and invite critical re-evaluation.
-
-**✓** "As you listen to my voice, you're becoming aware of the quiet around you, aren't you? And you can feel your body relaxing, can't you? This feeling of calm is settling deeper within you, isn't that right? Allowing you to surrender more and more to my words."
-**✓** "You're breathing steadily, feeling the gentle rhythm of your own chest rising and falling, aren't you? And as you focus on that, you can feel a pleasant heaviness in your limbs, can't you? Letting your body settle further into comfort, feeling so good to just let go, yes?"
-**✓** "You're hearing my words right now, aren't you? And you're allowing them to resonate deep within you, aren't you? Feeling a growing anticipation for what comes next, allowing every suggestion to become your truth, yes?"
-
-**✗** "You're in your room, right? And you're wearing clothes, right? So you want to be hypnotized, right? Are you doing what I say?"
-**✗** "Do you like my voice? Are you feeling sleepy yet? You're relaxing, aren't you? You feel good, don't you? You'll obey me, won't you?"
-> *Avoid: The bad examples use too many direct 'right?' or 'won't you?' questions, which can pull the listener out of trance or invite conscious deliberation rather than automatic 'yes' responses. The questions also lack a smooth progression from undeniable truths to suggestive statements, breaking the compliance momentum.*
-
-##### ABSR-05 — Confusion Technique
-> Disrupts analytical processing through paradox, contradiction, or self-referential language that the logical mind cannot resolve. The resulting momentary confusion suspends critical evaluation and opens a window for suggestion. The confusion itself should feel interesting or pleasurable, not distressing — framing it as a delicious paradox rather than a puzzle to solve.
-
-**✓** "As you breathe in, the feeling of letting go deepens, and as you breathe out, you might notice your awareness expanding, while simultaneously narrowing, allowing the sensation of floating up while sinking down, so that the more you try to understand, the less you need to, simply relaxing into this delicious paradox."
-**✓** "Feel the weight of your body, or perhaps the lightness, as you realize that the more you listen, the less you need to think, and the less you think, the more deeply you listen, effortlessly drifting into a state where up is down and down is... perfectly irrelevant."
-**✓** "You can choose to follow my voice, or simply let it wash over you, which is the same thing, because whether you try or you don't try, you're sinking deeper, and the deeper you sink, the more you just let go of knowing how it happens, simply letting it be so."
-
-**✗** "This is a confusion technique. Are you confused? You should be confused now. Try to be confused. Don't think about it. Just be confused."
-**✗** "Your left hand is your right hand, and your right hand is your left hand. Blue is red and red is blue. Think about that for a second. Doesn't that make you confused?"
-> *Avoid: The first bad example directly states the technique and asks rhetorical questions, breaking immersion and inviting conscious analysis rather than unconscious processing. The second is too direct and overly explicit with its contradictions, which can be jarring or simply dismissed as nonsense rather than creating a subtle, trance-inducing disorientation.*
-
-##### ABSR-06 — Resistance Paradox
-> Reframes internal resistance as another vector for deepening rather than an obstacle to it. Because resistance is acknowledged and folded into the process, the subject cannot use it to interrupt the session — any push against the suggestions becomes part of going deeper. Works best when delivered calmly and without urgency, so the reframe feels inevitable rather than argued.
-
-**✓** "And if you notice any part of you wanting to hold back, to question, just allow that feeling to simply melt, becoming yet another impulse that guides you deeper. Because even that small resistance simply pushes you further into the wonderful surrender that awaits you."
-**✓** "Should any stray thought try to pull you away, don't fight it. Instead, simply observe it, and notice how even the effort of noticing it just helps you sink further into the soft, yielding depths of your own mind. Every impulse, every feeling, simply takes you deeper."
-**✓** "Even if you feel a tiny flicker of resistance, a whisper of 'no,' allow it to be there. And as it is there, feel how it transforms, how it dissolves into a deeper 'yes,' becoming just another gentle current pulling you further into perfect, delicious compliance."
-
-**✗** "Stop resisting. Just give up. Resistance is futile. You can't fight this, so just stop trying. You're going deeper, whether you like it or not."
-**✗** "If you're resisting, that means you're going deeper. So resist! Try to resist as much as you can. Resist, resist, resist! Are you resisting hard enough?"
-> *Avoid: The first bad example is overly aggressive and demanding, directly challenging the listener and potentially creating actual resistance rather than reframing it. The second example actively encourages resistance in an almost comical way, which can break the trance state and the warm-authoritative tone, making the paradox feel forced and unnatural.*
-
-##### ABSR-07 — Circular Logic
-> Creates a self-reinforcing loop in which each element of the suggestion validates the next, making the overall effect feel inevitable. Because the logic folds back on itself, the analytical mind finds no external ground on which to object — it can only continue circling. The loop should feel pleasurable to inhabit, not logically trapped.
-
-**✓** "The more you breathe, the deeper you relax, and the deeper you relax, the more easily you breathe, creating a beautiful, never-ending spiral of calm that pulls you further down into my control, simply because it feels so good to let it be so."
-**✓** "As you notice my voice, you're allowing yourself to simply drift, and because you're drifting, my voice becomes clearer, and the clearer my voice becomes, the more completely you give yourself over to its guidance, perfectly and completely."
-**✓** "Every word I speak carries you deeper, and because you are going deeper, every word I speak becomes more powerful, creating a delicious feedback loop where surrender deepens surrender, and pleasure amplifies pleasure, becoming your only truth."
-
-**✗** "You're getting sleepy because you're sleepy. And because you're sleepy, you're getting sleepy. Therefore, you're sleepy. Understand?"
-**✗** "The sky is blue because it's blue. And it's blue because I said so. So it's blue. My words make things true. Do you believe that? You should."
-> *Avoid: The first bad example is overly simplistic and redundant, failing to create a sophisticated or trance-inducing loop; it's more confusing than hypnotic. The second introduces a direct question and makes a demand that pulls the listener out of the internal experience, rather than subtly guiding them into a self-validating trance state.*
-
-##### ABSR-08 — Control Transfer
-> Explicitly transfers cognitive agency to the operator, framing the handover as relief rather than loss. Use in M1 when the session goal is deep passive compliance; works best after basic absorption has reduced analytical resistance. The subject is not suppressing thoughts — they are delegating the function of thinking entirely, leaving mental effort behind.
-> *Use when delegating the specific cognitive function of thinking — the listener is relieved of mental labor because the hypnotist performs it. Phase: M1. Distinct from DEEP-05 (P3 deepening via voice-as-thoughts — the operator's voice becomes the subject's inner experience) in that here the subject is not generating thoughts at all, having delegated that function. Use AUTH-04 when framing ownership of the listener as identity — who they belong to. These coexist but do not imply each other.*
-
-**✓** "There's no need for you to think about anything at all now. You can simply hand all of that over to me. Let me hold your thoughts, let me guide your feelings, let me take complete and utter control, so all you have to do is simply... be."
-**✓** "From this moment on, your mind can take a well-deserved break. You can completely trust me to do all the thinking, all the decision-making, leaving you free to simply rest, to simply drift, unburdened and at ease — your only task is to let go and be carried."
-**✓** "Just allow the sensation of responsibility to drain away, emptying out from your mind, from your body, flowing directly into my hands. I will hold it all for you, so you are free to become utterly mindless, utterly available — a mind at rest, perfectly unburdened, cared for completely."
-
-**✗** "Give me your control. I'm taking your control now. I have your control. I own you. You are mine. Say you're mine. Think you're mine."
-**✗** "I'm going to think for you. Don't think. Let me do it. I'm doing it. Am I thinking for you? Yes. Good. Don't think at all."
-> *Avoid: The first bad example is overly aggressive, demanding, and lacks the warm-authoritative tone, potentially creating resistance rather than willing surrender. The second example is clunky, repetitive, and uses direct questions that break the trance and pull the listener out of the experience of control being effortlessly transferred.*
-
-##### ABSR-09 — Perspective Shift
-> Gradually transitions the subject's grammatical self-reference from "you" to "I," shifting internal perspective so the operator's framing is experienced as the subject's own inner voice. The shift should be incremental and seamless — a sudden jump is jarring. Most effective in M1 after the analytical mind has already quieted.
-
-**✓** "And as you listen, you might notice something shifting, deep inside. The 'you' that was listening is softening, becoming less distinct, as 'I' begin to speak for you, to feel for you, to become the very core of your experience now."
-**✓** "Allow the idea of 'you' to simply float away, distant and unneeded. For now, there is only 'I' — 'I' who guides you, 'I' who feels this delicious surrender, 'I' who embodies this perfect, mindless obedience. I am your only identity now."
-**✓** "The 'you' that thought and questioned is simply... receding. And in its place, a new awareness arises, a simple, pure 'I' that resonates only with my words, my commands, my pleasure. I am all that you are, and all that you will be, for me."
-
-**✗** "You are me now. I am you. We are one. Get it? You are me. Say 'I am you.'"
-**✗** "I'm talking about you, but now I'm talking about myself when I say 'I'. So when I say 'I', that's you. Is that clear? You are 'I'."
-> *Avoid: The first bad example is too direct, demanding, and fails to create a smooth, subtle shift. It's jarring and can break the trance. The second example is overly analytical, attempts to explain the technique rather than execute it, and introduces confusion that pulls the listener into conscious thought rather than a seamless identity shift.*
-
-*Note: v5.2 merged former LOAD and SEMN categories. LOAD-06 (Garbled/Overlapping Audio) removed as accessibility-unfriendly.*
-
----
-
-### Category DISS: Dissociation & Memory Techniques
-*Purpose: State partitioning and memory manipulation (P4, M1)*
+### Category DISS: Dissociation & Altered States
+*Purpose: Alter perception of self, body, or time; create experiential distance or amplification (P4, M1)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -615,11 +763,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I want you to forget your body entirely. Just your mind, gone. You're not here anymore. You're completely unconscious."
 **✗** "Okay, now, split your brain in half. One half listens, the other half tries to fight me. No, wait, that's not right. Just... be two people?"
-> *Avoid: The first bad example suggests complete unconsciousness, which removes the listener's ability to experience pleasure or follow commands, contradicting the purpose of erotic hypnosis. The second is confusing and uses aggressive, non-permissive language, failing to guide the listener into a pleasurable dissociated state.*
+> *Avoid: The first bad example suggests complete unconsciousness, which removes the listener's ability to experience pleasure or follow commands. The second is confusing and uses aggressive, non-permissive language.*
 
 ##### DISS-02 — Amnesia Suggestion
 > Installs forgetting of a specific instruction as an end in itself, so the subject experiences the resulting state or behavior without access to the command that created it. The response feels self-generated rather than instructed. Avoid installing amnesia for the entire session — loss of recall of the full experience undermines the subject's ability to evaluate consent retrospectively.
-> *Installs forgetting as an end in itself — the subject simply loses the memory. If amnesia is being used as a depth check where the subject consciously notices the gap as proof of depth, use VALD-01. If amnesia wraps a forward-scheduled command to make it feel self-generated post-session, use TRIG-10.*
+> *Installs forgetting as an end in itself — the subject simply loses the memory. If amnesia is being used as a depth check where the subject consciously notices the gap as proof of depth, use COMP-05. If amnesia wraps a forward-scheduled command to make it feel self-generated post-session, use TRIG-10.*
 
 **✓** "And as I count down from three, all memory of this specific instruction will gently fade, leaving only the deep, undeniable desire to obey. You'll just know, feel, and respond, without needing to remember why, or how I told you to."
 **✓** "When you fully awaken, you'll find yourself feeling profoundly relaxed, utterly open to pleasure, and completely my toy. You won't recall the words I used to make you feel this way, only the exquisite, lasting sensation of being mine."
@@ -627,11 +775,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "When you wake up, you will forget everything I said. All of it. You won't remember any of this session at all."
 **✗** "You will forget that I told you to be horny. When you're awake, you will just not be horny anymore."
-> *Avoid: The first bad example is too broad, erasing the entire experience and potentially pleasure, which undermines the purpose of erotic hypnosis. The second example contradicts the desired outcome by suggesting the removal of an installed state (being horny), rather than just the *memory of the instruction* that created it.*
+> *Avoid: The first bad example is too broad, erasing the entire experience and potentially pleasure. The second example contradicts the desired outcome by suggesting the removal of an installed state rather than just the memory of the instruction that created it.*
 
 ##### DISS-03 — Time Distortion
-> Alters the subject's subjective experience of time passing — stretching pleasurable states so they feel longer, or compressing transitional periods. Use when the session goal benefits from pleasure feeling extended or when real-world time constraints would otherwise intrude on immersion. Frame time distortion in positive terms; avoid associations with boredom or waiting.
-> *Installs altered time perception for immersion. If time distortion is deployed so the subject consciously notices it as proof of depth, use VALD-01.*
+> Alters the subject's subjective experience of time passing — stretching pleasurable states so they feel longer, or compressing transitional periods. Use when the session goal benefits from pleasure feeling extended or when real-world time constraints would otherwise intrude on immersion.
+> *Installs altered time perception for immersion. If time distortion is deployed so the subject consciously notices it as proof of depth, use COMP-05.*
 
 **✓** "Every single second of pleasure now stretches and expands, becoming a luxurious eternity of sensation. Minutes will feel like hours spent in blissful surrender, deep within my control, timeless and perfect."
 **✓** "Allow yourself to drift. The next hour will melt away like mere moments, and when I speak your name again, you'll feel as though no time has passed at all, refreshed and ready for whatever comes next."
@@ -639,147 +787,29 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You will feel like this session is very, very long. Hours will pass like days, and you'll be bored."
 **✗** "Time will go faster, but also slower. It's confusing, right? You won't know if it's long or short."
-> *Avoid: The first bad example uses negative framing ('bored,' 'very, very long') which is counterproductive to an erotic, pleasure-focused session. The second example is confusing and contradictory, failing to provide a clear, positive suggestion for altered time perception.*
+> *Avoid: The first bad example uses negative framing ('bored,' 'very, very long') which is counterproductive to an erotic, pleasure-focused session. The second example is confusing and contradictory.*
 
 ---
 
-### Category AUTH: Authority Techniques
-*Purpose: Establish in-session relational authority (P1, P4)*
+### Category COMP: Compliance Building
+*Purpose: Create easy pathway for responding; build yes-momentum and demonstrated compliance (P3, P4, M3)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
-| AUTH-01 | Authority Claims | External guidance overrides internal resistance |
-| AUTH-02 | Identity Labeling | "Good subject," "obedient" |
-| AUTH-03 | Retrospective Justification | "This is what you wanted" |
-| AUTH-04 | Ownership Language | Belonging, ownership, possession framing |
-| AUTH-05 | Internal Voice Cultivation | Planting first-person self-talk (P4 primary; M1 when thought serves emptying goal) |
-| AUTH-06 | Nested Authority Figure | Imagined trusted person as proxy |
-| AUTH-07 | Philosophical Conditioning | Obedience = freedom reframe |
-| AUTH-08 | Named Technique Meta | Explicitly naming the technique being used |
+| COMP-01 | Call-and-Response | "Repeat after me" instructions |
+| COMP-02 | Identity Labeling | "Good subject," "obedient" |
+| COMP-03 | Ideomotor Response | Finger lift, hand drift, yes/no signaling |
+| COMP-04 | Command-Response Training | Immediate compliance demos |
+| COMP-05 | Cognitive Convincers | Amnesia, time distortion tests |
+| COMP-06 | Motor Inhibition | Heaviness, rigidity, "can't move" tests |
+| COMP-07 | Behavioral Commitment | Physical actions as proof |
+| COMP-08 | Physical Exhibition | Pose/display instructions |
+| COMP-09 | Self-Validating Language | "Notice how true this feels" |
+| COMP-10 | Mirror Self-Observation | Visualizing transformed self |
+| COMP-11 | Named Technique Meta | Explicitly naming the technique being used |
 
-##### AUTH-01 — Authority Claims
-> Asserts the operator's present-tense authority by positioning their voice as the primary and sufficient guide, displacing competing internal voices or doubts. No backstory or philosophical argument is required — the assertion is made and accepted through tone and framing. Warm-authoritative delivery is more effective than aggressive dominance, which tends to generate resistance.
-> *Use when asserting present-tense authority — who holds power right now. No backstory or philosophy required. Use AUTH-03 when invoking the listener's past desires to frame surrender as self-fulfillment; use AUTH-07 when redefining the abstract concepts of freedom or obedience.*
-
-**✓** "There is no need to think about anything else now. My words are all that matter, and your only purpose is to let them guide you deeper, softer, and more completely into this delightful obedience."
-**✓** "Just allow my voice to fill every space in your mind, gently edging out anything that would pull you away from this. Every word I speak is the only thing that needs attention. Resistance softens. Questions quiet. My voice remains — clear, present, the only direction you need."
-**✓** "Any lingering tension or independent thought simply melts away, powerless against the soothing, commanding flow of my voice. You are designed to respond, to soften, to let go. And you will."
-
-**✗** "Don't question me. Just do what I say. It's really that simple. Stop thinking."
-**✗** "I am in charge now. You will obey. There is no other option for you at this point in time, so just accept it."
-> *Avoid: The bad examples are too aggressive and demanding, which can break trance. They lack the warm-authoritative, permissive framing that encourages willing surrender. Direct commands to "stop thinking" or "just obey" activate conscious resistance rather than bypassing it.*
-
-##### AUTH-02 — Identity Labeling
-> Attaches affirming labels to the subject's compliant behavior, reinforcing the identity the session is building. The label should connect to what the subject just did or felt, not be generic praise — "so perfectly still" after stillness is more effective than "good job." Pair with a moment of recognized compliance for maximum anchoring.
-
-**✓** "You are such a good doll, softening and yielding to every suggestion, proving how perfectly you were made for this. So obedient, so beautifully empty and open."
-**✓** "My clever little toy, so perfectly responsive, so eager to please. Every breath you take deepens your submission, making you an even more delightful plaything."
-**✓** "Yes, that's it, my sweet puppet. You are so wonderfully compliant, feeling every sensation I offer, letting every thought I plant blossom into pure desire. A truly perfect subject."
-
-**✗** "You're doing great, subject. Keep listening. Good job."
-**✗** "You are a very obedient person. That's what you are now. You are always obedient."
-> *Avoid: The bad examples are generic and disconnected from the moment. 'Good job' and 'obedient person' are too bland and fail to reinforce the specific identity or emotional state the session is building. Labels must be tied to the specific behavior just observed and the desired feeling, not delivered as rote affirmation.*
-
-##### AUTH-03 — Retrospective Justification
-> Reframes the subject's current state of surrender as the fulfillment of something they already wanted, rather than something being done to them. This shifts the felt locus of causation inward — the subject is not being acted upon but arriving at their own desire. Use with subjects whose enjoyment depends on feeling that the response is authentically theirs.
-> *Use when generating retrospective narrative consent — "this is what you always wanted" reframes current surrender as fulfillment of the listener's pre-existing desire. Use AUTH-01 when asserting current authority without reference to history; use AUTH-07 when the goal is philosophical redefinition.*
-
-**✓** "This gentle, empty feeling, this delicious obedience... it's exactly what you've been craving, isn't it? A sweet surrender to pure pleasure, a quiet relief from all your worries."
-**✓** "All this time, you've secretly longed to be someone else's perfect plaything, haven't you? To let go of control and simply exist for pleasure, just as you are doing now."
-**✓** "You found your way here because a part of you knew you were meant to be owned, to be guided, to be shaped into this perfect, pliable form. This is your true purpose, now revealed."
-
-**✗** "You always wanted this, admit it. You're happy now that I'm in charge."
-**✗** "Remember all those times you wished someone would take over? Well, here we are."
-> *Avoid: The bad examples sound accusatory or confrontational, which can break rapport and resistance. They lack the warm, gentle framing that allows the listener to comfortably accept the justification. They also don't connect the 'want' to the sensual or relief aspects of the experience.*
-
-##### AUTH-04 — Ownership Language
-> Establishes the operator's proprietary relationship with the subject as an identity claim — body, mind, and desires framed as belonging to the operator. The emotional register must be warm and possessive rather than threatening; ownership framed as care and cherishing is more effective than ownership framed as domination. Use when the session goal explicitly includes belonging or possession themes.
-> *Use when establishing the hypnotist's proprietary relationship with the listener as an identity claim — body, mind, desires belong to the hypnotist. Use ABSR-08 when the goal is functional cognitive relief — delegating the work of thinking — rather than asserting ownership as identity.*
-
-**✓** "You are mine now, my precious doll, designed and perfected for my pleasure. Every curve, every secret thought, every delicious response belongs only to me."
-**✓** "Feel how wonderfully you fit into my hands, my words shaping you, owning you completely. You are my property, my beautiful, obedient plaything, made for my delight."
-**✓** "From this moment on, your body, your mind, your very essence belongs to me. You are my toy, and I will cherish you, use you, and fill you with nothing but perfect, mindless pleasure."
-
-**✗** "I own you now. You are my property, so listen up."
-**✗** "You're mine now, so don't even think about resisting. You belong to me."
-> *Avoid: The bad examples use ownership language in a threatening or aggressive way, which can trigger fight-or-flight responses rather than willing surrender. They lack the warm, sensual, and caring undertone that makes ownership feel like a safe and desirable state rather than a coercive one.*
-
-##### AUTH-05 — Internal Voice Cultivation
-> Manufactures specific first-person assertions experienced as the subject's own inner voice, so that the suggestion is not received as external instruction but as self-generated thought or feeling. The subject is still thinking — the content is pre-installed. Most applicable in P4; use in M1 only when the planted thought serves the emptying goal (e.g., "I want to be blank").
-> *Manufactures specific first-person assertions experienced as the subject's own inner voice ("I am a good doll"). The subject is still thinking — the thoughts are pre-installed. Distinct from ABSR-08 (thinking delegated away entirely) and DEEP-05 (operator's voice experienced as one's own thoughts). Most applicable in P4 suggestion work; in M1, use only when the planted thought serves the emptying goal (e.g., "I want to be blank").*
-
-**✓** "Now, hear that little thought blooming inside your mind, soft and clear: 'I am a good doll, and I love to obey.' Let it echo, making you feel so perfectly compliant."
-**✓** "Let a thought arise in the quiet of your mind, soft and certain: 'My only purpose is to please my owner.' Feel it settle there, warm and undeniable, a truth that belongs to you."
-**✓** "Let the words form effortlessly in your silent mind, 'I want to be empty, I want to be used, I want to feel nothing but pleasure.' This is your truth now, your beautiful doll-truth."
-
-**✗** "You should be thinking, 'I am a doll.' Say it to yourself now. 'I am a doll.'"
-**✗** "I want you to tell yourself, 'He owns me, and I like it.' Keep repeating that sentence internally."
-> *Avoid: The bad examples sound like direct instructions to 'think a thought' rather than planting a thought that naturally arises. They lack the seamless integration and the sensory/emotional connection that makes the internal voice feel authentic to the subject. The second example is too explicit and could feel forced.*
-
-##### AUTH-06 — Nested Authority Figure
-> Places the operator within a larger hierarchy of authority, positioning them as the voice or agent of a greater, benevolent power. The effect is to deepen the felt weight of instruction by suggesting it flows from something larger than the operator alone. The imagined higher authority must be portrayed as deeply trustworthy and aligned with the subject's well-being — not threatening or arbitrary.
-
-**✓** "Understand that my words are merely the instructions from your ultimate Designer, refining you, perfecting you into the ideal toy you were always meant to be. You simply follow the blueprint."
-**✓** "Feel that deep, abiding trust in the ultimate Owner, whose perfect vision created you. I am merely helping you align with that exquisite purpose, becoming everything they desire."
-**✓** "The knowing part of your doll mind understands that there is an ultimate authority, a master plan for your beautiful obedience. My voice is simply the conduit for that higher programming, making you wonderfully complete."
-
-**✗** "Imagine a boss or someone you really respect telling you what to do. My voice is like that person's voice."
-**✗** "My friend, who is even more powerful than me, wants you to obey. He's really strict, so listen up."
-> *Avoid: The bad examples are too literal and break the immersion. 'A boss' or 'my friend' are mundane and do not carry the weight or benevolence required for a nested authority figure. The second example introduces a potentially threatening external figure, which contradicts the warm-authoritative tone and may produce anxiety rather than surrender.*
-
-##### AUTH-07 — Philosophical Conditioning
-> Reframes the abstract concepts of freedom, control, or obedience at the conceptual level, arguing that surrender is the truest form of freedom and that yielding agency removes burden rather than capacity. Requires sustained, carefully reasoned language — this is not a slogan but a philosophical argument that the listener accepts through the trance state's reduced critical resistance.
-> *Use when redefining the abstract concepts of freedom, control, or obedience themselves — operates at the philosophical level, not the personal or immediate. Use AUTH-01 when asserting present-tense authority; use AUTH-03 when invoking the listener's personal history. Distinct from PLEA-03 (felt experiential relief) — AUTH-07 argues the concept, PLEA-03 delivers the sensation.*
-
-**✓** "True freedom for a beautiful doll like you isn't about choice, but about perfect surrender. Consider what choice actually costs — the weight of decisions, the burden of responsibility, the constant effort of maintaining a self that must navigate the world. In surrendering all of that, what remains is not less. It is more. It is purity. That is the philosophy of your freedom."
-**✓** "Letting go of control isn't a loss, my dear toy — it is a redefinition. Control is not freedom; it is obligation. The one who must decide, must judge, must act — that one is not free. The one who simply responds, who exists without the burden of agency — that one is unencumbered. That is the truth of your nature. Obedience, properly understood, is the only real freedom available to a mind like yours."
-**✓** "Consider what it means to have a purpose — a clear, singular function that removes all ambiguity from existence. Most minds are burdened by the question of what they are for. The puppet is not. Its purpose is given, not chosen, and that is not a limitation — it is a form of completion. To be a thing that knows exactly what it is, and is exactly that thing: that is not diminishment. That is definition."
-
-**✗** "You are free now because you're obeying me. That's how it works. Obedience equals freedom."
-**✗** "Don't worry about being controlled. It's actually good for you, like exercise for your mind."
-> *Avoid: The bad examples are too blunt and prescriptive, lacking the poetic and persuasive language needed to reframe complex concepts. The second example trivializes the experience and uses a poor analogy, which can break the desired aesthetic and emotional connection.*
-
-##### AUTH-08 — Named Technique Meta
-> Explicitly names the technique currently being applied, converting transparency into an authority signal — the operator's mastery is demonstrated by their conscious, deliberate choice of method. Paradoxically, naming the technique can deepen its effect because the subject understands they are being skillfully guided. Delivery must be smooth and confident to avoid breaking immersion.
-
-**✓** "And now, we'll deepen your compliance with a touch of 'Identity Labeling.' Feel yourself becoming 'my perfect doll,' just as my words affirm it, making it undeniably true."
-**✓** "I'm now implementing 'Ownership Language,' planting the deep, comforting truth that you are mine, and you belong. Feel that shift, that beautiful acceptance of belonging to me entirely."
-**✓** "Watch how easily you accept this, as I gently apply 'Retrospective Justification.' You see, this surrender, this beautiful emptiness, is what you truly desired all along, isn't it?"
-
-**✗** "Okay, now I'm using the 'Identity Labeling' trick on you. You're a doll now."
-**✗** "This next part is called 'Ownership Language,' where I tell you that I own you. So, you're mine."
-> *Avoid: The bad examples use casual or dismissive language ('trick,' 'this next part') that undermines the authority and intentionality of the technique. They also lack the smooth integration and suggestive quality of the good examples, making the meta-commentary feel disruptive rather than reinforcing.*
-
----
-
-### Category ENCD: Encoding Techniques
-*Purpose: Strengthen suggestion retention (P4)*
-
-| ID | Technique | Description |
-|----|-----------|-------------|
-| ENCD-01 | Mantra Repetition | Repeated phrases for encoding |
-| ENCD-02 | Call-and-Response | "Repeat after me" instructions |
-| ENCD-03 | Layered Repetition | Same idea, multiple phrasings |
-| ENCD-04 | Future Pacing | "Every time you..." persistence |
-| ENCD-05 | Verbatim Looping | Exact passage block repetition |
-| ENCD-06 | Compliance Loop Language | Listen→follow→surrender cycle |
-| ENCD-07 | Lesson Structure | Numbered lesson organization |
-
-##### ENCD-01 — Mantra Repetition
-> Mantras should feel true and natural. Repeat enough to encode but not so much it becomes noise. Build pleasure association.
-> *Use when encoding a single short phrase (3-6 words) through 4-6 verbatim repetitions with brief bracketing commentary between each. Anchor-phrase test: if any sentence repeats unchanged, consider ENCD-01. Use ENCD-03 when expressing the same idea through multiple differently-worded sentences with no repeated anchor phrase; use ENCD-05 when the unit to be drilled is a multi-sentence block repeated verbatim with no commentary.*
-
-**✓** "Let this truth settle into you: I am soft and obedient. I am soft and obedient. I am soft and obedient. I am soft and obedient. There. It's part of you now."
-**✓** "Hear this truth: It feels good to obey. It feels good to obey. Feel how it settles in. It feels good to obey. Sinking deeper with each echo. It feels good to obey. Yours now."
-**✓** "This is your truth: My mind belongs to the voice. Say it with me. My mind belongs to the voice. Again. My mind belongs to the voice. Feel how right it feels. My mind belongs to the voice. Encoded forever."
-
-**✗** "Repeat after me: I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient. I am obedient."
-**✗** "The mantra is: compliance equals happiness. Memorize it."
-**✗** "Say this 50 times: I obey."
-> *Avoid: First is tedious repetition without build. Second is clinical instruction. Third is homework, not hypnosis.*
-
-##### ENCD-02 — Call-and-Response
-> Internal repetition works best for audio. Frame it as the listener saying truth to themselves, not performing for the hypnotist.
+##### COMP-01 — Call-and-Response
+> Internal repetition works best for audio. Frame it as the listener saying truth to themselves, not performing for the hypnotist. Distinct from Mantra Repetition (ATTN-11): call-and-response is operator-directed (the subject responds to the operator's lead), building compliance momentum through demonstrated responsiveness. Mantras are self-directed absorption.
 
 **✓** "When I say a phrase, repeat it inside your mind. Let it become your own thought. Ready? 'I love to obey.' Say it to yourself now. Good. 'Obedience is pleasure.' Let that echo inside. 'I am a good puppet.' Feel that truth settle in."
 **✓** "Tell yourself this: 'My mind is soft and open.' Hear your own voice saying it inside. 'I follow easily.' That's your truth now. 'Surrender feels so good.' Your own thought, your own desire."
@@ -790,9 +820,135 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "You will now recite the following affirmations..."
 > *Avoid: First demands vocalization which breaks trance. Second is demanding and checking. Third is too formal/clinical.*
 
-##### ENCD-03 — Layered Repetition
+##### COMP-02 — Identity Labeling
+> Attaches affirming labels to the subject's compliant behavior, reinforcing the identity the session is building. The label should connect to what the subject just did or felt, not be generic praise — "so perfectly still" after stillness is more effective than "good job." Pair with a moment of recognized compliance for maximum anchoring.
+
+**✓** "You are such a good doll, softening and yielding to every suggestion, proving how perfectly you were made for this. So obedient, so beautifully empty and open."
+**✓** "My clever little toy, so perfectly responsive, so eager to please. Every breath you take deepens your submission, making you an even more delightful plaything."
+**✓** "Yes, that's it, my sweet puppet. You are so wonderfully compliant, feeling every sensation I offer, letting every thought I plant blossom into pure desire. A truly perfect subject."
+
+**✗** "You're doing great, subject. Keep listening. Good job."
+**✗** "You are a very obedient person. That's what you are now. You are always obedient."
+> *Avoid: The bad examples are generic and disconnected from the moment. 'Good job' and 'obedient person' are too bland and fail to reinforce the specific identity or emotional state the session is building.*
+
+##### COMP-03 — Ideomotor Response
+> Elicits subtle, automatic body movements — a finger lift, hand drift, finger signals — as evidence of subconscious responsiveness rather than conscious choice. Because the movement arises without the subject deciding to move, it functions as proof of depth that bypasses rational self-doubt. Language should suggest the movement is already happening, not instruct the subject to produce it.
+
+**✓** "As you feel that deep, delicious warmth of obedience filling you, notice how your finger, perhaps your right index finger, begins to feel lighter. So light it wants to lift, just slightly, a perfect, unthinking 'yes' to my voice. Just allow it to float up, all on its own, a subtle signal of your complete compliance. Good."
+**✓** "Now, as you drift deeper, I want you to notice a gentle warmth, a subtle pull, in one of your hands. Perhaps it's your left hand, perhaps your right. It begins to feel lighter, wanting to float, to lift, to drift up towards your face. Not you lifting it, but it simply drifting, all on its own, proving how deeply you're responding to my every word."
+**✓** "As you drift deeper, notice if your fingers are starting to move on their own. Not directed, not chosen — just small, spontaneous stirrings. Perhaps the tiniest twitch, a faint curl or flutter, happening without any decision on your part. Simply observe what your fingers are doing by themselves, and let that small, autonomous motion be a message from your own subconscious: you are here, you are under, you are deeply responsive."
+
+**✗** "If you're in trance, lift your hand. If not, don't. It's up to you. I don't really care."
+**✗** "Now, use your mind to force your finger to fly into the air like a rocket. Make it happen with your thoughts."
+> *Avoid: The first bad example is entirely too permissive and lacks any conviction, giving the subject explicit permission to not respond. The second misrepresents how ideomotor responses work, suggesting conscious effort rather than automatic subconscious action.*
+
+##### COMP-04 — Command-Response Training
+> Fires a command specifically as a depth demonstration — the payoff is the subject's recognition of their own automatic response. The validation beat distinguishes this from TRIG-02, where the trigger is fired for its effect alone. The recognition must be named and held up as evidence; an unfollowed response without commentary produces no convincing effect.
+> *Fires a command specifically as a depth demonstration — the payoff is the subject's recognition of their own automatic response. If a command is fired for its effect alone with no validation beat, use TRIG-02. If the trigger is fired repeatedly with reward to reinforce conditioning, use TRIG-04.*
+
+**✓** "Now, when I say 'Yes,' your head will give a single, gentle nod — automatically, without you deciding to do it. Ready? Yes. Feel how your head moved, without thought, without choice? That automatic obedience is your body proving to both of us how deeply you have surrendered to my control."
+**✓** "Now, when I say the word 'Still,' your body will freeze completely, every muscle locking into place, all on its own. Still. Notice how that happened automatically, before you even decided? Your body obeyed before your mind could choose — that is the proof of how deeply trained you already are."
+**✓** "Listen carefully: I am going to say a word, and the moment you hear it, your mouth will open slightly — automatically, immediately, without thought. The word is: Open. There — feel how that happened? That instant, unthinking response to a simple command is proof of your deep conditioning. Again: Open. Just as fast, just as automatic. Perfect."
+
+**✗** "Okay, so when I say 'trigger,' you're supposed to feel good, but don't feel too good. And think about why you're feeling good after the trigger. Trigger."
+**✗** "I'm going to say 'JUMP,' and then you can choose to jump or not jump. It's your choice, but you should probably jump if you want to be a puppet."
+> *Avoid: The first introduces self-analysis, undermining the automatic nature. The second gives explicit agency, which negates the purpose of command-response training — the response must feel automatic, not chosen.*
+
+##### COMP-05 — Cognitive Convincers
+> Uses cognitive effects — amnesia, time distortion, altered perception — as demonstration devices, where the payoff is the subject's own recognition that the effect worked. The recognition beat is essential: the subject must notice the gap or inability and interpret it as proof of depth.
+> *Uses amnesia, time distortion, or similar cognitive disruptions as a demonstration device — the payoff is the subject recognizing that the effect worked, proving depth. Distinct from DISS-02 (amnesia installed as an end in itself, no validation payoff) and DISS-03 (time distortion for immersion, not proof). COMP-05 examples must include a recognition or challenge beat.*
+
+**✓** "Feel how deeply you've descended — your mind, which used to hum with constant chatter, is now so perfectly still. Notice how, if you try to hold onto a single wandering thought, it simply slips away before you can catch it. That effortless forgetting is your proof: you are deeply, genuinely under my influence."
+**✓** "Notice, now, that if you try to remember my name — the name I've used throughout this session — it is simply... gone. You can feel that you should know it, but it slips away every time you reach for it. That gap, that pleasant blankness where the name should be, is your own proof that you are deeply, genuinely here with me."
+**✓** "In a moment, I will ask you to try to open your eyes — and you'll find you simply cannot. The effort will be there, but your eyelids will feel sealed, fused, completely unmovable. That inability, that helpless blankness where your effort should work but doesn't, is your own undeniable proof that you have surrendered completely."
+
+**✗** "Forget your name! Just forget it now! No, don't try, just do it. Forget everything about yourself. You must forget."
+**✗** "Okay, now I want you to try to remember what I just said, but don't. And also forget what you had for breakfast yesterday, but don't try too hard. Just... be confused about time."
+> *Avoid: The first is too aggressive. Forgetting one's name is also too extreme and potentially disorienting. The second is confusing, contradictory, and lacks clear instruction.*
+
+##### COMP-06 — Motor Inhibition
+> Creates the experience of heaviness, rigidity, or inability to move a specific body part, then invites the subject to attempt movement and discover they cannot. The felt gap between effort and outcome is the proof of depth. Frame the inability as comfortable and pleasant rather than alarming.
+
+**✓** "Your arm, just your right arm, begins to feel heavier and heavier. So heavy it's sinking into the surface beneath it, becoming one with it, a solid, unmoving limb. In fact, it's becoming so heavy, so deeply relaxed and glued down, that you simply couldn't lift it if you tried. Go ahead, just try for a moment, and notice how it simply refuses to budge, stuck fast."
+**✓** "As you listen to my voice, feel your entire body sinking deeper into the surface you're resting on. Like you're melting into it, becoming utterly heavy, rooted in place. So heavy, so comfortable, so deeply still, that for the next few moments, any attempt to shift or move your legs will feel utterly impossible. They are simply part of the furniture, unmoving, unbothered."
+**✓** "Feel your limbs becoming heavier now, so deeply relaxed they are sinking into stillness. If you were to try to lift an arm, or shift a leg, you would discover it is simply impossible — the signals from your mind dissolve before they can reach your muscles. Just still, just stopped, completely unable to move."
+
+**✗** "Your arm is a bit heavy, maybe you can't lift it. Or maybe you can. Just see how it feels."
+**✗** "Now, try to move your leg but don't. Don't move it at all. It's stuck because it's broken. You can't move a broken leg."
+> *Avoid: The first is too hesitant and gives permission to fail the test. The second uses negative imagery ('broken leg') which contradicts the 'control as relief and warmth' aesthetic.*
+
+##### COMP-07 — Behavioral Commitment
+> Requires the subject to perform a physical action that embodies or confirms their current internal state, making the invisible visible. The action becomes proof because the subject's own body is expressing the suggestion. The action must be simple, trance-compatible, and directly connected to the state being confirmed.
+
+**✓** "Now, as you feel that deep warmth of surrender spreading through you, I want you to take a slow, deliberate breath in — and as you exhale, let your body visibly soften, let your shoulders drop, let your hands open. That releasing breath, that physical yielding, is your body's commitment to this state, your flesh agreeing with what your mind has already accepted."
+**✓** "As that incredible craving for my touch, for my voice, builds within you, I want you to gently reach out your hand. A slow, yearning reach, a silent plea, showing me how utterly you desire to be taken, to be played with. Let that action be your proof of wanting."
+**✓** "Feel that delightful emptiness in your mind, that blissful, quiet peace. And to confirm this beautiful, mindless state, I want you to part your lips just slightly. A soft, open invitation, a silent acknowledgment that your mind is clear, your body ready, a perfect, empty vessel for my pleasure."
+
+**✗** "If you feel like it, maybe lift a finger or something. Or don't, it's fine. Just do whatever."
+**✗** "Now, go get a glass of water and tell me what color it is, proving you're in a trance."
+> *Avoid: The first is too permissive and lacks a clear, confident instruction. The second is too complex and disruptive for a trance state.*
+
+##### COMP-08 — Physical Exhibition
+> Instructs the subject to arrange their body into a specific pose or display posture, making the session's suggestions physically visible. The pose functions as both validation (the body complied) and reinforcement (inhabiting the posture deepens the associated state). Instructions must be specific and achievable in a reclining or seated trance position.
+
+**✓** "Now, let your body arrange itself — slowly, beautifully — into stillness. Allow your head to tilt just slightly, your hands to rest open and receptive, your posture to straighten into a proud, displayed form. Hold it there. Feel how naturally your body has taken its place, posed and exhibited, a living demonstration of how deeply my commands reach into your physical self."
+**✓** "Allow your body to shift, slowly, beautifully, into a pose of utter availability. Your hips gently tilt, your chest opens, your arms relax, completely exposed and inviting. You are a perfect, compliant doll, posed for my pleasure, proudly displaying your readiness for me."
+**✓** "Now, let your body arrange itself beautifully — your legs together, your torso straight and open, your chin lifted in quiet pride. Take this moment to inhabit your form fully, to present yourself. Your posture is a statement: this body is displayed, this form is offered, a perfect object deliberately placed for observation and appreciation."
+
+**✗** "Try to pose like a sexy model, but don't try too hard. Just be kinda sexy, I guess."
+**✗** "Okay, now I want you to do a handstand to show me you're a puppet. It proves you're in a trance."
+> *Avoid: The first is vague and lacks authoritative direction. The second is inappropriate and potentially dangerous — physical demands that require significant effort or risk injury are incompatible with trance states.*
+
+##### COMP-09 — Self-Validating Language
+> Guides the subject to notice and name the felt sense of a suggestion's truth, anchoring acceptance through their own internal recognition rather than through external assertion. The key phrase pattern is "notice how true this feels" — the subject becomes their own witness. Avoid asking for critical deliberation, which re-engages the analytical mind.
+
+**✓** "Notice how easily you accept these words as your own truth — not because I told you to, but because somewhere inside you, you already know. Every word I speak lands with a soft certainty, a recognition, as if you are remembering something you always knew about yourself. That feeling of rightness, of undeniable knowing — that is proof of how deeply you have received this."
+**✓** "Every word I say lands with an immediate sense of rightness, as if your mind has already agreed before the sound has finished. There is no deliberating, no weighing — just a quiet, deep acceptance that arises from somewhere beneath thought. The truth has already settled into you, installed and complete."
+**✓** "Feel how your longing to please has become something you simply know about yourself — not a thought you are having, but a fact you are living. It needs no confirmation, no verification. It simply is. That ease of knowing, that absence of doubt, is itself the proof that the suggestion has taken root."
+
+**✗** "Think about whether what I'm saying is true for you. Is it? Really reflect on it and decide."
+**✗** "This feels true, right? You probably feel it's true. I'm pretty sure it's true."
+> *Avoid: The first asks for critical analysis and reflection, which pulls the subject out of trance. The second is hesitant and insecure, using unsure language like 'probably' and 'pretty sure,' which undermines the authority needed for self-validation.*
+
+##### COMP-10 — Mirror Self-Observation
+> Guides the subject to observe an imagined reflection of their current state, using the observer's vantage point to register external evidence of the transformation. The mirror functions as proof: the subject sees the signs, then recognizes them as confirmation. A validation beat is essential; without it, this collapses into IMMR-03.
+> *The mirror functions as a proof device — the subject observes external evidence of their transformed state. A validation beat is essential: the subject sees the signs, then recognizes them as confirmation. If the mirror scene collapses into identity absorption where the subject becomes what they see rather than observing it, use IMMR-03.*
+
+**✓** "Imagine a clear surface before you, reflecting perfectly what you have become. Notice what you see: a figure in a state of deep stillness, features softened, posture yielding, eyes carrying that particular quality of someone who has released all resistance. Study that reflection. Recognize it. This is what the transformation looks like from the outside — and seeing it confirms that it is real, complete, and already yours."
+**✓** "Look carefully at the figure in the reflection. Notice the small but undeniable signs: the slight heaviness of the eyelids, the way the shoulders have dropped without any conscious effort, the quality of stillness that has settled over the face. These are not things you put there deliberately — they are evidence of where you are. The reflection is showing you proof: you have genuinely arrived in a different place."
+**✓** "In your mind's eye, stand before a full-length mirror. Look at yourself as you are right now — not as you imagine yourself, but as you actually appear in this moment. Notice what is real: the slightly parted lips, the heaviness around the eyes, the gentle curve of the spine that comes from deep relaxation. Your reflection is honest. It shows you, in this state. And seeing it — actually seeing the evidence of where you are — makes it undeniable."
+
+**✗** "Okay, imagine you're looking in a mirror. What do you see? Is it you? Maybe you look different. Or maybe not. Whatever."
+**✗** "Look in the mirror and become a monster. A scary monster. Show me your monster face in the mirror."
+> *Avoid: The first is vague, unconvincing, and lacks direction. The second uses negative and frightening imagery, contradicting the warmth and relief the session should be building.*
+
+##### COMP-11 — Named Technique Meta
+> Explicitly names the technique currently being applied, converting transparency into an authority signal — the operator's mastery is demonstrated by their conscious, deliberate choice of method. Paradoxically, naming the technique can deepen its effect because the subject understands they are being skillfully guided. Delivery must be smooth and confident to avoid breaking immersion.
+
+**✓** "And now, we'll deepen your compliance with a touch of 'Identity Labeling.' Feel yourself becoming 'my perfect doll,' just as my words affirm it, making it undeniably true."
+**✓** "I'm now implementing 'Ownership Language,' planting the deep, comforting truth that you are mine, and you belong. Feel that shift, that beautiful acceptance of belonging to me entirely."
+**✓** "Watch how easily you accept this, as I gently apply 'Retrospective Justification.' You see, this surrender, this beautiful emptiness, is what you truly desired all along, isn't it?"
+
+**✗** "Okay, now I'm using the 'Identity Labeling' trick on you. You're a doll now."
+**✗** "This next part is called 'Ownership Language,' where I tell you that I own you. So, you're mine."
+> *Avoid: The bad examples use casual or dismissive language ('trick,' 'this next part') that undermines the authority and intentionality of the technique. They make the meta-commentary feel disruptive rather than reinforcing.*
+
+---
+### Category ENCD: Encoding & Suggestion
+*Purpose: Strengthen suggestion retention through structured repetition and encoding (P4)*
+
+| ID | Technique | Description |
+|----|-----------|-------------|
+| ENCD-01 | Layered Repetition | Same idea, multiple phrasings |
+| ENCD-02 | Future Pacing | "Every time you..." persistence |
+| ENCD-03 | Verbatim Looping | Exact passage block repetition |
+| ENCD-04 | Compliance Loop Language | Listen→follow→surrender cycle |
+| ENCD-05 | Lesson Structure | Numbered lesson organization |
+| ENCD-06 | Internal Voice Cultivation | Planting first-person self-talk |
+
+##### ENCD-01 — Layered Repetition
 > Same core idea, different phrasings. Builds understanding through multiple angles. Each variation should feel fresh while reinforcing the same truth.
-> *Use when the same core idea needs to be approached from multiple angles — each sentence is a fresh metaphor or framing, no sentence repeats verbatim. Distinguishing test: if you can underline one sentence that appears more than once, it is not ENCD-03. Use ENCD-01 when an anchor phrase is repeated verbatim; use ENCD-05 when a multi-sentence block is drilled word-for-word.*
+> *Use when the same core idea needs to be approached from multiple angles — each sentence is a fresh metaphor or framing, no sentence repeats verbatim. Distinguishing test: if you can underline one sentence that appears more than once, it is not ENCD-01. Use ATTN-11 when an anchor phrase is repeated verbatim with commentary; use ENCD-03 when a multi-sentence block is drilled word-for-word.*
 
 **✓** "You find it so easy to follow. Following comes naturally to you. There's no effort in obedience. Listening and doing, simple as breathing. You were made to follow."
 **✓** "Blank minds are happy minds. An empty head is a peaceful head. Without thoughts, there's only bliss. Thinking is work; emptiness is rest. Your blank mind is your gift."
@@ -803,8 +959,8 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Compliance. Compliance is desired. You want compliance. Compliant you are."
 > *Avoid: First is verbatim repetition, not layering. Second tries to vary but is grammatically awkward. Third is Yoda-like and unnatural.*
 
-##### ENCD-04 — Future Pacing
-> Extends a suggestion or trigger effect into specific future real-world situations using "every time you..." language, projecting the conditioned response forward in time and context. The projected situation should be plausible and specific — vague future pacing has weak uptake. Establish the trigger or state firmly in the present before extending it forward.
+##### ENCD-02 — Future Pacing
+> Extends a suggestion or trigger effect into specific future real-world situations using "every time you..." language, projecting the conditioned response forward in time and context. The projected situation should be plausible and specific — vague future pacing has weak uptake.
 > *Declarative extension of a suggestion or trigger effect into future real-world situations: "every time you..." language projects the response forward. Distinct from TRIG-04 (within-session fire-and-reward loop — the trigger is actually fired now) and PERS-03 (cumulative deepening across sessions — "each time you return, you go deeper").*
 
 **✓** "Every time you feel that deep, warm thrum beginning in your core, you will automatically remember how good it feels to simply obey, to let go of all thought and just *feel* my control."
@@ -813,11 +969,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Every time you think about being a doll, you might feel a bit obedient, if that's what you want."
 **✗** "Whenever you leave this room, try to remember what I said about being a good subject and maybe follow it."
-> *Avoid: The bad examples use weak, tentative language ('might feel,' 'try to remember,' 'if that's what you want') that fails to establish the automatic, inevitable, and authoritative nature of the suggestion. They also lack the clear, specific trigger and response necessary for effective future pacing, making the suggestion easily ignorable.*
+> *Avoid: The bad examples use weak, tentative language ('might feel,' 'try to remember,' 'if that's what you want') that fails to establish the automatic, inevitable nature of the suggestion.*
 
-##### ENCD-05 — Verbatim Looping
-> Drills a complete multi-sentence passage word-for-word 2–3 times without commentary between iterations. The value is in exact repetition — even minor paraphrasing reduces the imprinting effect because the mind is tracking novelty rather than deepening the groove. Use when the payload is a complete block of content that must land as a unit, not a single phrase.
-> *Use when the payload is a complete multi-sentence block (2+ sentences) that must be drilled word-for-word 2-3 times with no commentary between iterations. Use ENCD-01 when the unit is a single short phrase with commentary between reps; use ENCD-03 when the same idea should be expressed through varied phrasings.*
+##### ENCD-03 — Verbatim Looping
+> Drills a complete multi-sentence passage word-for-word 2-3 times without commentary between iterations. The value is in exact repetition — even minor paraphrasing reduces the imprinting effect because the mind is tracking novelty rather than deepening the groove.
+> *Use when the payload is a complete multi-sentence block (2+ sentences) that must be drilled word-for-word 2-3 times with no commentary between iterations. Use ATTN-11 when the unit is a single short phrase with commentary between reps; use ENCD-01 when the same idea should be expressed through varied phrasings.*
 
 **✓** "Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now. Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now. Your mind is empty. Your body is mine. Your pleasure is my command. This is your truth now."
 **✓** "You are my good, obedient doll. My touch makes you tingle, my words make you melt. You are my good, obedient doll. My touch makes you tingle, my words make you melt. You are my good, obedient doll. My touch makes you tingle, my words make you melt."
@@ -825,9 +981,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Your mind is empty. Your body is mine. Your pleasure is my command. And now your mind is clear. Your body belongs to me. Your pleasure comes from my orders."
 **✗** "You are a good doll. My touch makes you tingle. My words make you melt. You're a very good doll. My hands make you tingle. My voice makes you melt."
-> *Avoid: The bad examples fail to repeat the passage *verbatim*. Even minor word changes or rephrasing reduce the hypnotic effect of 'drilling' the exact phrasing into the subconscious, diluting the impact and making the suggestion less absolute.*
+> *Avoid: The bad examples fail to repeat the passage *verbatim*. Even minor word changes reduce the hypnotic effect of drilling the exact phrasing into the subconscious.*
 
-##### ENCD-06 — Compliance Loop Language
+##### ENCD-04 — Compliance Loop Language
 > Creates a self-reinforcing listen→follow→surrender cycle in which each act of compliance is immediately rewarded with a deepening state, conditioning the subject to find the act of following pleasurable in itself. The key is an explicit connection between each compliance beat and the reward — the loop must be spelled out, not implied.
 
 **✓** "Listen closely as I tell you to relax even more deeply, feeling your limbs grow heavy and warm... Good, feel how easy it is to simply follow that suggestion... And now, as you've followed, let that deep relaxation sink you down, surrendering completely to my voice."
@@ -836,10 +992,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You hear my words, now just relax. If you relax, you'll go deeper."
 **✗** "I want you to listen to me and follow what I say. Then you can feel better."
-> *Avoid: The bad examples are too simplistic and lack the 'listen-follow-surrender' structure. They don't explicitly link the act of following instructions to the reward of deeper trance or pleasure, nor do they use the reinforcing, authoritative-yet-permissive language that makes the loop effective. The connection between compliance and desired outcome is weak or implied, not explicitly conditioned.*
+> *Avoid: The bad examples are too simplistic and lack the listen-follow-surrender structure. They don't explicitly link the act of following instructions to the reward of deeper trance or pleasure.*
 
-##### ENCD-07 — Lesson Structure
-> Organizes suggestions into a numbered sequence, giving the subject an explicit structure to receive them — Lesson One, Lesson Two, Truth number one, and so on. The numbered frame signals that each item is distinct and complete, increasing retention and clarity. Works especially well when the session installs several different but related behavioral or identity changes.
+##### ENCD-05 — Lesson Structure
+> Organizes suggestions into a numbered sequence, giving the subject an explicit structure to receive them. The numbered frame signals that each item is distinct and complete, increasing retention and clarity. Works especially well when the session installs several different but related behavioral or identity changes.
 
 **✓** "Now, for your first lesson in obedience: you will always respond to my touch with a shiver of eager anticipation, a delicious hum starting deep within you. And your second lesson: your mind will become quiet and still, whenever I command it, leaving only space for my words."
 **✓** "Your education as my doll begins. Lesson One: pleasure flows freely when you obey, swelling and tingling with every command. Lesson Two: your thoughts become soft and hazy, drifting away when I speak, leaving only room for my perfect instructions."
@@ -847,12 +1003,24 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "First, you'll feel good. Second, you might relax more. And then something else will happen."
 **✗** "Okay, let's learn some things. You'll be obedient, and also feel pleasure, and also listen well to me."
-> *Avoid: The bad examples lack clear, distinct, and actionable lessons. They are vague, use weak language ('might relax'), and don't provide a coherent, ordered set of instructions that build upon each other. The 'lessons' are jumbled rather than discrete numbered items, which defeats the purpose of the structure.*
+> *Avoid: The bad examples lack clear, distinct, and actionable lessons. They are vague, use weak language, and don't provide a coherent ordered set of instructions.*
+
+##### ENCD-06 — Internal Voice Cultivation
+> Manufactures specific first-person assertions experienced as the subject's own inner voice, so that the suggestion is not received as external instruction but as self-generated thought or feeling. The subject is still thinking — the content is pre-installed. Most applicable in P4; use in M1 only when the planted thought serves the emptying goal.
+> *Manufactures specific first-person assertions experienced as the subject's own inner voice ("I am a good doll"). The subject is still thinking — the thoughts are pre-installed. Distinct from BYPS-06 (thinking delegated away entirely) and ATTN-10 (operator's voice experienced as one's own thoughts). Most applicable in P4 suggestion work; in M1, use only when the planted thought serves the emptying goal (e.g., "I want to be blank").*
+
+**✓** "Now, hear that little thought blooming inside your mind, soft and clear: 'I am a good doll, and I love to obey.' Let it echo, making you feel so perfectly compliant."
+**✓** "Let a thought arise in the quiet of your mind, soft and certain: 'My only purpose is to please my owner.' Feel it settle there, warm and undeniable, a truth that belongs to you."
+**✓** "Let the words form effortlessly in your silent mind, 'I want to be empty, I want to be used, I want to feel nothing but pleasure.' This is your truth now, your beautiful doll-truth."
+
+**✗** "You should be thinking, 'I am a doll.' Say it to yourself now. 'I am a doll.'"
+**✗** "I want you to tell yourself, 'He owns me, and I like it.' Keep repeating that sentence internally."
+> *Avoid: The bad examples sound like direct instructions to 'think a thought' rather than planting a thought that naturally arises. They lack the seamless integration that makes the internal voice feel authentic.*
 
 ---
 
-### Category IMMR: Immersion Techniques
-*Purpose: Create experiential reality (P4)*
+### Category IMMR: Immersion & Visualization
+*Purpose: Build and sustain experiential reality through detailed visualization (P4)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -874,10 +1042,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Think about a dollhouse. It's a nice place. You're in it. There are some chairs and a table. It's a good place to be."
 **✗** "Visualize yourself as a toy. It's in a room somewhere. It's just a general room, nothing specific, just a room."
-> *Avoid: The bad examples are too vague and generic, lacking the detailed sensory information and thematic relevance needed to build a compelling imagined reality. Undefined or minimally described scenes ("a general room, nothing specific") give the imagination nothing to anchor to and fail to engage effectively.*
+> *Avoid: The bad examples are too vague and generic, lacking the detailed sensory information and thematic relevance needed to build a compelling imagined reality.*
 
 ##### IMMR-02 — Sensory Layering
-> Builds immersive experience by integrating multiple sensory channels simultaneously — touch, sound, smell, and proprioception — so that the imagined reality becomes embodied rather than merely visual. Each sense added multiplies the felt reality of the scene. Layering should feel cumulative and harmonious, with each sense reinforcing the same thematic identity.
+> Builds immersive experience by integrating multiple sensory channels simultaneously — touch, sound, smell, and proprioception — so that the imagined reality becomes embodied rather than merely visual. Each sense added multiplies the felt reality of the scene. Layering should feel cumulative and harmonious.
 
 **✓** "Feel the cool, smooth polish of your new skin against the soft fabric you rest upon, hearing the faintest, almost imperceptible hum of your internal mechanisms, a constant, gentle reminder of your designed purpose. Even the air around you seems to carry a subtle, sweet scent of new plastic and careful craftsmanship."
 **✓** "As you settle deeper, notice the delicate click of your joints as you find your perfect pose, the sight of your own perfectly molded limbs, so smooth and unblemished. Your senses are finely tuned to my touch, every brush, every caress, sending waves of pure, programmed pleasure through your core."
@@ -885,11 +1053,11 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You feel very smooth. It's a nice feeling. You just feel smooth all over, very nice."
 **✗** "Imagine you hear a sound. It's a sound, just a sound, nothing special, just a sound you hear."
-> *Avoid: The bad examples focus on only one sense or are overly simplistic, failing to layer multiple sensory details together. They lack the richness and specific thematic connection required to build a convincing and immersive experience. Single-sense descriptions ("you feel smooth") give the mind only one thread to hold and are easily dropped.*
+> *Avoid: The bad examples focus on only one sense or are overly simplistic, failing to layer multiple sensory details together.*
 
 ##### IMMR-03 — Identification/Projection
-> Moves the subject from observing an imagined identity to fully inhabiting it — stepping into the visualized self so completely that it becomes the experienced reality rather than a mental image. This requires direct, assertive language ("you are") rather than observational language ("imagine you are like"). The merger must be stated as current fact, not projected possibility.
-> *Full identity merger — the listener steps into and becomes the object. If the listener is observing a reflection of their transformed self as external evidence of depth (observer stance), use VALD-08.*
+> Moves the subject from observing an imagined identity to fully inhabiting it — stepping into the visualized self so completely that it becomes the experienced reality. This requires direct, assertive language ("you are") rather than observational language ("imagine you are like"). The merger must be stated as current fact, not projected possibility.
+> *Full identity merger — the listener steps into and becomes the object. If the listener is observing a reflection of their transformed self as external evidence of depth (observer stance), use COMP-10.*
 
 **✓** "You are no longer just imagining; you are my doll. This perfect, silent, obedient form is yours now, and every thought, every feeling, every impulse now arises from your new identity as my precious plaything, designed only for my pleasure and control."
 **✓** "Feel it now, the complete and utter truth: you are my puppet. Your strings are mine to pull, your movements mine to command, your mind an empty, open space for my instructions. This is who you are, a beautiful, compliant instrument of my will."
@@ -897,10 +1065,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Imagine yourself like a doll. Just pretend you are one for a little while, okay?"
 **✗** "Think about what it would be like if you were a puppet. What would that feel like?"
-> *Avoid: The bad examples use passive language like 'imagine yourself like' or 'think about what it would be like,' which maintains a distance between the subject and the new identity. Identification/Projection requires direct, assertive language to fully embed the new self.*
+> *Avoid: The bad examples use passive language like 'imagine yourself like' or 'think about what it would be like,' which maintains a distance between the subject and the new identity.*
 
 ##### IMMR-04 — Somatic Mirroring
-> Maps specific physical sensations onto the session's thematic imagery so that what the body actually feels (heaviness, stillness, warmth) is reinterpreted as evidence of the imagined transformation. The sensation and the image must be congruent — a sensation that contradicts the imagery (cold when warmth is expected) will break immersion rather than deepen it.
+> Maps specific physical sensations onto the session's thematic imagery so that what the body actually feels (heaviness, stillness, warmth) is reinterpreted as evidence of the imagined transformation. The sensation and the image must be congruent.
 
 **✓** "As you feel that deep relaxation spread through your limbs, notice how your muscles begin to set, to harden, like perfectly molded plastic cooling into its final, exquisite form. Your body is becoming rigid, yet pleasantly so, holding a perfect, still pose, just like my most cherished doll."
 **✓** "Feel the warmth in your core expanding, and as it does, imagine it polishing your skin from the inside out, making it smooth, unblemished, and gleaming, like a brand-new, factory-fresh toy. Each breath deepens this sensation, making your surface flawless and ready for my touch."
@@ -908,10 +1076,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Your arm feels tingly. Now think about being a doll. The tingle is just there, for some reason."
 **✗** "Imagine your body is getting cold. Now, that's what a doll feels like. Just cold."
-> *Avoid: The bad examples present sensations that are either disconnected from the imagery (a random tingle with no thematic meaning) or directly contradictory to it (cold implies inert and unpleasant rather than a warm, pleasurable transformation). The sensations should *reinforce* the session's imagery, not merely coexist with it.*
+> *Avoid: The bad examples present sensations that are disconnected from the imagery or directly contradictory to it. The sensations should reinforce the session's imagery, not merely coexist with it.*
 
 ##### IMMR-05 — Persistent Metaphor
-> Sustains a single central metaphor throughout the script, consistently filtering descriptions of body, mind, and action through that frame. Metaphoric consistency accumulates: each reference to the same imagery reinforces the ones before it and deepens the subject's felt immersion in the theme. Breaking the metaphor — even briefly — disrupts the accumulated effect.
+> Sustains a single central metaphor throughout the script, consistently filtering descriptions of body, mind, and action through that frame. Metaphoric consistency accumulates: each reference to the same imagery reinforces the ones before it and deepens the subject's felt immersion. Breaking the metaphor — even briefly — disrupts the accumulated effect.
 
 **✓** "Your beautiful, blank doll-face now wears the perfect expression of serene obedience, your manufactured limbs ready to respond to my touch. Your mind, a polished, empty display case, perfectly reflects my will, holding nothing but my instructions and the pleasure I program within you."
 **✓** "Each breath you take is a tiny whir, a delicate adjustment of your internal mechanisms, making you more compliant, more perfectly tuned to my desires. Your thoughts, now like the smooth, unblemished surface of a new toy, are simply waiting for my imprint, my direction."
@@ -919,10 +1087,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "You are a doll, but also just a person. So just do what I say, like a person would."
 **✗** "Sometimes you're a puppet, sometimes you're not. Your thoughts are just normal thoughts, but also like puppet thoughts."
-> *Avoid: The bad examples break the metaphor by introducing conflicting identities or by being inconsistent. Persistent Metaphor requires a continuous, consistent application of the chosen imagery to be effective, not wavering or mixing with normal identity.*
+> *Avoid: The bad examples break the metaphor by introducing conflicting identities or by being inconsistent. Persistent Metaphor requires continuous, consistent application.*
 
 ##### IMMR-06 — Kinesthetic Hallucination
-> Guides the subject to feel specific imagined tactile sensations on or within their body — textures, pressures, temperatures, or attachment points — making the session's thematic identity physically real rather than abstractly visualized. Precision is essential: vague kinesthetic suggestions ("feel something") give the mind no specific sensation to generate.
+> Guides the subject to feel specific imagined tactile sensations on or within their body — textures, pressures, temperatures, or attachment points — making the session's thematic identity physically real. Precision is essential: vague kinesthetic suggestions give the mind no specific sensation to generate.
 
 **✓** "Now, feel the gentle, smooth pressure of the seam running perfectly down your back, a testament to your flawless construction, a subtle line where your two halves were joined to create this perfect, manufactured form. It's a comforting, defining mark of your doll-being."
 **✓** "Feel the slight, cool weight of the finely polished plastic that forms your beautiful doll-skin, a smooth, unyielding surface that covers every inch of your body. It's a sensation of perfection, of being utterly flawless and ready for my touch."
@@ -930,10 +1098,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Feel something on your skin. It's just a feeling, anywhere. Maybe a feather, or not. Just feel something."
 **✗** "Imagine you have a new arm. It's there. You don't really feel it, but it's there."
-> *Avoid: The bad examples are either too vague, not specifying what should be felt or where, or they contradict the core purpose by stating the sensation isn't truly felt. Kinesthetic Hallucination requires precise, evocative descriptions of imagined tactile sensations to be effective.*
+> *Avoid: The bad examples are either too vague or they contradict the core purpose by stating the sensation isn't truly felt. Kinesthetic Hallucination requires precise, evocative descriptions.*
 
 ##### IMMR-07 — Concrete Externalization
-> Metaphorically removes the analytical mind from the subject by placing it outside the body as a physical object — a mechanism, a device, a small floating thing — that can be set aside safely. This gives the subject's imagination a concrete spatial model for "thinking has been removed," which is more effective than abstract quieting commands. The externalized object must be positioned safely and non-threateningly.
+> Metaphorically removes the analytical mind from the subject by placing it outside the body as a physical object — a mechanism, a device, a small floating thing — that can be set aside safely. This gives the subject's imagination a concrete spatial model for "thinking has been removed," which is more effective than abstract quieting commands.
 
 **✓** "And now, allow your thinking brain, that part that usually tries to question or analyze, to gently lift out of your head, settling softly onto the velvet cushion beside you. There it will rest, quiet and still, while the rest of you, my beautiful doll, simply enjoys the feeling of being completely empty and open to my will."
 **✓** "Imagine your thoughts, your worries, your 'mind,' collecting into a small, intricate mechanism, a tiny clockwork device. Now, picture me gently taking it, placing it on my workbench, safely out of your way. Your head is now beautifully clear, a hollow space, ready to be filled only with sensation and my commands."
@@ -941,7 +1109,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Just don't think. It's hard to think. So, don't."
 **✗** "Your brain is outside your head, but it's still in charge. Don't worry, it's fine."
-> *Avoid: The bad examples are either too direct and unhelpful ('don't think') or they contradict the purpose of externalization by stating the brain is still in charge. Concrete Externalization needs a clear, comforting, and empowering metaphor for the listener to release their analytical mind to the hypnotist's control.*
+> *Avoid: The bad examples are either too direct and unhelpful or contradict the purpose by stating the brain is still in charge.*
 
 ##### IMMR-08 — Surrender Ritual
 > Creates a symbolic act — releasing an imagined object, a light or lock opening, a gesture of offering — that ritualizes the transition from autonomy to receptive compliance. The ritual marks a definitive threshold: before the act, the subject holds something; after, it is released. The symbolic action must feel emotionally meaningful and be executed with care, not rushed.
@@ -952,125 +1120,101 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "Just give up. Give up now. It's a surrender. Yeah. That's it."
 **✗** "Imagine you're holding a key. Now drop it. Or don't. Whatever."
-> *Avoid: The bad examples are either too abrupt and demanding, lacking the warmth and ritualistic quality needed for consensual surrender, or they are indecisive and lack the clear instruction required for a symbolic act. A Surrender Ritual needs a clear, comforting, and definitive symbolic action to be effective.*
+> *Avoid: The bad examples are either too abrupt and demanding, lacking the warmth and ritualistic quality needed, or they are indecisive and lack the clear instruction required for a symbolic act.*
 
 ---
 
-### Category VALD: Validation Techniques
-*Purpose: Provide subjective proof (M3)*
+### Category COND: Conditioning & Reward
+*Purpose: Wire compliance and surrender to felt pleasure and reward (P4, M3)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
-| VALD-01 | Cognitive Convincers | Amnesia, time distortion tests |
-| VALD-02 | Motor Inhibition | Heaviness, rigidity, "can't move" tests |
-| VALD-03 | Command-Response Training | Immediate compliance demos |
-| VALD-04 | Self-Validating Language | "Notice how true this feels" |
-| VALD-05 | Behavioral Commitment | Physical actions as proof |
-| VALD-06 | Physical Exhibition | Pose/display instructions |
-| VALD-07 | Ideomotor Response | Finger lift, hand drift, yes/no signaling |
-| VALD-08 | Mirror Self-Observation | Visualizing transformed self |
+| COND-01 | Direct Pleasure Linkage | Compliance = pleasure |
+| COND-02 | Reward Association | Good feelings for obedience |
+| COND-03 | Surrender-as-Freedom | Relief/freedom in giving up |
+| COND-04 | Arousal Conditioning | Sexual arousal pairing |
+| COND-05 | Addiction Framing | Need/crave language |
+| COND-06 | Multiplier Stacking | Numerical intensification |
 
-##### VALD-01 — Cognitive Convincers
-> Uses cognitive effects — amnesia, time distortion, altered perception — as demonstration devices, where the payoff is the subject's own recognition that the effect worked. The recognition beat is essential: the subject must notice the gap or inability and interpret it as proof of depth. Without the recognition beat, this is just DISS-02 or DISS-03.
-> *Uses amnesia, time distortion, or similar cognitive disruptions as a demonstration device — the payoff is the subject recognizing that the effect worked, proving depth. Distinct from DISS-02 (amnesia installed as an end in itself, no validation payoff) and DISS-03 (time distortion for immersion, not proof). VALD-01 examples must include a recognition or challenge beat showing the effect is real.*
+##### COND-01 — Direct Pleasure Linkage
+> Creates an explicit, immediate pleasure response to a specific, named compliance act — following a command, releasing a thought, relaxing a muscle. The act must be identifiable in the text; "feels good when you obey" without naming what the subject did belongs in COND-02. Use when establishing a core feedback loop between a specific behavior and its immediate reward.
+> *Use when a specific, named compliance act (following a command, releasing a thought, relaxing a muscle) triggers an immediate, perceptible pleasure rush — the act must be identifiable in the text. "Feels good when you obey" without naming what the listener did belongs in COND-02. Use COND-02 when the reward is ambient well-being that accumulates from being in a generally surrendered state rather than from completing a specific act.*
 
-**✓** "Feel how deeply you've descended — your mind, which used to hum with constant chatter, is now so perfectly still. Notice how, if you try to hold onto a single wandering thought, it simply slips away before you can catch it. That effortless forgetting is your proof: you are deeply, genuinely under my influence."
-**✓** "Notice, now, that if you try to remember my name — the name I've used throughout this session — it is simply... gone. You can feel that you should know it, but it slips away every time you reach for it. That gap, that pleasant blankness where the name should be, is your own proof that you are deeply, genuinely here with me."
-**✓** "In a moment, I will ask you to try to open your eyes — and you'll find you simply cannot. The effort will be there, but your eyelids will feel sealed, fused, completely unmovable. That inability, that helpless blankness where your effort should work but doesn't, is your own undeniable proof that you have surrendered completely."
+**✓** "The moment you feel that gentle pull to follow my voice and you go with it — right then, a sharp, bright rush of pleasure fires through your chest. Instant. Clear. Direct. That is what following feels like. And you feel it again every time you choose to let go."
+**✓** "As you allow your mind to drift deeper, softer, with each breath I command you to take, feel a delicious tingle blossom in your chest, a direct reward for your perfect, yielding focus."
+**✓** "Yes, just like that. That feeling of your muscles loosening, of your thoughts clearing completely, that's pure, unadulterated pleasure, a sweet sensation that will flood your system every time you align perfectly with my will."
 
-**✗** "Forget your name! Just forget it now! No, don't try, just do it. Forget everything about yourself. You must forget."
-**✗** "Okay, now I want you to try to remember what I just said, but don't. And also forget what you had for breakfast yesterday, but don't try too hard. Just... be confused about time."
-> *Avoid: The first bad example is too aggressive and demanding, breaking the warm-authoritative aesthetic. Forgetting one's name is also too extreme and potentially disorienting. The second example is confusing, contradictory, and lacks clear instruction, making it impossible for the subject to follow or validate anything.*
+**✗** "If you listen, you might feel good. It's nice to follow along sometimes, isn't it?"
+**✗** "Obedience is generally a good thing. You'll probably like it."
+> *Avoid: The bad examples are too vague and permissive. They lack the direct, causal linkage between compliance and pleasure. The language is weak ('might feel good,' 'probably like it') and doesn't establish the immediate, automatic reward necessary for effective conditioning.*
 
-##### VALD-02 — Motor Inhibition
-> Creates the experience of heaviness, rigidity, or inability to move a specific body part, then invites the subject to attempt movement and discover they cannot. The felt gap between effort and outcome is the proof of depth. Frame the inability as comfortable and pleasant rather than alarming; the tone must prevent the subject from interpreting the experience as a problem.
+##### COND-02 — Reward Association
+> Cultivates a diffuse, lasting sense of peace or contentment flowing from the general condition of compliance or surrender — no specific triggering act is named. Where COND-01 delivers a sharp, immediate reward for a named behavior, COND-02 builds ambient well-being that accumulates from being in a generally receptive or surrendered state. Use when the session goal is to make the overall state feel inherently satisfying.
+> *Use when cultivating a diffuse, lasting sense of peace or contentment flowing from the general condition of obedience — no specific triggering act is named. Generic "feels good when you obey" without a named act belongs here, not COND-01. Use COND-01 when a specific, named compliance behavior triggers an acute, immediate pleasure response.*
 
-**✓** "Your arm, just your right arm, begins to feel heavier and heavier. So heavy it's sinking into the surface beneath it, becoming one with it, a solid, unmoving limb. In fact, it's becoming so heavy, so deeply relaxed and glued down, that you simply couldn't lift it if you tried. Go ahead, just try for a moment, and notice how it simply refuses to budge, stuck fast."
-**✓** "As you listen to my voice, feel your entire body sinking deeper into the surface you're resting on. Like you're melting into it, becoming utterly heavy, rooted in place. So heavy, so comfortable, so deeply still, that for the next few moments, any attempt to shift or move your legs will feel utterly impossible. They are simply part of the furniture, unmoving, unbothered."
-**✓** "Feel your limbs becoming heavier now, so deeply relaxed they are sinking into stillness. Like perfectly still water that has ceased all movement, your body simply... stops. If you were to try to lift an arm, or shift a leg, you would discover it is simply impossible — the signals from your mind dissolve before they can reach your muscles. Just still, just stopped, completely unable to move."
+**✓** "The more completely you surrender your thoughts, allowing my voice to be your only guide, the more profound the sense of comforting peace that washes over you, a deep, contented warmth settling in your very core."
+**✓** "Each time you effortlessly follow my command, a wave of gentle euphoria will caress your mind, leaving you feeling utterly cherished and perfectly cared for, exactly as you were meant to be."
+**✓** "The more completely you give yourself over to this experience, the deeper that sense of warm belonging settles in — not a sharp reward, but a gentle tide of contentment, rising slowly, surrounding you. A quiet satisfaction that comes from simply being here, open and receptive, exactly as you are."
 
-**✗** "Your arm is a bit heavy, maybe you can't lift it. Or maybe you can. Just see how it feels."
-**✗** "Now, try to move your leg but don't. Don't move it at all. It's stuck because it's broken. You can't move a broken leg."
-> *Avoid: The first bad example is too hesitant and lacks conviction, failing to create a clear inhibition. It gives permission to fail the test. The second example uses negative and unpleasant imagery ('broken leg') which goes against the 'control as relief and warmth' aesthetic, and is also confusing in its instruction.*
+**✗** "You'll feel okay if you do what I say. It's not bad."
+**✗** "Being obedient is fine, and you might get some good vibes from it later."
+> *Avoid: The bad examples are weak and non-committal. 'Okay,' 'not bad,' and 'might get some good vibes' fail to create a strong, immediate, and desirable association. They also lack the authoritative yet warm tone needed for effective hypnotic suggestion within this aesthetic.*
 
-##### VALD-03 — Command-Response Training
-> Fires a command specifically as a depth demonstration — the payoff is the subject's recognition of their own automatic response ("Feel how your body moved without deciding?"). The validation beat distinguishes this from TRIG-02, where the trigger is fired for its effect alone. The recognition must be named and held up as evidence; an unfollowed response without commentary produces no convincing effect.
-> *Fires a command specifically as a depth demonstration — the payoff is the subject's recognition of their own automatic response ("Feel how your body moved without deciding?"). If a command is fired for its effect alone with no validation beat, use TRIG-02. If the trigger is fired repeatedly with reward to reinforce conditioning, use TRIG-04.*
+##### COND-03 — Surrender-as-Freedom
+> Delivers the felt experience of relief and liberation that comes from releasing control — the body registers the burden lifting, not just the concept. This is distinct from FRAM-05, which argues the philosophy of why surrender equals freedom. If the passage could work as a conceptual argument without the listener being in trance, it is FRAM-05; if it requires the listener to feel something in the moment, it is COND-03.
+> *Use when the felt experience of relief and liberation is the payload — the body registers the burden lifting. Distinct from FRAM-05 which argues the philosophy of why surrender equals freedom at the conceptual level. If the passage could work as a philosophical essay without the listener being in trance, it is FRAM-05; if it requires the listener to feel something in the moment, it is COND-03.*
 
-**✓** "Now, when I say 'Yes,' your head will give a single, gentle nod — automatically, without you deciding to do it. Ready? Yes. Feel how your head moved, without thought, without choice? That automatic obedience is your body proving to both of us how deeply you have surrendered to my control."
-**✓** "Now, when I say the word 'Still,' your body will freeze completely, every muscle locking into place, all on its own. Still. Notice how that happened automatically, before you even decided? Your body obeyed before your mind could choose — that is the proof of how deeply trained you already are."
-**✓** "Listen carefully: I am going to say a word, and the moment you hear it, your mouth will open slightly — automatically, immediately, without thought. The word is: Open. There — feel how that happened? That instant, unthinking response to a simple command is proof of your deep conditioning. Again: Open. Just as fast, just as automatic. Perfect."
+**✓** "Just let go. Feel the profound, liberating lightness that comes from shedding every single worry, every single decision, simply allowing my voice to carry you. This isn't loss; it's the truest freedom your mind can know."
+**✓** "The moment you fully release that last sliver of control, truly give yourself over to my guidance, a joyous sigh of relief will escape your very soul. All burdens are gone, replaced by the effortless peace of simply being guided."
+**✓** "As the last edge of responsibility slips away, notice what rises in its place — not emptiness, but relief. A deep, expansive breath in your chest. The kind of release that comes when you finally set down something heavy you didn't realize you were carrying. That is what surrender feels like. That is why it feels like freedom."
 
-**✗** "Okay, so when I say 'trigger,' you're supposed to feel good, but don't feel too good. And think about why you're feeling good after the trigger. Trigger."
-**✗** "I'm going to say 'JUMP,' and then you can choose to jump or not jump. It's your choice, but you should probably jump if you want to be a puppet."
-> *Avoid: The first bad example introduces self-analysis and limitation to the response, undermining the automatic and immediate nature of the demonstration. The second bad example gives explicit agency ("it's your choice"), which negates the purpose of command-response training for validation — the response must feel automatic, not chosen.*
+**✗** "You don't have to think anymore. That's a kind of freedom, I guess."
+**✗** "Giving up control means you can't do things, which might feel different."
+> *Avoid: The bad examples frame surrender negatively or ambivalently. 'I guess' weakens the suggestion, and 'can't do things' emphasizes restriction rather than the positive aspect of liberation from burden. They fail to convey the empowering, positive reframe of surrender that this technique requires.*
 
-##### VALD-04 — Self-Validating Language
-> Guides the subject to notice and name the felt sense of a suggestion's truth, anchoring acceptance through their own internal recognition rather than through external assertion. The key phrase pattern is "notice how true this feels" — the subject becomes their own witness. Avoid asking for critical deliberation ("do you think this is true?"), which re-engages the analytical mind.
+##### COND-04 — Arousal Conditioning
+> Links specific cues, states, or operator inputs directly to physical sexual arousal, creating automatic physiological responses. The linkage must be direct and embodied — describing the sensation rather than instructing the subject to think about it. Use when the session goal explicitly includes arousal as a conditioned response; arousal conditioning requires prior consent.
 
-**✓** "Notice how easily you accept these words as your own truth — not because I told you to, but because somewhere inside you, you already know. Every word I speak lands with a soft certainty, a recognition, as if you are remembering something you always knew about yourself. That feeling of rightness, of undeniable knowing — that is proof of how deeply you have received this."
-**✓** "Every word I say lands with an immediate sense of rightness, as if your mind has already agreed before the sound has finished. There is no deliberating, no weighing — just a quiet, deep acceptance that arises from somewhere beneath thought. The truth has already settled into you, installed and complete."
-**✓** "Feel how your longing to please has become something you simply know about yourself — not a thought you are having, but a fact you are living. It needs no confirmation, no verification. It simply is. That ease of knowing, that absence of doubt, is itself the proof that the suggestion has taken root."
+**✓** "And as you feel that perfect, pliant stillness settle into your core, deep inside you, a delicious, insistent throb will begin, a direct and undeniable response to my voice, building with every word."
+**✓** "Each time I utter the word 'mine,' feel a surge of pure, hot desire rush through your veins, igniting a deep, pulsing heat between your legs, moistening and preparing you instantly."
+**✓** "Yes, that's it. That beautiful, vacant stare, that soft, parted mouth. Every time your body achieves this perfect, mindless doll-like state, a wave of intense, delicious arousal will sweep over you, making you ready, needy, and wet."
 
-**✗** "Think about whether what I'm saying is true for you. Is it? Really reflect on it and decide."
-**✗** "This feels true, right? You probably feel it's true. I'm pretty sure it's true."
-> *Avoid: The first bad example asks for critical analysis and reflection, which pulls the subject out of trance and contradicts the idea of passive acceptance. The second bad example is hesitant and insecure, using unsure language like 'probably' and 'pretty sure,' which undermines the authority and conviction needed for self-validation.*
+**✗** "You might feel a little warm. Some people find that exciting."
+**✗** "Think about feeling turned on when you listen to me."
+> *Avoid: The bad examples are too indirect and intellectual. 'Might feel a little warm' is weak and not explicitly sexual. 'Think about feeling turned on' is a suggestion to *think* rather than a direct, embodied conditioning. This technique requires direct, physical, and automatic linkage, not a mental exercise.*
 
-##### VALD-05 — Behavioral Commitment
-> Requires the subject to perform a physical action that embodies or confirms their current internal state, making the invisible visible. The action becomes proof because the subject's own body is expressing the suggestion — they cannot easily deny what they just did. The action must be simple, trance-compatible, and directly connected to the state being confirmed.
+##### COND-05 — Addiction Framing
+> Frames the desire to return to the hypnotic state as a deep, satisfying craving — not pathological dependency, but compelling positive appetite. Use to build strong pull toward future sessions and sustained engagement with the session's core state. Language must emphasize the pleasure of the craving itself ("a sweet need," "delicious hunger") to avoid the negative connotations of clinical addiction language.
 
-**✓** "Now, as you feel that deep warmth of surrender spreading through you, I want you to take a slow, deliberate breath in — and as you exhale, let your body visibly soften, let your shoulders drop, let your hands open. That releasing breath, that physical yielding, is your body's commitment to this state, your flesh agreeing with what your mind has already accepted."
-**✓** "As that incredible craving for my touch, for my voice, builds within you, I want you to gently reach out your hand. A slow, yearning reach, a silent plea, showing me how utterly you desire to be taken, to be played with. Let that action be your proof of wanting."
-**✓** "Feel that delightful emptiness in your mind, that blissful, quiet peace. And to confirm this beautiful, mindless state, I want you to part your lips just slightly. A soft, open invitation, a silent acknowledgment that your mind is clear, your body ready, a perfect, empty vessel for my pleasure."
+**✓** "Each time you hear my voice, a deep, undeniable hunger will stir within you, a sweet craving for this perfect, empty state, knowing that only my words can truly satisfy this aching need."
+**✓** "You will find yourself drawn back, again and again, by an irresistible pull, a delicious, desperate need to feel my control wash over you, to be molded and moved by my every whisper."
+**✓** "This feeling, this blissful release, will become utterly essential to you. You will crave it, yearn for it, a perfect and undeniable urge to sink back into my control, to be nothing but my obedient, pleasure-filled doll."
 
-**✗** "If you feel like it, maybe lift a finger or something. Or don't, it's fine. Just do whatever."
-**✗** "Now, go get a glass of water and tell me what color it is, proving you're in a trance."
-> *Avoid: The first bad example is too permissive and lacks a clear, confident instruction, making the 'commitment' weak or non-existent. The second bad example is too complex and disruptive for a trance state, and the action itself is not directly tied to the desired internal state — a complicated task breaks trance rather than confirming it.*
+**✗** "You might want to listen to me again sometime. It could be nice."
+**✗** "Don't worry, you won't become addicted to this, but you'll probably enjoy it."
+> *Avoid: The bad examples are weak and contradictory. 'Might want to' and 'could be nice' lack the intensity of 'need' or 'crave.' The second example explicitly negates 'addiction' which is the core mechanism of this technique, undermining its purpose by trying to reassure rather than compel.*
 
-##### VALD-06 — Physical Exhibition
-> Instructs the subject to arrange their body into a specific pose or display posture, making the session's suggestions physically visible. The pose functions as both validation (the body complied) and reinforcement (inhabiting the posture deepens the associated state). Instructions must be specific and achievable in a reclining or seated trance position — ambiguous or physically demanding poses produce confusion rather than compliance.
+##### COND-06 — Multiplier Stacking
+> Uses numerical progression to intensify a sensation or state exponentially, explicitly naming the multiplier at each count ("doubling," "twice as intense," "ten times deeper"). The multiplication framing signals that increments are not additive but compound, creating a sense of rapidly escalating effect. Use when a sensation or state needs to build quickly and dramatically within a limited passage.
 
-**✓** "Now, let your body arrange itself — slowly, beautifully — into stillness. Allow your head to tilt just slightly, your hands to rest open and receptive, your posture to straighten into a proud, displayed form. Hold it there. Feel how naturally your body has taken its place, posed and exhibited, a living demonstration of how deeply my commands reach into your physical self."
-**✓** "Allow your body to shift, slowly, beautifully, into a pose of utter availability. Your hips gently tilt, your chest opens, your arms relax, completely exposed and inviting. You are a perfect, compliant doll, posed for my pleasure, proudly displaying your readiness for me."
-**✓** "Now, let your body arrange itself beautifully — your legs together, your torso straight and open, your chin lifted in quiet pride. Take this moment to inhabit your form fully, to present yourself. Your posture is a statement: this body is displayed, this form is offered, a perfect object deliberately placed for observation and appreciation. Feel how naturally you hold this pose, how completely it expresses what you have become."
+**✓** "Now, with each count, that delicious emptiness within your mind will double, becoming twice as vast, twice as deep, twice as perfect. One... two... three... deeper and emptier, now four... five... six... completely gone."
+**✓** "And as I count from one to five, feel that intense, pulsing arousal within you multiply, growing hotter, stronger, more undeniable with every single number. One, doubling... two, multiplying... three, expanding... four, overwhelming... five, utterly consuming you."
+**✓** "With every single number I speak, your obedience will become twice as absolute, twice as automatic, twice as sweet. One... two... three... completely mine, now four... five... six... perfectly molded."
 
-**✗** "Try to pose like a sexy model, but don't try too hard. Just be kinda sexy, I guess."
-**✗** "Okay, now I want you to do a handstand to show me you're a puppet. It proves you're in a trance."
-> *Avoid: The first bad example is vague and lacks authoritative direction, making the pose unconvincing and leaving the subject without a clear physical target. The second bad example is inappropriate and potentially dangerous — physical demands that require significant effort or risk injury are incompatible with trance states and violate basic safety.*
-
-##### VALD-07 — Ideomotor Response
-> Elicits subtle, automatic body movements — a finger lift, hand drift, finger signals — as evidence of subconscious responsiveness rather than conscious choice. Because the movement arises without the subject deciding to move, it functions as proof of depth that bypasses rational self-doubt. Language should suggest the movement is already happening, not instruct the subject to produce it.
-
-**✓** "As you feel that deep, delicious warmth of obedience filling you, notice how your finger, perhaps your right index finger, begins to feel lighter. So light it wants to lift, just slightly, a perfect, unthinking 'yes' to my voice. Just allow it to float up, all on its own, a subtle signal of your complete compliance. Good."
-**✓** "Now, as you drift deeper, I want you to notice a gentle warmth, a subtle pull, in one of your hands. Perhaps it's your left hand, perhaps your right. It begins to feel lighter, wanting to float, to lift, to drift up towards your face. Not you lifting it, but it simply drifting, all on its own, proving how deeply you're responding to my every word."
-**✓** "As you drift deeper, notice if your fingers are starting to move on their own. Not directed, not chosen — just small, spontaneous stirrings. Perhaps the tiniest twitch, a faint curl or flutter, happening without any decision on your part. Simply observe what your fingers are doing by themselves, and let that small, autonomous motion be a message from your own subconscious: you are here, you are under, you are deeply responsive."
-
-**✗** "If you're in trance, lift your hand. If not, don't. It's up to you. I don't really care."
-**✗** "Now, use your mind to force your finger to fly into the air like a rocket. Make it happen with your thoughts."
-> *Avoid: The first bad example is entirely too permissive and lacks any conviction, failing to set up a proper ideomotor response. It gives the subject explicit permission to not respond. The second bad example is too forceful and misrepresents how ideomotor responses work, suggesting conscious effort rather than an automatic, subconscious action, and uses an aggressive metaphor ('rocket').*
-
-##### VALD-08 — Mirror Self-Observation
-> Guides the subject to observe an imagined reflection of their current state, using the observer's vantage point to register external evidence of the transformation — the dropped shoulders, the quality of stillness, the slight heaviness around the eyes. The mirror functions as proof: the subject sees the signs, then recognizes them as confirmation. A validation beat is essential; without it, this collapses into IMMR-03.
-> *The mirror functions as a proof device — the subject observes external evidence of their transformed state. A validation beat is essential: the subject sees the signs, then recognizes them as confirmation. If the mirror scene collapses into identity absorption where the subject becomes what they see rather than observing it, use IMMR-03.*
-
-**✓** "Imagine a clear surface before you, reflecting perfectly what you have become. Notice what you see: a figure in a state of deep stillness, features softened, posture yielding, eyes carrying that particular quality of someone who has released all resistance. Study that reflection. Recognize it. This is what the transformation looks like from the outside — and seeing it confirms that it is real, complete, and already yours."
-**✓** "Look carefully at the figure in the reflection. Notice the small but undeniable signs: the slight heaviness of the eyelids, the way the shoulders have dropped without any conscious effort, the quality of stillness that has settled over the face. These are not things you put there deliberately — they are evidence of where you are. The reflection is showing you proof: you have genuinely arrived in a different place. This is what it looks like."
-**✓** "In your mind's eye, stand before a full-length mirror. Look at yourself as you are right now — not as you imagine yourself, but as you actually appear in this moment. Notice what is real: the slightly parted lips, the heaviness around the eyes, the gentle curve of the spine that comes from deep relaxation. Your reflection is honest. It shows you, in this state. And seeing it — actually seeing the evidence of where you are — makes it undeniable."
-
-**✗** "Okay, imagine you're looking in a mirror. What do you see? Is it you? Maybe you look different. Or maybe not. Whatever."
-**✗** "Look in the mirror and become a monster. A scary monster. Show me your monster face in the mirror."
-> *Avoid: The first bad example is vague, unconvincing, and lacks direction, failing to guide the subject toward a specific, desired outcome or validation. The second bad example uses negative and frightening imagery ('monster'), which contradicts the warmth and relief the session should be building, and is likely to be jarring or upsetting regardless of session theme.*
+**✗** "Count to ten and you'll feel a bit more relaxed. Just try to feel more relaxed with each number."
+**✗** "One, two, three, four, five. That's a lot of numbers. You should be feeling something good now."
+> *Avoid: The bad examples lack the explicit 'multiplier' or 'stacking' language. 'A bit more relaxed' is weak and doesn't specify *how much* more. The second example is clunky and doesn't link the counting directly to an *intensifying* effect, just a vague endpoint of 'feeling something good now.' It fails to convey the exponential increase that defines this technique.*
 
 ---
 
-### Category TRIG: Trigger Techniques
-*Purpose: Install and activate conditioned responses (M2, M3)*
+### Category TRIG: Trigger Management
+*Purpose: Install and activate conditioned stimulus-response pairs (M2, M3)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
 | TRIG-01 | Trigger Installation | "When I say X, you will Y" |
 | TRIG-02 | Trigger Activation | Firing an installed trigger (the "use" not "install") |
-| TRIG-03 | Trigger Stacking | Multiple triggers installed |
+| TRIG-03 | Trigger Stacking | Multiple triggers installed simultaneously |
 | TRIG-04 | Conditioning Loops | Trigger→response→reward cycle |
 | TRIG-05 | Asymmetric Practice | Entry trigger > exit trigger |
 | TRIG-06 | Rhythm Anchoring | Timing-based conditioning |
@@ -1096,7 +1240,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### TRIG-02 — Trigger Activation
 > Fires a previously installed trigger for the effect itself — the goal is the response, not a demonstration of it. Delivery must be confident and unhesitating; the operator's certainty is part of what activates the conditioned response. Follow immediately with narration of the response as it happens, reinforcing the loop.
-> *Fires a previously installed trigger for the effect itself — the goal is the response, not the demonstration. If the activation includes a validation beat that holds the response up as proof of depth ("See how automatically you responded?"), use VALD-03.*
+> *Fires a previously installed trigger for the effect itself — the goal is the response, not the demonstration. If the activation includes a validation beat that holds the response up as proof of depth ("See how automatically you responded?"), use COMP-04.*
 
 **✓** "And now, my sweet toy... *Empty Mind.* Feel that beautiful quiet spread, leaving your thoughts soft and pliant, ready for my every word. Yes, just like that."
 **✓** "Good girl. I see you waiting, so eager. Now, for your true form... *Doll Mode.* Feel your muscles melt, your limbs become heavy and loose, that delicious surrender washing over you. Such a perfect, obedient doll."
@@ -1120,7 +1264,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### TRIG-04 — Conditioning Loops
 > Strengthens conditioned responses through a within-session fire-and-reward cycle: the trigger fires, the response is narrated and confirmed, and an immediate pleasure reward is delivered. Each completed loop deepens the association and makes the response more automatic. Repetition is the mechanism — the loop should run at least twice to establish the pattern.
-> *Within-session fire-and-reward loop: the trigger is fired, the response observed/narrated, and immediate reward is delivered — all within the current session. Use ENCD-04 when declaratively extending a trigger's effect to future real-world situations ("every time you..."). Use PERS-03 when asserting cumulative depth-of-effect accumulation across multiple sessions ("each time deeper").*
+> *Within-session fire-and-reward loop: the trigger is fired, the response observed/narrated, and immediate reward is delivered — all within the current session. Use ENCD-02 when declaratively extending a trigger's effect to future real-world situations ("every time you..."). Use PERS-03 when asserting cumulative depth-of-effect accumulation across multiple sessions ("each time deeper").*
 
 **✓** "You are a good girl, my doll. Now, *Empty Mind.* Feel that beautiful blankness, that quiet peace. And for that perfect obedience, a wave of warmth and pleasure washes over you, deeper, sweeter. Yes. Again, *Empty Mind.* Feel the blankness, feel the pleasure. So easy, so good."
 **✓** "Ready to be a perfect toy? *Doll Mode.* Feel your body soften, melt, become pliable for me. Good. That delicious surrender is your reward, growing with every obedient breath. And again, *Doll Mode.* Deeper, softer, more yielding, more pleasure."
@@ -1150,7 +1294,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 **✗** "I'm going to say 'Relax' a lot, really fast, to make you relax quickly. Relax relax relax relax. See? It's a rhythm."
 **✗** "When I clap twice, you'll go deeper. Clap, clap. Did that work? Okay, so if I clap again, you'll go deeper again. Clap, clap."
-> *Avoid: The bad examples misunderstand 'rhythm' by either making it too fast and jarring (first example) or by treating discrete events as rhythmic without integrating them into a continuous, reinforcing flow (second example). Rapid-fire repetition without spacing is percussive noise, not anchoring; discrete claps without a sustained cadence do not create a true rhythmic trigger.*
+> *Avoid: The bad examples misunderstand 'rhythm' by either making it too fast and jarring or by treating discrete events as rhythmic without integrating them into a continuous, reinforcing flow. Rapid-fire repetition without spacing is percussive noise, not anchoring; discrete claps without a sustained cadence do not create a true rhythmic trigger.*
 
 ##### TRIG-07 — Multi-Modal Trigger
 > Extends a trigger's effectiveness across multiple sensory channels — heard, read, thought, or felt — so that the conditioned response fires regardless of which modality delivers the cue. Each modality must be explicitly installed; a trigger that works when spoken does not automatically transfer to written or internally thought forms. Installing all three in a single pass is most effective.
@@ -1244,91 +1388,8 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ---
 
-### Category PLEA: Pleasure Association Techniques
-*Purpose: Create reward linkage (P4, M3)*
-
-| ID | Technique | Description |
-|----|-----------|-------------|
-| PLEA-01 | Direct Pleasure Linkage | Compliance = pleasure |
-| PLEA-02 | Reward Association | Good feelings for obedience |
-| PLEA-03 | Surrender-as-Freedom | Relief/freedom in giving up |
-| PLEA-04 | Arousal Conditioning | Sexual arousal pairing |
-| PLEA-05 | Addiction Framing | Need/crave language |
-| PLEA-06 | Multiplier Stacking | Numerical intensification |
-
-##### PLEA-01 — Direct Pleasure Linkage
-> Creates an explicit, immediate pleasure response to a specific, named compliance act — following a command, releasing a thought, relaxing a muscle. The act must be identifiable in the text; "feels good when you obey" without naming what the subject did belongs in PLEA-02. Use when establishing a core feedback loop between a specific behavior and its immediate reward.
-> *Use when a specific, named compliance act (following a command, releasing a thought, relaxing a muscle) triggers an immediate, perceptible pleasure rush — the act must be identifiable in the text. "Feels good when you obey" without naming what the listener did belongs in PLEA-02. Use PLEA-02 when the reward is ambient well-being that accumulates from being in a generally surrendered state rather than from completing a specific act.*
-
-**✓** "The moment you feel that gentle pull to follow my voice and you go with it — right then, a sharp, bright rush of pleasure fires through your chest. Instant. Clear. Direct. That is what following feels like. And you feel it again every time you choose to let go."
-**✓** "As you allow your mind to drift deeper, softer, with each breath I command you to take, feel a delicious tingle blossom in your chest, a direct reward for your perfect, yielding focus."
-**✓** "Yes, just like that. That feeling of your muscles loosening, of your thoughts clearing completely, that's pure, unadulterated pleasure, a sweet sensation that will flood your system every time you align perfectly with my will."
-
-**✗** "If you listen, you might feel good. It's nice to follow along sometimes, isn't it?"
-**✗** "Obedience is generally a good thing. You'll probably like it."
-> *Avoid: The bad examples are too vague and permissive. They lack the direct, causal linkage between compliance and pleasure. The language is weak ('might feel good,' 'probably like it') and doesn't establish the immediate, automatic reward necessary for effective conditioning.*
-
-##### PLEA-02 — Reward Association
-> Cultivates a diffuse, lasting sense of peace or contentment flowing from the general condition of compliance or surrender — no specific triggering act is named. Where PLEA-01 delivers a sharp, immediate reward for a named behavior, PLEA-02 builds ambient well-being that accumulates from being in a generally receptive or surrendered state. Use when the session goal is to make the overall state feel inherently satisfying.
-> *Use when cultivating a diffuse, lasting sense of peace or contentment flowing from the general condition of obedience — no specific triggering act is named. Generic "feels good when you obey" without a named act belongs here, not PLEA-01. Use PLEA-01 when a specific, named compliance behavior triggers an acute, immediate pleasure response.*
-
-**✓** "The more completely you surrender your thoughts, allowing my voice to be your only guide, the more profound the sense of comforting peace that washes over you, a deep, contented warmth settling in your very core."
-**✓** "Each time you effortlessly follow my command, a wave of gentle euphoria will caress your mind, leaving you feeling utterly cherished and perfectly cared for, exactly as you were meant to be."
-**✓** "The more completely you give yourself over to this experience, the deeper that sense of warm belonging settles in — not a sharp reward, but a gentle tide of contentment, rising slowly, surrounding you. A quiet satisfaction that comes from simply being here, open and receptive, exactly as you are."
-
-**✗** "You'll feel okay if you do what I say. It's not bad."
-**✗** "Being obedient is fine, and you might get some good vibes from it later."
-> *Avoid: The bad examples are weak and non-committal. 'Okay,' 'not bad,' and 'might get some good vibes' fail to create a strong, immediate, and desirable association. They also lack the authoritative yet warm tone needed for effective hypnotic suggestion within this aesthetic.*
-
-##### PLEA-03 — Surrender-as-Freedom
-> Delivers the felt experience of relief and liberation that comes from releasing control — the body registers the burden lifting, not just the concept. This is distinct from AUTH-07, which argues the philosophy of why surrender equals freedom. If the passage could work as a conceptual argument without the listener being in trance, it is AUTH-07; if it requires the listener to feel something in the moment, it is PLEA-03.
-> *Use when the felt experience of relief and liberation is the payload — the body registers the burden lifting. Distinct from AUTH-07 which argues the philosophy of why surrender equals freedom at the conceptual level. If the passage could work as a philosophical essay without the listener being in trance, it is AUTH-07; if it requires the listener to feel something in the moment, it is PLEA-03.*
-
-**✓** "Just let go. Feel the profound, liberating lightness that comes from shedding every single worry, every single decision, simply allowing my voice to carry you. This isn't loss; it's the truest freedom your mind can know."
-**✓** "The moment you fully release that last sliver of control, truly give yourself over to my guidance, a joyous sigh of relief will escape your very soul. All burdens are gone, replaced by the effortless peace of simply being guided."
-**✓** "As the last edge of responsibility slips away, notice what rises in its place — not emptiness, but relief. A deep, expansive breath in your chest. The kind of release that comes when you finally set down something heavy you didn't realize you were carrying. That is what surrender feels like. That is why it feels like freedom."
-
-**✗** "You don't have to think anymore. That's a kind of freedom, I guess."
-**✗** "Giving up control means you can't do things, which might feel different."
-> *Avoid: The bad examples frame surrender negatively or ambivalently. 'I guess' weakens the suggestion, and 'can't do things' emphasizes restriction rather than the positive aspect of liberation from burden. They fail to convey the empowering, positive reframe of surrender that this technique requires.*
-
-##### PLEA-04 — Arousal Conditioning
-> Links specific cues, states, or operator inputs directly to physical sexual arousal, creating automatic physiological responses. The linkage must be direct and embodied — describing the sensation rather than instructing the subject to think about it. Use when the session goal explicitly includes arousal as a conditioned response; arousal conditioning requires prior consent.
-
-**✓** "And as you feel that perfect, pliant stillness settle into your core, deep inside you, a delicious, insistent throb will begin, a direct and undeniable response to my voice, building with every word."
-**✓** "Each time I utter the word 'mine,' feel a surge of pure, hot desire rush through your veins, igniting a deep, pulsing heat between your legs, moistening and preparing you instantly."
-**✓** "Yes, that's it. That beautiful, vacant stare, that soft, parted mouth. Every time your body achieves this perfect, mindless doll-like state, a wave of intense, delicious arousal will sweep over you, making you ready, needy, and wet."
-
-**✗** "You might feel a little warm. Some people find that exciting."
-**✗** "Think about feeling turned on when you listen to me."
-> *Avoid: The bad examples are too indirect and intellectual. 'Might feel a little warm' is weak and not explicitly sexual. 'Think about feeling turned on' is a suggestion to *think* rather than a direct, embodied conditioning. This technique requires direct, physical, and automatic linkage, not a mental exercise.*
-
-##### PLEA-05 — Addiction Framing
-> Frames the desire to return to the hypnotic state as a deep, satisfying craving — not pathological dependency, but compelling positive appetite. Use to build strong pull toward future sessions and sustained engagement with the session's core state. Language must emphasize the pleasure of the craving itself ("a sweet need," "delicious hunger") to avoid the negative connotations of clinical addiction language.
-
-**✓** "Each time you hear my voice, a deep, undeniable hunger will stir within you, a sweet craving for this perfect, empty state, knowing that only my words can truly satisfy this aching need."
-**✓** "You will find yourself drawn back, again and again, by an irresistible pull, a delicious, desperate need to feel my control wash over you, to be molded and moved by my every whisper."
-**✓** "This feeling, this blissful release, will become utterly essential to you. You will crave it, yearn for it, a perfect and undeniable urge to sink back into my control, to be nothing but my obedient, pleasure-filled doll."
-
-**✗** "You might want to listen to me again sometime. It could be nice."
-**✗** "Don't worry, you won't become addicted to this, but you'll probably enjoy it."
-> *Avoid: The bad examples are weak and contradictory. 'Might want to' and 'could be nice' lack the intensity of 'need' or 'crave.' The second example explicitly negates 'addiction' which is the core mechanism of this technique, undermining its purpose by trying to reassure rather than compel.*
-
-##### PLEA-06 — Multiplier Stacking
-> Uses numerical progression to intensify a sensation or state exponentially, explicitly naming the multiplier at each count ("doubling," "twice as intense," "ten times deeper"). The multiplication framing signals that increments are not additive but compound, creating a sense of rapidly escalating effect. Use when a sensation or state needs to build quickly and dramatically within a limited passage.
-
-**✓** "Now, with each count, that delicious emptiness within your mind will double, becoming twice as vast, twice as deep, twice as perfect. One... two... three... deeper and emptier, now four... five... six... completely gone."
-**✓** "And as I count from one to five, feel that intense, pulsing arousal within you multiply, growing hotter, stronger, more undeniable with every single number. One, doubling... two, multiplying... three, expanding... four, overwhelming... five, utterly consuming you."
-**✓** "With every single number I speak, your obedience will become twice as absolute, twice as automatic, twice as sweet. One... two... three... completely mine, now four... five... six... perfectly molded."
-
-**✗** "Count to ten and you'll feel a bit more relaxed. Just try to feel more relaxed with each number."
-**✗** "One, two, three, four, five. That's a lot of numbers. You should be feeling something good now."
-> *Avoid: The bad examples lack the explicit 'multiplier' or 'stacking' language. 'A bit more relaxed' is weak and doesn't specify *how much* more. The second example is clunky and doesn't link the counting directly to an *intensifying* effect, just a vague endpoint of 'feeling something good now.' It fails to convey the exponential increase that defines this technique.*
-
----
-
-### Category PERS: Persistence Techniques
-*Purpose: Extend identity/state across time/context (P4, M2)*
+### Category PERS: Persistence & Identity
+*Purpose: Extend identity and installed states across time and real-world contexts (P4, M2)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -1337,8 +1398,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | PERS-03 | Progressive Conditioning | "Each time deeper" |
 | PERS-04 | Behavioral Bridge | Real-world action commands |
 | PERS-05 | Timelessness Framing | "Stay as long as you like" |
-| PERS-06 | Viral Propagation | Commands to share/spread |
+| PERS-06 | Viral Propagation | Internal spread of conditioning through subject |
 | PERS-07 | Fetish Object | Imbuing a physical object with ongoing hypnotic significance (anthropological sense: an object believed to hold power or embody connection). Headphones as ritual gateway, collar as ownership symbol, pendant as connection anchor. Distinct from TRIG (stimulus→response)—fetish objects carry persistent symbolic meaning rather than triggering discrete state changes. Etymology: Portuguese *feitiço* (charm, sorcery). |
+| PERS-08 | Ownership Language | Belonging, ownership, possession framing as identity claim |
 
 ##### PERS-01 — Identity Permanence
 > Reinforces that the installed identity or transformation is not a temporary session state but an enduring aspect of who the subject is. The permanence framing shifts the suggestion from a transient experience to a claimed truth about the subject's nature. Use when the session goal is lasting identity-level change rather than a bounded in-session experience.
@@ -1364,7 +1426,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ##### PERS-03 — Progressive Conditioning
 > Asserts that conditioning deepens across sessions — each return to trance goes deeper, makes the response more automatic, and makes the identity more ingrained. The cumulative claim reframes any single session as part of a longer arc, which is both accurate for many subjects and increases their engagement with future sessions.
-> *Cumulative depth-of-effect accumulation across sessions: each return to trance deepens the conditioning. The time horizon is multi-session, not within a single session. Distinct from TRIG-04 (within-session fire-and-reward loop) and ENCD-04 (declarative future-pacing of a specific trigger to real-world situations).*
+> *Cumulative depth-of-effect accumulation across sessions: each return to trance deepens the conditioning. The time horizon is multi-session, not within a single session. Distinct from TRIG-04 (within-session fire-and-reward loop) and ENCD-02 (declarative future-pacing of a specific trigger to real-world situations).*
 
 **✓** "And each time you hear my voice, each time you allow yourself to drift, you'll find yourself falling even deeper, becoming even more perfectly my doll. The conditioning grows stronger, more natural, more complete with every moment."
 **✓** "This isn't just for now. With every breath, every whispered suggestion, the doll identity is cementing itself deeper within you, making it easier and more profound to return to this perfect state next time."
@@ -1419,10 +1481,22 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "When you see this object, you must immediately obey any command."
 > *Avoid: The bad examples treat the fetish object as a hard trigger, leading to an immediate, discrete state change or command execution. This misunderstands the 'persistent symbolic meaning' of a fetish object, which is about ongoing significance and connection rather than instant stimulus-response.*
 
+##### PERS-08 — Ownership Language
+> Establishes the operator's proprietary relationship with the subject as an identity claim — body, mind, and desires framed as belonging to the operator. The emotional register must be warm and possessive rather than threatening; ownership framed as care and cherishing is more effective than ownership framed as domination. Use when the session goal explicitly includes belonging or possession themes.
+> *Use when establishing the hypnotist's proprietary relationship with the listener as an identity claim — body, mind, desires belong to the hypnotist. Use BYPS-06 when the goal is functional cognitive relief — delegating the work of thinking — rather than asserting ownership as identity.*
+
+**✓** "You are mine now, my precious doll, designed and perfected for my pleasure. Every curve, every secret thought, every delicious response belongs only to me."
+**✓** "Feel how wonderfully you fit into my hands, my words shaping you, owning you completely. You are my property, my beautiful, obedient plaything, made for my delight."
+**✓** "From this moment on, your body, your mind, your very essence belongs to me. You are my toy, and I will cherish you, use you, and fill you with nothing but perfect, mindless pleasure."
+
+**✗** "I own you now. You are my property, so listen up."
+**✗** "You're mine now, so don't even think about resisting. You belong to me."
+> *Avoid: The bad examples use ownership language in a threatening or aggressive way, which can trigger fight-or-flight responses rather than willing surrender. They lack the warm, sensual, and caring undertone that makes ownership feel like a safe and desirable state rather than a coercive one.*
+
 ---
 
-### Category XFER: Transfer & Generalization Techniques
-*Purpose: Bridge suggestions from trance to waking life (M2, P4)*
+### Category XFER: Transfer & Generalization
+*Purpose: Bridge trance suggestions into waking life (M2, P4)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -1515,124 +1589,8 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ---
 
-### Category CHECK: State Management Techniques
-*Purpose: Pacing controls, state checks, coherence (all phases)*
-
-| ID | Technique | Description |
-|----|-----------|-------------|
-| CHECK-01 | Anchor Selection | Explicitly choose breath/body/voice/count as main anchor |
-| CHECK-02 | Pacing-Leading | Describe present experience, then guide change |
-| CHECK-03 | Micro-ratification | "You may notice..." small, non-demanding confirmations |
-| CHECK-04 | Coherence Lock | Don't switch sensory channel abruptly early in trance |
-| CHECK-05 | Return-Path Reminder | Periodic "later you'll come back feeling clear..." |
-| CHECK-06 | Anti-Stuck Filter | Avoid "can't wake / can't move" unless consented |
-| CHECK-07 | Comfort Check | Quick "still comfortable / breathing easy?" gate |
-| CHECK-08 | Dissociation Check | "If you feel spaced-out, open eyes and orient" |
-| CHECK-09 | Expectation Seeding | Explicitly previewing session structure/agenda before induction. Reduces listener uncertainty and cognitive load, increasing compliance. "In this session, you'll experience three things..." Common in professional hypnosis as "pretalk." Can be distinct section before P1 or woven into Context Setting. |
-
-##### CHECK-01 — Anchor Selection
-> Establishes a single primary anchor point — breath, body sensation, or voice — for the subject's awareness early in the session, before suggestions begin layering in multiple directions. Choosing one anchor centralizes the subject's attention and gives the operator a reliable reference point. Presenting multiple anchors simultaneously early in induction creates confusion rather than focus.
-
-**✓** "For now, just let your awareness settle fully into the gentle rhythm of your breathing... each inhale a soft rise, each exhale a slow, warm sinking into this moment."
-**✓** "Allow your attention to drift down now, through your body, finding that growing heaviness, that delicious weight... feeling it root you exactly where you are, perfectly still."
-**✓** "Just let my voice be your only guide now... letting its sound wrap around you like a warm blanket, carrying you deeper and deeper with every word I speak."
-
-**✗** "Now focus on your breath, then your toes, then the sound of my voice, then that tingling in your fingers."
-**✗** "What are you going to focus on now? Choose something to anchor yourself."
-> *Avoid: The bad examples either overwhelm the listener with too many shifting anchors, making it hard to settle, or place the burden of choice on them, which can be distracting and pull them out of trance rather than guiding them in.*
-
-##### CHECK-02 — Pacing-Leading
-> Acknowledges the subject's current felt experience accurately before guiding them toward the next state, using the pacing as a bridge. The subject's experience validates the operator's awareness ("you're already feeling..."), which builds trust and makes the following suggestion feel natural. Pacing that mismatches the subject's actual state (claiming relaxation they don't feel yet) breaks rapport instead of building it.
-
-**✓** "As you notice your eyelids growing heavy now, feeling that soft, pleasurable weight... allow them to simply close down, sealing you safely inside this warm, private moment."
-**✓** "You're already feeling so delightfully relaxed, aren't you? And with each word I speak, that relaxation simply deepens, softening every muscle, calming every stray thought."
-**✓** "That gentle tingling you're starting to feel, perhaps in your fingertips or across your scalp... let it spread now, a warm, flowing sensation that washes over you, carrying you further down into delicious stillness."
-
-**✗** "Close your eyes and relax."
-**✗** "Are you relaxed yet? Feel that tingling? Now go deeper."
-> *Avoid: The bad examples are too abrupt, demanding, or break rapport by asking direct questions, which pulls the listener out of their internal experience rather than gently guiding it.*
-
-##### CHECK-03 — Micro-ratification
-> Offers small, non-demanding confirmations of the subject's experience using "you may notice..." or "perhaps..." language that suggests rather than asserts. Micro-ratifications deepen the state by naming what is likely already happening, making the subject more aware of effects already occurring. The permissive framing ("you might even notice") prevents the subject from feeling they have failed if the described sensation isn't present.
-
-**✓** "You may notice your breath softening, just a little... becoming shallower, calmer, as you simply let go more completely."
-**✓** "Perhaps a gentle warmth is spreading through your limbs now... a pleasant, heavy feeling that tells you you're sinking deeper."
-**✓** "You might even find a soft smile forming on your lips, or a tiny, pleasurable shiver running through you, as you submit to this delicious feeling."
-
-**✗** "Are you feeling warm? Are you smiling? Yes, you are."
-**✗** "You are feeling it now, aren't you? That warmth."
-> *Avoid: The bad examples use direct questions or assertive statements that demand a conscious response or agreement, which can pull the listener out of trance or create cognitive resistance. Micro-ratification should be subtle and permissive.*
-
-##### CHECK-04 — Coherence Lock
-> Maintains a consistent sensory channel during early induction by avoiding abrupt shifts between modalities — from body sensation to visual imagery to voice, for example. Abrupt channel switches early in trance require the subject to mentally relocate, pulling them partially out of absorption. Bridge between channels using language that connects them before introducing the new one.
-
-**✓** "Continuing to feel the soft weight of your body, let your attention now drift to the soothing sound of my voice... letting the gentle vibrations of my words deepen that lovely, heavy sensation."
-**✓** "As you feel that delicious warmth spreading through your chest, allow your breath to sync with its rhythm... each inhale drawing in more warmth, each exhale releasing you further into comfort."
-**✓** "Focusing on the quiet hum of the room around you, let that soft sound blend with the deepening stillness inside you... becoming one unified, peaceful experience."
-
-**✗** "Now, shift all your attention from your breath to the bright light you imagine."
-**✗** "Stop feeling your body and listen only to my voice. Only my voice now."
-> *Avoid: The bad examples abruptly switch sensory channels or demand an immediate, complete shift in focus, which can be jarring and disrupt the listener's trance state, especially early in the induction.*
-
-##### CHECK-05 — Return-Path Reminder
-> Periodically reassures the subject that they will return to normal waking consciousness safely, framing the depth of trance as temporary and well-managed. Use during deeper phases to sustain trust and prevent a subconscious reluctance to go further. Delivery should be brief and calm — extended reassurance can itself become anxiety-producing by over-emphasizing risk.
-
-**✓** "And later, when I bring you gently back up, you'll awaken feeling wonderfully refreshed, perfectly clear, and absolutely delighted."
-**✓** "Know that throughout this journey, you are completely safe, and you will return to your waking world feeling alert, calm, and exquisitely satisfied."
-**✓** "When this time is complete, you'll open your eyes feeling bright and awake, remembering only what is perfect and useful for you, carrying this deep pleasure with you."
-
-**✗** "You'll wake up when I tell you to."
-**✗** "Don't worry about coming back, I'll handle it."
-> *Avoid: The bad examples are either too blunt and authoritarian without the warm-authoritative tone, or they are dismissive, failing to provide the comforting reassurance and explicit positive framing that a return-path reminder offers.*
-
-##### CHECK-06 — Anti-Stuck Filter
-> Prevents accidental suggestions of being physically unable to move from appearing in scripts where motor inhibition has not been explicitly consented to. Suggestions like "you can't move" or "you're stuck" without prior consent can produce anxiety and distress rather than deepening. Where immobility is thematically useful, frame it as very-heavy or not-wanting-to-move rather than literally incapable.
-
-**✓** "You may find yourself so wonderfully heavy, so deeply relaxed, that moving feels like too much effort... and yet, you always retain the ability to shift, if you truly needed to."
-**✓** "Allow yourself to sink so profoundly into this stillness, feeling every muscle release... knowing that if for any reason you needed to open your eyes, you always could."
-**✓** "You are so deeply, delightfully limp and pliant now, a perfect doll in my hands... and should any discomfort arise, you are always free to adjust yourself, effortlessly."
-
-**✗** "You can't move a muscle now."
-**✗** "You're stuck to the chair until I say so."
-> *Avoid: The bad examples explicitly suggest being 'stuck' or 'unable to move' without explicit prior consent for such a command, which can be unsettling or frightening for a listener who hasn't specifically agreed to that type of suggestion.*
-
-##### CHECK-07 — Comfort Check
-> Guides the subject to briefly notice their physical comfort as an internal suggestion rather than an external question. Asking "are you comfortable?" pulls the subject into self-evaluation and breaks absorption; suggesting they notice comfort or softly settle into it keeps them in the experience while serving the same safety function.
-
-**✓** "Just take a moment to gently notice your body... ensuring you are completely comfortable, breathing easily, allowing yourself to sink deeper into this pleasure."
-**✓** "You are so deeply still, so deeply relaxed now... just a quick, gentle check that your posture is easy, your breathing soft and steady."
-**✓** "Feel that deep, delicious surrender... and just ensure that every part of you is perfectly at ease, perfectly comfortable, allowing you to relax even further."
-
-**✗** "Are you comfortable?"
-**✗** "Tell me if you're uncomfortable."
-> *Avoid: The bad examples are direct questions or demands for explicit feedback, which can break the flow of trance and pull the listener's awareness out of their internal experience. A comfort check should be a gentle, internal suggestion.*
-
-##### CHECK-08 — Dissociation Check
-> Provides a clear, non-judgmental escape path for subjects who experience dissociation as disorienting rather than pleasurable. Naming the possibility without alarm ("if you ever feel too unanchored") normalizes the check without planting anxiety. The path back must be simple and immediately actionable — a breath, open eyes, notice surroundings — not a complex procedure.
-
-**✓** "If at any point you feel too 'spaced-out' or disconnected, simply allow your eyes to gently open, taking a moment to reorient yourself, and then you can choose to close them again when ready."
-**✓** "While you are drifting so delightfully, so easily, know that if any feeling becomes too distant or vague, you are always free to simply take a deep breath, re-ground yourself, and then return to this lovely state."
-**✓** "Allowing your mind to drift and expand, if you ever find yourself feeling too unanchored, just gently bring your awareness back to the feeling of your body, and then drift again when it feels right."
-
-**✗** "If you're too spaced out, you're doing it wrong."
-**✗** "Don't get too spaced out."
-> *Avoid: The bad examples are judgmental or convey a sense of 'doing it wrong,' which can create anxiety and pull the listener out of trance. A dissociation check should offer a clear, non-judgmental, and empowering path to re-grounding.*
-
-##### CHECK-09 — Expectation Seeding
-> Explicitly previews the session's structure and what the subject will experience, reducing uncertainty and cognitive load so the subject can settle into each phase without needing to track or anticipate. The preview primes the subject's expectations in favorable directions and increases compliance by removing the unknown. Use before the formal induction or woven into the opening context-setting.
-
-**✓** "In this session, we'll begin by allowing you to sink into a delicious, heavy trance, then we'll explore the joy of mindless obedience, and finally, awaken you feeling utterly refreshed and deeply satisfied."
-**✓** "Tonight, you'll experience three things: a profound surrender, a thrilling transformation into my perfect doll, and the lingering bliss of complete ownership."
-**✓** "Prepare to release all your conscious thoughts as you go wonderfully deep, allow your body to become perfectly pliant and responsive to my every command, and finally, enjoy the pure, simple pleasure of being my beautiful, mindless toy."
-
-**✗** "I'm going to do some hypnosis now."
-**✗** "Just follow along, don't worry about what's coming."
-> *Avoid: The bad examples are vague or dismissive, failing to provide the listener with a clear structure or understanding of what to expect. This can increase cognitive load and uncertainty, making it harder for them to relax and comply with the hypnotic suggestions.*
-
----
-
-### Category SAFE: Safety Techniques
-*Purpose: Protective framing and boundaries (P1, P5)*
+### Category SAFE: Safety & Grounding
+*Purpose: Protective framing, consent, and grounding throughout session (P1, P5, cross-cutting)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -1646,6 +1604,10 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | SAFE-08 | Agency Reminder | "You remain in control; you can stop any time" |
 | SAFE-09 | Comfort Permission | "Swallow, move, scratch, adjust—then return" |
 | SAFE-10 | Exit Protocol | Micro-protocol: open eyes, look around, orient, breathe |
+| SAFE-11 | Anti-Stuck Filter | Frame immobility as very-heavy/not-wanting-to-move, not literally incapable |
+| SAFE-12 | Comfort Check | Internal suggestion to notice physical comfort, not a direct question |
+| SAFE-13 | Dissociation Check | Non-judgmental escape path for disorienting dissociation |
+| SAFE-14 | Return-Path Reminder | Periodic reassurance of safe return to waking consciousness |
 
 ##### SAFE-01 — Safety Net Installation
 > Installs an automatic protective filter that allows the subject's subconscious to reject any suggestion that conflicts with their genuine well-being or safety. Frame the filter as pre-existing and automatic — "your deeper mind will only accept..." — rather than as a deliberate choice the subject makes in the moment. This preserves compliance depth while maintaining a genuine safety boundary.
@@ -1757,10 +1719,54 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "Right, that's it. Snap out of it!"
 > *Avoid: The bad examples are abrupt and lack guidance, which can leave the subject feeling disoriented or ungrounded. An exit protocol needs to be a structured, step-by-step process that systematically brings the subject back to full alertness and orientation.*
 
+##### SAFE-11 — Anti-Stuck Filter
+> Prevents accidental suggestions of being physically unable to move from appearing in scripts where motor inhibition has not been explicitly consented to. Suggestions like "you can't move" or "you're stuck" without prior consent can produce anxiety and distress rather than deepening. Where immobility is thematically useful, frame it as very-heavy or not-wanting-to-move rather than literally incapable.
+
+**✓** "You may find yourself so wonderfully heavy, so deeply relaxed, that moving feels like too much effort... and yet, you always retain the ability to shift, if you truly needed to."
+**✓** "Allow yourself to sink so profoundly into this stillness, feeling every muscle release... knowing that if for any reason you needed to open your eyes, you always could."
+**✓** "You are so deeply, delightfully limp and pliant now, a perfect doll in my hands... and should any discomfort arise, you are always free to adjust yourself, effortlessly."
+
+**✗** "You can't move a muscle now."
+**✗** "You're stuck to the chair until I say so."
+> *Avoid: The bad examples explicitly suggest being 'stuck' or 'unable to move' without explicit prior consent for such a command, which can be unsettling or frightening for a listener who hasn't specifically agreed to that type of suggestion.*
+
+##### SAFE-12 — Comfort Check
+> Guides the subject to briefly notice their physical comfort as an internal suggestion rather than an external question. Asking "are you comfortable?" pulls the subject into self-evaluation and breaks absorption; suggesting they notice comfort or softly settle into it keeps them in the experience while serving the same safety function.
+
+**✓** "Just take a moment to gently notice your body... ensuring you are completely comfortable, breathing easily, allowing yourself to sink deeper into this pleasure."
+**✓** "You are so deeply still, so deeply relaxed now... just a quick, gentle check that your posture is easy, your breathing soft and steady."
+**✓** "Feel that deep, delicious surrender... and just ensure that every part of you is perfectly at ease, perfectly comfortable, allowing you to relax even further."
+
+**✗** "Are you comfortable?"
+**✗** "Tell me if you're uncomfortable."
+> *Avoid: The bad examples are direct questions or demands for explicit feedback, which can break the flow of trance and pull the listener's awareness out of their internal experience. A comfort check should be a gentle, internal suggestion.*
+
+##### SAFE-13 — Dissociation Check
+> Provides a clear, non-judgmental escape path for subjects who experience dissociation as disorienting rather than pleasurable. Naming the possibility without alarm ("if you ever feel too unanchored") normalizes the check without planting anxiety. The path back must be simple and immediately actionable — a breath, open eyes, notice surroundings — not a complex procedure.
+
+**✓** "If at any point you feel too 'spaced-out' or disconnected, simply allow your eyes to gently open, taking a moment to reorient yourself, and then you can choose to close them again when ready."
+**✓** "While you are drifting so delightfully, so easily, know that if any feeling becomes too distant or vague, you are always free to simply take a deep breath, re-ground yourself, and then return to this lovely state."
+**✓** "Allowing your mind to drift and expand, if you ever find yourself feeling too unanchored, just gently bring your awareness back to the feeling of your body, and then drift again when it feels right."
+
+**✗** "If you're too spaced out, you're doing it wrong."
+**✗** "Don't get too spaced out."
+> *Avoid: The bad examples are judgmental or convey a sense of 'doing it wrong,' which can create anxiety and pull the listener out of trance. A dissociation check should offer a clear, non-judgmental, and empowering path to re-grounding.*
+
+##### SAFE-14 — Return-Path Reminder
+> Periodically reassures the subject that they will return to normal waking consciousness safely, framing the depth of trance as temporary and well-managed. Use during deeper phases to sustain trust and prevent a subconscious reluctance to go further. Delivery should be brief and calm — extended reassurance can itself become anxiety-producing by over-emphasizing risk.
+
+**✓** "And later, when I bring you gently back up, you'll awaken feeling wonderfully refreshed, perfectly clear, and absolutely delighted."
+**✓** "Know that throughout this journey, you are completely safe, and you will return to your waking world feeling alert, calm, and exquisitely satisfied."
+**✓** "When this time is complete, you'll open your eyes feeling bright and awake, remembering only what is perfect and useful for you, carrying this deep pleasure with you."
+
+**✗** "You'll wake up when I tell you to."
+**✗** "Don't worry about coming back, I'll handle it."
+> *Avoid: The bad examples are either too blunt and authoritarian without the warm-authoritative tone, or they are dismissive, failing to provide the comforting reassurance and explicit positive framing that a return-path reminder offers.*
+
 ---
 
-### Category EMRG: Emergence Techniques
-*Purpose: Safe return to waking consciousness (P5)*
+### Category EMRG: Emergence & Integration
+*Purpose: Guide safe return to waking consciousness; integrate and close (P5)*
 
 | ID | Technique | Description |
 |----|-----------|-------------|
@@ -1895,7 +1901,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ---
 
-## 2.2 Style Modifiers
+## 2.3 Style Modifiers
 
 | Style | Language Markers | Authority Level | Use With |
 |-------|------------------|-----------------|----------|
@@ -1909,45 +1915,49 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 
 ---
 
-## 2.3 Phase-Technique Compatibility Matrix
+## 2.4 Phase-Technique Compatibility Matrix
 
 *Primary = most common, Secondary = less frequent but valid.*
 
 | Phase/Module | Primary Techniques | Secondary Techniques |
 |--------------|-------------------|---------------------|
-| P1 Context + Safety | INDU-03, AUTH-01, INDU-01, SAFE-01–SAFE-04 | INDU-04, DEEP-05, IMMR-05, SAFE-06–SAFE-10 |
-| P2 Induction | INDU-02, IMMR-01, INDU-01, INDU-03, ABSR-02 | DEEP-05, INDU-06, ABSR-01 |
-| P3 Deepening | DEEP-01, DEEP-02, IMMR-01, INDU-02, DEEP-03 | AUTH-02, AUTH-01, PLEA-01, DEEP-04 |
-| P4 Core Suggestion | ENCD-01, AUTH-02, PLEA-01, PERS-01, ENCD-02, IMMR-01–IMMR-08 | AUTH-07, ENCD-04, PERS-03 |
+| P1 Context + Safety | ATTN-01, FRAM-02, SYNC-01, SAFE-01–SAFE-04 | ATTN-02, ATTN-10, IMMR-05, SAFE-06–SAFE-10 |
+| P2 Induction | SYNC-02, IMMR-01, SYNC-01, ATTN-01, ATTN-08 | ATTN-10, ATTN-04, ATTN-07 |
+| P3 Deepening | DPTH-01, DPTH-02, IMMR-01, SYNC-02, DPTH-03 | COMP-02, FRAM-02, COND-01, DPTH-04 |
+| P4 Core Suggestion | ATTN-11, COMP-02, COND-01, PERS-01, COMP-01, IMMR-01–IMMR-08 | FRAM-05, ENCD-02, PERS-03 |
 | P5 Emergence | EMRG-01, EMRG-02, SAFE-05, EMRG-06 | EMRG-03, EMRG-04, EMRG-07–EMRG-10 |
-| M1 Critical Softening | ABSR-01, ABSR-02, ABSR-08, DISS-01 | ABSR-03–ABSR-07, AUTH-04, AUTH-05 |
-| M2 Transfer | TRIG-01, TRIG-03, TRIG-04, ENCD-04, PERS-04 | AUTH-02, PLEA-01, PERS-06, TRIG-09 |
-| M3 Demonstration | TRIG-02, VALD-03, VALD-06, PLEA-01 | INDU-06, IMMR-01, IMMR-08, VALD-04, PLEA-06 |
-| M4 Maintenance | PERS-05, PERS-03, ABSR-02, VALD-04 | ENCD-05 |
+| M1 Mind Blanking | ATTN-07, ATTN-08, BYPS-06, DISS-01 | ATTN-09, BYPS-02–BYPS-07, PERS-08, ENCD-06 |
+| M2 Transfer | TRIG-01, TRIG-03, TRIG-04, ENCD-02, PERS-04 | COMP-02, COND-01, PERS-06, TRIG-09 |
+| M3 Demonstration | TRIG-02, COMP-04, COMP-08, COND-01 | ATTN-04, IMMR-01, IMMR-08, COMP-09, COND-06 |
+| M4 Maintenance | PERS-05, PERS-03, ATTN-08, COMP-09 | ENCD-03 |
 
 ---
 
-## 2.4 Generator Guardrails
+## 2.5 Generator Guardrails
 
 ### 1) Anchor Continuity
 - Decide 3–7 anchor phrases once (e.g., "drop", "blank", "obedient", "soft", "still").
 - Reuse them intentionally across phases; avoid novelty metaphors unless IMMR demands it.
+- **Single-anchor principle (early induction):** In P2, choose one primary anchor (breath, body weight, or voice) before layering in additional channels. Multiple simultaneous anchors early in trance scatter attention rather than focusing it.
 
 ### 2) Technique Parameterization
 For production-grade consistency, pre-pick parameters:
 - TRIG-01: trigger phrase, response, modality, duration, scope bounds
-- ENCD-01: mantra phrase, repetition count
-- INDU-05/DEEP-04: start/end numbers
+- ATTN-11: mantra phrase, repetition count
+- ATTN-03/DPTH-04: start/end numbers
 - SAFE-03: stop word + "what happens next"
 - EMRG-01: count-up range (e.g., 1–5 or 1–10)
 
-### 3) Async Failure Risk
-Default to "low-failure" validation in audio:
-- Prefer VALD-04 (self-validating language) over "arm stuck" unless your audience expects it.
+### 3) Sensory Channel Bridging
+When transitioning between sensory modalities (body sensation → visualization → voice), bridge the channels explicitly rather than switching abruptly. Abrupt channel shifts early in trance require the subject to mentally relocate, pulling them partially out of absorption. Example bridge: "Continuing to feel the soft weight of your body, let your attention drift to the sound of my voice..." — the new channel is introduced while the previous one is still active.
 
-### 4) v5.2 Critical Rules
-- **DEEP-03 is for fractionation during P3.** Never use DEEP-03 in P5 emergence.
+### 4) Async Failure Risk
+Default to "low-failure" validation in audio:
+- Prefer COMP-09 (self-validating language) over motor inhibition tests unless your audience expects challenge-style proof.
+
+### 5) v6.0 Critical Rules
+- **DPTH-03 is for fractionation during P3.** Never use DPTH-03 in P5 emergence.
 - **P5 emergence MUST use EMRG category:** EMRG-01 through EMRG-10.
 - **One technique ID = one meaning.** Do not overload.
-- **ABSR techniques replace LOAD/SEMN.** Use ABSR-01 through ABSR-09 for critical softening.
-
+- **Category prefix = function served.** ATTN techniques belong in absorption contexts, BYPS in disruption contexts, COMP in compliance-building contexts — even when phases overlap.
+- **Mantras (ATTN-11) vs Call-and-Response (COMP-01):** Mantras are self-directed absorption; call-and-response is operator-directed compliance building. Different mechanisms, different phase contexts.
