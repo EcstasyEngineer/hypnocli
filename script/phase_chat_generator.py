@@ -32,8 +32,7 @@ Quickstart:
     --out_dir out_run
 
 Notes:
-- This generator defaults to including SAFE-03 (stop signal) + SAFE-05 (aftercare) for non-loop variants.
-- It *defaults off* high-blast-radius techniques unless explicitly allowed.
+- SAFE techniques are available but not forced — use them when appropriate for the content.
 
 """
 
@@ -77,7 +76,7 @@ PROVIDER_URLS = {
 PROVIDER_DEFAULTS = {
     "https://api.openai.com/v1": "gpt-4o",
     "https://api.x.ai/v1": "grok-4-0414",
-    "https://generativelanguage.googleapis.com/v1beta/openai/": "models/gemini-3-flash-preview",
+    "https://generativelanguage.googleapis.com/v1beta/openai/": "gemini-3-flash-preview",
     "https://openrouter.ai/api/v1": "anthropic/claude-sonnet-4-6",
     "https://api.anthropic.com/v1": "claude-sonnet-4-6",
     "http://localhost:11434/v1": "llama3",
@@ -339,7 +338,6 @@ FORMAT & SAFETY (non-negotiable)
 - NEVER include technique IDs (DPTH-03, EMRG-01, etc.) in script text.
 - Keep trigger phrases and mantra phrases EXACTLY as specified in the plan.
 - Do not introduce trigger phrases not in the plan.
-- If SAFE-03 stop signal exists, do not weaken it or joke about it.
 - Never reference "this recording" or "this audio file."
 - Each phase should start distinctly — no repetitive openers.
 
@@ -382,8 +380,7 @@ Output STRICT JSON only (no markdown, no backticks).
     "optional_phases": ["P7","P9",...]
   }},
   "anchors": ["<3-7 short anchor words/phrases>"],
-  "stop_signal": {{ "word": "STOP", "procedure": "<1-2 sentences baseline procedure>" }},
-  "scope_bounds": ["<2-6 bullets; what will/won't be suggested>"],
+  "scope_bounds": ["<optional: what will/won't be suggested>"] or [],
   "parameters": {{
     "trigger_phrases": [{{"phrase":"...","response":"...","scope":"...","expiry":"optional"}}],
     "mantras": [{{"line":"...","difficulty":"BASIC|LIGHT|MODERATE|DEEP|EXTREME"}}]
@@ -392,7 +389,7 @@ Output STRICT JSON only (no markdown, no backticks).
     {{
       "phase": "P1",
       "duration_s": 45,
-      "techniques": ["ATTN-01","FRAM-02","SAFE-04"],
+      "techniques": ["ATTN-01","FRAM-02"],
       "params": {{ "ATTN-03": {{"start":10,"end":1}}, "ATTN-11":{{"phrase":"...","reps":5}} }},
       "notes": "..."
     }}
@@ -404,9 +401,8 @@ Output STRICT JSON only (no markdown, no backticks).
 - Sum of structure[].duration_s should match duration_s. Use the word count ranges from phase reference to guide durations.
 - 2–5 techniques per phase entry (except P1/P5 can be 1–3).
 - Choose techniques whose descriptions match the phase's function.
-- If variant is NOT loop, include SAFE-05 in P5.
 - If optional phases were requested, INCLUDE them unless truly incompatible with the variant.
-- Prefer low-failure validation (COMP-09) for prerecorded audio.
+- SAFE techniques are available but optional — use them only if the theme/style calls for safety framing.
 
 ## v6.0 Rules (CRITICAL)
 - DPTH-03 is ONLY for fractionation (during P3). Never use in P5.
@@ -481,7 +477,6 @@ PHASE_WRITER_TEMPLATE = """Write PHASE {phase} — {phase_name}.
 - Tone: {tone} | Style: {style}
 - Theme/Goal: {theme}
 - Scope bounds: {scope_bounds_bullets}
-- Stop signal: word="{stop_word}" procedure="{stop_proc}"
 
 ## PHASE STYLE MODE
 {phase_style_hint}
@@ -526,7 +521,6 @@ Before each phase, output this exact delimiter line (fill in the values):
 
 ## Session Parameters
 Anchors: {anchors_csv}
-Stop signal: word="{stop_word}" procedure="{stop_proc}"
 Scope: {scope_bounds_bullets}
 
 Write all phases end-to-end. No explanations, no meta-commentary. Only the script text and the delimiter lines.
@@ -541,7 +535,6 @@ def _build_plan_summary(plan: Dict[str, Any]) -> str:
     """Build a compact ~15-line plan summary for use as assistant context."""
     meta = plan.get("meta", {})
     anchors = plan.get("anchors", [])
-    stop = plan.get("stop_signal", {}) or {}
     scope = plan.get("scope_bounds", []) or []
     params = plan.get("parameters", {}) or {}
     trigger_phrases = params.get("trigger_phrases", []) or []
@@ -554,7 +547,6 @@ def _build_plan_summary(plan: Dict[str, Any]) -> str:
         f"Tone: {meta.get('tone', '')} | Style: {meta.get('style', '')}",
         f"Variant: {meta.get('variant', 'standard')} | Duration: {meta.get('duration_s', 0)}s",
         f"Anchors: {', '.join(anchors) if anchors else '(none)'}",
-        f"Stop signal: \"{stop.get('word', 'STOP')}\" — {stop.get('procedure', '')}",
     ]
 
     if scope:
@@ -783,9 +775,6 @@ def generate_script_oneshot(
     meta = plan.get("meta", {})
     anchors = plan.get("anchors", [])
     anchors_csv = "|".join(anchors) if anchors else ""
-    stop = plan.get("stop_signal", {}) or {}
-    stop_word = stop.get("word", "STOP")
-    stop_proc = stop.get("procedure", "Stop, take a breath, open your eyes, and return to baseline safely.")
     scope_bounds = plan.get("scope_bounds", []) or []
     scope_bounds_bullets = "\n".join([f"- {x}" for x in scope_bounds]) if scope_bounds else "- (none specified)"
 
@@ -806,8 +795,6 @@ def generate_script_oneshot(
     prompt = ONE_SHOT_WRITER_TEMPLATE.format(
         phase_table=phase_table,
         anchors_csv=anchors_csv,
-        stop_word=stop_word,
-        stop_proc=stop_proc,
         scope_bounds_bullets=scope_bounds_bullets,
     )
 
