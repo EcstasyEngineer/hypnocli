@@ -1,0 +1,7 @@
+# Generated output — regenerate with scripts/run.py
+renders/
+shaders/
+ontology.json
+ratings.jsonl
+scratch/
+scripts/__pycache__/

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GLSL Animate — SHADER_ID_PLACEHOLDER</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
+  canvas { display: block; max-width: 100vmin; max-height: 100vmin; }
+  #info { position: fixed; bottom: 8px; left: 8px; color: #555; font: 11px monospace; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="info">SHADER_ID_PLACEHOLDER — <span id="fps">...</span></div>
+
+<script>
+// ── INJECTED SHADER ─────────────────────────────────────────────────────────
+// GLSL_FRAGMENT_SHADER_PLACEHOLDER
+
+const FRAG_HEADER = `#version 300 es
+precision highp float;
+uniform vec3 iResolution;
+uniform float iTime;
+uniform vec4 iMouse;
+out vec4 _fragColor;
+`;
+
+const FRAG_MAIN = `
+void main() {
+    mainImage(_fragColor, gl_FragCoord.xy);
+}
+`;
+
+const VERT_SRC = `#version 300 es
+in vec2 a_pos;
+void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }`;
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+const canvas = document.getElementById('c');
+const SIZE = Math.min(window.innerWidth, window.innerHeight);
+canvas.width  = SIZE;
+canvas.height = SIZE;
+
+const gl = canvas.getContext('webgl2', {preserveDrawingBuffer: false, antialias: true});
+if (!gl) { document.title = 'NO_WEBGL2'; throw new Error('No WebGL2'); }
+
+function compileShader(type, src) {
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+        document.getElementById('info').textContent = 'COMPILE ERROR: ' + gl.getShaderInfoLog(sh);
+        throw new Error(gl.getShaderInfoLog(sh));
+    }
+    return sh;
+}
+
+const vert = compileShader(gl.VERTEX_SHADER, VERT_SRC);
+const frag = compileShader(gl.FRAGMENT_SHADER, FRAG_HEADER + INJECTED_SHADER + FRAG_MAIN);
+const prog = gl.createProgram();
+gl.attachShader(prog, vert); gl.attachShader(prog, frag); gl.linkProgram(prog);
+gl.useProgram(prog);
+
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,-1, 1,1, -1,1]), gl.STATIC_DRAW);
+const loc = gl.getAttribLocation(prog, 'a_pos');
+gl.enableVertexAttribArray(loc);
+gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+const uRes   = gl.getUniformLocation(prog, 'iResolution');
+const uTime  = gl.getUniformLocation(prog, 'iTime');
+const uMouse = gl.getUniformLocation(prog, 'iMouse');
+
+gl.uniform3f(uRes, canvas.width, canvas.height, 1.0);
+gl.uniform4f(uMouse, 0.0, 0.0, 0.0, 0.0);
+
+// Mouse tracking
+canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    gl.uniform4f(uMouse, e.clientX - r.left, canvas.height - (e.clientY - r.top), 0, 0);
+});
+
+// ── RENDER LOOP ───────────────────────────────────────────────────────────────
+let startTime = null;
+let frames = 0, fpsStart = 0;
+
+function frame(ts) {
+    if (!startTime) { startTime = ts; fpsStart = ts; }
+    const t = (ts - startTime) / 1000.0;
+
+    gl.uniform1f(uTime, t);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    frames++;
+    if (ts - fpsStart > 1000) {
+        document.getElementById('fps').textContent = frames + ' fps  t=' + t.toFixed(1) + 's';
+        frames = 0; fpsStart = ts;
+    }
+
+    requestAnimationFrame(frame);
+}
+
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

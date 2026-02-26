@@ -2,16 +2,14 @@
 taxonomy.py — Parse hypnosis_taxonomy.md into the same dict structure
 previously served by hypnosis_taxonomy.json.
 
-Only the three keys actually consumed by phase_chat_generator.py are built:
-  - "techniques"  {TID: {name, category, description}}
-  - "phases"      {P1-P5: {name, required, duration_s, words, function,
-                            primary_techniques, secondary_techniques,
+Keys built:
+  - "techniques"  {TID: {name, category, description, detail_block}}
+  - "phases"      {P1-P5, M1-M4: {name, required, duration_s, words, function,
                             entry, exit, success, use_when, skip_when}}
   - "categories"  {CAT: {name, purpose}}
 
-"modules" (M1-M4) is also returned with the same schema for completeness.
-phase_chat_generator.py does not access _TAXONOMY["modules"], preserving
-the existing behaviour.
+"modules" is also returned as an alias containing only M1-M4 entries
+(same objects as in "phases") for backward compatibility.
 """
 
 import re
@@ -82,6 +80,10 @@ class TaxonomyReader:
     def load(self) -> Dict[str, Any]:
         lines = self._path.read_text(encoding="utf-8").splitlines()
         techniques = self._parse_techniques(lines)
+        detail_blocks = self._parse_technique_details(lines)
+        # Merge detail_block text into technique dicts
+        for tid, tdata in techniques.items():
+            tdata["detail_block"] = detail_blocks.get(tid, "")
         categories = self._parse_categories(lines)
         phases, modules = self._parse_phases_and_modules(lines)
         return {
@@ -91,7 +93,7 @@ class TaxonomyReader:
             "modules": modules,
         }
 
-    # ── Techniques ────────────────────────────────────────────────────────────
+    # ── Techniques (summary tables) ────────────────────────────────────────
 
     def _parse_techniques(self, lines: List[str]) -> Dict[str, Dict]:
         """
@@ -147,7 +149,44 @@ class TaxonomyReader:
 
         return result
 
-    # ── Categories ────────────────────────────────────────────────────────────
+    # ── Technique detail blocks ────────────────────────────────────────────
+
+    def _parse_technique_details(self, lines: List[str]) -> Dict[str, str]:
+        """
+        Extract full text from each ##### TID — Name heading to the next
+        technique heading (or section break). Returns {TID: raw_text}.
+        """
+        result: Dict[str, str] = {}
+        current_tid: Optional[str] = None
+        block_lines: List[str] = []
+
+        for line in lines:
+            m = re.match(r'^#{3,6}\s+([A-Z]+-\d+)\s*[—:\-–]\s*(.+)', line)
+            if m:
+                # Save previous block
+                if current_tid is not None:
+                    result[current_tid] = "\n".join(block_lines).strip()
+                current_tid = m.group(1)
+                block_lines = []
+                continue
+
+            # A ## heading or --- ends any technique block
+            if current_tid is not None and (re.match(r'^## ', line) or line.strip() == "---"):
+                result[current_tid] = "\n".join(block_lines).strip()
+                current_tid = None
+                block_lines = []
+                continue
+
+            if current_tid is not None:
+                block_lines.append(line)
+
+        # Flush last block
+        if current_tid is not None:
+            result[current_tid] = "\n".join(block_lines).strip()
+
+        return result
+
+    # ── Categories ────────────────────────────────────────────────────────
 
     def _parse_categories(self, lines: List[str]) -> Dict[str, Dict]:
         """
@@ -170,20 +209,19 @@ class TaxonomyReader:
             result[cat_id] = {"name": cat_name, "purpose": purpose}
         return result
 
-    # ── Phases + Modules ──────────────────────────────────────────────────────
+    # ── Phases + Modules ──────────────────────────────────────────────────
 
     def _parse_phases_and_modules(
         self, lines: List[str]
     ) -> Tuple[Dict, Dict]:
         """
-        Merge three sources:
+        Merge two sources:
           1. Summary tables (1.1)  — duration_s, required flag, name
-          2. Detail blocks (1.4/1.5) — function, entry, exit, success, use_when, skip_when
-          3. Compatibility matrix (2.3) — primary_techniques, secondary_techniques
+          2. Detail blocks (1.4/1.5) — function, entry, exit, success,
+             use_when, skip_when
         """
         meta = self._parse_phase_summary_tables(lines)
         detail = self._parse_phase_detail_blocks(lines)
-        compat = self._parse_compatibility_matrix(lines)
 
         phases: Dict[str, Dict] = {}
         modules: Dict[str, Dict] = {}
@@ -198,13 +236,15 @@ class TaxonomyReader:
                 "success":    detail.get(pid, {}).get("success", ""),
                 "use_when":   detail.get(pid, {}).get("use_when", ""),
                 "skip_when":  detail.get(pid, {}).get("skip_when", ""),
-                "primary_techniques":   compat.get(pid, {}).get("primary", []),
-                "secondary_techniques": compat.get(pid, {}).get("secondary", []),
             }
             if pid.startswith("P"):
                 phases[pid] = entry
             else:
                 modules[pid] = entry
+
+        # Also put modules into phases dict so both P and M are accessible
+        # from a single lookup. modules dict remains as backward-compat alias.
+        phases.update(modules)
 
         return phases, modules
 
@@ -266,6 +306,7 @@ class TaxonomyReader:
         """
         Parse bullet lists under '### P1: ...' and '### M1: ...' headings.
         Sections 1.4 (P1-P5) and 1.5 (M1-M4).
+        Extracts function, entry/exit/success, use_when, skip_when.
         """
         result: Dict[str, Dict] = {}
         current_pid: Optional[str] = None
@@ -318,40 +359,6 @@ class TaxonomyReader:
                 result[current_pid]["skip_when"] = _extract(
                     r'\*\*Skip[^:]*:\*\*\s*(.+)', content
                 )
-
-        return result
-
-    def _parse_compatibility_matrix(self, lines: List[str]) -> Dict[str, Dict]:
-        """
-        Parse the '## 2.3 Phase-Technique Compatibility Matrix' table.
-        Row format: | P1 Context + Safety | INDU-03, ... | INDU-04, ... |
-        """
-        result: Dict[str, Dict] = {}
-        in_matrix = False
-
-        for line in lines:
-            if "Phase-Technique Compatibility Matrix" in line:
-                in_matrix = True
-                continue
-            if in_matrix and line.strip() == "---":
-                break
-            if not in_matrix:
-                continue
-            # Skip header and separator rows
-            if re.match(r'^\| Phase', line) or re.match(r'^\|[-| ]+\|', line):
-                continue
-
-            if line.startswith("|"):
-                parts = [p.strip() for p in line.split("|") if p.strip()]
-                if len(parts) < 3:
-                    continue
-                pid = parts[0].split()[0]  # "P1 Context + Safety" → "P1"
-                if not re.match(r'^[PM]\d+$', pid):
-                    continue
-                result[pid] = {
-                    "primary":   _parse_tech_list(parts[1]),
-                    "secondary": _parse_tech_list(parts[2]),
-                }
 
         return result
 

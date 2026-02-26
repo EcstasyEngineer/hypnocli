@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GLSL Rater</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #000; overflow: hidden; height: 100vh; font-family: monospace; }
+canvas { display: block; position: fixed; inset: 0; width: 100vw; height: 100vh; }
+
+#panel {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  padding: 10px 16px 14px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85) 30%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+#note {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  color: #ddd;
+  font: 13px monospace;
+  padding: 6px 10px;
+  outline: none;
+  resize: none;
+  height: 36px;
+  transition: height 0.15s, opacity 0.2s;
+}
+#note:focus { height: 72px; border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.1); }
+#note::placeholder { color: #555; }
+
+#buttons { display: flex; gap: 6px; align-items: center; }
+
+.score-btn {
+  flex: 1; height: 34px;
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
+  background: rgba(255,255,255,0.06); color: #aaa;
+  font: 14px monospace; cursor: pointer;
+  transition: background 0.1s, color 0.1s, transform 0.08s;
+}
+.score-btn:hover { background: hsla(var(--hue), 60%, 35%, 0.6); color: #fff; border-color: hsla(var(--hue), 60%, 60%, 0.5); transform: translateY(-1px); }
+.score-btn:active { transform: translateY(0); }
+.score-btn[data-score="1"]  { --hue: 0; }
+.score-btn[data-score="2"]  { --hue: 12; }
+.score-btn[data-score="3"]  { --hue: 24; }
+.score-btn[data-score="4"]  { --hue: 36; }
+.score-btn[data-score="5"]  { --hue: 52; }
+.score-btn[data-score="6"]  { --hue: 70; }
+.score-btn[data-score="7"]  { --hue: 90; }
+.score-btn[data-score="8"]  { --hue: 110; }
+.score-btn[data-score="9"]  { --hue: 130; }
+.score-btn[data-score="10"] { --hue: 145; }
+
+#discard-btn {
+  width: 36px; height: 34px; flex-shrink: 0;
+  border: 1px solid rgba(255,80,80,0.3); border-radius: 4px;
+  background: rgba(255,80,80,0.06); color: #844; font: 16px monospace; cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+#discard-btn:hover { background: rgba(255,80,80,0.25); color: #f88; }
+
+#info { position: fixed; top: 8px; left: 10px; color: #444; font: 11px monospace; z-index: 10; pointer-events: none; }
+
+#waiting {
+  position: fixed; inset: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  color: #333; font: 14px monospace;
+  background: #000;
+}
+
+#flash {
+  position: fixed; inset: 0; z-index: 30;
+  background: rgba(0,0,0,0); pointer-events: none;
+  transition: background 0.15s;
+}
+</style>
+</head>
+<body>
+<div id="waiting">waiting for shader...</div>
+<div id="flash"></div>
+<canvas id="c"></canvas>
+<div id="info">—</div>
+
+<div id="panel">
+  <textarea id="note" placeholder="optional note — type before scoring"></textarea>
+  <div id="buttons">
+    <button class="score-btn" data-score="1">1</button>
+    <button class="score-btn" data-score="2">2</button>
+    <button class="score-btn" data-score="3">3</button>
+    <button class="score-btn" data-score="4">4</button>
+    <button class="score-btn" data-score="5">5</button>
+    <button class="score-btn" data-score="6">6</button>
+    <button class="score-btn" data-score="7">7</button>
+    <button class="score-btn" data-score="8">8</button>
+    <button class="score-btn" data-score="9">9</button>
+    <button class="score-btn" data-score="10">10</button>
+    <button id="discard-btn" title="Discard (x)">✕</button>
+  </div>
+</div>
+
+<script>
+const PORT = location.port;
+let prog = null, gl = null;
+let startTime = null, frames = 0, fpsTs = 0;
+let currentShaderId = null;
+let rated = false;
+
+// ── WebGL setup ───────────────────────────────────────────────────────────────
+const canvas = document.getElementById('c');
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+gl = canvas.getContext('webgl2', {antialias: true});
+
+const VERT = `#version 300 es\nin vec2 p;\nvoid main(){gl_Position=vec4(p,0,1);}`;
+const FRAG_HEADER = `#version 300 es\nprecision highp float;\nuniform vec3 iResolution;\nuniform float iTime;\nuniform vec4 iMouse;\nout vec4 _fc;\n`;
+const FRAG_MAIN   = `\nvoid main(){mainImage(_fc,gl_FragCoord.xy);}`;
+
+const vBuf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,-1,1,1,-1,1]), gl.STATIC_DRAW);
+
+let uRes, uTime, uMouse;
+
+function stripPreamble(src) {
+  return src.split('\n').filter(l => {
+    const s = l.trim();
+    return !s.startsWith('#version') && !s.startsWith('precision ')
+        && !s.startsWith('uniform vec3 iResolution') && !s.startsWith('uniform float iTime')
+        && !s.startsWith('uniform vec4 iMouse') && !s.startsWith('out vec4 fragColor');
+  }).join('\n');
+}
+
+function compile(type, src) {
+  const sh = gl.createShader(type);
+  gl.shaderSource(sh, src);
+  gl.compileShader(sh);
+  if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+    const err = gl.getShaderInfoLog(sh);
+    console.error('Compile error:', err);
+    return null;
+  }
+  return sh;
+}
+
+function loadShader(shaderId, glslSrc) {
+  const clean = stripPreamble(glslSrc);
+  const vert = compile(gl.VERTEX_SHADER, VERT);
+  const frag = compile(gl.FRAGMENT_SHADER, FRAG_HEADER + clean + FRAG_MAIN);
+  if (!vert || !frag) {
+    document.getElementById('info').textContent = shaderId + ' — COMPILE ERROR (check console)';
+    return false;
+  }
+
+  const newProg = gl.createProgram();
+  gl.attachShader(newProg, vert); gl.attachShader(newProg, frag);
+  gl.linkProgram(newProg);
+  if (!gl.getProgramParameter(newProg, gl.LINK_STATUS)) {
+    console.error('Link error:', gl.getProgramInfoLog(newProg));
+    return false;
+  }
+
+  if (prog) gl.deleteProgram(prog);
+  prog = newProg;
+  gl.useProgram(prog);
+
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  uRes   = gl.getUniformLocation(prog, 'iResolution');
+  uTime  = gl.getUniformLocation(prog, 'iTime');
+  uMouse = gl.getUniformLocation(prog, 'iMouse');
+  gl.uniform4f(uMouse, 0, 0, 0, 0);
+
+  currentShaderId = shaderId;
+  startTime = null;
+  rated = false;
+  document.getElementById('info').textContent = shaderId;
+  document.getElementById('note').value = '';
+  document.getElementById('note').blur();
+  document.title = shaderId;
+
+  // Flash transition
+  const flash = document.getElementById('flash');
+  flash.style.background = 'rgba(0,0,0,0.7)';
+  setTimeout(() => { flash.style.background = 'rgba(0,0,0,0)'; }, 200);
+
+  document.getElementById('waiting').style.display = 'none';
+  return true;
+}
+
+canvas.addEventListener('mousemove', e => {
+  if (uMouse) gl.uniform4f(uMouse, e.clientX, canvas.height - e.clientY, 0, 0);
+});
+
+// ── Render loop ───────────────────────────────────────────────────────────────
+function frame(ts) {
+  requestAnimationFrame(frame);
+  if (!prog) return;
+  if (!startTime) { startTime = ts; fpsTs = ts; }
+  const t = (ts - startTime) / 1000;
+  gl.uniform1f(uTime, t);
+  gl.uniform3f(uRes, canvas.width, canvas.height, 1);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  frames++;
+  if (ts - fpsTs > 1000) {
+    document.getElementById('info').textContent =
+      (currentShaderId || '—') + '  ' + frames + ' fps';
+    frames = 0; fpsTs = ts;
+  }
+}
+requestAnimationFrame(frame);
+
+// ── SSE — receive new shaders ─────────────────────────────────────────────────
+function connect() {
+  const es = new EventSource('/events');
+  es.onmessage = e => {
+    const {shader_id, glsl} = JSON.parse(e.data);
+    loadShader(shader_id, glsl);
+  };
+  es.onerror = () => {
+    document.getElementById('info').textContent = 'reconnecting...';
+    es.close();
+    setTimeout(connect, 2000);
+  };
+}
+connect();
+
+// ── Rating submission ─────────────────────────────────────────────────────────
+async function submit(score, discard) {
+  if (rated || !currentShaderId) return;
+  rated = true;
+  const note = document.getElementById('note').value.trim();
+  document.getElementById('waiting').style.display = 'flex';
+  document.getElementById('waiting').textContent = 'rated — next shader incoming...';
+  await fetch('/rate', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({score, note, discard: !!discard, shader_id: currentShaderId})
+  }).catch(() => {});
+}
+
+document.querySelectorAll('.score-btn').forEach(btn =>
+  btn.addEventListener('click', () => submit(parseInt(btn.dataset.score), false))
+);
+document.getElementById('discard-btn').addEventListener('click', () => submit(0, true));
+
+document.addEventListener('keydown', e => {
+  if (e.target === document.getElementById('note')) return;
+  if (e.key >= '1' && e.key <= '9') submit(parseInt(e.key), false);
+  if (e.key === '0') submit(10, false);
+  if (e.key === 'x' || e.key === 'X') submit(0, true);
+});
+</script>
+</body>
+</html>

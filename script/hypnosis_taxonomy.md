@@ -1,29 +1,4 @@
 # Canonical Taxonomy for Hypnosis Script Generation
-## Version 6.0 — Complete Reference
-
-**Changes from v5.2:**
-- Three-tier structure: Phase (When) → Function Category (Why) → Technique (How)
-- Category prefixes now reflect function served, not phase or content domain
-- INDU split: breath/relaxation → SYNC, attention/absorption → ATTN, bypass → BYPS
-- ABSR split: absorption techniques → ATTN, bypass techniques → BYPS
-- AUTH split: framing → FRAM, compliance → COMP, encoding → ENCD, identity → PERS
-- VALD (Validation) merged into COMP (Compliance Building)
-- PLEA (Pleasure Association) renamed COND (Conditioning & Reward)
-- Mantras (ATTN-11) separated from Call-and-Response (COMP-01) — different mechanisms
-- CHECK techniques absorbed into SAFE (safety items) or Generator Guardrails (meta-guidance)
-- M1 renamed "Mind Blanking" (was "Critical Softening")
-- PERS-08 Ownership Language added (was AUTH-04)
-- New: FRAM-01 Expectation Seeding (was CHECK-09, now correctly positioned as pre-session framing)
-
-**Changes from v5.1 (carried forward):**
-- Restructured phases: 5 required (P1-P5) + 4 optional modules (M1-M4)
-- Merged P7 (Safety/Consent) into P1 (Context + Safety)
-- Demoted P8 (Fractionation) to technique DPTH-03
-- Added XFER category for transfer/persistence techniques
-- Added EMRG techniques (EMRG-06 through EMRG-10)
-
----
-
 ## Architecture Overview
 
 ```
@@ -160,14 +135,14 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Entry:** Session start. **Exit:** Oriented, focused attention, boundaries affirmed. **Success:** Breathing settled, focus established, trust increased.
 - **Use when:** First-time listeners; therapeutic/relaxation; any time safety/trust needs priming.
 - **Skip/Compress when:** Looping/series after episode 1; ultra-short runtime; pre-conditioned audience.
-- **Techniques:** ATTN-01, ATTN-02, SYNC-01, IMMR-01, FRAM-02, SAFE-01–SAFE-05.
+
 
 ### P2: Induction
 - **Function:** Transition consciousness; narrow attention; reduce movement; establish cooperation.
 - **Entry:** Context set. **Exit:** Initial trance, eyes closed. **Success:** Relaxation response, absorption.
 - **Use when:** Standard/first sessions; whenever no instant trigger is assumed.
 - **Skip/Compress when:** Using instant/conditioned induction (ATTN-04) in looping/series; time budget <4 min.
-- **Techniques:** SYNC-01, SYNC-02, SYNC-03, SYNC-04, ATTN-01–ATTN-06, BYPS-01.
+
 - **Note:** Re-induction (same-session) is just P2 again using ATTN-04 or TRIG-02.
 
 ### P3: Deepening
@@ -175,7 +150,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Entry:** Initial trance. **Exit:** Deeper trance, reduced critical faculty. **Success:** Countdown accepted; markers in place.
 - **Use when:** Any script requiring depth before suggestions.
 - **Skip/Compress when:** Looping variant with short runtime; ultra-short scripts.
-- **Techniques:** DPTH-01–DPTH-08, ATTN-03, ATTN-10.
+
 - **Note:** Fractionation (DPTH-03) is used here when depth amplification via wake/sleep cycling is needed.
 
 ### P4: Core Suggestion + Immersion
@@ -183,14 +158,14 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Entry:** Depth achieved (or M1 Mind Blanking completed). **Exit:** Core suggestions accepted, immersed in scene. **Success:** Identity/behavior shifts acknowledged, sensory buy-in.
 - **Use when:** Any goal beyond relaxation; triggers/behavior/identity changes; transformation/narrative themes.
 - **Skip/Compress when:** None for functional hypnosis; only reduce density if runtime is under ~5 min.
-- **Techniques:** FRAM-02–FRAM-05, COMP-02, PERS-08, ENCD-06, ATTN-11, COMP-01, ENCD-01–ENCD-05, COND-01–COND-07, PERS-01–PERS-07, IMMR-01–IMMR-08.
+
 
 ### P5: Emergence
 - **Function:** Safe return; maintain installs; re-energize; close frame.
 - **Entry:** Suggestions installed. **Exit:** Normal consciousness. **Success:** Alert, oriented, positive affect.
 - **Use when:** All non-looping scripts; anytime duty-of-care applies.
 - **Skip/Compress when:** Looping variant with M4; live sessions transitioning to another induction immediately.
-- **Techniques:** EMRG-01–EMRG-10, SAFE-05.
+
 - **CRITICAL:** Use EMRG category for emergence. Do NOT use DPTH-03 here.
 
 ---
@@ -202,42 +177,29 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Entry:** After P3 (Deepening). **Exit:** Critical faculty suspended. **Success:** Thought cessation accepted.
 - **Use when:** Installing identity/behavioral change; authoritarian/challenge styles; complex triggers; deep programming.
 - **Skip when:** Light relaxation/wellness; short scripts where P3 carries light thought-quieting.
-- **Techniques:** ATTN-07, ATTN-08, ATTN-09, BYPS-02–BYPS-10, PERS-08, ENCD-06.
+
 
 ### M2: Transfer (60–120s)
 - **Function:** Install conditioned responses; real-world commands; post-hypnotic actions; generalization to waking life.
 - **Entry:** After P4 (Core Suggestion). **Exit:** Triggers encoded, actions accepted. **Success:** Associations formed, bridge to real-world established.
 - **Use when:** Series/looping; behavioral bridges; future sessions; habit installation.
 - **Skip when:** Single-use relaxation; no post-hypnotic need; no external ask.
-- **Techniques:** TRIG-01, TRIG-03–TRIG-15, PERS-04, PERS-06, ENCD-02.
+
 
 ### M3: Demonstration (60–180s)
 - **Function:** Activate installed triggers; sustain bliss states; provide subjective proof of hypnosis. The "fun time" module.
 - **Entry:** After P4 or M2. **Exit:** Proof/pleasure experienced. **Success:** Listener perceives phenomenon; desire to stay/return.
 - **Use when:** Challenge style; reward loops; pleasure themes; low-belief listeners needing proof.
 - **Skip when:** Risk of failure (asynchronous); wellness contexts where tests feel invasive.
-- **Techniques:** TRIG-02, COMP-03–COMP-10, COND-01–COND-07.
+
 
 ### M4: Maintenance/Loop (60–90s)
 - **Function:** Sustain trance indefinitely; prepare loop restart; no emergence.
 - **Entry:** After P4 or M2/M3 (loop terminal). **Exit:** Stable loop state. **Success:** State mirrors opening; listener can continue.
 - **Use when:** Looping/ambient content; background playback.
 - **Skip when:** Any script requiring wake/aftercare.
-- **Techniques:** PERS-05, PERS-03, ATTN-08, COMP-09.
+
 - **Note:** M4 replaces P5 (Emergence) as the terminal state.
-
----
-
-## 1.6 Module Selection Checklist
-
-| Module | Use If | Avoid If | Best For |
-|--------|--------|----------|----------|
-| M1 Mind Blanking | Identity/behavior change; authoritarian style; complex triggers | Light relaxation; short scripts | Deep programming |
-| M2 Transfer | Series/looping; future sessions; real-world asks | One-off relaxation; no post-hypnotic need | Triggers, behavioral bridge |
-| M3 Demonstration | Trigger use; bliss/reward; proof needed | High failure risk; wellness | "Fun time", proof |
-| M4 Maintenance/Loop | Loop/ambient content | Any script needing wake | Endless play |
-
-**Note:** Fractionation (DPTH-03) is a technique used within P3, not a separate module.
 
 ---
 
@@ -1991,51 +1953,3 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | Character | Hypnotist maintains persona | Variable | Roleplay, fantasy |
 | Compulsion | "You cannot resist," inevitability, "helpless" | Very High | Extreme themes |
 
----
-
-## 2.4 Phase-Technique Compatibility Matrix
-
-*Primary = most common, Secondary = less frequent but valid.*
-
-| Phase/Module | Primary Techniques | Secondary Techniques |
-|--------------|-------------------|---------------------|
-| P1 Context + Safety | ATTN-01, FRAM-02, SYNC-01, SAFE-01–SAFE-04 | ATTN-02, ATTN-10, IMMR-05, SAFE-06–SAFE-10 |
-| P2 Induction | SYNC-02, IMMR-01, SYNC-01, ATTN-01, ATTN-08 | ATTN-10, ATTN-04, ATTN-07 |
-| P3 Deepening | DPTH-01, DPTH-02, IMMR-01, SYNC-02, DPTH-03 | COMP-02, FRAM-02, COND-01, DPTH-04 |
-| P4 Core Suggestion | ATTN-11, COMP-02, COND-01, PERS-01, COMP-01, IMMR-01–IMMR-08 | FRAM-05, ENCD-02, PERS-03 |
-| P5 Emergence | EMRG-01, EMRG-02, SAFE-05, EMRG-06 | EMRG-03, EMRG-04, EMRG-07–EMRG-10 |
-| M1 Mind Blanking | ATTN-07, ATTN-08, BYPS-06, DISS-01 | ATTN-09, BYPS-02–BYPS-10, PERS-08, ENCD-06 |
-| M2 Transfer | TRIG-01, TRIG-03, TRIG-04, ENCD-02, PERS-04 | COMP-02, COND-01, PERS-06, TRIG-09 |
-| M3 Demonstration | TRIG-02, COMP-04, COMP-08, COND-01 | ATTN-04, IMMR-01, IMMR-08, COMP-09, COND-06 |
-| M4 Maintenance | PERS-05, PERS-03, ATTN-08, COMP-09 | ENCD-03 |
-
----
-
-## 2.5 Generator Guardrails
-
-### 1) Anchor Continuity
-- Decide 3–7 anchor phrases once (e.g., "drop", "blank", "obedient", "soft", "still").
-- Reuse them intentionally across phases; avoid novelty metaphors unless IMMR demands it.
-- **Single-anchor principle (early induction):** In P2, choose one primary anchor (breath, body weight, or voice) before layering in additional channels. Multiple simultaneous anchors early in trance scatter attention rather than focusing it.
-
-### 2) Technique Parameterization
-For production-grade consistency, pre-pick parameters:
-- TRIG-01: trigger phrase, response, modality, duration, scope bounds
-- ATTN-11: mantra phrase, repetition count
-- ATTN-03/DPTH-04: start/end numbers
-- SAFE-03: stop word + "what happens next"
-- EMRG-01: count-up range (e.g., 1–5 or 1–10)
-
-### 3) Sensory Channel Bridging
-When transitioning between sensory modalities (body sensation → visualization → voice), bridge the channels explicitly rather than switching abruptly. Abrupt channel shifts early in trance require the subject to mentally relocate, pulling them partially out of absorption. Example bridge: "Continuing to feel the soft weight of your body, let your attention drift to the sound of my voice..." — the new channel is introduced while the previous one is still active.
-
-### 4) Async Failure Risk
-Default to "low-failure" validation in audio:
-- Prefer COMP-09 (self-validating language) over motor inhibition tests unless your audience expects challenge-style proof.
-
-### 5) v6.0 Critical Rules
-- **DPTH-03 is for fractionation during P3.** Never use DPTH-03 in P5 emergence.
-- **P5 emergence MUST use EMRG category:** EMRG-01 through EMRG-10.
-- **One technique ID = one meaning.** Do not overload.
-- **Category prefix = function served.** ATTN techniques belong in absorption contexts, BYPS in disruption contexts, COMP in compliance-building contexts — even when phases overlap.
-- **Mantras (ATTN-11) vs Call-and-Response (COMP-01):** Mantras are self-directed absorption; call-and-response is operator-directed compliance building. Different mechanisms, different phase contexts.

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GLSL Render</title>
+<style>
+  * { margin: 0; padding: 0; }
+  body { background: #000; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const RENDER_TIME = 2.0;        // seconds to simulate before capture
+const CANVAS_W = 512;
+const CANVAS_H = 512;
+
+// ── INJECTED SHADER ─────────────────────────────────────────────────────────
+// GLSL_FRAGMENT_SHADER_PLACEHOLDER
+
+const FRAG_HEADER = `#version 300 es
+precision highp float;
+uniform vec3 iResolution;
+uniform float iTime;
+uniform vec4 iMouse;
+out vec4 _fragColor;
+`;
+
+const FRAG_MAIN = `
+void main() {
+    mainImage(_fragColor, gl_FragCoord.xy);
+}
+`;
+
+const VERT_SRC = `#version 300 es
+in vec2 a_pos;
+void main() {
+    gl_Position = vec4(a_pos, 0.0, 1.0);
+}`;
+
+// ── INIT WebGL ───────────────────────────────────────────────────────────────
+const canvas = document.getElementById('c');
+canvas.width  = CANVAS_W;
+canvas.height = CANVAS_H;
+const gl = canvas.getContext('webgl2', {preserveDrawingBuffer: true});
+
+if (!gl) {
+    document.title = 'WEBGL_ERROR: WebGL2 not available';
+    throw new Error('WebGL2 not available');
+}
+
+function compileShader(type, src) {
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+        const err = gl.getShaderInfoLog(sh);
+        document.title = 'GLSL_ERROR: ' + err.replace(/\n/g, ' ');
+        throw new Error('Shader compile: ' + err);
+    }
+    return sh;
+}
+
+const fragSrc = FRAG_HEADER + INJECTED_SHADER + FRAG_MAIN;
+const vert = compileShader(gl.VERTEX_SHADER,   VERT_SRC);
+const frag = compileShader(gl.FRAGMENT_SHADER, fragSrc);
+
+const prog = gl.createProgram();
+gl.attachShader(prog, vert);
+gl.attachShader(prog, frag);
+gl.linkProgram(prog);
+if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    const err = gl.getProgramInfoLog(prog);
+    document.title = 'LINK_ERROR: ' + err.replace(/\n/g, ' ');
+    throw new Error('Link error: ' + err);
+}
+gl.useProgram(prog);
+
+// Fullscreen quad
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+    -1,-1,  1,-1,  -1,1,  1,-1,  1,1,  -1,1
+]), gl.STATIC_DRAW);
+const loc = gl.getAttribLocation(prog, 'a_pos');
+gl.enableVertexAttribArray(loc);
+gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+const uRes   = gl.getUniformLocation(prog, 'iResolution');
+const uTime  = gl.getUniformLocation(prog, 'iTime');
+const uMouse = gl.getUniformLocation(prog, 'iMouse');
+
+gl.uniform3f(uRes, CANVAS_W, CANVAS_H, 1.0);
+gl.uniform4f(uMouse, 0.0, 0.0, 0.0, 0.0);
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+// Simulate at RENDER_TIME (static frame, no animation loop needed for capture)
+gl.uniform1f(uTime, RENDER_TIME);
+gl.viewport(0, 0, CANVAS_W, CANVAS_H);
+gl.drawArrays(gl.TRIANGLES, 0, 6);
+gl.finish();
+
+// ── CAPTURE ──────────────────────────────────────────────────────────────────
+// Signal Playwright that render is complete by setting title
+// Playwright will call canvas.toDataURL() directly
+document.title = 'RENDER_COMPLETE';
+</script>
+</body>
+</html>

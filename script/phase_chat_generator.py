@@ -228,6 +228,7 @@ _TAXONOMY = load_taxonomy()
 
 ALLOWED_TECHNIQUES = set(_TAXONOMY["techniques"].keys())
 PHASE_NAMES = {pid: pdata["name"] for pid, pdata in _TAXONOMY["phases"].items()}
+# phases dict now includes M1-M4, so PHASE_NAMES covers both P and M IDs
 
 
 
@@ -241,7 +242,10 @@ class PhasePlan:
 
 
 def build_technique_reference() -> str:
-    """Build a compact technique reference from taxonomy for the planner prompt."""
+    """Build a compact technique reference from taxonomy for the planner prompt.
+
+    Includes the first sentence of each technique's detail block for context.
+    """
     lines = []
     # Group by category
     by_cat: Dict[str, List[str]] = {}
@@ -249,7 +253,25 @@ def build_technique_reference() -> str:
         cat = tdata["category"]
         if cat not in by_cat:
             by_cat[cat] = []
-        by_cat[cat].append(f"{tid}: {tdata['name']} - {tdata['description']}")
+        # Extract first sentence from detail_block for extra context
+        detail = tdata.get("detail_block", "")
+        first_sentence = ""
+        if detail:
+            # Detail blocks start with "> " blockquote containing the description
+            for dline in detail.split("\n"):
+                stripped = dline.lstrip("> ").strip()
+                if stripped and not stripped.startswith("**"):
+                    # Take first sentence
+                    end = stripped.find(". ")
+                    if end > 0:
+                        first_sentence = stripped[:end + 1]
+                    else:
+                        first_sentence = stripped.rstrip(".")  + "."
+                    break
+        entry = f"{tid}: {tdata['name']} - {tdata['description']}"
+        if first_sentence:
+            entry += f"\n    {first_sentence}"
+        by_cat[cat].append(entry)
 
     for cat, cat_data in _TAXONOMY["categories"].items():
         if cat in by_cat:
@@ -261,17 +283,45 @@ def build_technique_reference() -> str:
 
 
 def build_phase_reference() -> str:
-    """Build phase reference with recommended techniques from taxonomy."""
+    """Build phase reference from taxonomy.
+
+    Includes full function text and use_when/skip_when guidance.
+    Technique selection is left to the model based on technique descriptions.
+    """
     lines = []
-    for pid, pdata in _TAXONOMY["phases"].items():
+    for pid in sorted(_TAXONOMY["phases"].keys()):
+        pdata = _TAXONOMY["phases"][pid]
         req = "REQUIRED" if pdata["required"] else "OPTIONAL"
         dur = f"{pdata['duration_s'][0]}-{pdata['duration_s'][1]}s"
         words = f"{pdata['words'][0]}-{pdata['words'][1]}w"
-        primary = ", ".join(pdata.get("primary_techniques", [])[:5])
-        lines.append(f"- {pid} {pdata['name']} [{req}] [{dur}] [{words}]: {pdata['function'][:80]}...")
-        if primary:
-            lines.append(f"  Primary techniques: {primary}")
+        lines.append(f"- {pid} {pdata['name']} [{req}] [{dur}] [{words}]")
+        lines.append(f"  Function: {pdata['function']}")
+        if pdata.get("use_when"):
+            lines.append(f"  Use when: {pdata['use_when']}")
+        if pdata.get("skip_when"):
+            lines.append(f"  Skip when: {pdata['skip_when']}")
     return "\n".join(lines)
+
+
+def build_technique_examples(technique_ids: List[str]) -> str:
+    """Build technique detail blocks (description + good/bad examples) for the writer.
+
+    Given a list of technique IDs from a phase's plan, returns the full
+    detail block text for each so the writer has concrete do/don't examples.
+    """
+    sections = []
+    for tid in technique_ids:
+        tdata = _TAXONOMY["techniques"].get(tid)
+        if not tdata:
+            continue
+        detail = tdata.get("detail_block", "")
+        if not detail:
+            continue
+        sections.append(f"### {tid}: {tdata['name']}\n{detail}")
+
+    if not sections:
+        return ""
+    return "\n\n".join(sections)
 
 
 # -------------------------
@@ -469,9 +519,9 @@ Output STRICT JSON only (no markdown, no backticks).
 ## Requirements
 - Choose phases in a legal order for the variant.
 - Sum of structure[].duration_s should match duration_s. Use the word count ranges from phase reference to guide durations.
-- 2–5 techniques per phase entry (except P1/P6 can be 1–3).
-- Use PRIMARY techniques from each phase's recommendation list when possible.
-- If variant is NOT loop, include SAFE-05 in P6.
+- 2–5 techniques per phase entry (except P1/P5 can be 1–3).
+- Choose techniques whose descriptions match the phase's function.
+- If variant is NOT loop, include SAFE-05 in P5.
 - If optional phases were requested, INCLUDE them unless truly incompatible with the variant.
 - Prefer low-failure validation (COMP-09) for prerecorded audio.
 
@@ -479,6 +529,7 @@ Output STRICT JSON only (no markdown, no backticks).
 - DPTH-03 is ONLY for fractionation (during P3). Never use in P5.
 - P5 emergence MUST use EMRG-01/02/03/04/05, not DPTH-03.
 - One technique ID = one meaning.
+- Sensory channel bridging: when notes transition between modalities (body→visualization→voice), bridge explicitly rather than switching abruptly.
 
 ## Notes Field Quality (CRITICAL for writer)
 The "notes" field in each structure entry is the primary creative seed for the writer.
@@ -505,18 +556,14 @@ def get_planner_instructions() -> str:
 # Phase-specific style mode hints injected into PHASE_WRITER_TEMPLATE
 _PHASE_STYLE_HINTS: Dict[str, str] = {
     "P1": "PRE-TALK mode: medium sentences (12-20 words). Conversational authority. Establish the central object or metaphor concretely. No trance language yet — build credibility.",
-    "P2": "INDUCTION mode: transitioning from medium to short. Begin with inarguable observations. Permission grammar ('you can'). Soft. Introduce 'just'. First closed loops.",
+    "P2": "INDUCTION mode: transitioning from medium to short. Begin with inarguable observations. Permission grammar ('you can'). Soft. Introduce 'just'. First closed loops. SINGLE-ANCHOR PRINCIPLE: choose one primary anchor (breath, body weight, or voice) before layering additional channels.",
     "P3": "DEEPENING mode: SHORT FRAGMENTS ONLY. 3-8 words per line. One idea per line. No compound sentences. Breath/body anchored. This is where you earn depth.",
-    "P4": "DEEPENING mode: SHORT FRAGMENTS ONLY. 3-8 words. The listener is already partially under — fragment length is now your primary tool. Let silence do work.",
-    "P5": "SUGGESTION mode: oscillate. A medium declarative (8-12 words) drops the suggestion; 1-3 word fragments reinforce it. Pattern: claim → echo → echo. Never announce — just land it.",
-    "P6": "EMERGENCE mode: return to medium sentences (12-18 words). Sentence length increase signals ascent. Modal shift: declarative → permission → invitation. Warm, grounding. All sentences must be grammatically complete — no dangling adverbs ('fades safe' → 'fades safely, leaving you clear').",
-    "P7": "SPECIALTY — follow session depth. If post-deepening, maintain short fragments. Use the depth the listener is already at.",
-    "P8": "FRACTIONATION mode: short, fragment-dominant. Rapid open/close cycling. Treat like P3/P4. Each cycle should briefly touch the suggestion layer before dropping again.",
-    "P9": "SPECIALTY — follow session depth. Medium sentences, focused on the specific technique(s) being executed.",
-    "P10": "SPECIALTY — follow session depth. Short to medium. Reinforce earlier installations.",
-    "P11": "SPECIALTY — follow session depth. Short to medium.",
-    "P12": "SPECIALTY — follow session depth.",
-    "P13": "LOOP CLOSE mode: short to medium. Final 3 sentences: abstract anchors only (trance, sink, deeper, yield, surrender, drop). No theme-specific imagery at the end.",
+    "P4": "SUGGESTION mode: oscillate. A medium declarative (8-12 words) drops the suggestion; 1-3 word fragments reinforce it. Pattern: claim → echo → echo. Never announce — just land it. Fragment length is your primary tool. Let silence do work.",
+    "P5": "EMERGENCE mode: return to medium sentences (12-18 words). Sentence length increase signals ascent. Modal shift: declarative → permission → invitation. Warm, grounding. All sentences must be grammatically complete — no dangling adverbs ('fades safe' → 'fades safely, leaving you clear').",
+    "M1": "BLANK-STATE mode: SHORT FRAGMENTS ONLY. 3-8 words. Dissolve analytical thought. Voice replaces internal monologue. Fragment length signals depth. Build cognitive overwhelm structurally, not poetically.",
+    "M2": "TRANSFER mode: medium-short (8-15 words). Declarative authority. Install conditioned responses. Bridge trance state to real-world contexts. Each trigger must land with exact wording from plan.",
+    "M3": "DEMONSTRATION mode: short to medium. Activate installed triggers. Sustain reward states. Provide proof of trance. Let the listener feel the phenomenon, don't describe it.",
+    "M4": "LOOP CLOSE mode: short to medium. Final 3 sentences: abstract anchors only (trance, sink, deeper, yield, surrender, drop). No theme-specific imagery at the end. State must mirror opening for seamless restart.",
 }
 
 
@@ -539,6 +586,9 @@ PHASE_WRITER_TEMPLATE = """Write PHASE {phase} — {phase_name}.
 ## PHASE STYLE MODE
 {phase_style_hint}
 
+## TECHNIQUE REFERENCE (good/bad examples for this phase's techniques)
+{technique_examples}
+
 ## CRITICAL SEED — read this before writing a single word
 {notes_block}
 
@@ -555,6 +605,7 @@ PHASE_WRITER_TEMPLATE = """Write PHASE {phase} — {phase_name}.
 - TRIGGER PHRASES: repeat exactly 3 times when installing. Use exact wording from plan.
 - PRAISE POST-COMPLIANCE: "That's right" / "Good" only after an instruction has been executed, not before.
 - Do not introduce trigger phrases not in the plan.
+- SENSORY CHANNEL BRIDGING: when transitioning between modalities (body→visualization→voice), bridge explicitly. Introduce the new channel while the previous one is still active, not as an abrupt switch.
 """
 
 
@@ -565,6 +616,8 @@ TECHNIQUES: {techniques_csv}
 PARAMS: {params_json}
 
 STYLE MODE: {phase_style_hint}
+
+{technique_examples}
 
 SEED (authoritative):
 {notes_block}
@@ -1120,6 +1173,11 @@ def generate_script_from_plan(
 
         forward = _forward_refs(plan, idx)
 
+        tech_examples = build_technique_examples(techniques)
+        tech_examples_block = ""
+        if tech_examples:
+            tech_examples_block = f"TECHNIQUE EXAMPLES (good/bad for this phase):\n{tech_examples}"
+
         phase_brief = PHASE_WRITER_TEMPLATE_V2.format(
             phase=phase,
             phase_name=phase_name,
@@ -1128,12 +1186,13 @@ def generate_script_from_plan(
             techniques_csv=",".join(techniques),
             params_json=json.dumps(params, ensure_ascii=False),
             phase_style_hint=phase_style_hint,
+            technique_examples=tech_examples_block,
             notes_block=notes_block,
             forward_refs=forward,
         )
 
-        # Add loop-specific guidance for P13
-        if phase == "P13" and plan.get("meta", {}).get("variant") == "loop":
+        # Add loop-specific guidance for M4 (loop close)
+        if phase in ("P13", "M4") and plan.get("meta", {}).get("variant") == "loop":
             phase_brief += """
 LOOP TRANSITION RULES:
 - The final 2-3 sentences should be theme-agnostic to enable cross-theme playlists

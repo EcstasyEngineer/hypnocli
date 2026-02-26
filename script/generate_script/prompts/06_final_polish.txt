@@ -1,6 +1,0 @@
-Here is a revised draft:
-
-{draft}
-
-Polish the text for style, grammar, and readability. Make it publication-ready.
-Remove or smoothly integrate all section titles and bullet points. Rewrite any headers as natural transition sentences suitable for spoken audio. The result should be a single, flowing narrative that makes sense when read aloud, with no explicit section titles or list formatting. Ensure the output is ready to be pasted into a TTS engine for natural-sounding audio.
