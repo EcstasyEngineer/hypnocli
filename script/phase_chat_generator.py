@@ -1205,26 +1205,74 @@ def write_script(plans: List[PhasePlan], texts: List[str], out_path: Path) -> No
 # -------------------------
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Phase-based hypnosis script generator (conversation-orchestrated)")
-    ap.add_argument("--theme", default=None, help="Theme/goal (free text) - required unless --plan provided")
-    ap.add_argument("--tone", default=None, help="Tone (free text) - required unless --plan provided")
-    ap.add_argument("--style", default=None, choices=["Permissive","Authoritarian","Challenge","Mixed","Institutional","Character","Compulsion"], help="Style label")
+    ap = argparse.ArgumentParser(
+        description="Phase-based hypnosis script generator",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""examples:
+  # Generate from scratch (Compulsion loop, 10 min)
+  python3 phase_chat_generator.py \\
+    --theme "mind control and identity dissolution" \\
+    --style Compulsion --tone "commanding, intimate" \\
+    --variant loop --duration "10 minutes" --optional "M1,M2"
+
+  # Write from existing plan (reuse plan, try different model)
+  python3 phase_chat_generator.py --plan out/plan.json \\
+    --base_url anthropic --model claude-sonnet-4-6
+
+  # Quick draft with oneshot (cheaper, lower quality)
+  python3 phase_chat_generator.py --plan out/plan.json --mode oneshot
+
+modes:
+  conversation  Accumulates real user/assistant turns across phases.
+                Model sees its own prior output — best continuity and
+                mantra compounding. Best with Claude models. (default)
+  phased        Fixed 4-message context per phase (system + plan summary
+                + tail of prior phase + brief). Each phase is independent.
+                Best with Gemini models.
+  oneshot        Single API call for entire script. Cheapest but lowest
+                quality — undercounts mantra reps, wall-of-text formatting.
+
+providers (--base_url shortcuts):
+  anthropic/claude   Claude (Sonnet, Opus)
+  xai/grok           Grok
+  gemini/google      Gemini
+  openai             OpenAI / GPT
+  openrouter         OpenRouter
+  ollama/lmstudio    Local models
+""")
+
+    # Content
+    ap.add_argument("--theme", default=None, help="Theme/goal (free text). Required unless --plan provided.")
+    ap.add_argument("--tone", default=None, help="Tone (free text, e.g. 'commanding, intimate, relentless'). Required unless --plan.")
+    ap.add_argument("--style", default=None,
+                    choices=["Permissive","Authoritarian","Challenge","Mixed","Institutional","Character","Compulsion"],
+                    help="Style label — controls authority register and POV rules.")
     ap.add_argument("--variant", default="standard",
-                       choices=["standard","loop","twostage","series"],
-                       help="Script structure: standard (full arc), loop (no wake), twostage (fractionation), series (assumes prior conditioning)")
-    ap.add_argument("--duration", default=None, help="Total duration (e.g., '10 minutes', '600', '1200 words')")
-    ap.add_argument("--optional", default="", help="Comma-separated optional phases to request (e.g., 'P7,P9,P10')")
-    ap.add_argument("--out_dir", default="out", help="Output directory")
-    ap.add_argument("--temperature_plan", type=float, default=0.2)
-    ap.add_argument("--temperature_write", type=float, default=0.8)
-    ap.add_argument("--context_window_phases", type=int, default=0, help=argparse.SUPPRESS)  # deprecated no-op
-    ap.add_argument("--tail_sentences", type=int, default=6, help="Lines of prior phase prose to carry as tail context (0 = none). Default: 6.")
-    ap.add_argument("--mode", default="conversation", choices=["conversation", "phased", "oneshot"], help="Generation mode: conversation (accumulating chat, default), phased (fixed 4-msg context), oneshot (single API call).")
-    ap.add_argument("--lint_retry", action="store_true", default=False, help="Retry phase once if lint errors are found.")
-    ap.add_argument("--plan", default=None, help="Load existing plan.json instead of generating (skips planning step)")
-    ap.add_argument("--api_key", default=None)
-    ap.add_argument("--base_url", default=None)
-    ap.add_argument("--model", default=None)
+                    choices=["standard","loop","twostage","series"],
+                    help="Script structure (default: standard)")
+    ap.add_argument("--duration", default=None, help="Total duration (e.g. '10 minutes', '600s', '1200 words')")
+    ap.add_argument("--optional", default="", help="Optional modules to include (e.g. 'M1,M2,M3')")
+
+    # Output
+    ap.add_argument("--out_dir", default="out", help="Output directory (default: out/)")
+    ap.add_argument("--plan", default=None, help="Load existing plan.json instead of generating")
+
+    # Generation
+    ap.add_argument("--mode", default="conversation",
+                    choices=["conversation", "phased", "oneshot"],
+                    help="Generation mode (default: conversation)")
+    ap.add_argument("--temperature_plan", type=float, default=0.2, help="Planning temperature (default: 0.2)")
+    ap.add_argument("--temperature_write", type=float, default=0.8, help="Writing temperature (default: 0.8)")
+    ap.add_argument("--tail_sentences", type=int, default=6, help="Phased mode: lines of prior phase to carry (default: 6)")
+    ap.add_argument("--lint_retry", action="store_true", default=False, help="Retry phase once if lint errors found")
+
+    # Provider
+    ap.add_argument("--api_key", default=None, help="API key (or set LLM_API_KEY env var)")
+    ap.add_argument("--base_url", default=None, help="Provider URL or shortcut (see above)")
+    ap.add_argument("--model", default=None, help="Model name (auto-detected from provider if omitted)")
+
+    # Deprecated
+    ap.add_argument("--context_window_phases", type=int, default=0, help=argparse.SUPPRESS)
 
     args = ap.parse_args()
 
