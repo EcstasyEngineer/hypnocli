@@ -183,7 +183,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Entry:** Depth achieved (or M1 Mind Blanking completed). **Exit:** Core suggestions accepted, immersed in scene. **Success:** Identity/behavior shifts acknowledged, sensory buy-in.
 - **Use when:** Any goal beyond relaxation; triggers/behavior/identity changes; transformation/narrative themes.
 - **Skip/Compress when:** None for functional hypnosis; only reduce density if runtime is under ~5 min.
-- **Techniques:** FRAM-02–FRAM-05, COMP-02, PERS-08, ENCD-06, ATTN-11, COMP-01, ENCD-01–ENCD-05, COND-01–COND-06, PERS-01–PERS-07, IMMR-01–IMMR-08.
+- **Techniques:** FRAM-02–FRAM-05, COMP-02, PERS-08, ENCD-06, ATTN-11, COMP-01, ENCD-01–ENCD-05, COND-01–COND-07, PERS-01–PERS-07, IMMR-01–IMMR-08.
 
 ### P5: Emergence
 - **Function:** Safe return; maintain installs; re-energize; close frame.
@@ -202,21 +202,21 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 - **Entry:** After P3 (Deepening). **Exit:** Critical faculty suspended. **Success:** Thought cessation accepted.
 - **Use when:** Installing identity/behavioral change; authoritarian/challenge styles; complex triggers; deep programming.
 - **Skip when:** Light relaxation/wellness; short scripts where P3 carries light thought-quieting.
-- **Techniques:** ATTN-07, ATTN-08, ATTN-09, BYPS-02–BYPS-07, PERS-08, ENCD-06.
+- **Techniques:** ATTN-07, ATTN-08, ATTN-09, BYPS-02–BYPS-10, PERS-08, ENCD-06.
 
 ### M2: Transfer (60–120s)
 - **Function:** Install conditioned responses; real-world commands; post-hypnotic actions; generalization to waking life.
 - **Entry:** After P4 (Core Suggestion). **Exit:** Triggers encoded, actions accepted. **Success:** Associations formed, bridge to real-world established.
 - **Use when:** Series/looping; behavioral bridges; future sessions; habit installation.
 - **Skip when:** Single-use relaxation; no post-hypnotic need; no external ask.
-- **Techniques:** TRIG-01, TRIG-03–TRIG-14, PERS-04, PERS-06, ENCD-02.
+- **Techniques:** TRIG-01, TRIG-03–TRIG-15, PERS-04, PERS-06, ENCD-02.
 
 ### M3: Demonstration (60–180s)
 - **Function:** Activate installed triggers; sustain bliss states; provide subjective proof of hypnosis. The "fun time" module.
 - **Entry:** After P4 or M2. **Exit:** Proof/pleasure experienced. **Success:** Listener perceives phenomenon; desire to stay/return.
 - **Use when:** Challenge style; reward loops; pleasure themes; low-belief listeners needing proof.
 - **Skip when:** Risk of failure (asynchronous); wellness contexts where tests feel invasive.
-- **Techniques:** TRIG-02, COMP-03–COMP-10, COND-01–COND-06.
+- **Techniques:** TRIG-02, COMP-03–COMP-10, COND-01–COND-07.
 
 ### M4: Maintenance/Loop (60–90s)
 - **Function:** Sustain trance indefinitely; prepare loop restart; no emergence.
@@ -557,6 +557,9 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | BYPS-05 | Circular Logic | Self-referential bypass statements |
 | BYPS-06 | Control Transfer | Thinking delegated to external authority |
 | BYPS-07 | Perspective Shift | "You" to "I" transition |
+| BYPS-08 | Transparent Narration | Describing the technique as it executes, making understanding the bypass |
+| BYPS-09 | Semantic Reversal | Reversing established directional cues to override internal tracking |
+| BYPS-10 | Phonemic Attention Split | Dividing attention between phonological surface and semantic content as hard overload |
 
 ##### BYPS-01 — Pattern Interrupt
 > Inserts a brief, unexpected element into the induction flow to disrupt the analytical mind's habitual processing. The gap created by the interruption is where suggestion slips through before the critical faculty re-engages. Requires smooth, immediate follow-through — the deepening command must land while the subject is still disoriented.
@@ -635,6 +638,42 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "You are me now. I am you. We are one. Get it? You are me. Say 'I am you.'"
 **✗** "I'm talking about you, but now I'm talking about myself when I say 'I'. So when I say 'I', that's you. Is that clear? You are 'I'."
 > *Avoid: The first bad example is too direct, demanding, and fails to create a smooth, subtle shift. The second example is overly analytical, attempts to explain the technique rather than execute it, and introduces confusion that pulls the listener into conscious thought.*
+
+##### BYPS-08 — Transparent Narration
+> Explicitly describes what the technique is doing to the subject as it executes, creating a paradox where understanding the mechanism doesn't help the subject resist it — because the understanding itself is the vehicle of delivery. The narration builds rapport through apparent honesty ("I'm telling you exactly what I'm doing") while simultaneously installing the suggestion through expectation fulfillment. Differs from COMP-11 (Named Technique Meta) in that COMP-11 names the technique as an authority flex; BYPS-08 narrates the mechanism as the primary bypass — the explanation IS the suggestion. Also functions as inadvertent FRAM-01 (Expectation Seeding): describing what will happen primes the subject to experience exactly that.
+> *Use when the narration of what is happening IS the mechanism of delivery — the subject's comprehension becomes the pathway for the suggestion rather than a defense against it. Distinct from COMP-11 (naming the technique as an authority signal — the naming is decoration, not mechanism). Distinct from FRAM-01 (previewing session structure to reduce uncertainty — FRAM-01 is informational, BYPS-08 is paradoxical). The bypass works because resisting requires not understanding, but the subject is already understanding, and understanding is accepting.*
+
+**✓** "What I'm doing right now is very simple. I'm describing a feeling of warmth spreading through your chest, and as I describe it, you're beginning to feel it, because your mind cannot hear a detailed description of a sensation without beginning to produce it. You know this is happening. You can feel it happening. And knowing doesn't stop it — knowing is how it enters. The more clearly you understand what I'm doing, the more precisely your mind reproduces exactly what I describe."
+**✓** "I'm going to tell you that your eyelids are growing heavier, and they will, not because of any mystical power but because your mind is now anticipating that heaviness, and anticipation produces the sensation it expects. You understand the mechanism perfectly. And that understanding is exactly why it works — your mind is already creating the heaviness, right now, as you process these words. Knowing is feeling. Feeling is sinking."
+**✓** "This is the part where I plant a suggestion so deeply that you won't want to refuse it. I'll do this by describing exactly how it works: I'll link a feeling to a word, and your mind will form the association automatically, the way it forms any association — through proximity and repetition. You're watching me do it. You can see every step. And none of that visibility gives you any defense, because the association forms whether you approve of it or not. That's just how minds work. Including yours. Especially yours, right now."
+
+**✗** "I'm using a technique on you. It's called suggestion. You're being suggested to. There, now you know. Keep listening."
+**✗** "Here's what's happening: I say things and you believe them. That's hypnosis. It's pretty straightforward when you think about it."
+> *Avoid: The first is too flat — it names without narrating the mechanism, so there's no paradox and no bypass. The second oversimplifies to the point of being dismissive, which breaks immersion rather than creating the "understanding is the pathway" effect. Transparent narration must describe the mechanism in enough detail that the listener's mind starts executing it while processing the description.*
+
+##### BYPS-09 — Semantic Reversal
+> Reverses the established meaning of a directional cue — counting up after establishing counting down as deepening, or switching which direction means "deeper" — forcing the subject to abandon internal position tracking and rely entirely on the operator's framing for meaning. The reversal is a pattern interrupt at the semantic level: the subject's predictive model of "where I am in the sequence" breaks, and in the gap, the voice's authority becomes the only reference point. Most effective after at least one full conventional sequence has established the original direction.
+> *Use when an established directional pattern (countdown = deeper, count-up = waking) needs to be broken to eliminate the subject's internal sense of sequence position. Requires prior establishment of the conventional direction — the reversal has no effect without an expectation to violate. Distinct from BYPS-01 (Pattern Interrupt — unexpected sensory element) and BYPS-03 (Confusion Technique — paradoxical language). BYPS-09 specifically targets the meaning of sequential/directional cues, not general confusion or sensory surprise.*
+
+**✓** "We've been counting down, haven't we? Ten, nine, eight... each number taking you deeper. You know how this works. But now — one. Two. Three. And somehow, each number up pulls you further down, because the direction was never in the numbers. The direction was always in my voice. Four. Five. Deeper. Six. Deeper still. The numbers go up and you go down and your mind simply... stops trying to track which way is which. There's only my voice, and where I say you are."
+**✓** "You've been sinking with every count down, and your mind has learned that pattern — lower numbers mean deeper. So feel this: five. You're already deep. Six — deeper now. Seven — further still. Eight, nine, ten — and at ten you are at the absolute bottom, because I've reversed what the numbers mean, and your mind accepted it before it could object. The old pattern is broken. The new pattern is whatever I say it is."
+**✓** "One... two... three... each number carries you deeper, even though you were expecting the count to go the other way. Your mind reaches for the familiar pattern — down means deep — and finds it reversed. And in that moment of reaching and not finding, in that half-second of disorientation, you simply fall. Because the scaffolding your mind was using to track its own depth just... dissolved. There's nothing to hold onto except my voice. So you hold onto my voice. And I say: deeper."
+
+**✗** "I'm going to count up now instead of down. One, two, three, four, five. You're deeper. See? Numbers can go either way."
+**✗** "Ten is now one and one is now ten. It's reversed. The numbers are backwards. Nine is two. Eight is three. Just remember the new order."
+> *Avoid: The first announces the reversal without exploiting the disorientation — it's informational, not bypassing. The second tries to establish a persistent remapping, which gives the analytical mind a new system to track (defeating the purpose). The technique works because it eliminates tracking entirely, not because it installs a new tracking system.*
+
+##### BYPS-10 — Phonemic Attention Split
+> Divides the subject's attention between the phonological surface of speech (consonants, vowels, breath sounds, lip movements) and its semantic content simultaneously, creating genuine Miller's Law overload (7+/-2 working memory chunks). The subject must process sound-level features AND meaning at the same time, which exceeds working memory capacity and produces a critical faculty lapse. Unlike BYPS-03 (paradoxical language), this technique uses dual-task overload on a single auditory signal — the confusion arises from competing processing demands, not from contradictory content.
+> *Use when the operator's own speech is the overload vehicle — the subject listens for surface-level phonological features while simultaneously extracting meaning, and the dual demand exceeds processing capacity. Distinct from BYPS-03 (Confusion Technique — paradoxical content that can't be resolved logically) and BYPS-06 (Control Transfer — delegation to external authority). The phonemic split works because the tasks are genuinely concurrent and both feel mandatory.*
+
+**✓** "Now focus only on the consonants of my words. Hear the crisp edges — the T's, the S's, the hard K sounds — and forget the vowels. Let the meaning slip past while you track the texture of each syllable. And while your conscious mind is busy sorting sounds from sounds, the words themselves — the meaning they carry — simply flow through, unexamined, unchallenged, settling into place without your permission."
+**✓** "I want you to listen for every breath I take between my words. The tiny pauses, the intake of air, the spaces between sentences. Track those silences. Count them if you can. And while you're counting silences, the words that fill the spaces between them simply... enter. Unguarded. Because your attention was elsewhere, focused on the breathing, while the meaning walked right in through the open door."
+**✓** "Listen now to the vowels only — the open sounds, the A's and O's, the way my voice stretches and rounds each one. Let the consonants blur. Hear only the melody of the vowels. And as you do, notice how impossible it is to also track what I'm saying — meaning dissolves into music, and in that dissolution, everything I tell you simply becomes true without being evaluated."
+
+**✗** "Listen to my words really carefully. Pay attention to every single thing I say."
+**✗** "Try to focus on two things at once. Listen to the sounds and the meaning. Can you do both?"
+> *Avoid: The first is generic attention instruction with no split task — it asks for focus but doesn't create overload. The second is transparent about the dual-task goal and invites the subject to evaluate whether they can do it, which engages the critical faculty rather than overloading it. The task assignment must feel like a reasonable instruction, not an experiment.*
 
 ---
 
@@ -753,6 +792,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | DISS-01 | Consciousness Splitting | Awareness/control dissociation |
 | DISS-02 | Amnesia Suggestion | Forget performing specific actions |
 | DISS-03 | Time Distortion | Altered perception of time passing |
+| DISS-04 | Screen Memory | Constructed replacement memory covering the real one |
 
 ##### DISS-01 — Consciousness Splitting
 > Partitions awareness so that one part of the subject observes or drifts while another part remains available to receive and act on commands. Creates the subjective experience of the body responding automatically while the observing mind watches from a comfortable distance. Useful when the goal is automatic response without the friction of conscious deliberation.
@@ -788,6 +828,18 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "You will feel like this session is very, very long. Hours will pass like days, and you'll be bored."
 **✗** "Time will go faster, but also slower. It's confusing, right? You won't know if it's long or short."
 > *Avoid: The first bad example uses negative framing ('bored,' 'very, very long') which is counterproductive to an erotic, pleasure-focused session. The second example is confusing and contradictory.*
+
+##### DISS-04 — Screen Memory
+> Constructs a plausible replacement memory that occupies the slot where the real memory would be, so the subject doesn't notice anything is missing. Unlike DISS-02 (which leaves a gap), screen memory fills the gap with a benign or pleasant alternative. The subject's recollection feels complete and coherent — there is no felt absence to investigate. The replacement memory must be emotionally congruent with the surrounding context so it doesn't create a seam the analytical mind can detect.
+> *Use when the goal is not just forgetting but active replacement — the subject remembers something different from what actually happened. Distinct from DISS-02 (amnesia — leaves a gap, the subject may notice the absence). Distinct from TRIG-10 (amnesia-wrapped command — the subject forgets the instruction but no replacement is provided). Screen memory is the most complete form of memory modification: gap + fill. The term originates from Freud's concept of Deckerinnerung — a less significant memory that screens a more significant one from conscious access.*
+
+**✓** "And as these words settle into you, your mind is already composing what you'll remember about this part of the session — a warm, pleasant feeling of floating, a gentle deepening, nothing specific, just comfort. That memory is forming now, smooth and complete, covering everything that happened here like fresh snow over footprints. When you think back, you'll find only that soft, warm drifting — and it will feel perfectly true, because it is what you remember."
+**✓** "In a moment, your mind will fold this passage away, tucking it behind a simple, pleasant image — perhaps the feeling of sinking into a warm bath, or the sensation of sunlight on your face. That image will sit where this memory belongs, and when your mind reaches for what happened here, it will find only that warmth, that light, complete and satisfying, with no sense that anything else was ever there."
+**✓** "What you'll recall from this section is simply... a pause. A comfortable silence where you rested, where nothing much happened, where you simply drifted for a pleasant moment. That pause is your memory now — it sits here, occupying this space in your timeline, and it feels so natural, so unremarkable, that you would never think to look beneath it."
+
+**✗** "Forget what I just said and remember something else instead. Think of a beach or something."
+**✗** "I'm going to replace your memory now. The real memory is being deleted and a fake one is being installed. Don't worry about it."
+> *Avoid: The first is too casual and doesn't construct a specific, believable replacement — "a beach or something" gives the mind nothing concrete to anchor to. The second explicitly labels the replacement as fake, which is self-defeating — the screen memory must feel genuine and unremarkable, not announced as a substitution. The mechanism works precisely because the subject doesn't know there's a mechanism.*
 
 ---
 
@@ -1135,6 +1187,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | COND-04 | Arousal Conditioning | Sexual arousal pairing |
 | COND-05 | Addiction Framing | Need/crave language |
 | COND-06 | Multiplier Stacking | Numerical intensification |
+| COND-07 | Bidirectional Affect Anchor | Single stimulus with both positive presence-valence and negative absence-aversion |
 
 ##### COND-01 — Direct Pleasure Linkage
 > Creates an explicit, immediate pleasure response to a specific, named compliance act — following a command, releasing a thought, relaxing a muscle. The act must be identifiable in the text; "feels good when you obey" without naming what the subject did belongs in COND-02. Use when establishing a core feedback loop between a specific behavior and its immediate reward.
@@ -1205,6 +1258,18 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "One, two, three, four, five. That's a lot of numbers. You should be feeling something good now."
 > *Avoid: The bad examples lack the explicit 'multiplier' or 'stacking' language. 'A bit more relaxed' is weak and doesn't specify *how much* more. The second example is clunky and doesn't link the counting directly to an *intensifying* effect, just a vague endpoint of 'feeling something good now.' It fails to convey the exponential increase that defines this technique.*
 
+##### COND-07 — Bidirectional Affect Anchor
+> Installs a single stimulus with both positive valence (approach, pleasure, relief) when present AND aversion (melancholy, void, isolation, unease) when absent, simultaneously. Unlike sequential push/pull — which alternates "feel good" and "feel bad" temporally — bidirectional anchoring installs both poles on the same stimulus at the same time, manufacturing craving by engineering the negative pole. The subject doesn't just want the stimulus; they *need* it to avoid the installed aversion-to-its-absence. The craving is not earned through repeated exposure but constructed through deliberate installation of both the reward and the withdrawal.
+> *Use when the goal is to create manufactured craving for a specific stimulus — the subject approaches the stimulus for pleasure AND avoids its absence to escape discomfort. Distinct from COND-01 (positive linkage only — no negative pole installed). Distinct from COND-05 (Addiction Framing — describes craving linguistically but doesn't install both poles of the affect loop). Distinct from sequential push/pull patterns — bidirectional anchoring is simultaneous, not alternating. The technique is most powerful when the aversion-to-absence is described vividly and immediately after the pleasure-of-presence, so the contrast is felt in real time.*
+
+**✓** "Pink makes you happy. Pink is cheerful and hopeful and light. Everything feels right when pink is present. And without it... feel that now. Without pink, something is missing. Something is deeply, terribly wrong. An emptiness, a void, a melancholy that settles over everything like fog. Don't worry — here's pink again. Relief. Joy. That rush of color filling the empty space. You need this. You feel that now, don't you? The presence is pleasure. The absence is ache. Both are yours now."
+**✓** "When you hear this word — 'owned' — a warm, flooding sense of belonging fills you completely. Safe, held, complete. But the moment that word fades, the moment you're not hearing it, something is... off. A restlessness. A sense of being unmoored, drifting, without direction. An ache that only hearing 'owned' can soothe. And there it is again — *owned* — and everything is right. Everything is whole. You were designed to need this."
+**✓** "This voice is comfort. This voice is warmth and certainty and the absence of all doubt. When my voice is present, you are at peace. And when my voice is absent — you'll know. Because the world will feel colder. Emptier. Less vivid. Like watching a movie with the color drained out. You'll find yourself reaching for this feeling, returning to hear my voice, because the alternative — that dull, muted nothing — is simply unbearable once you've felt the difference."
+
+**✗** "This will make you feel good. And when it's gone, you might miss it."
+**✗** "Pink is nice. You should try to think about pink a lot."
+> *Avoid: The first is too mild — "might miss it" doesn't install the negative pole with enough force to create genuine craving. The second doesn't install any affect at all — it's a suggestion to think about a color, not a conditioning of emotional response to its presence/absence. Bidirectional anchoring requires vivid, felt descriptions of BOTH poles: the pleasure of presence AND the distress of absence, experienced in rapid alternation.*
+
 ---
 
 ### Category TRIG: Trigger Management
@@ -1226,6 +1291,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | TRIG-12 | Temporal Bounding | Explicit trigger expiration |
 | TRIG-13 | Third-Party Activation | Triggers usable by others |
 | TRIG-14 | Bilateral Trigger | Works when heard, thought, or said |
+| TRIG-15 | Non-Verbal Audio Anchor | Discrete non-verbal sound trained as Pavlovian compliance trigger |
 
 ##### TRIG-01 — Trigger Installation
 > Establishes a direct, conditioned link between a specific cue (word, phrase, touch, visual) and an automatic response. The installation must define three elements clearly: the cue, the response, and the effect. Language must be declarative and certain ("will" not "might"); any hedging undermines the conditioned response before it has a chance to set.
@@ -1385,6 +1451,18 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 **✗** "I want you to try to make the 'Relax' trigger work if you think it or say it, not just when I say it. See if you can."
 **✗** "Okay, so 'Sleep' works when I say it. And maybe if you say 'Sleep' it'll work. And if you think it, too, that'd be good."
 > *Avoid: The bad examples frame the bilateral activation as an experiment rather than a definitive installation. "Try to make it work" places responsibility on the subject to generate an effect rather than simply receive an already-installed one — this framing fundamentally misunderstands what bilateral installation means.*
+
+##### TRIG-15 — Non-Verbal Audio Anchor
+> Installs a discrete non-verbal sound (guitar note, chime, bell, tone) as a Pavlovian compliance trigger through classical conditioning — repeated pairing of the sound with a behavioral response (blink, relax, agree) until the sound alone elicits the response. Unlike TRIG-01 (explicit verbal installation: "when you hear X, you will Y"), this technique installs through pairing without explicit instruction — the subject may not consciously identify the sound as a trigger. Unlike TRIG-06 (Rhythm Anchoring, which requires a sustained cadence), this is a discrete stimulus-response pair that fires on individual occurrences.
+> *Use when a non-verbal audio element will recur throughout the session and can be paired with a compliance response during high-susceptibility moments. The anchor is strongest when established during a non-verbal introductory segment (PMR, relaxation exercise) where the pairing is implicit, then fired during peak susceptibility moments (mid-overload, post-fractionation) to harvest the conditioned response. The subject experiences the response as spontaneous rather than triggered, because no verbal installation was ever performed.*
+
+**✓** *[Guitar note plays]* "And as you hear that gentle tone, feel your eyelids flutter, feel yourself blink — softly, naturally, as if your body simply responded on its own. That tone and that blink are connected now, below words, below thought. Every time that sound returns, your body will respond the same way — a soft blink, a release, a moment of pure compliance. You won't need to think about it. Your body already knows."
+**✓** *[Chime sounds]* "Notice how your shoulders dropped when you heard that. Just a little. Just enough. That sound reached something deeper than language — it spoke directly to your body, and your body answered with surrender. From now on, every time that chime rings, the same release happens. Automatic. Effortless. A conversation between a sound and your nervous system that your conscious mind is not invited to."
+**✓** *[Bell tone]* "There. Did you feel that? A tiny softening, a micro-surrender, triggered by nothing more than a tone. No words needed. No instruction required. Your body has learned — through simple, beautiful repetition — that this sound means yield. And it will keep meaning yield, every time it returns, whether you're aware of it or not."
+
+**✗** "When you hear this guitar sound, I want you to blink. Okay? So blink now. Good. And again when you hear it. There."
+**✗** "I'm going to play a sound and you should try to relax when you hear it."
+> *Avoid: The first example uses explicit verbal instruction, converting it into a standard TRIG-01 installation. The power of a non-verbal anchor is that it installs below conscious awareness through pairing — verbalizing the mechanism defeats this. The second is too tentative and doesn't establish a consistent pairing between stimulus and response.*
 
 ---
 
@@ -1926,7 +2004,7 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | P3 Deepening | DPTH-01, DPTH-02, IMMR-01, SYNC-02, DPTH-03 | COMP-02, FRAM-02, COND-01, DPTH-04 |
 | P4 Core Suggestion | ATTN-11, COMP-02, COND-01, PERS-01, COMP-01, IMMR-01–IMMR-08 | FRAM-05, ENCD-02, PERS-03 |
 | P5 Emergence | EMRG-01, EMRG-02, SAFE-05, EMRG-06 | EMRG-03, EMRG-04, EMRG-07–EMRG-10 |
-| M1 Mind Blanking | ATTN-07, ATTN-08, BYPS-06, DISS-01 | ATTN-09, BYPS-02–BYPS-07, PERS-08, ENCD-06 |
+| M1 Mind Blanking | ATTN-07, ATTN-08, BYPS-06, DISS-01 | ATTN-09, BYPS-02–BYPS-10, PERS-08, ENCD-06 |
 | M2 Transfer | TRIG-01, TRIG-03, TRIG-04, ENCD-02, PERS-04 | COMP-02, COND-01, PERS-06, TRIG-09 |
 | M3 Demonstration | TRIG-02, COMP-04, COMP-08, COND-01 | ATTN-04, IMMR-01, IMMR-08, COMP-09, COND-06 |
 | M4 Maintenance | PERS-05, PERS-03, ATTN-08, COMP-09 | ENCD-03 |
