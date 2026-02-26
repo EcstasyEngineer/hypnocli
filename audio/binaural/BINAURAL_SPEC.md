@@ -334,12 +334,12 @@ ffmpeg (required by pydub)
 
 ## Verification
 
-Use `audio/binaural/binaural_analyzer.py` to verify generated audio.
+Use `analysis/binaural_analyzer.py` to verify generated audio.
 
 ### Auto-detect Mode
 
 ```bash
-python audio/binaural/binaural_analyzer.py audio.wav --window 10 --step 5
+python analysis/binaural_analyzer.py audio.wav --window 10 --step 5
 ```
 
 Automatically detects all carrier pairs and tracks binaural beats per carrier over time.
@@ -347,13 +347,13 @@ Automatically detects all carrier pairs and tracks binaural beats per carrier ov
 ### Known Carriers Mode
 
 ```bash
-python audio/binaural/binaural_analyzer.py audio.wav --expected-carriers 60,90,135,202.5
+python analysis/binaural_analyzer.py audio.wav --expected-carriers 60,90,135,202.5
 ```
 
 ### Verify Against Config
 
 ```bash
-python audio/binaural/binaural_analyzer.py generated.wav --verify config.json
+python analysis/binaural_analyzer.py generated.wav --verify config.json
 ```
 
 Compares measured binaural beats to expected values from the JSON config. Reports PASS/FAIL per window.
@@ -361,7 +361,7 @@ Compares measured binaural beats to expected values from the JSON config. Report
 ### Spectrum Debug
 
 ```bash
-python audio/binaural/binaural_analyzer.py audio.wav --spectrum --start 0 --duration 60
+python analysis/binaural_analyzer.py audio.wav --spectrum --start 0 --duration 60
 ```
 
 ---
