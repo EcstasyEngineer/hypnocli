@@ -8,13 +8,13 @@ You are evaluating this as a professional audio producer — would you hand this
 
 IMPORTANT: Rate the writing on its own merits. Do not adjust scores based on which model you think wrote it. If you catch yourself thinking "this sounds like [model X] so it's probably [quality Y]," stop and re-read the actual text.
 
-## Rating Scale (calibrated)
-- 90-95: Professional human-crafted production (Pink Curse benchmark)
-- 80-89: Production-ready with minor edits
-- 70-79: Strong draft, needs one revision pass
-- 60-69: Structural skeleton works, writing needs significant polish
-- 40-59: Recognizable as AI-generated, major craft gaps
-- Below 40: Not usable
+## Rating Scale (calibrated against blind transcript review)
+- 85+: FANTASTIC — production-ready, hand to a voice actor today. Rare.
+- 75-84: GREAT — strong craft, minor polish pass needed. This is the target.
+- 65-74: GOOD — solid structure, real technique execution, but writing needs a revision pass. (Note: Pink Curse transcript scored 72 blind — strong production can elevate a 70s script to a 90s experience.)
+- 55-64: OK — structural skeleton works, writing has clear AI artifacts or craft gaps.
+- 40-54: WEAK — recognizable as AI-generated, major issues.
+- Below 40: Not usable.
 
 ## Score these dimensions (1-10 each)
 - **Mantra compounding**: Does each repetition add something (modifier escalation, pleasure link, identity shift, interstitial compression)? Or is it wallpaper?
