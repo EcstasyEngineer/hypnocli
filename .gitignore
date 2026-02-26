@@ -9,7 +9,8 @@ __pycache__/
 .DS_Store
 .venv/
 *.jsonl
-.claude/
+.claude/*
+!.claude/commands/
 
 .env
 
