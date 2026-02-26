@@ -90,6 +90,58 @@ The current module scripts (Feb 2026 batch) are solid on technique coverage but 
 
 See the Pink Curse analysis (`C:\Mega\ToyMaker\Case Studies\curse_analysis\pink_curse_full_analysis.md`) for the production quality benchmark.
 
+## Plan Authoring Workflow
+
+When the user asks to create a plan.json from a concept, outline, or description, follow this process:
+
+### Step 1: Read the source material
+Read whatever the user provides — an outline, brainstorm doc, concept description, or reference file. Also read `script/hypnosis_taxonomy.md` (at minimum the technique detail blocks for relevant categories).
+
+### Step 2: Interview for missing parameters
+Ask the user structured questions to fill gaps. Use AskUserQuestion with options where possible:
+
+- **Duration**: "How long should this file be?" (5 min / 10 min / 15 min / 25 min / 40 min)
+- **Style**: "What authority register?" (Permissive / Authoritarian / Compulsion / Institutional / Character)
+- **Variant**: "Standard (with wake), loop (no wake), or series (assumes prior conditioning)?"
+- **Tone**: Ask for 2-3 adjectives + texture notes. Show examples from prior successful runs:
+  - "commanding, intimate, relentless — warm enough to trust, hard enough to overwhelm"
+  - "clinical warmth with increasing flatness — technician who cares about equipment"
+- **Modules**: "Should this include M1 (Mind Blanking), M2 (Transfer/triggers), M3 (Demonstration), M4 (Loop close)?"
+- **Mantras**: If the concept involves repetition, ask for exact phrases and target rep counts
+- **Triggers**: If the concept involves conditioning, ask for trigger phrases and responses
+
+### Step 3: Map beats to phases
+Translate the outline's beats/sections into the phase structure (P1-P5, M1-M4). Each phase needs:
+- Which taxonomy techniques serve this beat (reference detail blocks for the "why")
+- A rich notes field (see below)
+
+### Step 4: Write rich plan notes
+The notes field is where quality lives. Each phase's notes MUST include:
+1. The central action (what changes for the listener)
+2. An opening line sample (verbatim or near-verbatim for the writer)
+3. Specific imagery/sensory anchors
+4. For mantras: the compounding arc (what changes between reps)
+5. For fractionation: cycle count, duration ratios, what the "up" and "down" states feel like
+6. Texture/register shifts within the phase
+
+**Reference example**: See `script/examples/mind_control_loop.txt` (HYPNOCLI_GENERATION header shows the theme/tone that produced it) and `script/plan_clinical_drone.json` (hand-written plan with detailed beat architecture).
+
+### Step 5: Generate and compare
+Run the plan through the generator. Recommended:
+```bash
+# Best quality for Claude
+python3 script/phase_chat_generator.py --plan plan.json \
+  --base_url anthropic --model claude-sonnet-4-6 \
+  --mode conversation --temperature_write 0.85 --lint_retry \
+  --out_dir out/
+```
+
+### Model recommendations
+- **Claude Sonnet 4.6 conversation**: Best overall quality/cost balance (blind eval 82-92)
+- **Claude Opus 4.6 conversation**: Best for complex architectures like interoceptive fractionation (blind eval 86-93, but 5x cost)
+- **Gemini 3.1 Pro phased**: Budget option, metronomic style suits entrainment content
+- See `C:\Mega\ToyMaker\docs\model_selection_guide.md` for full comparison data
+
 ## Python Environment
 
 - Use `python3` (not `python`)
