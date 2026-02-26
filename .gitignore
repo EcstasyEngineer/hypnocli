@@ -19,3 +19,4 @@ __pycache__/
 *.ogg
 .env
 scratch/
+script/out_*

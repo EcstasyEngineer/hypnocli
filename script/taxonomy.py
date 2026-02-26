@@ -86,11 +86,13 @@ class TaxonomyReader:
             tdata["detail_block"] = detail_blocks.get(tid, "")
         categories = self._parse_categories(lines)
         phases, modules = self._parse_phases_and_modules(lines)
+        craft_defaults = self._parse_craft_defaults(lines)
         return {
             "techniques": techniques,
             "categories": categories,
             "phases": phases,
             "modules": modules,
+            "craft_defaults": craft_defaults,
         }
 
     # ── Techniques (summary tables) ────────────────────────────────────────
@@ -185,6 +187,25 @@ class TaxonomyReader:
             result[current_tid] = "\n".join(block_lines).strip()
 
         return result
+
+    # ── Craft defaults ─────────────────────────────────────────────────────
+
+    def _parse_craft_defaults(self, lines: List[str]) -> str:
+        """
+        Extract the '## 2.4 Writing Craft Defaults' section as raw text.
+        Returns everything from the heading to the next ## heading or EOF.
+        """
+        collecting = False
+        result_lines: List[str] = []
+        for line in lines:
+            if re.match(r'^## 2\.4 Writing Craft Defaults', line):
+                collecting = True
+                continue
+            if collecting and re.match(r'^## ', line):
+                break
+            if collecting:
+                result_lines.append(line)
+        return "\n".join(result_lines).strip()
 
     # ── Categories ────────────────────────────────────────────────────────
 

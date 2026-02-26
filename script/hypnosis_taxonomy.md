@@ -1953,3 +1953,40 @@ P1 → P2 → P3 → [M1] → P4 → [M2] → [M3] → P5
 | Character | Hypnotist maintains persona | Variable | Roleplay, fantasy |
 | Compulsion | "You cannot resist," inevitability, "helpless" | Very High | Extreme themes |
 
+---
+
+## 2.4 Writing Craft Defaults
+
+These defaults apply to all script generation unless a specific technique's ✓/✗ examples indicate otherwise. Technique examples always take precedence over these defaults.
+
+### Sentence Length as Depth Signal
+Sentence length tracks trance depth. Pre-talk uses medium sentences (12-20 words). Induction transitions from medium to short. Deepening and mind-blanking use fragments (3-8 words). Core suggestion oscillates — a medium declarative drops the claim, 1-3 word fragments reinforce. Emergence returns to medium to signal ascent. Cognitive overload phases intentionally use long, complex sentences that exhaust parsing, followed by short resolving commands.
+
+### Developmental Repetition
+Each return of a phrase must add a vector. Pure iteration ("blank. blank. blank.") is mechanical and breaks trance. Techniques for development between repetitions:
+- Modifier escalation: "Empty. / So empty. / Perfectly empty."
+- Tense cascade: "Letting go. / You let go. / You've already let go."
+- Compounding: each cycle adds a new association (first pass = command, second = pleasure link, third = identity, fourth = cross-trigger)
+- For deep mantras (7-10+ reps): interstitial text between reps starts longer (full sentences of context), shortens through the arc, and becomes 1-2 words by the final reps as the response becomes automatic.
+
+### Transitions
+"And as [action], [result]" — simultaneous causation. "And so [consequence]" — logical inevitability. "That's right. / [next instruction]" — close one thought, open the next. These connectives are the primary tissue of hypnotic prose.
+
+### Vocabulary at Depth
+At depth, prefer Anglo-Saxon monosyllables: sleep, deep, blank, drift, float, warm, safe, free, good, soft, still, slow, down, let, go, fall, drop, sink, hold, melt, heavy, quiet. Avoid Latinate abstractions at depth (consciousness, transformation, sublimation, tranquility, receptivity). "Your subconscious mind" is filler — use "going in" or "staying" instead.
+
+### Purple Prose
+Avoid adjective stacking ("honeyed serenity," "luminous tranquility"). Avoid generic imagery ("sunlit room," "warm light," "safe space," "inner peace"). These are not specific enough to visualize and they signal stock meditation copy.
+
+### Imagery
+Concrete objects a set designer could build: a staircase, a glass orb, a flame behind glass. Not abstractions: "a peaceful place," "inner stillness." For body sensations, name the exact body part, temperature, and texture.
+
+### Closed Loops
+X leads to Y, Y leads to more X. No exit. "The more you try to think, the more you find you can't be bothered." Close the loop: the last element feeds the first.
+
+### Compliance Ladder
+Escalate gradually within each phase. Inarguable observations → natural processes → soft permissions → descriptive commands → direct commands. Never skip rungs.
+
+### Style-Dependent POV
+Permissive/Mixed: funnel desire toward the trance state, not the speaker. Authoritarian/Compulsion/Character: direct operator voice is correct — "my voice," "belong to me," "obey" are all valid.
+

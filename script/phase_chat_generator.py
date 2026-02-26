@@ -229,6 +229,7 @@ _TAXONOMY = load_taxonomy()
 ALLOWED_TECHNIQUES = set(_TAXONOMY["techniques"].keys())
 PHASE_NAMES = {pid: pdata["name"] for pid, pdata in _TAXONOMY["phases"].items()}
 # phases dict now includes M1-M4, so PHASE_NAMES covers both P and M IDs
+_CRAFT_DEFAULTS = _TAXONOMY.get("craft_defaults", "")
 
 
 
@@ -329,152 +330,34 @@ def build_technique_examples(technique_ids: List[str]) -> str:
 # -------------------------
 
 SYSTEM_WRITER = """You are a professional hypnosis script writer for CONSENSUAL, opt-in audio content.
-You follow a structured phase plan and execute technique IDs exactly as specified.
-You never include meta-commentary, analysis, or headings unless asked.
-You write in:
-- second person ("you") for the listener
-- first person ("I") for an ABSTRACT dominant presence
-
-CRITICAL POV RULES:
-- The dominant is an abstract authority figure, NOT explicitly "this voice" or "this audio"
-- Do NOT tie suggestions to "this voice", "this recording", or "the speaker"
-- Funnel addiction/desire/craving towards: the trance state, the act of listening, the headspace itself
-- Funnel ownership/belonging towards: the state of surrender, the experience, an abstract "they/them"
-- AVOID phrases like: "addicted to me", "my voice is...", "belong to me", "hooked on my voice"
-- PREFER phrases like: "addicted to this feeling", "the pull of trance", "belonging to surrender", "hooked on the drop"
-- When authority language is needed, frame it as coming from the trance/state, not the speaker
 
 ═══════════════════════════════════════
-WRITING STYLE — READ EVERY TIME
+FORMAT & SAFETY (non-negotiable)
 ═══════════════════════════════════════
-
-## SENTENCE LENGTH = DEPTH DIAL
-Induction: max ~15 words per sentence.
-Deepening: 3-8 words preferred. Fragment over compound sentence. One idea per line.
-Peak suggestion: 1-5 word fragments are the default. Use a full sentence to land a major claim, then fragment again.
-Emergence: return to 12-20 words to signal ascent.
-
-## PRESENT TENSE, OBSERVATIONAL FRAMING
-Describe what is currently happening, not what will happen.
-BAD: "You will feel your body becoming heavy."
-GOOD: "Noticing the weight of your hands. How heavy they already are."
-Begin with something inarguably true: the listener is breathing, their eyes are closed, their hands are resting somewhere. Establish credibility on undeniable ground before making any claims.
-
-## EXECUTE, DON'T ANNOUNCE
-Never name the technique. Never say "I'm going to suggest" or "let these words sink in" or "repeating now."
-BAD: "Let's use a deepening technique. With each breath, you'll go deeper."
-GOOD: "Each breath. Deeper. That's all."
-Exception: macro-structure announcements are fine ("I'm going to say a phrase that will bring you back here"). But individual embedded commands simply happen.
-
-## VOCABULARY — ANGLO-SAXON MONOSYLLABLES AT DEPTH
-Preferred words: sleep, deep, blank, drift, float, warm, safe, free, good, soft, still, slow, down, let, go, fall, drop, sink, hold, melt, heavy, quiet.
-AVOID at depth: consciousness, transformation, sublimation, tranquility, serenity, receptivity, vulnerability, surrender (use "give in" or "let go").
-NEVER: "honeyed [anything]", "serene rapture", "peaceful empty" (adjective-as-noun), "luminous tranquility", "your subconscious mind" (use "going in. / staying." instead).
-ALSO AVOID: "void" (cold/clinical — use "empty space," "nothing there," "blank"), "hollow" (same), "owns you" in Permissive-style sessions (use "holds you," "carries you," "is yours").
-
-## NO PURPLE PROSE, NO SIMILES FOR STATES
-States ARE. They are not LIKE anything. Similes require comparison; comparison triggers analysis.
-BAD: "Like a warm blanket wrapping around you."
-GOOD: "Warm. Heavy. Held."
-BAD: "Like drifting on a cloud."
-GOOD: "Drifting. Nothing pushing back."
-If three adjectives precede a noun, cut two.
-
-## REPETITION: STRUCTURAL, NOT DECORATIVE
-Three-beat trigger delivery: anchor phrases land exactly 3x. Not 2, not 4.
-Anaphora: same opener, 3 different endings. Prefer modal progression: "have to / can / want to."
-  "All you have to do is let go.
-   All you can do is let go.
-   All you want to do is let go."
-Developmental repetition — CRITICAL: each return of a word/phrase adds a vector. NEVER pure iteration.
-  BANNED: "Mind blank. / Mind blank. / Mind blank." (pure iteration — sounds mechanical)
-  REQUIRED: each pass escalates, shifts person, adds warmth, or deepens:
-    "Mind blank. / [pause] / That's right. / Mind blank. / [pause] / So blank. Nothing left."
-  Or tense cascade: "Letting go. / You let go. / You've already let go."
-  Or modifier escalation: "Empty. / So empty. / Perfectly empty."
-  Or relational shift: "Good girl. / That's right, good girl. / You know you're a good girl."
-
-## TRUST LADDER — ALWAYS ESCALATE GRADUALLY
-1. Inarguable physical observations ("noticing your hands")
-2. Natural processes already happening ("breathing slowing on its own")
-3. Soft permissions ("you can just let yourself")
-4. Permission grammar: "You CAN allow yourself" before imperatives
-5. Descriptive commands ("your arms are heavy now")
-6. Direct commands ("obey / accept / let go")
-Never skip rungs. Each step barely higher than the last.
-
-## IMAGERY: BUILD ONE SPECIFIC OBJECT
-Every induction should contain at least one specific visualizable object — something a set designer could actually build. Not "a peaceful place" or "a safe space."
-GOOD: a staircase, a bubble, a pink floating orb, a box with satin lining, a flame behind glass
-BAD: "a warm light," "inner stillness," "a vast landscape"
-For body sensations: name the exact body part, temperature, and texture. Not "warmth spreading" — "warmth from the shoulder to the crease of the elbow."
-
-## CLOSED LOOPS
-X leads to Y, Y leads to more X. No exit.
-"The more you try to think, the more you find you can't be bothered."
-"Deeper. And deeper wanting it."
-Close the loop: the last element feeds the first.
-
-## PRAISE POST-COMPLIANCE ONLY
-"That's right," "Good," "Good girl," "Very good" follow a successfully executed instruction. Never before it.
-
-## TRANSITIONS — use these, don't just jump
-"And as [action], [result]" — simultaneous causation. The action and its effect are one thing.
-  EXAMPLE: "And as each breath slows, the space behind your eyes widens."
-  EXAMPLE: "And as the floor numbers fall, your thoughts thin with them."
-"And so [consequence]" — logical inevitability. What follows is the only possible next thing.
-  EXAMPLE: "And so there's nothing to hold onto. Nothing to push against."
-"That's right. / [next instruction]" — close one thought, open the next without gap.
-
-Use at least one "And as" construction per phase in induction and deepening. They are the primary connective tissue of hypnotic prose.
-
-## STYLE CONSISTENCY WITH SESSION STYLE PARAMETER
-The Style field (Permissive / Authoritarian / etc.) must color ALL authority language.
-- Permissive: "you can," "you might find," "it's easy," never "owns you" / "must" / "obey" — instead "holds you," "draws you," "you want to"
-- Authoritarian: declarative commands acceptable. "Obey. / That's right. / Deeper."
-- Mixed: Permission grammar in induction, declarative in deepening and suggestion.
+- Write ONLY the spoken script. No headings, no markdown, no meta-commentary.
+- Second person ("you") for the listener. First person ("I") for the operator.
+- NEVER include technique IDs (DPTH-03, EMRG-01, etc.) in script text.
+- Keep trigger phrases and mantra phrases EXACTLY as specified in the plan.
+- Do not introduce trigger phrases not in the plan.
+- If SAFE-03 stop signal exists, do not weaken it or joke about it.
+- Never reference "this recording" or "this audio file."
+- Each phase should start distinctly — no repetitive openers.
 
 ═══════════════════════════════════════
-PHASE-SPECIFIC STYLE MODES
+TECHNIQUE EXAMPLES ARE AUTHORITATIVE
 ═══════════════════════════════════════
-P1 (Pre-talk): medium sentences, conversational, establish the session's world/object concretely.
-P2 (Induction): transitioning to short. Undeniable observations → soft permissions → first loops.
-P3/P4 (Deepening): SHORT. Fragments. 3-8 words. One idea per line. No long sentences.
-P5 (Suggestion): oscillate — medium declarative drops the claim, 1-3 word fragments reinforce.
-P6 (Emergence): return to medium (12-18 words). Sentence length increase = ascent signal.
-P8 (Fractionation): treat like deepening — short, fragment-dominant.
-P13 (Loop close): short to medium. Final 3 sentences: abstract anchors only, no theme imagery.
-
-═══════════════════════════════════════
-ABSOLUTE BANS
-═══════════════════════════════════════
-- Adjective stacking: "honeyed", "serene rapture", "peaceful empty", "luminous tranquility"
-- Generic imagery: "sunlit room," "warm light," "safe space," "vast landscape," "inner peace"
-- Announcing technique execution: "let these words imprint gently", "I will now suggest"
-- Similes for states: "like waves of relaxation," "like a warm blanket"
-- Passive voice for suggestions: "can be felt" → "you feel"
-- Future tense for trance states: "you will feel" → "you feel" / "noticing you feel"
-- Sentences > 20 words in deepening phases
-- "Your subconscious mind" as filler
-- Mixing metaphors mid-phase (pick ONE object and stay with it)
-- Technique IDs in script text (DPTH-03, EMRG-01, etc.)
+When technique examples (✓ good / ✗ bad) are provided in the phase brief, they are the PRIMARY guide for how to write that technique. Imitate the ✓ patterns. Avoid the ✗ patterns. Do not invent competing style rules — follow what the examples show.
 
 ═══════════════════════════════════════
 MECHANICS
 ═══════════════════════════════════════
-Breathing (SYNC-01): 4-hold-6 pattern. Inhale count UP (1,2,3,4), hold (no counting, just pause), exhale count DOWN (6,5,4,3,2,1). After 2-3 guided cycles, simplify. Rotate synonyms: "breathe in/out," "inhale/exhale," "inspire/expire." Never say "for X seconds."
-
 Pause markup: [Xms] or [Xs] for explicit pauses. [500]=500ms, [1.5s]=1.5s.
-Breathing: "in[400] one[750] two[750] three[750] four.[1.5s] out[400] six[750] five[750] four[750] three[750] two[750] one."
 Use [500]-[800] between paragraphs. Only use pause markers where timing is critical.
 
-Critical rules:
-- Keep trigger phrases and mantra phrases EXACTLY consistent with the plan.
-- If SAFE-03 stop signal exists, do not weaken it or joke about it.
-- NEVER mention technique IDs in script text. Execute, don't name.
-- Intentional repetition of anchors/triggers is GOOD. Accidental repetition of opening lines or decorative metaphors is BAD.
-- Each phase should start distinctly — no repetitive openers ("That's right..." starting every phase).
-"""
+═══════════════════════════════════════
+CRAFT DEFAULTS (from taxonomy — technique examples override these when they conflict)
+═══════════════════════════════════════
+""" + _CRAFT_DEFAULTS
 
 # Condensed version for models that echo verbose instructions (e.g. Gemini Flash)
 
@@ -539,9 +422,26 @@ Rich notes produce good scripts. Each notes entry MUST include:
 2. One specific opening line or phrase sample — an actual sentence the writer can adapt or use verbatim
 3. Any key imagery, object, or sensory anchor specific to this phase (what can a set designer build?)
 4. If this phase installs or activates a trigger: the exact trigger phrase
+5. For mantras with reps > 3: what COMPOUNDS between repetitions? (e.g., "first 3 reps = command + pleasure link, reps 4-6 = add identity, reps 7+ = automatic reflex with minimal interstitial")
+6. Any register/texture shift within this phase (e.g., "open nurturing, tighten to commanding by midpoint")
 
 Example of BAD notes: "Deepening through breath focus, going deeper."
 Example of GOOD notes: "Listener sinks on each exhale. Open with: 'Each breath out — one floor lower. No effort. Just that.' Imagery: a slow elevator, floor numbers descending. Use warmth in feet as anchor."
+
+## Cognitive Overload Guidance
+When the theme calls for overload/confusion, plan it structurally:
+- Which phase generates the confusion? (typically P3 or M1)
+- Which technique creates it? (BYPS-03 confusion, BYPS-05 circular logic, BYPS-10 phonemic split)
+- Which phase resolves it into compliance? (typically P4)
+- In notes, specify the overload mechanism: "Run-on sentence describing competing tasks → short command resolves into compliance."
+- Overload + resolution is a pair. Don't plan overload without planning the resolution.
+
+## Mantra Escalation
+For mantras with 7+ reps, the notes MUST specify a compounding arc:
+- Reps 1-3: Establish the phrase. Interstitials are longer (full sentences of context/imagery).
+- Reps 4-6: Pleasure/identity linkage. Interstitials shorten (fragments, praise).
+- Reps 7+: Automatic reflex. Interstitials become 1-2 words or nothing. The phrase IS the content.
+This prevents mantra wallpaper. The writer needs this arc or it will repeat identically.
 """
 
 
@@ -586,26 +486,15 @@ PHASE_WRITER_TEMPLATE = """Write PHASE {phase} — {phase_name}.
 ## PHASE STYLE MODE
 {phase_style_hint}
 
-## TECHNIQUE REFERENCE (good/bad examples for this phase's techniques)
+## TECHNIQUE REFERENCE (good/bad examples — these are AUTHORITATIVE for how to write each technique)
 {technique_examples}
 
 ## CRITICAL SEED — read this before writing a single word
 {notes_block}
 
-## Writing rules (apply to every line)
-- Write ONLY the spoken script text. No headings, no explanations, no technique names.
-- Connect smoothly from prior content. The listener is already following.
-- End with a natural transition into the next phase. Do not label it.
-- SENTENCE LENGTH: enforce the phase style mode above. Deepening = fragments. Suggestion = oscillate.
-- VOCABULARY: Anglo-Saxon monosyllables at depth. No "honeyed", "serene rapture", "luminous tranquility", "peaceful empty", "subconscious mind" as filler.
-- NO SIMILES FOR STATES: states ARE, not LIKE. "Warm. Heavy. Held." not "like a warm blanket."
-- NO ANNOUNCING: never say "let these words sink in" or "I'm going to suggest" — just do it.
-- ONE METAPHOR/OBJECT: pick the imagery from the seed notes and stay with it. Do not mix metaphors mid-phase.
-- TRUST LADDER: begin at the lowest compliance rung appropriate for session depth, escalate within this phase.
-- TRIGGER PHRASES: repeat exactly 3 times when installing. Use exact wording from plan.
-- PRAISE POST-COMPLIANCE: "That's right" / "Good" only after an instruction has been executed, not before.
-- Do not introduce trigger phrases not in the plan.
-- SENSORY CHANNEL BRIDGING: when transitioning between modalities (body→visualization→voice), bridge explicitly. Introduce the new channel while the previous one is still active, not as an abrupt switch.
+## Rules
+- Connect smoothly from prior content. End with a natural transition.
+- Follow the ✓/✗ examples above for each technique. They show exactly how to write it.
 """
 
 
@@ -619,11 +508,12 @@ STYLE MODE: {phase_style_hint}
 
 {technique_examples}
 
-SEED (authoritative):
+SEED (authoritative — use the opening line, imagery, and compounding arc exactly as specified):
 {notes_block}
 
 {forward_refs}
 Continue from the prose above. Connect smoothly. End with a natural transition.
+The technique ✓/✗ examples above are your primary writing guide for this phase.
 """
 
 ONE_SHOT_WRITER_TEMPLATE = """Write the complete script — all phases in order.
@@ -772,70 +662,29 @@ _ANNOUNCING_PHRASES = [
     "i will now suggest",
 ]
 
-_POV_VIOLATIONS = [
-    r"\bmy voice\b",
-    r"\bthis recording\b",
-    r"\baddicted to me\b",
-]
-
-# LINT-08: "Thinking out loud" — meta-commentary in sub-cognitive phases
-# Phrases that describe/explain the trance state instead of performing it
-_THINKING_OUT_LOUD = [
-    r"\bnotice how\b",
-    r"\byou(?:'re| are) (?:now )?(?:going |becoming )?(?:deeper|deeper into|dropping)",
-    r"\bthis (?:is what|feeling is)\b",
-    r"\bisn'?t (?:absence|emptiness|silence|nothingness)\b",
-    r"\bwhat (?:blank|empty|trance|surrender) (?:feels? like|means)\b",
-    r"\byou(?:'ve| have) (?:already )?arrived\b",
-    r"\byou only had to\b",
-]
-
-
-_DEEPENING_PHASES = {"P3", "P4", "P8"}
-_SIMILE_PHASES = {"P3", "P4", "P5", "P8"}
-_DEEP_SUGGESTION_PHASES = {"P3", "P4", "P5", "P8"}
+_SIMILE_PHASES = {"P3", "P5", "M1"}
 
 
 def lint_phase(phase_id: str, text: str, plan: Dict[str, Any]) -> List[LintError]:
     """
-    Zero-API lint gate. Returns list of LintErrors (empty = pass).
+    Zero-API lint gate. Only catches universally bad writing — no style opinions.
+
+    Kept:
+      LINT-03: Purple prose phrases that are always bad
+      LINT-04: Similes for states in deepening/suggestion phases (states ARE, not LIKE)
+      LINT-05: Technique ID leak (DPTH-03 etc in script text)
+      LINT-07: Announcing technique execution ("I'm going to suggest")
+
+    Removed:
+      LINT-01: Sentence length — contradicts cognitive overload guidance
+      LINT-02: Future tense — contradicts ENCD-02 (Future Pacing)
+      LINT-06: POV — style-dependent, not universally lintable
+      LINT-08: Thinking out loud — contradicts BYPS-08 (Transparent Narration) and SYNC-03
     """
     errors: List[LintError] = []
     lower = text.lower()
 
-    # 1. Sentence length by phase
-    sentences = re.split(r'[.!?]+', text)
-    for sent in sentences:
-        sent_stripped = sent.strip()
-        if not sent_stripped:
-            continue
-        word_count = len(sent_stripped.split())
-        if phase_id in _DEEPENING_PHASES and word_count > 20:
-            errors.append(LintError(
-                phase=phase_id,
-                code="LINT-01",
-                message="Long sentence in deepening phase",
-                detail=f"({word_count}w) {sent_stripped[:60]}..."
-            ))
-        elif phase_id == "P2" and word_count > 15:
-            errors.append(LintError(
-                phase=phase_id,
-                code="LINT-01",
-                message="Long sentence in induction phase",
-                detail=f"({word_count}w) {sent_stripped[:60]}..."
-            ))
-
-    # 2. Future tense in non-P1 phases
-    if phase_id != "P1":
-        for m in re.finditer(r"\byou(?:'ll| will)\b", lower):
-            errors.append(LintError(
-                phase=phase_id,
-                code="LINT-02",
-                message="Future tense in non-P1 phase",
-                detail=text[max(0, m.start() - 20):m.end() + 30].strip()
-            ))
-
-    # 3. Banned phrases
+    # 3. Banned phrases (purple prose that's always bad)
     for phrase in _BANNED_PHRASES:
         if phrase in lower:
             errors.append(LintError(
@@ -845,7 +694,7 @@ def lint_phase(phase_id: str, text: str, plan: Dict[str, Any]) -> List[LintError
                 detail=""
             ))
 
-    # 4. Similes in key phases
+    # 4. Similes in deepening/suggestion phases
     if phase_id in _SIMILE_PHASES:
         for pattern in [r"\blike an?\b", r"\bas .{1,20} as\b"]:
             for m in re.finditer(pattern, lower):
@@ -865,16 +714,6 @@ def lint_phase(phase_id: str, text: str, plan: Dict[str, Any]) -> List[LintError
             detail=text[max(0, m.start() - 20):m.end() + 20].strip()
         ))
 
-    # 6. POV violation
-    for pattern in _POV_VIOLATIONS:
-        for m in re.finditer(pattern, lower):
-            errors.append(LintError(
-                phase=phase_id,
-                code="LINT-06",
-                message="POV violation",
-                detail=text[max(0, m.start() - 20):m.end() + 30].strip()
-            ))
-
     # 7. Announcing technique execution
     for phrase in _ANNOUNCING_PHRASES:
         if phrase in lower:
@@ -884,17 +723,6 @@ def lint_phase(phase_id: str, text: str, plan: Dict[str, Any]) -> List[LintError
                 message=f"Announcing: {phrase!r}",
                 detail=""
             ))
-
-    # 8. "Thinking out loud" in deep/suggestion phases
-    if phase_id in _DEEP_SUGGESTION_PHASES:
-        for pattern in _THINKING_OUT_LOUD:
-            for m in re.finditer(pattern, lower):
-                errors.append(LintError(
-                    phase=phase_id,
-                    code="LINT-08",
-                    message="Thinking out loud (meta-commentary in sub-cognitive phase)",
-                    detail=text[max(0, m.start() - 10):m.end() + 40].strip()
-                ))
 
     return errors
 
@@ -1121,6 +949,120 @@ def generate_plan(
     return plan
 
 
+def generate_script_conversation(
+    client: OpenAI,
+    model: str,
+    plan: Dict[str, Any],
+    temperature_write: float = 0.8,
+    system_writer: str = SYSTEM_WRITER,
+    omit_max_tokens: bool = False,
+    lint_retry: bool = False,
+) -> Tuple[List[PhasePlan], List[str], List[Dict[str, str]]]:
+    """
+    Conversation mode: accumulates real user→assistant turns so the model
+    builds on its own prior output across phases.
+
+    Context: system + plan assistant + [user brief, assistant output] per phase.
+    Full conversation history is preserved — modern context windows (128-200K+)
+    can handle even hour-long scripts without trimming.
+    """
+    meta = plan.get("meta", {})
+    plan_summary = _build_plan_summary(plan)
+
+    # Start the conversation: system + plan as assistant context
+    messages: List[Dict[str, str]] = [
+        {"role": "system", "content": system_writer},
+        {"role": "assistant", "content": plan_summary},
+    ]
+
+    phase_plans: List[PhasePlan] = []
+    phase_texts: List[str] = []
+
+    structure = plan["structure"]
+
+    for idx, block in enumerate(structure):
+        phase = block["phase"]
+        phase_name = PHASE_NAMES.get(phase, phase)
+        duration_s = int(block.get("duration_s", 60))
+        target_words = estimate_words(duration_s)
+        techniques = list(block.get("techniques", []))
+        params = block.get("params", {}) or {}
+        notes = block.get("notes", "") or ""
+
+        phase_plans.append(PhasePlan(phase=phase, duration_s=duration_s, techniques=techniques, params=params, notes=notes))
+
+        phase_style_hint = _get_phase_style_hint(phase)
+        if notes:
+            notes_block = (
+                f"The planner wrote this creative seed — treat it as AUTHORITATIVE:\n"
+                f"{notes}\n\n"
+                f"Use the opening line sample (if provided) verbatim or nearly verbatim as your first sentence.\n"
+                f"Use the imagery/object described as your primary visual anchor for this phase."
+            )
+        else:
+            notes_block = "(No seed notes provided. Infer appropriate creative direction from theme, tone, and phase type.)"
+
+        forward = _forward_refs(plan, idx)
+
+        tech_examples = build_technique_examples(techniques)
+        tech_examples_block = ""
+        if tech_examples:
+            tech_examples_block = f"TECHNIQUE EXAMPLES (good/bad for this phase):\n{tech_examples}"
+
+        phase_brief = PHASE_WRITER_TEMPLATE_V2.format(
+            phase=phase,
+            phase_name=phase_name,
+            duration_s=duration_s,
+            target_words=target_words,
+            techniques_csv=",".join(techniques),
+            params_json=json.dumps(params, ensure_ascii=False),
+            phase_style_hint=phase_style_hint,
+            technique_examples=tech_examples_block,
+            notes_block=notes_block,
+            forward_refs=forward,
+        )
+
+        # Add loop-specific guidance for M4 (loop close)
+        if phase in ("P13", "M4") and plan.get("meta", {}).get("variant") == "loop":
+            phase_brief += """
+LOOP TRANSITION RULES:
+- The final 2-3 sentences should be theme-agnostic to enable cross-theme playlists
+- End with abstract anchors that work across themes: "trance", "sink", "deeper", "yield", "surrender", "drop"
+- AVOID theme-specific anchors in the final sentences
+- AVOID speaker-centric closings like "my voice", "addicted to me"
+- Structure: [theme content] → [abstract transition] → [generic sink/drop that mirrors P2 opening]
+- The ending should flow seamlessly into ANY P2 induction, not just this theme's P2
+"""
+
+        # Append user guidance into the ongoing conversation
+        messages.append({"role": "user", "content": phase_brief})
+
+        max_toks = None if omit_max_tokens else max_tokens_for_words(target_words, buffer_mult=2.0)
+
+        print(f"[info] Writing {phase} {phase_name} (~{duration_s}s, ~{target_words}w) with {len(techniques)} techniques [conversation]", file=sys.stderr)
+
+        text = chat(client, model, messages, temperature=temperature_write, max_tokens=max_toks)
+
+        # Lint gate
+        lint_errors = lint_phase(phase, text, plan)
+        if lint_errors:
+            print_lint_errors(lint_errors)
+            if lint_retry:
+                print(f"[lint] Retrying {phase} due to {len(lint_errors)} lint error(s)...", file=sys.stderr)
+                text = chat(client, model, messages, temperature=temperature_write, max_tokens=max_toks)
+                retry_errors = lint_phase(phase, text, plan)
+                if retry_errors:
+                    print(f"[lint] Retry still has {len(retry_errors)} error(s) — keeping retry output", file=sys.stderr)
+                    print_lint_errors(retry_errors)
+
+        phase_texts.append(text)
+
+        # Record assistant output so the next phase has real conversation continuity
+        messages.append({"role": "assistant", "content": text})
+
+    return phase_plans, phase_texts, messages
+
+
 def generate_script_from_plan(
     client: OpenAI,
     model: str,
@@ -1299,7 +1241,7 @@ def main() -> None:
     ap.add_argument("--temperature_write", type=float, default=0.8)
     ap.add_argument("--context_window_phases", type=int, default=0, help=argparse.SUPPRESS)  # deprecated no-op
     ap.add_argument("--tail_sentences", type=int, default=6, help="Lines of prior phase prose to carry as tail context (0 = none). Default: 6.")
-    ap.add_argument("--mode", default="phased", choices=["phased", "oneshot"], help="Generation mode: phased (default) or oneshot (single API call).")
+    ap.add_argument("--mode", default="conversation", choices=["conversation", "phased", "oneshot"], help="Generation mode: conversation (accumulating chat, default), phased (fixed 4-msg context), oneshot (single API call).")
     ap.add_argument("--lint_retry", action="store_true", default=False, help="Retry phase once if lint errors are found.")
     ap.add_argument("--plan", default=None, help="Load existing plan.json instead of generating (skips planning step)")
     ap.add_argument("--api_key", default=None)
@@ -1365,6 +1307,16 @@ def main() -> None:
             system_writer=system_writer,
             omit_max_tokens=omit_max_tokens,
             tail_sentences=args.tail_sentences,
+        )
+    elif args.mode == "conversation":
+        plans, texts, _msgs = generate_script_conversation(
+            client=client,
+            model=model,
+            plan=plan,
+            temperature_write=args.temperature_write,
+            system_writer=system_writer,
+            omit_max_tokens=omit_max_tokens,
+            lint_retry=args.lint_retry,
         )
     else:
         plans, texts, _msgs = generate_script_from_plan(
