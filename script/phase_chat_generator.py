@@ -686,16 +686,7 @@ def lint_phase(phase_id: str, text: str, plan: Dict[str, Any]) -> List[LintError
                 detail=""
             ))
 
-    # 4. Similes in deepening/suggestion phases
-    if phase_id in _SIMILE_PHASES:
-        for pattern in [r"\blike an?\b", r"\bas .{1,20} as\b"]:
-            for m in re.finditer(pattern, lower):
-                errors.append(LintError(
-                    phase=phase_id,
-                    code="LINT-04",
-                    message="Simile for state",
-                    detail=text[max(0, m.start() - 10):m.end() + 30].strip()
-                ))
+    # 4. Similes — removed. Taxonomy ✓ examples use similes (SYNC-02, etc.).
 
     # 5. Technique ID leak
     for m in re.finditer(r"\b[A-Z]{2,5}-\d{2,3}\b", text):
