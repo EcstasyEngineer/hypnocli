@@ -1,10 +1,9 @@
 // flow_field.glsl
 // Archetype: flow_field
-// Technique nodes: perlin_gradient, source_sink, streamline_color
-// Hypnotic mechanic: velocity potential Φ = Σ ±log(r) for 3 sources + 3 sinks.
-//   Level curves of Φ are concentric rings that physically expand from sources
-//   and contract into sinks. Posterized rainbow hue gives distinct color bands
-//   with soft transitions. Poles slowly drift — never fully periodic.
+// Core motivation: Simulate a fluid field with visible sources and sinks. Rings expand
+//   from sources and contract into sinks, creating multiple competing focal points that
+//   prevent the viewer from settling on any one spot. The slow drift of poles ensures the
+//   pattern never repeats exactly, preventing adaptation.
 // Known issues: singularities near poles cycle very fast (feature, not bug).
 
 #define TAU 6.28318530

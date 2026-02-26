@@ -1,9 +1,11 @@
 // convergent_spiral.glsl
 // Archetype: convergent
-// Technique nodes: inversion_sqrt, log_shear, arm_count, spiral_offset, decoupled_speeds
-// Hypnotic mechanic: radial inversion pulls motion toward center; viewer gaze converges
-//   on vanishing point. Logarithmic arms create self-similar depth illusion. Speed
-//   decoupling between angle and radius prevents adaptation lock.
+// Core motivation: Create an inescapable pull toward the center. Radial inversion makes
+//   the viewer's gaze feel physically drawn inward, while logarithmic spiral arms create
+//   self-similar depth that suggests infinite recession. Decoupled speeds between angle
+//   and radius prevent the eye from locking onto any single feature.
+// atan note: avoids atan entirely — uses Chebyshev T4 on rotated direction vector for
+//   seam-free angular pattern (safest approach for any arm count).
 // Known issues: at very high arm counts (>8) aliasing near origin. Keep arm_count <= 6.
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
@@ -13,14 +15,22 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float r = length(uv);
     float r_inv = 1.0 / (r + 0.01);  // inversion_sqrt: compressed outer radius
 
-    // Log-shear: logarithmic spiral arms
-    float theta = atan(uv.y, uv.x);
+    // Seam-free angular pattern: use sin/cos on the unit direction directly.
+    // This avoids the atan() branch cut at ±π entirely.
     float log_r = log(r + 0.001);
+    vec2 dir = uv / (r + 1e-6);
     float arms = 4.0;  // arm_count
-    float spiral_phase = theta / (2.0 * 3.14159) * arms + log_r * 1.5 + iTime * 0.4;  // spiral_offset + log_shear
+    float spiral_wind = log_r * 1.5 + iTime * 0.4;  // spiral_offset + log_shear
+
+    // Rotate direction by spiral_wind, then use Chebyshev T₄ for 4 arms
+    float cw = cos(spiral_wind), sw = sin(spiral_wind);
+    vec2 rot = vec2(dir.x * cw - dir.y * sw, dir.x * sw + dir.y * cw);
+    // cos(4θ) = 8cos⁴θ - 8cos²θ + 1  (Chebyshev T₄)
+    float c2 = rot.x * rot.x;
+    float c4 = 8.0 * c2 * c2 - 8.0 * c2 + 1.0;
 
     // Angular pattern with decoupled time speeds
-    float angle_wave = sin(spiral_phase * 6.28318) * 0.5 + 0.5;
+    float angle_wave = c4 * 0.5 + 0.5;
     float depth_wave = sin(log_r * 8.0 - iTime * 1.2) * 0.5 + 0.5;  // decoupled_speeds
 
     // Compose

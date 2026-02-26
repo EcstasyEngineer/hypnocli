@@ -1,10 +1,11 @@
 // double_arm.glsl
 // Archetype: linear_rings
-// Technique nodes: inversion_linear, arm_count, abs_fold, triangle_wave, channel_time_offset
-// Hypnotic mechanic: two counter-rotating arms create a beating interference pattern.
-//   The moiré between them oscillates at a rate tuned to the difference frequency,
-//   bypassing voluntary attention. Color channels run on offset clocks for chromatic drift.
-// Known issues: set arm_count=2 for canonical beat; higher values make the beat too fast.
+// Core motivation: Create a beating interference pattern that bypasses voluntary attention.
+//   Two counter-rotating arm sets produce a moire that oscillates at the difference
+//   frequency — the viewer can't track either arm independently, forcing the visual system
+//   into a global "defocused" state. Color channels on offset clocks add chromatic drift.
+// atan note: uses atan() safely — sin(2*theta + ...) masks the branch cut (integer N in sin).
+// Known issues: arm_count > 2 makes the beat too fast to be hypnotic.
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 uv = (fragCoord - 0.5 * iResolution.xy) / min(iResolution.x, iResolution.y);

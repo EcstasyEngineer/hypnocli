@@ -22,6 +22,7 @@ from socketserver import ThreadingMixIn
 
 TEMPLATES_DIR = Path(__file__).resolve().parent.parent / "templates"
 RATE_TEMPLATE = TEMPLATES_DIR / "shadertoy_rate.html"
+RATE_V2_TEMPLATE = TEMPLATES_DIR / "shadertoy_rate_v2.html"
 
 _SSE_CLIENTS: list = []
 _SSE_LOCK = threading.Lock()
@@ -126,14 +127,16 @@ def _find_port(start: int = 7749) -> int:
 
 
 class RaterServer:
-    def __init__(self):
+    def __init__(self, v2: bool = False):
         self.port = _find_port()
         self.rating_queue: queue.Queue = queue.Queue()
         self._server = None
         self._thread = None
+        self._v2 = v2
 
     def start(self):
-        html = RATE_TEMPLATE.read_text().replace("location.port", f'"{self.port}"')
+        template = RATE_V2_TEMPLATE if self._v2 else RATE_TEMPLATE
+        html = template.read_text().replace("location.port", f'"{self.port}"')
         handler = _make_handler(self.rating_queue, html)
         self._server = _ThreadingHTTPServer(("", self.port), handler)
         self._thread = threading.Thread(target=self._server.serve_forever, daemon=True)
@@ -147,7 +150,7 @@ class RaterServer:
             print(f"  Open manually: {url}")
 
     def push(self, shader_id: str, shader_src: str):
-        """Send a new shader to all connected browser tabs."""
+        """Send a new shader to all connected browser tabs (v1 format)."""
         global _LAST_SHADER
         payload = {"shader_id": shader_id, "glsl": shader_src}
         with _SSE_LOCK:
@@ -155,8 +158,24 @@ class RaterServer:
             for q in _SSE_CLIENTS:
                 q.put(payload)
 
+    def push_v2(self, shader_id: str, shader_src: str,
+                hypothesis: str, questions: list[str], defect_types: dict):
+        """Send a shader + hypothesis metadata to browser (v2 format)."""
+        global _LAST_SHADER
+        payload = {
+            "shader_id": shader_id,
+            "glsl": shader_src,
+            "hypothesis": hypothesis,
+            "questions": questions,
+            "defect_types": defect_types,
+        }
+        with _SSE_LOCK:
+            _LAST_SHADER = payload
+            for q in _SSE_CLIENTS:
+                q.put(payload)
+
     def wait_for_rating(self) -> dict:
-        """Block until the user submits a rating. Returns {score, note, discard}."""
+        """Block until the user submits a rating. Returns rating dict."""
         return self.rating_queue.get()
 
     def stop(self):

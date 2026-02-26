@@ -1,0 +1,1065 @@
+{
+  "version": "2.0",
+  "patterns": {
+    "abs_fold": {
+      "label": "Abs Fold",
+      "description": "abs() folding of interference pattern into symmetric positive ripple.",
+      "evidence": [],
+      "works_with": [
+        "arm_count",
+        "beat_interference",
+        "channel_time_offset",
+        "chromatic_drift",
+        "decoupled_speeds",
+        "fbm_triple_warp",
+        "inversion_linear",
+        "iq_cosine_palette",
+        "log_shear",
+        "spiral_offset",
+        "triangle_wave"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "arm_count": {
+      "label": "Arm Count",
+      "description": "Integer arm multiplier in angular coordinate for N-fold spiral structure.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "beat_interference",
+        "channel_time_offset",
+        "chromatic_drift",
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp",
+        "glow_inversion",
+        "inversion_linear",
+        "inversion_sqrt",
+        "iq_cosine_palette",
+        "log_shear",
+        "sdf_analytic",
+        "spiral_offset",
+        "triangle_wave"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "beat_interference": {
+      "label": "Beat Interference",
+      "description": "Product of two sinusoids at different frequencies creating visible beating.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "chromatic_drift",
+        "decoupled_speeds",
+        "inversion_linear"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "brightness_inward_pull": {
+      "label": "Brightness Inward Pull",
+      "description": "Brightness gradient increasing toward center to draw gaze.",
+      "evidence": [],
+      "works_with": [
+        "center_convergence",
+        "fract_recursion",
+        "self_similar_nesting"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "center_convergence": {
+      "label": "Center Convergence",
+      "description": "Exponential or smoothstep falloff pulling visual attention to center.",
+      "evidence": [],
+      "works_with": [
+        "brightness_inward_pull",
+        "chebyshev_angular",
+        "decoupled_speeds",
+        "fract_recursion",
+        "iq_cosine_palette",
+        "log_shear",
+        "radial_inversion",
+        "self_similar_nesting"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "channel_time_offset": {
+      "label": "Channel Time Offset",
+      "description": "",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "fbm_triple_warp",
+        "inversion_linear",
+        "iq_cosine_palette",
+        "log_shear",
+        "spiral_offset",
+        "triangle_wave"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "chebyshev_angular": {
+      "label": "Chebyshev Angular",
+      "description": "Seam-free angular arms via Chebyshev polynomials on unit direction (avoids atan).",
+      "evidence": [],
+      "works_with": [
+        "center_convergence",
+        "decoupled_speeds",
+        "depth_from_motion",
+        "iq_cosine_palette",
+        "log_shear",
+        "log_spiral_arms",
+        "radial_inversion",
+        "warm_core_gradient"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "chromatic_drift": {
+      "label": "Chromatic Drift",
+      "description": "Per-channel time offsets so RGB never align, preventing color adaptation.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "beat_interference",
+        "decoupled_speeds",
+        "inversion_linear"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "convergent": {
+      "label": "Convergent",
+      "description": "",
+      "evidence": [],
+      "works_with": [],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "counter_rotation": {
+      "label": "Counter Rotation",
+      "description": "Two pattern layers rotating in opposite directions.",
+      "evidence": [],
+      "works_with": [
+        "glow_isoline",
+        "pulse_rhythm",
+        "sdf_analytic",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "decoupled_speeds": {
+      "label": "Decoupled Speeds",
+      "description": "Independent time multipliers per channel/layer preventing temporal adaptation.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "beat_interference",
+        "center_convergence",
+        "chebyshev_angular",
+        "chromatic_drift",
+        "fbm_single",
+        "fbm_triple_warp",
+        "flow_sources_sinks",
+        "glow_inversion",
+        "inversion_linear",
+        "iq_cosine_palette",
+        "log_shear",
+        "mirror_fold",
+        "pole_drift",
+        "pow_contrast",
+        "radial_inversion",
+        "radial_rings",
+        "ring_expansion",
+        "sector_symmetry",
+        "spiral_offset",
+        "vortex_pull"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "depth_from_motion": {
+      "label": "Depth From Motion",
+      "description": "Speed differential by radius exploiting motion parallax depth cues.",
+      "evidence": [],
+      "works_with": [
+        "chebyshev_angular",
+        "iq_cosine_palette",
+        "log_spiral_arms",
+        "warm_core_gradient"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "fbm_single": {
+      "label": "Fbm Single",
+      "description": "",
+      "evidence": [],
+      "works_with": [
+        "arm_count",
+        "decoupled_speeds",
+        "fbm_triple_warp",
+        "glow_inversion",
+        "inversion_linear",
+        "log_shear",
+        "pow_contrast",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "fbm_triple_warp": {
+      "label": "Fbm Triple Warp",
+      "description": "",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "channel_time_offset",
+        "decoupled_speeds",
+        "fbm_single",
+        "glow_inversion",
+        "inversion_linear",
+        "iq_cosine_palette",
+        "log_shear",
+        "pow_contrast",
+        "spiral_offset",
+        "triangle_wave"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "flow_sources_sinks": {
+      "label": "Flow Sources Sinks",
+      "description": "Point sources/sinks in 2D field creating expansion/contraction regions.",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "pole_drift",
+        "ring_expansion"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "fract_recursion": {
+      "label": "Fract Recursion",
+      "description": "fract() applied to scaled coordinates for infinite self-similar zoom.",
+      "evidence": [],
+      "works_with": [
+        "brightness_inward_pull",
+        "center_convergence",
+        "self_similar_nesting"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "glow_inversion": {
+      "label": "Glow Inversion",
+      "description": "",
+      "evidence": [],
+      "works_with": [
+        "arm_count",
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp",
+        "inversion_linear",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "glow_isoline": {
+      "label": "Glow Isoline",
+      "description": "exp(-d*k) glow falloff around SDF isolines for neon effect.",
+      "evidence": [],
+      "works_with": [
+        "counter_rotation",
+        "pulse_rhythm",
+        "sdf_analytic",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "inversion_linear": {
+      "label": "Inversion Linear",
+      "description": "Counter-rotating arms with negated phase creating beat/moire interference.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "beat_interference",
+        "channel_time_offset",
+        "chromatic_drift",
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp",
+        "glow_inversion",
+        "inversion_sqrt",
+        "iq_cosine_palette",
+        "log_shear",
+        "pow_contrast",
+        "sdf_analytic",
+        "spiral_offset",
+        "triangle_wave"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "inversion_sqrt": {
+      "label": "Inversion Sqrt",
+      "description": "",
+      "evidence": [],
+      "works_with": [
+        "arm_count",
+        "inversion_linear",
+        "sdf_analytic",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "iq_cosine_palette": {
+      "label": "Iq Cosine Palette",
+      "description": "Inigo Quilez cosine palette: a + b*cos(2pi*(c*t+d)) for smooth perceptual color.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "center_convergence",
+        "channel_time_offset",
+        "chebyshev_angular",
+        "decoupled_speeds",
+        "depth_from_motion",
+        "fbm_triple_warp",
+        "inversion_linear",
+        "log_shear",
+        "log_spiral_arms",
+        "radial_inversion",
+        "spiral_offset",
+        "triangle_wave",
+        "warm_core_gradient"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "linear_rings": {
+      "label": "Linear Rings",
+      "description": "",
+      "evidence": [],
+      "works_with": [],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "log_shear": {
+      "label": "Log Shear",
+      "description": "log(r) coordinate for scale-invariant self-similar depth illusion.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "center_convergence",
+        "channel_time_offset",
+        "chebyshev_angular",
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp",
+        "inversion_linear",
+        "iq_cosine_palette",
+        "pow_contrast",
+        "radial_inversion",
+        "sdf_analytic",
+        "spiral_offset",
+        "triangle_wave"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "log_spiral_arms": {
+      "label": "Log Spiral Arms",
+      "description": "Logarithmic spiral arms: theta + log(r)*tightness for self-similar winding.",
+      "evidence": [],
+      "works_with": [
+        "chebyshev_angular",
+        "depth_from_motion",
+        "iq_cosine_palette",
+        "warm_core_gradient"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "mirror_fold": {
+      "label": "Mirror Fold",
+      "description": "mod(theta, sector) + conditional reflection for kaleidoscopic symmetry.",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "radial_rings",
+        "sector_symmetry",
+        "vortex_pull"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "pole_drift": {
+      "label": "Pole Drift",
+      "description": "Slowly moving singularity positions to prevent pattern habituation.",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "flow_sources_sinks",
+        "ring_expansion"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "pow_contrast": {
+      "label": "Pow Contrast",
+      "description": "",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp",
+        "inversion_linear",
+        "log_shear",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "pulse_rhythm": {
+      "label": "Pulse Rhythm",
+      "description": "Periodic intensity modulation at sub-Hz rate for entrainment.",
+      "evidence": [],
+      "works_with": [
+        "counter_rotation",
+        "glow_isoline",
+        "sdf_analytic",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "radial_inversion": {
+      "label": "Radial Inversion",
+      "description": "1/r or exp(-r) transforms that compress far regions and expand center.",
+      "evidence": [],
+      "works_with": [
+        "center_convergence",
+        "chebyshev_angular",
+        "decoupled_speeds",
+        "iq_cosine_palette",
+        "log_shear"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "radial_rings": {
+      "label": "Radial Rings",
+      "description": "Concentric ring pattern via fract(r*N) or sin(r*N).",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "mirror_fold",
+        "sector_symmetry",
+        "vortex_pull"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "ring_expansion": {
+      "label": "Ring Expansion",
+      "description": "Concentric rings moving outward (or inward) from center.",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "flow_sources_sinks",
+        "pole_drift"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "sdf_analytic": {
+      "label": "Sdf Analytic",
+      "description": "Signed distance field from analytic formula (not raymarching).",
+      "evidence": [],
+      "works_with": [
+        "arm_count",
+        "counter_rotation",
+        "glow_isoline",
+        "inversion_linear",
+        "inversion_sqrt",
+        "log_shear",
+        "pulse_rhythm",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "sdf_outline": {
+      "label": "Sdf Outline",
+      "description": "",
+      "evidence": [],
+      "works_with": [],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "sector_symmetry": {
+      "label": "Sector Symmetry",
+      "description": "N-fold angular division creating identical repeating sectors.",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "mirror_fold",
+        "radial_rings",
+        "vortex_pull"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "self_similar_nesting": {
+      "label": "Self Similar Nesting",
+      "description": "Pattern contains smaller copies of itself at multiple scales.",
+      "evidence": [],
+      "works_with": [
+        "brightness_inward_pull",
+        "center_convergence",
+        "fract_recursion"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "spiral_offset": {
+      "label": "Spiral Offset",
+      "description": "Adding log(r)*tightness to angular coordinate for spiral winding.",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "channel_time_offset",
+        "counter_rotation",
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp",
+        "glow_inversion",
+        "glow_isoline",
+        "inversion_linear",
+        "inversion_sqrt",
+        "iq_cosine_palette",
+        "log_shear",
+        "pow_contrast",
+        "pulse_rhythm",
+        "sdf_analytic",
+        "triangle_wave"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "triangle_wave": {
+      "label": "Triangle Wave",
+      "description": "",
+      "evidence": [],
+      "works_with": [
+        "abs_fold",
+        "arm_count",
+        "channel_time_offset",
+        "fbm_triple_warp",
+        "inversion_linear",
+        "iq_cosine_palette",
+        "log_shear",
+        "spiral_offset"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "vortex_pull": {
+      "label": "Vortex Pull",
+      "description": "Rotation speed gradient (faster inner, slower outer) creating suction illusion.",
+      "evidence": [],
+      "works_with": [
+        "decoupled_speeds",
+        "mirror_fold",
+        "radial_rings",
+        "sector_symmetry"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    },
+    "warm_core_gradient": {
+      "label": "Warm Core Gradient",
+      "description": "Color temperature gradient: warm center, cool edges for depth.",
+      "evidence": [],
+      "works_with": [
+        "chebyshev_angular",
+        "depth_from_motion",
+        "iq_cosine_palette",
+        "log_spiral_arms"
+      ],
+      "fails_with": [],
+      "open_questions": [],
+      "source": "seed_annotation",
+      "first_seen": "2026-02-26"
+    }
+  },
+  "hypotheses": {},
+  "corpus": [
+    {
+      "id": "seed:convergent_spiral",
+      "path": "seeds/convergent_spiral.glsl",
+      "type": "seed",
+      "motivation": "Inescapable pull toward center via radial inversion and logarithmic spiral arms with decoupled speeds.",
+      "patterns": [
+        "chebyshev_angular",
+        "radial_inversion",
+        "decoupled_speeds",
+        "log_shear",
+        "iq_cosine_palette",
+        "center_convergence"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:double_arm",
+      "path": "seeds/double_arm.glsl",
+      "type": "seed",
+      "motivation": "Beating interference pattern via counter-rotating arm sets producing moire; color channels on offset clocks.",
+      "patterns": [
+        "inversion_linear",
+        "arm_count",
+        "abs_fold",
+        "decoupled_speeds",
+        "chromatic_drift",
+        "beat_interference"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:flow_field",
+      "path": "seeds/flow_field.glsl",
+      "type": "seed",
+      "motivation": "Fluid field with sources/sinks; expanding/contracting rings with drifting poles prevent adaptation.",
+      "patterns": [
+        "flow_sources_sinks",
+        "pole_drift",
+        "ring_expansion",
+        "decoupled_speeds"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:fract_zoom",
+      "path": "seeds/fract_zoom.glsl",
+      "type": "seed",
+      "motivation": "fract() recursion for infinite self-similar nesting; brightness pulls inward for convergent attention.",
+      "patterns": [
+        "fract_recursion",
+        "self_similar_nesting",
+        "center_convergence",
+        "brightness_inward_pull"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:galaxy",
+      "path": "seeds/galaxy.glsl",
+      "type": "seed",
+      "motivation": "Natural galaxy morphology exploiting depth-from-motion circuits; three log-spiral arms with warm-core palette.",
+      "patterns": [
+        "chebyshev_angular",
+        "log_spiral_arms",
+        "iq_cosine_palette",
+        "warm_core_gradient",
+        "depth_from_motion"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:kaleidoscope",
+      "path": "seeds/kaleidoscope.glsl",
+      "type": "seed",
+      "motivation": "N-fold mirror symmetry eliminates asymmetric distractors; slow rotation at decoupled speeds creates vortex pull.",
+      "patterns": [
+        "mirror_fold",
+        "sector_symmetry",
+        "decoupled_speeds",
+        "vortex_pull",
+        "radial_rings"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:sdf_spiral",
+      "path": "seeds/sdf_spiral.glsl",
+      "type": "seed",
+      "motivation": "Counter-rotating spiral SDFs create glowing isoline intersections that pulse rhythmically.",
+      "patterns": [
+        "sdf_analytic",
+        "counter_rotation",
+        "glow_isoline",
+        "pulse_rhythm",
+        "spiral_offset"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:beat_rings",
+      "path": "seeds/beat_rings.glsl",
+      "type": "seed",
+      "motivation": "Counter-rotating 4-arm spiral sets create a moire beat interference",
+      "patterns": [
+        "linear_rings"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:cosine_rings",
+      "path": "seeds/cosine_rings.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "log_shear",
+        "inversion_linear",
+        "spiral_offset",
+        "arm_count",
+        "abs_fold",
+        "triangle_wave",
+        "iq_cosine_palette",
+        "channel_time_offset",
+        "fbm_triple_warp"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:kaleidoscope_channel",
+      "path": "seeds/kaleidoscope_channel.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "spiral_offset"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:kaleidoscope_channel_b",
+      "path": "seeds/kaleidoscope_channel_b.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "spiral_offset"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:kaleidoscope_field",
+      "path": "seeds/kaleidoscope_field.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "spiral_offset",
+        "sdf_analytic"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:kaleidoscope_glow",
+      "path": "seeds/kaleidoscope_glow.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "inversion_linear",
+        "spiral_offset",
+        "arm_count",
+        "glow_inversion",
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:linear_spiral",
+      "path": "seeds/linear_spiral.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "inversion_linear",
+        "log_shear",
+        "spiral_offset",
+        "arm_count",
+        "abs_fold",
+        "decoupled_speeds",
+        "fbm_triple_warp"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:neon_spirals",
+      "path": "seeds/neon_spirals.glsl",
+      "type": "seed",
+      "motivation": "Three overlapping SDF spiral sets at different arm counts (3/4/5) and",
+      "patterns": [
+        "sdf_outline"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:pulsing_warp",
+      "path": "seeds/pulsing_warp.glsl",
+      "type": "seed",
+      "motivation": "Counter-rotating spiral beat interference layered with triple-domain-warped",
+      "patterns": [
+        "linear_rings"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:rainbow_convergent_a",
+      "path": "seeds/rainbow_convergent_a.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "inversion_sqrt",
+        "arm_count",
+        "spiral_offset"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:rainbow_convergent_b",
+      "path": "seeds/rainbow_convergent_b.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "inversion_linear",
+        "inversion_sqrt",
+        "spiral_offset",
+        "sdf_analytic"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:rainbow_convergent_c",
+      "path": "seeds/rainbow_convergent_c.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "inversion_linear",
+        "spiral_offset",
+        "sdf_analytic"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:rainbow_convergent_d",
+      "path": "seeds/rainbow_convergent_d.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "log_shear",
+        "spiral_offset",
+        "sdf_analytic"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:rainbow_vortex",
+      "path": "seeds/rainbow_vortex.glsl",
+      "type": "seed",
+      "motivation": "Posterized HSV rainbow creates bold color bands that shift through hue",
+      "patterns": [
+        "convergent"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:sdf_contrast",
+      "path": "seeds/sdf_contrast.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "inversion_linear",
+        "log_shear",
+        "spiral_offset",
+        "pow_contrast",
+        "decoupled_speeds",
+        "fbm_single",
+        "fbm_triple_warp"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:sdf_field_rainbow",
+      "path": "seeds/sdf_field_rainbow.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "arm_count",
+        "sdf_analytic"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:sdf_field_rainbow_b",
+      "path": "seeds/sdf_field_rainbow_b.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "spiral_offset",
+        "sdf_analytic"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:simple_rings",
+      "path": "seeds/simple_rings.glsl",
+      "type": "seed",
+      "motivation": "",
+      "patterns": [
+        "log_shear",
+        "arm_count",
+        "abs_fold",
+        "decoupled_speeds",
+        "fbm_triple_warp"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:spiral_glow",
+      "path": "seeds/spiral_glow.glsl",
+      "type": "seed",
+      "motivation": "Five logarithmic spiral arms defined by analytic SDF create sharp glowing",
+      "patterns": [
+        "convergent"
+      ],
+      "score": null
+    },
+    {
+      "id": "seed:spiral_glow_rotate",
+      "path": "seeds/spiral_glow_rotate.glsl",
+      "type": "seed",
+      "motivation": "Variant of spiral_glow with whole-field rotation added. The slow rotation",
+      "patterns": [
+        "convergent"
+      ],
+      "score": null
+    }
+  ],
+  "defect_types": {
+    "stitch_line": {
+      "label": "Stitch line",
+      "description": "Visible seam/discontinuity, usually from atan branch cut.",
+      "occurrences": 0,
+      "mitigation": "See ATAN_GUIDANCE.md \u2014 use integer N in sin(N*theta) or Chebyshev."
+    },
+    "black_frame": {
+      "label": "Black frame",
+      "description": "Shader renders entirely or mostly black.",
+      "occurrences": 0,
+      "mitigation": "Check division by zero, missing uniforms, or inf/NaN propagation."
+    },
+    "aliasing": {
+      "label": "Aliasing",
+      "description": "Visible jagged edges or moire from undersampled high-frequency pattern.",
+      "occurrences": 0,
+      "mitigation": "Reduce pattern frequency near edges, add smoothstep anti-aliasing."
+    },
+    "gpu_timeout": {
+      "label": "GPU timeout",
+      "description": "Shader too expensive, causes browser hang or low FPS.",
+      "occurrences": 0,
+      "mitigation": "Reduce loop iterations, simplify inner loop math."
+    }
+  },
+  "meta": {
+    "total_generations": 0,
+    "total_ratings": 0,
+    "next_hypothesis_id": 1
+  }
+}

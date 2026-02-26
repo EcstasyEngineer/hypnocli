@@ -1187,8 +1187,57 @@ def write_structure_csv(plans: List[PhasePlan], out_path: Path) -> None:
             start += p.duration_s
 
 
-def write_script(plans: List[PhasePlan], texts: List[str], out_path: Path) -> None:
+def build_generation_header(
+    model: str,
+    base_url: str,
+    mode: str,
+    plan_source: str,
+    temperature_write: float,
+    theme: Optional[str] = None,
+    tone: Optional[str] = None,
+    style: Optional[str] = None,
+    variant: Optional[str] = None,
+    duration: Optional[str] = None,
+    optional: Optional[str] = None,
+    temperature_plan: float = 0.2,
+) -> str:
+    """Build a human-readable + machine-parseable header for script.txt.
+
+    The header is an HTML comment block that records how the script was
+    generated, allowing reproduction via --plan or full CLI reconstruction.
+    """
+    lines = [
+        "<!-- HYPNOCLI_GENERATION",
+        f"  model:            {model}",
+        f"  provider:         {base_url}",
+        f"  mode:             {mode}",
+        f"  plan:             {plan_source}",
+        f"  temperature_write: {temperature_write}",
+        f"  temperature_plan:  {temperature_plan}",
+    ]
+    if theme:
+        lines.append(f"  theme:            {theme}")
+    if tone:
+        lines.append(f"  tone:             {tone}")
+    if style:
+        lines.append(f"  style:            {style}")
+    if variant:
+        lines.append(f"  variant:          {variant}")
+    if duration:
+        lines.append(f"  duration:         {duration}")
+    if optional:
+        lines.append(f"  optional:         {optional}")
+    lines.append(f"  generated:        {_dt.datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    lines.append("-->")
+    return "\n".join(lines)
+
+
+def write_script(plans: List[PhasePlan], texts: List[str], out_path: Path,
+                 generation_header: str = "") -> None:
     lines: List[str] = []
+    if generation_header:
+        lines.append(generation_header)
+        lines.append("")
     for p, t in zip(plans, texts):
         phase_name = PHASE_NAMES.get(p.phase, p.phase)
         # Use technique names instead of IDs for better readability and taxonomy version resilience
@@ -1357,10 +1406,25 @@ providers (--base_url shortcuts):
             lint_retry=args.lint_retry,
         )
 
+    generation_header = build_generation_header(
+        model=model,
+        base_url=base_url,
+        mode=args.mode,
+        plan_source=args.plan or "generated",
+        temperature_write=args.temperature_write,
+        theme=args.theme,
+        tone=args.tone,
+        style=args.style,
+        variant=args.variant,
+        duration=args.duration,
+        optional=args.optional or None,
+        temperature_plan=args.temperature_plan,
+    )
+
     struct_path = out_dir / "structure.csv"
     script_path = out_dir / "script.txt"
     write_structure_csv(plans, struct_path)
-    write_script(plans, texts, script_path)
+    write_script(plans, texts, script_path, generation_header=generation_header)
 
     print(f"[ok] Wrote: {plan_path}", file=sys.stderr)
     print(f"[ok] Wrote: {struct_path}", file=sys.stderr)

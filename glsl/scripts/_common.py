@@ -18,6 +18,10 @@ SHADERS_DIR = GLSL_DIR / "shaders"
 RENDERS_DIR = GLSL_DIR / "renders"
 SEEDS_DIR = GLSL_DIR / "seeds"
 
+# v2 paths
+KNOWLEDGE_PATH = GLSL_DIR / "knowledge.json"
+RATINGS_V2_PATH = GLSL_DIR / "ratings_v2.jsonl"
+
 
 # ── API Key ──────────────────────────────────────────────────────────────────
 
@@ -73,4 +77,29 @@ def new_shader_id() -> str:
 def append_rating(rating: dict):
     RATINGS_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(RATINGS_PATH, "a") as f:
+        f.write(json.dumps(rating) + "\n")
+
+
+# ── v2: Knowledge Graph ──────────────────────────────────────────────────────
+
+def load_knowledge() -> dict:
+    if not KNOWLEDGE_PATH.exists():
+        print(f"ERROR: knowledge.json not found. Run: python3 glsl/scripts/bootstrap_v2.py", file=sys.stderr)
+        sys.exit(1)
+    return json.loads(KNOWLEDGE_PATH.read_text())
+
+
+def save_knowledge(knowledge: dict):
+    KNOWLEDGE_PATH.write_text(json.dumps(knowledge, indent=2) + "\n")
+
+
+def next_hypothesis_id(knowledge: dict) -> str:
+    n = knowledge["meta"]["next_hypothesis_id"]
+    knowledge["meta"]["next_hypothesis_id"] = n + 1
+    return f"h_{n:04d}"
+
+
+def append_rating_v2(rating: dict):
+    RATINGS_V2_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(RATINGS_V2_PATH, "a") as f:
         f.write(json.dumps(rating) + "\n")

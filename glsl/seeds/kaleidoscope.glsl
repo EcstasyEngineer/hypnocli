@@ -1,12 +1,21 @@
 // kaleidoscope.glsl
 // Archetype: kaleidoscopic
-// Technique nodes: arm_count, abs_fold, spiral_offset, sqrt_gamma, decoupled_speeds
-// Hypnotic mechanic: N-fold mirror symmetry eliminates asymmetric distractors. Viewer
-//   can't track any single element — attention diffuses to global gestalt. Slow rotation
-//   at decoupled speeds (inner vs outer) creates vortex pull without nausea.
+// Core motivation: N-fold mirror symmetry eliminates asymmetric distractors. The viewer
+//   can't track any single element — attention diffuses to the global gestalt. Slow rotation
+//   at decoupled speeds (inner vs outer) creates vortex pull. The interplay between angular
+//   sectors and radial rings produces visual tension that prevents adaptation.
+// atan note: uses atan() safely — mod(theta, sector) + fold masks the +/-pi branch cut.
 // Known issues: folds < 4 look too simple; folds > 12 may stall GPU on old hardware.
 
 #define PI 3.14159265
+
+vec3 iq_palette(float t) {
+    vec3 a = vec3(0.5, 0.5, 0.5);
+    vec3 b = vec3(0.5, 0.5, 0.5);
+    vec3 c = vec3(1.0, 1.0, 0.5);
+    vec3 d = vec3(0.00, 0.33, 0.67);
+    return a + b * cos(6.28318 * (c * t + d));
+}
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 uv = (fragCoord - 0.5 * iResolution.xy) / min(iResolution.x, iResolution.y);
@@ -18,7 +27,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float sector = 2.0 * PI / N;
     // abs_fold: fold into [0, sector/2]
     float t_folded = mod(theta, sector);
-    if (t_folded > sector * 0.5) t_folded = sector - t_folded;  // abs_fold
+    if (t_folded > sector * 0.5) t_folded = sector - t_folded;
 
     // Reconstruct UV in folded sector
     vec2 uv_fold = r * vec2(cos(t_folded), sin(t_folded));
@@ -39,11 +48,12 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     // sqrt_gamma: soften the contrast
     v = sqrt(max(v, 0.0));
 
-    vec3 col = vec3(
-        v * (0.5 + 0.5 * sin(rot_angle + 0.0)),
-        v * (0.5 + 0.5 * sin(rot_angle + 2.094)),
-        v * (0.5 + 0.5 * sin(rot_angle + 4.189))
-    );
+    // Rich IQ palette — phase varies with angle and radius for multi-hue spread
+    float hue_phase = t_folded * 2.0 + r * 0.8 + rot_angle * 0.3;
+    vec3 col = iq_palette(hue_phase) * (v * 0.7 + 0.3);
+
+    // Center glow for convergence pull
+    col += vec3(0.15, 0.1, 0.25) * exp(-r * 3.0);
 
     fragColor = vec4(col, 1.0);
 }
