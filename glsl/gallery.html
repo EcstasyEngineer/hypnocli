@@ -16,7 +16,8 @@
   .nav-btn.rated { border-left: 3px solid #a64; }
   #viewer { display: flex; flex-direction: column; align-items: center; padding: 20px; }
   #info { margin-bottom: 10px; font-size: 13px; color: #888; }
-  canvas { border: 1px solid #333; }
+  canvas { border: 1px solid #333; cursor: pointer; }
+  canvas:fullscreen { width: 100vw; height: 100vh; border: none; object-fit: contain; }
   #shader-src { margin-top: 15px; width: 90%%; max-width: 800px; }
   #shader-src pre { background: #1a1a1a; padding: 12px; border-radius: 4px; font-size: 11px; overflow-x: auto; max-height: 400px; overflow-y: auto; color: #ccc; border: 1px solid #333; }
   #controls { margin-top: 10px; display: flex; gap: 10px; align-items: center; }
@@ -2370,6 +2371,28 @@ function loadShader(idx) {
 
 function prev() { loadShader((currentIdx - 1 + SHADERS.length) % SHADERS.length); }
 function next() { loadShader((currentIdx + 1) % SHADERS.length); }
+
+// Fullscreen toggle on double-click
+canvas.addEventListener('dblclick', () => {
+  if (document.fullscreenElement === canvas) {
+    document.exitFullscreen();
+  } else {
+    canvas.requestFullscreen();
+  }
+});
+
+function resizeCanvas() {
+  if (document.fullscreenElement === canvas) {
+    canvas.width = screen.width;
+    canvas.height = screen.height;
+  } else {
+    canvas.width = 640;
+    canvas.height = 640;
+  }
+  if (gl && uRes) gl.uniform3f(uRes, canvas.width, canvas.height, 1.0);
+}
+
+document.addEventListener('fullscreenchange', resizeCanvas);
 
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') prev();

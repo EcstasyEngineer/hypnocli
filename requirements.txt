@@ -20,3 +20,8 @@ nltk>=3.8.0
 
 # Analysis (optional)
 numpy>=1.24.0
+
+# GLSL adversarial pipeline (glsl/)
+anthropic>=0.40.0
+playwright>=1.40.0
+# After installing playwright: python3 -m playwright install chromium
